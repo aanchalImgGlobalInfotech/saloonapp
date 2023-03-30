@@ -1,0 +1,234 @@
+@charset "UTF-8";
+
+//?############################ Check Out Page Start ############################
+.checkoutMain {
+    padding: 100px 0 50px;
+    & .detailsMain{
+        border-bottom: 1px solid $gray-600;
+        & .bookingDetail{
+            font-size: 14px;
+            font-weight: 300;
+            border-color: $gray-600 !important;
+            transition: ease-in-out .3s;
+            & .title{
+            }
+            & .dec {
+    
+            }
+            &:hover {
+                border-color: $white !important;
+            }
+        }
+    }
+    & .cartOuter{
+        & .row {
+            border-color: $dark !important;
+            &:last-child {
+                border: none !important;
+            }
+        }
+        & .input-group {
+            & .form-control{
+                font-size: 12px;
+                height: 40px;
+                &::placeholder {
+                    color: $gray-400;
+                    font-weight: 300;
+                    font-size: 12px;
+                }
+                &:focus {
+                    border-color: $theme1 !important;
+                }
+            }
+        }
+    }
+    & .services, & .price {
+        font-size: 14px;
+        font-weight: 300;
+        &.header{
+            font-weight: normal;
+        }
+    }
+}
+
+.modal {
+    backdrop-filter: blur(8px);
+    &.modalCoupon {
+        & .modal-dialog {
+            & .modal-content{
+                & .modal-header{
+                    & .modal-title{
+                    }
+                    & .btn-close {
+                        filter: invert(1);
+                        font-size: 12px;
+                    }
+                }
+                & .modal-body {
+                    & .form-check-input {
+                        &:checked {
+                            & ~ .couponOuter {
+                                border-color: $theme1;
+                            }
+                        }
+                    }
+                    & .couponOuter{
+                        border: 1px solid $gray-600;
+                        cursor: pointer;
+                        transition: ease-in-out .3s;
+                        & .code {
+                            border: 1px dashed $theme1;
+                            letter-spacing: 2px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@mixin checkoutMain-mixin-min-sm() {
+}
+
+// Medium devices (tablets, 768px and up)
+@mixin checkoutMain-mixin-min-md() {
+}
+
+// Large devices (desktops, 992px and up)
+@mixin checkoutMain-mixin-min-lg() {
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@mixin checkoutMain-mixin-min-xl() {
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@mixin checkoutMain-mixin-min-xxl() {
+}
+
+// X-Small devices (portrait phones, less than 576px)
+@mixin checkoutMain-mixin-max-xs() {
+    .checkoutMain {
+        & .detailsMain{
+            & .bookingDetail{
+                font-size: 12px;
+                & .title{
+                }
+                & .dec {
+                }
+                &:hover {
+                }
+            }
+        }
+        & .cartOuter{
+            & .row {
+                &:last-child {
+                }
+            }
+            & .input-group {
+                & .form-control{
+                    &::placeholder {
+                    }
+                    &:focus {
+                    }
+                }
+            }
+        }
+        & .services, & .price {
+            font-size: 12px;
+            &.header{
+                font-size: 14px !important;
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, less than 768px)
+@mixin checkoutMain-mixin-max-sm() {
+    .checkoutMain {
+        padding: 80px 0;
+        & .detailsMain{
+            & .bookingDetail{
+                & .title{
+                }
+                & .dec {
+                }
+                &:hover {
+                }
+            }
+        }
+        & .cartOuter{
+            & .row {
+                &:last-child {
+                }
+            }
+            & .input-group {
+                & .form-control{
+                    &::placeholder {
+                    }
+                    &:focus {
+                    }
+                }
+            }
+        }
+        & .services, & .price {
+            &.header{
+            }
+        }
+    }
+}
+
+// Medium devices (tablets, less than 992px)
+@mixin checkoutMain-mixin-max-md() {
+}
+
+// Large devices (desktops, less than 1200px)
+@mixin checkoutMain-mixin-max-lg() {
+}
+
+// X-Large devices (large desktops, less than 1400px)
+@mixin checkoutMain-mixin-max-xl() {
+}
+@media (max-width: 360px){
+    .checkoutMain {
+        & .detailsMain{
+            & .bookingDetail{
+                & .title{
+                }
+                & .dec {
+                }
+                &:hover {
+                }
+            }
+        }
+        & .cartOuter{
+            & .row {
+                &:last-child {
+                }
+            }
+            & .input-group {
+                display: block !important;
+                & .form-control{
+                    width: 100%;
+                    border-radius: 4px !important;
+                    &::placeholder {
+                    }
+                    &:focus {
+                    }
+                }
+                & button{
+                    border-radius: 4px !important;
+                    float: right;
+                    margin-top: 16px;
+                }
+            }
+        }
+        & .services, & .price {
+            &.header{
+            }
+        }
+    }
+}
+//!############################ Check Out Page End ############################
+

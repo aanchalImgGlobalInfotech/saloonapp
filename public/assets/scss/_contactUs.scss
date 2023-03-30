@@ -1,0 +1,566 @@
+@charset "UTF-8";
+
+//?############################ Banner Headign Start ############################
+.TopBannerHeading {
+    padding-top: 60px;
+    & .topBanner{
+        padding: 80px 0;
+        background-image:  linear-gradient(90deg, rgba($black, 0.6) 30%, rgba($black, 0.6) 100%), url(../img/contact/topBg.jpg);
+        background-size: cover;
+        background-position: center;
+        & .heading {
+            font-size: 32px;
+            font-weight: bold;
+        }
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@mixin TopBannerHeading-mixin-min-sm() {
+}
+
+// Medium devices (tablets, 768px and up)
+@mixin TopBannerHeading-mixin-min-md() {
+}
+
+// Large devices (desktops, 992px and up)
+@mixin TopBannerHeading-mixin-min-lg() {
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@mixin TopBannerHeading-mixin-min-xl() {
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@mixin TopBannerHeading-mixin-min-xxl() {
+}
+
+// X-Small devices (portrait phones, less than 576px)
+@mixin TopBannerHeading-mixin-max-xs() {
+    .TopBannerHeading {
+        & .topBanner{
+            padding: 20px 0;
+            & .heading {
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, less than 768px)
+@mixin TopBannerHeading-mixin-max-sm() {
+    .TopBannerHeading {
+        padding-top: 56px;
+        & .topBanner{
+            padding: 40px 0;
+            & .heading {
+                font-size: 28px;
+            }
+        }
+    }
+}
+
+// Medium devices (tablets, less than 992px)
+@mixin TopBannerHeading-mixin-max-md() {
+}
+
+// Large devices (desktops, less than 1200px)
+@mixin TopBannerHeading-mixin-max-lg() {
+}
+
+// X-Large devices (large desktops, less than 1400px)
+@mixin TopBannerHeading-mixin-max-xl() {
+}
+//!############################ Banner Headign End ############################
+
+//?############################ Contact Us Cards Start ############################
+.contactUsCards{
+    & .drop {
+        width: 350px;
+        height: 350px;
+        box-shadow: inset 20px 20px 20px rgba(255, 255, 255, 0.05),
+        0px 0px 0px rgba(255, 255, 255, 0.01),
+        14px 10px 27px rgba(255, 255, 255, 0.05),
+        inset -20px -20px 25px rgba(0, 0, 0, 0.4);
+        transition: 0.5s ease-in-out;
+        cursor: pointer;
+        &.dropOne {
+            border-radius: 49% 51% 70% 30% / 50% 30% 70% 70%;
+        }
+        &.dropTwo {
+            border-radius: 49% 51% 41% 59% / 52% 30% 70% 48%;
+        }
+        &.dropThree {
+            border-radius: 76% 24% 40% 60% / 40% 69% 31% 60%;
+        }
+        &::before, &::after {
+            content: '';
+            position: absolute;
+            background: $black;
+            border-radius: 50%;
+            transition: ease-in-out .3s;
+        }
+        &::before {
+            top: 60px;
+            left: 85px;
+            width: 35px;
+            height: 35px;
+            opacity: 0.3;
+        }
+        &::after {
+            top: 100px;
+            left: 110px;
+            width: 15px;
+            height: 15px;
+            opacity: 0.5;
+        }
+        & .content {
+            padding-inline: 50px;
+            & .circle {
+                width: 60px;
+                height: 60px;
+                background: $dark;
+                padding: 12px;
+                box-shadow: inset 2px 5px 10px rgba(255, 255, 255, 0.1),
+                            inset -2px -5px 10px rgba(0, 0, 0, 1),
+                            8px 8px 10px rgba(255, 255, 255, 0.05),
+                            6px 6px 8px rgba(255, 255, 255, 0.025);
+            }
+            & .detail{
+                & .contact{
+                    & a {
+                        transition: ease-in-out .3s;
+                        &:hover {
+                            color: $theme1 !important;
+                        }
+                    }
+                }
+            }
+        }
+        &:hover {
+            border-radius: 50%;
+            &::before, &::after {
+                background: $theme1;
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@mixin contactUsCards-mixin-min-sm() {
+}
+
+// Medium devices (tablets, 768px and up)
+@mixin contactUsCards-mixin-min-md() {
+}
+
+// Large devices (desktops, 992px and up)
+@mixin contactUsCards-mixin-min-lg() {
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@mixin contactUsCards-mixin-min-xl() {
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@mixin contactUsCards-mixin-min-xxl() {
+}
+
+// X-Small devices (portrait phones, less than 576px)
+@mixin contactUsCards-mixin-max-xs() {
+    .contactUsCards{
+        & .drop {
+            &.dropOne, &.dropTwo, &.dropThree {
+            }
+            &.dropTwo {
+            }
+            &.dropThree {
+            }
+            &::before, &::after {
+            }
+            &::before {
+            }
+            &::after {
+            }
+            & .content {
+                & .circle {
+                    padding: 16px;
+                }
+                & .detail{
+                    & .title {
+                        font-size: 12px;
+                    }
+                    & .contact, & .address {
+                        font-size: 10px;
+                        & a {
+                            &:hover {
+                            }
+                        }
+                    }
+                }
+            }
+            &:hover {
+                &::before, &::after {
+                }
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, less than 768px)
+@mixin contactUsCards-mixin-max-sm() {
+}
+
+// Medium devices (tablets, less than 992px)
+@mixin contactUsCards-mixin-max-md() {
+}
+
+// Large devices (desktops, less than 1200px)
+@mixin contactUsCards-mixin-max-lg() {
+    .contactUsCards{
+        & .drop {
+            width: 300px;
+            height: 300px;
+            &.dropOne {
+            }
+            &.dropTwo {
+            }
+            &.dropThree {
+            }
+            &::before, &::after {
+            }
+            &::before {
+                top: 40px;
+                left: 65px;
+                width: 28px;
+                height: 28px;
+            }
+            &::after {
+                top: 75px;
+                left: 85px;
+            }
+            & .content {
+                & .circle {
+                }
+                & .detail{
+                    & .contact{
+                        & a {
+                            &:hover {
+                            }
+                        }
+                    }
+                }
+            }
+            &:hover {
+                &::before, &::after {
+                }
+            }
+        }
+    }
+}
+
+// X-Large devices (large desktops, less than 1400px)
+@mixin contactUsCards-mixin-max-xl() {
+}
+@media (max-width: 360px) {
+    .contactUsCards{
+        & .drop {
+            width: 250px !important;
+            height: 250px !important;
+            &.dropOne, &.dropTwo, &.dropThree {
+                border-radius: 16px !important;
+            }
+            &.dropTwo {
+            }
+            &.dropThree {
+            }
+            &::before, &::after {
+            }
+            &::before {
+                top: 20px !important;
+                left: 45px !important;
+            }
+            &::after {
+                top: 55px !important;
+                left: 65px !important;
+            }
+            & .content {
+                padding-inline: 20px !important;
+                & .circle {
+                }
+                & .detail{
+                    & .title {
+                    }
+                    & .contact, & .address {
+                        & a {
+                            &:hover {
+                            }
+                        }
+                    }
+                }
+            }
+            &:hover {
+                &::before, &::after {
+                }
+            }
+        }
+    }
+}
+//!############################ Contact Us Cards End ############################
+
+//?############################ Contact Us Form End ############################
+.contactFormMain {
+    & .otherDetailOuter {
+        & .details{
+            & .title{
+                font-size: 32px;
+            }
+            & .miniTitle{
+                font-size: 14px;
+                font-weight: 300;
+            }
+            & .calling {
+                & .icon{
+                    padding: 12px;
+                    width: 50px;
+                    height: 50px;
+                    & img {
+                        filter: brightness(10);
+                    }
+                }
+                & a {
+                    transition: ease-in-out 0.3s;
+                    &:hover {
+                        color: $theme1 !important;
+                    }
+                }
+            }
+        }
+    }
+    & .formOuter {
+        & .heading{
+            font-size: 24px;
+        }
+        & form {
+            &.form {
+                & .input-group {
+                    & .form-label {
+                        font-size: 14px;
+                    }
+                    & textarea {
+                        min-height: 80px;
+
+                    }
+                    & .form-control, & .form-select {
+                        font-size: 14px;
+                        color: $gray-400;
+                        height: 40px;
+                        font-weight: 300;
+                        &::placeholder {
+                            color: $gray-400;
+                            font-weight: 300;
+                            font-size: 14px;
+                        }
+                        &:-webkit-autofill{
+                            -webkit-background: red !important;
+                        }
+                        &:focus {
+                            border-color: $theme1 !important;
+                        }
+                    }
+                    & .form-select {
+                        & option {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@mixin contactFormMain-mixin-min-sm() {
+}
+
+// Medium devices (tablets, 768px and up)
+@mixin contactFormMain-mixin-min-md() {
+}
+
+// Large devices (desktops, 992px and up)
+@mixin contactFormMain-mixin-min-lg() {
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@mixin contactFormMain-mixin-min-xl() {
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@mixin contactFormMain-mixin-min-xxl() {
+}
+
+// X-Small devices (portrait phones, less than 576px)
+@mixin contactFormMain-mixin-max-xs() {
+    .contactFormMain {
+        & .otherDetailOuter {
+            max-width: 400px;
+            margin: auto;
+            & .details{
+                & .title{
+                    font-size: 14px;
+                }
+                & .miniTitle{
+                    font-size: 12px;
+                }
+                & .calling {
+                    & .icon{
+                        & img {
+                        }
+                    }
+                    & a {
+                        &:hover {
+                        }
+                    }
+                }
+            }
+        }
+        & .formOuter {
+            max-width: 400px;
+            margin: auto;
+            & .heading{
+            }
+            & form {
+                &.form {
+                    & .input-group {
+                        & .form-label {
+                        }
+                        & textarea {
+                        }
+                        & .form-control, & .form-select {
+                            &::placeholder {
+                            }
+                            &:focus {
+                            }
+                        }
+                        & .form-select {
+                            & option {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, less than 768px)
+@mixin contactFormMain-mixin-max-sm() {
+}
+
+// Medium devices (tablets, less than 992px)
+@mixin contactFormMain-mixin-max-md() {
+    .contactFormMain {
+        & .otherDetailOuter {
+            & .details{
+                & .title{
+                    font-size: 20px;
+                }
+                & .miniTitle{
+                }
+                & .calling {
+                    & .icon{
+                        padding: 10px;
+                        width: 40px;
+                        height: 40px;
+                        & img {
+                        }
+                    }
+                    & a {
+                        &:hover {
+                        }
+                    }
+                }
+            }
+        }
+        & .formOuter {
+            & .heading{
+                font-size: 18px;
+            }
+            & form {
+                &.form {
+                    & .input-group {
+                        & .form-label {
+                        }
+                        & textarea {
+                        }
+                        & .form-control, & .form-select {
+                            &::placeholder {
+                            }
+                            &:focus {
+                            }
+                        }
+                        & .form-select {
+                            & option {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Large devices (desktops, less than 1200px)
+@mixin contactFormMain-mixin-max-lg() {
+    .contactFormMain {
+        & .otherDetailOuter {
+            & .details{
+                & .title{
+                    font-size: 24px;
+                }
+                & .miniTitle{
+                }
+                & .calling {
+                    & .icon{
+                        & img {
+                        }
+                    }
+                    & a {
+                        &:hover {
+                        }
+                    }
+                }
+            }
+        }
+        & .formOuter {
+            & .heading{
+                font-size: 20px;
+            }
+            & form {
+                &.form {
+                    & .input-group {
+                        & .form-label {
+                        }
+                        & textarea {
+                        }
+                        & .form-control, & .form-select {
+                            &::placeholder {
+                            }
+                            &:focus {
+                            }
+                        }
+                        & .form-select {
+                            & option {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// X-Large devices (large desktops, less than 1400px)
+@mixin contactFormMain-mixin-max-xl() {
+}
+//!############################ Contact Us Form End ############################

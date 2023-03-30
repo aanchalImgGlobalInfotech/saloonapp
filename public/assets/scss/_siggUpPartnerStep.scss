@@ -1,0 +1,236 @@
+@charset "UTF-8";
+
+.signUpPartnermain{
+    padding: 100px 0 40px;
+    & .mainInner {
+        & .pageHeading{
+            font-size: 28px;
+        }
+        & .steps{
+            &::before{
+                content: '';
+                display: block;
+                width: 100%;
+                height: 1px;
+                background-color: $dark;
+                position: absolute;
+                top: 21.5px;
+                z-index: -1;
+            }
+            &.step1 {
+                & .step {
+                    &:nth-child(1){
+                        & .imgOuter {
+                            background-color: $theme1 !important;
+                            border-color: $theme1 !important;
+                            & img {
+                                filter: brightness(10);
+                            }
+                        }
+                    }
+                }
+            }
+            &.step2 {
+                & .step {
+                    &:nth-child(1), &:nth-child(2){
+                        & .imgOuter {
+                            background-color: $theme1 !important;
+                            border-color: $theme1 !important;
+                            & img {
+                                filter: brightness(10);
+                            }
+                        }
+                    }
+                }
+            }
+            &.step3 {
+                & .step {
+                    &:nth-child(1), &:nth-child(2), &:nth-child(3){
+                        & .imgOuter {
+                            background-color: $theme1 !important;
+                            border-color: $theme1 !important;
+                            & img {
+                                filter: brightness(10);
+                            }
+                        }
+                    }
+                }
+            }
+            &.step4 {
+                & .step {
+                    &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4){
+                        & .imgOuter {
+                            background-color: $theme1 !important;
+                            border-color: $theme1 !important;
+                            & img {
+                                filter: brightness(10);
+                            }
+                        }
+                    }
+                }
+            }
+            & .step {
+                & .imgOuter {
+                    width: 44px;
+                    height: 44px;
+                    cursor: pointer;
+                    padding: 10px;
+                }
+            }
+        }
+        & form {
+            &.form {
+                & .input-group {
+                    & .form-label {
+                        font-size: 14px;
+                    }
+                    & .form-control, & .form-select {
+                        font-size: 14px;
+                        &::placeholder {
+                            color: $gray-400;
+                            font-weight: 300;
+                            font-size: 14px;
+                        }
+                        &::file-selector-button {
+                            display: none;
+                        }
+                        &:focus {
+                            border-color: $theme1 !important;
+                        }
+                        &.otpInput {
+                            max-width: 50px !important;
+                            min-width: 40px !important;
+                        }
+                    }
+                    & .form-select {
+                        & option {
+                            font-size: 14px;
+                        }
+                    }
+                }
+                & .form-check {
+                    & .form-check-label {
+                        cursor: pointer;
+                        font-size: 14px;
+                    }
+                    & .form-check-input {
+                        cursor: pointer;
+                        background-image: none;
+                        position: relative;
+                        overflow: hidden;
+                        &:before {
+                            content: "";
+                            width: 16px;
+                            height: 16px;
+                            display: block;
+                            opacity: 0;
+                            border-left: 2px solid $theme1;
+                            border-bottom: 2px solid $theme1;
+                            transition: ease-in-out .3s;
+                        }
+                        &:checked {
+                            border-color: $theme1;
+                            background-color: $white;
+                            &:before {
+                                width: 10px;
+                                height: 6px;
+                                opacity: 1;
+                                transform: rotate(-45deg);
+                                position: absolute;
+                                left: 2px;
+                                top: 3px;
+                            }
+                        }
+                        &:focus {
+                            border-color: $theme1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+// ********************Responsive****************
+@media only screen and (max-width: 1400px) { 
+}
+@media only screen and (max-width: 1200px) {
+}
+@media only screen and (max-width: 1100px) {
+}
+@media only screen and (max-width: 991.98px) {
+}
+@media only screen and (max-width: 767.98px) {
+    .signUpPartnermain{
+        & .mainInner {
+            & .subHeading {
+                font-size: 16px;
+            }
+            & .subHeadingSecond {
+                font-size: 14px;
+            }
+            & .steps{
+                &::before{
+                    top: 17.5px;
+                }
+                & .step {
+                    & .imgOuter {
+                        width: 36px;
+                        height: 36px;
+                        padding: 8px;
+                    }
+                    & .title {
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 575.98px) {
+    .signUpPartnermain{
+        & .mainInner {
+            & .pageHeading{
+                font-size: 18px;
+            }
+            & .steps{
+                &::before{
+                    top: 14.5px;
+                }
+                & .step {
+                    & .imgOuter {
+                        width: 30px;
+                        height: 30px;
+                        padding: 6px;
+                    }
+                    & .title {
+                        font-size: 10px;
+                    }
+                }
+            }
+            & form {
+                &.form {
+                    & .input-group {
+                        & .form-label {
+                            font-size: 12px;
+                        }
+                        & .form-control, & .form-select {
+                            font-size: 12px;
+                            &::placeholder {
+                                font-size: 12px;
+                            }
+                            &:focus {
+                            }
+                        }
+                        & .form-select {
+                            & option {
+                                font-size: 12px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 360px) {
+}

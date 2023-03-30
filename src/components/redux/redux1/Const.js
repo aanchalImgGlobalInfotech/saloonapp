@@ -1,0 +1,13 @@
+export const SETUSERS = 'SETUSERS';
+export const SALOONSERVICE = 'SALOONSERVICE';
+export const CATEGORYID = 'CATEGORYID'
+export const SEARCH = 'SEARCH'
+export const INCREASE = 'INCREASE';
+export const  CART = 'CART';
+export const PAY = "PAY"
+export const CHECKOUT = "CHECKOUT"
+export const CHECKVALUE = "CHECKVALUE"
+export const WHISH = 'WHISH'
+export const CITYNAME ='CITYNAME'
+export const COUPONSID = 'COUPONSID'
+export const LOGOUT = 'LOGOUT'

@@ -1,0 +1,165 @@
+// X-Small devices (portrait phones, less than 576px)
+// No media query for `xs` since this is the default in Bootstrap
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  @include navbarhed-mixin-min-sm();
+  @include TopBannerHeading-mixin-min-sm();
+  @include contactUsCards-mixin-min-sm();
+  @include contactFormMain-mixin-min-sm();
+  @include downloadMain-mixin-min-sm();
+  @include headings-mixin-min-sm();
+  @include treamConditionMain-mixin-min-sm();
+  @include cancellationRefundMain-mixin-min-sm();
+  @include checkoutMain-mixin-min-sm();
+  @include faqMain-mixin-min-sm();
+  @include aboutMain-mixin-min-sm();
+  @include seftyMain-mixin-min-sm();
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  @include navbarhed-mixin-min-md();
+  @include TopBannerHeading-mixin-min-md();
+  @include contactUsCards-mixin-min-md();
+  @include contactFormMain-mixin-min-md();
+  @include downloadMain-mixin-min-md();
+  @include headings-mixin-min-md();
+  @include treamConditionMain-mixin-min-md();
+  @include cancellationRefundMain-mixin-min-md();
+  @include checkoutMain-mixin-min-md();
+  @include faqMain-mixin-min-md();
+  @include aboutMain-mixin-min-md();
+  @include seftyMain-mixin-min-md();
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  @include navbarhed-mixin-min-lg();
+  @include TopBannerHeading-mixin-min-lg();
+  @include contactUsCards-mixin-min-lg();
+  @include contactFormMain-mixin-min-lg();
+  @include downloadMain-mixin-min-lg();
+  @include headings-mixin-min-lg();
+  @include treamConditionMain-mixin-min-lg();
+  @include cancellationRefundMain-mixin-min-lg();
+  @include checkoutMain-mixin-min-lg();
+  @include faqMain-mixin-min-lg();
+  @include aboutMain-mixin-min-lg();
+  @include seftyMain-mixin-min-lg();
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  @include navbarhed-mixin-min-xl();
+  @include TopBannerHeading-mixin-min-xl();
+  @include contactUsCards-mixin-min-xl();
+  @include contactFormMain-mixin-min-xl();
+  @include downloadMain-mixin-min-xl();
+  @include headings-mixin-min-xl();
+  @include treamConditionMain-mixin-min-xl();
+  @include cancellationRefundMain-mixin-min-xl();
+  @include checkoutMain-mixin-min-xl();
+  @include faqMain-mixin-min-xl();
+  @include aboutMain-mixin-min-xl();
+  @include seftyMain-mixin-min-xl();
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@media (min-width: 1400px) {
+  @include navbarhed-mixin-min-xxl();
+  @include TopBannerHeading-mixin-min-xxl();
+  @include contactUsCards-mixin-min-xxl();
+  @include contactFormMain-mixin-min-xxl();
+  @include downloadMain-mixin-min-xxl();
+  @include headings-mixin-min-xxl();
+  @include treamConditionMain-mixin-min-xxl();
+  @include cancellationRefundMain-mixin-min-xxl();
+  @include checkoutMain-mixin-min-xxl();
+  @include faqMain-mixin-min-xxl();
+  @include aboutMain-mixin-min-xxl();
+  @include seftyMain-mixin-min-xxl();
+}
+
+// X-Large devices (large desktops, less than 1400px)
+@media (max-width: 1399.98px) {
+  @include navbarhed-mixin-max-xl();
+  @include TopBannerHeading-mixin-max-xl();
+  @include contactUsCards-mixin-max-xl();
+  @include contactFormMain-mixin-max-xl();
+  @include downloadMain-mixin-max-xl();
+  @include headings-mixin-max-xl();
+  @include treamConditionMain-mixin-max-xl();
+  @include cancellationRefundMain-mixin-max-xl();
+  @include checkoutMain-mixin-max-xl();
+  @include faqMain-mixin-max-xl();
+  @include aboutMain-mixin-max-xl();
+  @include seftyMain-mixin-max-xl();
+}
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199.98px) {
+  @include navbarhed-mixin-max-lg();
+  @include TopBannerHeading-mixin-max-lg();
+  @include contactUsCards-mixin-max-lg();
+  @include contactFormMain-mixin-max-lg();
+  @include downloadMain-mixin-max-lg();
+  @include headings-mixin-max-lg();
+  @include treamConditionMain-mixin-max-lg();
+  @include cancellationRefundMain-mixin-max-lg();
+  @include checkoutMain-mixin-max-lg();
+  @include faqMain-mixin-max-lg();
+  @include aboutMain-mixin-max-lg();
+  @include seftyMain-mixin-max-lg();
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+  @include navbarhed-mixin-max-md();
+  @include TopBannerHeading-mixin-max-md();
+  @include contactUsCards-mixin-max-md();
+  @include contactFormMain-mixin-max-md();
+  @include downloadMain-mixin-max-md();
+  @include headings-mixin-max-md();
+  @include treamConditionMain-mixin-max-md();
+  @include cancellationRefundMain-mixin-max-md();
+  @include checkoutMain-mixin-max-md();
+  @include faqMain-mixin-max-md();
+  @include aboutMain-mixin-max-md();
+  @include seftyMain-mixin-max-md();
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+  @include navbarhed-mixin-max-sm();
+  @include TopBannerHeading-mixin-max-sm();
+  @include contactUsCards-mixin-max-sm();
+  @include contactFormMain-mixin-max-sm();
+  @include downloadMain-mixin-max-sm();
+  @include headings-mixin-max-sm();
+  @include treamConditionMain-mixin-max-sm();
+  @include cancellationRefundMain-mixin-max-sm();
+  @include checkoutMain-mixin-max-sm();
+  @include faqMain-mixin-max-sm();
+  @include aboutMain-mixin-max-sm();
+  @include seftyMain-mixin-max-sm();
+}
+
+// X-Small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  @include navbarhed-mixin-max-xs();
+  @include TopBannerHeading-mixin-max-xs();
+  @include contactUsCards-mixin-max-xs();
+  @include contactFormMain-mixin-max-xs();
+  @include downloadMain-mixin-max-xs();
+  @include headings-mixin-max-xs();
+  @include treamConditionMain-mixin-max-xs();
+  @include cancellationRefundMain-mixin-max-xs();
+  @include checkoutMain-mixin-max-xs();
+  @include faqMain-mixin-max-xs();
+  @include aboutMain-mixin-max-xs();
+  @include seftyMain-mixin-max-xs();
+}
+
+// XX-Large devices (larger desktops)
+// No media query since the xxl breakpoint has no upper bound on its width

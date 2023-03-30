@@ -1,0 +1,1144 @@
+@charset "UTF-8";
+
+.tooltip {
+    & .tooltip-arrow {
+
+        &::before {
+            border-top-color: $theme1 !important;
+        }
+    }
+
+    & .tooltip-inner {
+        background-color: $theme1;
+    }
+}
+
+.profilepage {
+    background-color: #e5e5e5;
+
+    .bannerMainBox {
+        box-shadow: 0px 4px 136px -11px rgb(0 0 0 / 2%);
+        border-radius: 15px;
+        padding: 10px 15px 15px 15px;
+        background-color: $white;
+
+        & .profileCoverImg {
+            width: 100%;
+            max-height: 250px;
+            overflow: hidden;
+
+            & img {
+                object-fit: cover;
+            }
+        }
+
+        & .userProfileTxt {
+            padding-top: 10px;
+
+            & .profileImage {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 2px solid $white;
+                margin-top: -3rem;
+            }
+
+            & .userName {
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            & .editProfileBtn {
+                width: 40px;
+                height: 40px;
+                padding: 4px 12px;
+                display: flex;
+                align-items: center;
+                background: #f7f7f8;
+                border-radius: 10px;
+            }
+        }
+    }
+
+    & .leftSection {
+        & .userProfileSection {
+            box-shadow: 0px 4px 136px -11px rgb(0 0 0 / 2%);
+            border-radius: 30px;
+            background-color: $theme2;
+
+            & .navPill {
+                & .navLink {
+                    height: 42px;
+                    text-align: left;
+                    font-size: 16px;
+                    display: flex;
+                    justify-content: space-between;
+                    color: $black;
+
+                    &.active {
+                        background-color: $theme1;
+                        color: $white;
+                    }
+
+                    &.navlink2 {
+                        &:hover {
+                            background-color: $theme1;
+                            color: $white;
+                        }
+                    }
+
+                }
+
+
+            }
+        }
+
+        & .innerrowP {
+            position: sticky;
+            top: 70px;
+        }
+    }
+
+    & .rightSection {
+        & .tabInnerR {
+            box-shadow: 0px 4px 136px -11px rgb(0 0 0 / 2%);
+            border-radius: 30px;
+        }
+
+        & .tabsfirst {
+            & .innerrow {
+                & .innercolcontent {
+                    & .innernavpill {
+                        & .innerNavItem {
+                            & .inerNavLink {
+                                color: $black;
+                                font-size: 14px;
+                                font-weight: 600;
+
+                                &.active {
+                                    background-color: $theme1;
+                                    color: $white;
+                                }
+                            }
+                        }
+                    }
+
+                    & .innertabContent {
+                        & .tabInnerRow {
+                            & .myBookingCard {
+                                & .leftSide {
+                                    & .cardleftimage {
+                                        & img {
+                                            object-fit: cover;
+                                        }
+                                    }
+                                }
+
+                                & .rightSide {
+                                    & .bodycard {
+                                        & .body-Header {
+                                            border-bottom: 1px solid gray;
+
+                                            & .orderid {
+                                                font-size: 13px;
+                                                font-weight: 600;
+
+                                            }
+
+                                            & .panding {
+                                                font-size: 13px;
+                                                font-weight: 600;
+                                            }
+                                        }
+
+                                        & .cardHeading {
+                                            font-size: 17px;
+                                            font-weight: 600;
+                                            color: $theme1;
+                                        }
+
+                                        & .dateText {
+                                            font-size: 14PX;
+                                            font-weight: 400;
+                                            color: gray;
+                                        }
+
+                                        & .paymentItems {
+                                            & .card-text {
+                                                font-size: 15PX;
+                                                font-weight: 400;
+                                                color: $black;
+                                            }
+
+                                            & .itemsbtn {
+                                                font-size: 15PX;
+                                                font-weight: 400;
+                                                background-color: $theme1;
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        & .tabSecond {
+            & .innerrowtab {
+                & .cardwishlist {
+                    & .imageleft {
+                        & .imagewishlistcard {
+                            max-height: 200px;
+                            height: 100%;
+
+                            & img {
+                                object-fit: cover;
+                            }
+
+                            & .imagesvg {
+                                width: 30px;
+                                height: 30px;
+                                background: white;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: baseline;
+                                justify-content: center;
+                                margin-top: 8px;
+
+                                & .svgimage {
+                                    display: flex;
+                                    align-items: baseline;
+                                    justify-content: center;
+                                    margin-top: 3px;
+                                    margin-right: 3px;
+
+                                }
+                            }
+                        }
+
+                    }
+
+                    & .contentcardright {
+                        & .card-body {
+                            & .saloon {
+                                font-size: 14px;
+                                font-weight: 500;
+                                color: $theme1;
+
+                            }
+
+                            & .saloonname {
+                                font-size: 19px;
+                                font-weight: 600;
+                                color: $theme2;
+
+                            }
+
+                            & .card-text {
+                                font-size: 14px;
+                                font-weight: 400;
+                            }
+
+                            & .bordermb {}
+
+                            & .footerimage {
+                                & .listImage {
+                                    & li {
+                                        width: 20px;
+                                        height: 20px;
+
+                                        & img {}
+                                    }
+                                }
+
+                                & .distanceimage {
+                                    height: 50px;
+                                    position: relative;
+
+                                    & img {}
+
+                                    & .kmeeter {
+                                        position: absolute;
+                                        bottom: 5px;
+                                        left: 50%;
+                                        transform: translate(-50%, 0);
+                                        width: 100%;
+                                        text-align: center;
+                                        font-size: 10px;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        & .tabthird {
+            border-radius: 30px;
+
+            & .heading {
+                font-size: 70px;
+                font-weight: bold;
+                color: $theme1;
+
+            }
+
+            & .headingSub {
+                font-size: 17px;
+                font-weight: 400;
+                color: $black;
+            }
+
+            & .ponitext {
+                font-size: 14px;
+                font-weight: 400;
+                color: $black;
+
+            }
+
+            & .paymenttext {
+                font-size: 14px;
+                font-weight: 400;
+                color: $black;
+
+            }
+
+            & .innertabs {
+                & .navTabsinner {
+                    & .innerNavLink {
+                        &.active {}
+                    }
+                }
+            }
+
+            & .innertabs {
+                & .navTabsinner {
+                    border-bottom: 0;
+
+                    & .innerNavLink {
+                        border: 0;
+                        color: #000;
+                        border-radius: 50px;
+                        border: 1px solid $theme1;
+
+                        &.active {
+                            background-color: $theme1;
+                            color: $white;
+                        }
+                    }
+                }
+            }
+
+            & .referEran {
+                & .saloontext {
+                    font-size: 18px;
+                    font-weight: 400;
+                    color: $theme1;
+                }
+
+                & .saloonperograph {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: $black;
+                }
+
+                & .saloonsubtext {
+                    font-size: 17px;
+                    font-weight: 400;
+                    color: $theme1;
+                }
+
+                & .unlist {
+                    & li {
+                        font-size: 14px;
+                        font-weight: 400;
+                        color: $black;
+                    }
+                }
+
+            }
+        }
+
+        & .tabForth {
+            & .howitworks {
+                & .howitcard {
+                    & .leftSideContent {
+                        & .imagehow {}
+                    }
+
+                    & .ightSideContent {
+                        & .card-body {
+                            & .card-title {
+                                font-size: 14px;
+                                font-weight: 500;
+                                color: #efa834;
+                            }
+
+                            & .card-text {
+                                font-size: 14px;
+                                font-weight: 400;
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .refercard {
+                & .leftSideContent {
+                    & .text100 {
+                        text-align: center;
+                        font-size: 110px;
+                        font-weight: 900;
+                        color: $theme1;
+                    }
+
+                    & .textSubHeading {
+                        font-size: 14px;
+                        font-weight: 400;
+                        color: $black;
+                    }
+                }
+
+                & .rightSideContent {
+                    & .bodycard {
+                        & .card-title {
+                            font-size: 18px;
+                            font-weight: 600;
+                        }
+
+                        & .card-text {
+                            font-size: 14px;
+                            font-weight: 400;
+                        }
+
+                        & .card-textsub {
+                            font-size: 14px;
+                            font-weight: 400;
+                        }
+
+                        & .bdbottom {}
+
+                        & .sharetext {
+                            font-size: 14px;
+                            font-weight: 400;
+                        }
+
+                        & .copy-text {
+                            position: relative;
+                            padding: 10px;
+                            background: $white;
+                            border: 1px solid #ddd;
+                            border-radius: 10px;
+                            display: flex;
+                            width: 250px;
+
+                            & input {
+                                &.text {
+                                    padding: 6px;
+                                    font-size: 18px;
+                                    color: #555;
+                                    border: none;
+                                    outline: none;
+                                    letter-spacing: 10px;
+                                }
+                            }
+
+                            & button {
+                                padding: 10px;
+                                background: $theme1;
+                                color: $white;
+                                font-size: 18px;
+                                border: none;
+                                outline: none;
+                                border-radius: 10px;
+                                cursor: pointer;
+                                bottom: 6px;
+
+                                &:active {
+                                    background: $theme1;
+                                }
+
+                                &::before {
+                                    content: "Copied";
+                                    position: absolute;
+                                    top: -45px;
+                                    right: 0px;
+                                    background: $theme1;
+                                    padding: 8px 10px;
+                                    border-radius: 20px;
+                                    font-size: 15px;
+                                    display: none;
+                                }
+
+                                &::after {
+                                    content: "";
+                                    position: absolute;
+                                    top: -20px;
+                                    right: 25px;
+                                    width: 10px;
+                                    height: 10px;
+                                    background: $theme1;
+                                    transform: rotate(45deg);
+                                    display: none;
+                                }
+                            }
+
+                            &.active {
+                                & button {
+                                    &::before {
+                                        display: block;
+                                    }
+
+                                    &::after {
+                                        display: block;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+    }
+}
+
+.editmodal {
+    & .modal-content {
+        & .modal-body {
+            & .userimagesection {
+                width: 90px;
+                height: 90px;
+                border-radius: 50%;
+                margin: auto;
+                overflow: hidden;
+                & .form-label{
+                    cursor: pointer;
+                    & img {
+                        object-fit: cover;
+                        object-position: top center;
+                    }
+                    &:before {
+                        content: '';
+                        display: block;
+                        height: 100%;
+                        width: 100%;
+                        opacity: 0;
+                        transition: ease-in-out .3s;
+                        background-color: rgba($dark, 0.5);
+                        border-radius: 50px;
+                        position: absolute;
+                        inset: 0;
+                        margin: auto;
+                        background-image: url(../img/icon/imageChange.svg);
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: 25%;
+                        align-items: center;
+                        display: flex;
+                        justify-content: center;
+                    }
+                    &:hover {
+                        &:before {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            & .inputIconGroup {
+                & .icon {
+                    width: 40px;
+                    height: 44px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                & .inputform {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+                & .checkinput {
+                    border-color: $theme1;
+
+                    &:checked {
+                        background-color: $theme1;
+                        border-color: $theme1;
+                    }
+                }
+
+                & .checklebal {}
+            }
+        }
+    }
+}
+
+.bookingmodal {
+    & .modal-content {
+        & .modal-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: $black;
+
+            & span {
+                width: 15px;
+                height: 15px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                & img {}
+            }
+        }
+
+        & .buttonprnding {
+            font-size: 16px;
+            font-weight: 500;
+            color: $theme1;
+
+            & span {
+                width: 20px;
+                height: 20px;
+                align-items: baseline;
+                display: flex;
+            }
+        }
+    }
+
+    & .modal-body {
+        & .card {
+            & .card-image {
+                position: relative;
+
+                & img {}
+
+                & .saloontext {
+                    position: absolute;
+                    font-size: 17px;
+                    font-weight: 600;
+                    color: $white;
+                    bottom: 10px;
+                    left: 10px;
+                }
+            }
+
+            & .card-body {
+                & .icontext {
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: $black;
+
+                    & span {
+                        display: flex;
+                        width: 20px;
+                        height: 20px;
+                        align-content: baseline;
+                    }
+                }
+
+                & .addarestext {
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: $black;
+
+                    & span {
+                        display: flex;
+                        width: 20px;
+                        height: 20px;
+                        align-content: baseline;
+                    }
+                }
+            }
+
+            & .bottomfooter {
+                min-height: 200px;
+                overflow-y: auto;
+                height: 200px;
+                border-radius: 10px;
+
+                & .Servicestext {
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+            }
+            & .footercard{
+                border-radius: 0 0 10px 10px;
+                & .offertext{
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+            }
+
+        }
+    }
+}
+
+
+@media only screen and (max-width: 767.99px) {}
+
+@media only screen and (max-width: 575.99px) {
+    .profilepage {
+
+        .bannerMainBox {
+
+            & .profileCoverImg {
+
+                & img {}
+            }
+
+            & .userProfileTxt {
+
+                & .profileImage {
+                    width: 50px;
+                    height: 50px;
+                    margin-top: -2.4rem;
+                    margin-left: 7px !important;
+                }
+
+                & .userName {
+                    font-size: 13px;
+                }
+
+                & .editProfileBtn {
+                    width: 37px;
+                    height: 33px;
+                    padding: 1px 10px;
+                }
+            }
+        }
+
+        & .leftSection {
+            & .userProfileSection {
+
+                & .navPill {
+                    & .navLink {
+                        font-size: 12px;
+
+
+                        &.active {}
+
+                        &.navlink2 {
+                            &:hover {}
+                        }
+
+                    }
+
+
+                }
+            }
+        }
+
+        & .rightSection {
+            & .tabInnerR {}
+
+            & .tabsfirst {
+                & .innerrow {
+                    & .innercolcontent {
+                        & .innernavpill {
+                            & .innerNavItem {
+                                & .inerNavLink {
+                                    color: $black;
+                                    font-size: 14px;
+                                    font-weight: 600;
+
+                                    &.active {
+                                        background-color: $theme1;
+                                        color: $white;
+                                    }
+                                }
+                            }
+                        }
+
+                        & .innertabContent {
+                            & .tabInnerRow {
+                                & .myBookingCard {
+                                    & .leftSide {
+                                        & .cardleftimage {
+                                            & img {
+                                                object-fit: cover;
+                                            }
+                                        }
+                                    }
+
+                                    & .rightSide {
+                                        & .bodycard {
+                                            & .body-Header {
+                                                border-bottom: 1px solid gray;
+
+                                                & .orderid {
+                                                    font-size: 11px;
+
+                                                }
+
+                                                & .panding {
+                                                    font-size: 11px;
+                                                }
+                                            }
+
+                                            & .cardHeading {
+                                                font-size: 15px;
+                                            }
+
+                                            & .dateText {
+                                                font-size: 12PX;
+                                            }
+
+                                            & .paymentItems {
+                                                & .card-text {
+                                                    font-size: 13PX;
+                                                }
+
+                                                & .itemsbtn {
+                                                    font-size: 13PX;
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .tabSecond {
+                & .innerrowtab {
+                    & .cardwishlist {
+                        & .imageleft {
+                            & .imagewishlistcard {
+
+                                & .imagesvg {
+                                    width: 28px;
+                                    height: 28px;
+                                    margin-top: 4px;
+
+                                    & .svgimage {
+                                        & svg {}
+                                    }
+                                }
+                            }
+
+                        }
+
+                        & .contentcardright {
+                            & .card-body {
+                                & .saloon {
+                                    font-size: 13px;
+                                }
+
+                                & .saloonname {
+                                    font-size: 15px;
+
+                                }
+
+                                & .card-text {
+                                    font-size: 12px;
+                                }
+
+                                & .bordermb {}
+
+                                & .footerimage {
+                                    & .listImage {
+                                        gap: 0.4rem !important;
+
+                                        & li {
+
+                                            & img {}
+                                        }
+                                    }
+
+                                    & .distanceimage {
+                                        height: 40px;
+
+                                        & img {}
+
+                                        & .kmeeter {
+                                            font-size: 8px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .tabthird {
+
+                & .heading {
+                    font-size: 60px;
+                }
+
+                & .headingSub {
+                    font-size: 15px;
+                }
+
+                & .ponitext {
+
+                    font-size: 13px;
+
+                }
+
+                & .paymenttext {
+                    font-size: 13px;
+                }
+
+                & .innertabs {
+                    & .navTabsinner {
+                        & .innerNavLink {
+                            &.active {}
+                        }
+                    }
+                }
+
+                & .innertabs {
+                    & .navTabsinner {
+
+                        & .innerNavLink {
+
+                            &.active {}
+                        }
+                    }
+                }
+
+                & .referEran {
+                    & .saloontext {
+                        font-size: 16px;
+                    }
+
+                    & .saloonperograph {
+                        font-size: 12px;
+                    }
+
+                    & .saloonsubtext {
+                        font-size: 16px;
+                    }
+
+                    & .unlist {
+                        & li {
+                            font-size: 13px;
+                        }
+                    }
+
+                }
+            }
+
+            & .tabForth {
+                & .howitworks {
+                    & .howitcard {
+                        & .leftSideContent {
+                            & .imagehow {}
+                        }
+
+                        & .ightSideContent {
+                            & .card-body {
+                                & .card-title {}
+
+                                & .card-text {
+                                    font-size: 12px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                & .refercard {
+                    & .leftSideContent {
+                        & .text100 {
+                            font-size: 90px;
+                        }
+
+                        & .textSubHeading {
+                            font-size: 13px;
+                        }
+                    }
+
+                    & .rightSideContent {
+                        & .bodycard {
+                            & .card-title {
+                                font-size: 16px;
+                            }
+
+                            & .card-text {
+                                font-size: 13px;
+                            }
+
+                            & .card-textsub {
+                                font-size: 13px;
+                            }
+
+                            & .bdbottom {}
+
+                            & .sharetext {}
+
+                            & .copy-text {
+                                width: 200px;
+
+                                & input {
+                                    &.text {
+                                        padding: 9px;
+                                        font-size: 11px;
+                                        letter-spacing: 11px;
+                                        font-weight: bold;
+                                        color: $theme2;
+                                    }
+                                }
+
+                                & button {
+                                    padding: 8px;
+                                    margin-right: 5px !important;
+
+                                    &:active {}
+
+                                    &::before {}
+
+                                    &::after {}
+                                }
+
+                                &.active {
+                                    & button {
+                                        &::before {}
+
+                                        &::after {}
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+    }
+
+    .editmodal {
+        & .modal-content {
+            & .modal-body {
+                & .userimagesection {
+
+                    & img {}
+                }
+
+                & .inputIconGroup {
+                    & .icon {}
+
+                    & .inputform {
+
+                        &:focus {}
+                    }
+
+                    & .checkinput {
+
+                        &:checked {}
+                    }
+
+                    & .checklebal {}
+                }
+                & .groupbtnsave{
+                    & .btnsave{
+
+                    }
+                    & .btncancel{
+                        
+                    }
+                }
+            }
+        }
+    }
+    .bookingmodal {
+        & .modal-content {
+            & .modal-title {
+                font-size: 10px;
+    
+                & span {
+                    width: 10px;
+                    height: 10px;
+                
+    
+                    & img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+    
+            & .buttonprnding {
+                font-size: 10px;
+    
+                & span {
+                    width: 13px;
+                    height: 13px;
+                }
+            }
+        }
+    
+        & .modal-body {
+            & .card {
+                & .card-image {
+                    position: relative;
+    
+                    & img {}
+    
+                    & .saloontext {
+                        font-size: 12px;
+                    }
+                }
+    
+                & .card-body {
+                    & .icontext {
+                        font-size: 12px;
+    
+                        & span {
+                            display: flex;
+                            width: 15px;
+                            height: 15px;
+                        }
+                    }
+    
+                    & .addarestext {
+                        font-size: 11px;
+    
+                        & span {
+                            width: 15px;
+                            height: 15px;
+                        }
+                    }
+                }
+    
+                & .bottomfooter {
+                    min-height: 200px;
+                    overflow-y: auto;
+                    height: 200px;
+                    border-radius: 10px;
+    
+                    & .Servicestext {
+                        font-size: 12px;
+                    }
+                }
+                & .footercard{
+                    border-radius: 0 0 10px 10px;
+                    & .offertext{
+                        font-size: 13px;
+                    }
+                }
+    
+            }
+        }
+    }
+}

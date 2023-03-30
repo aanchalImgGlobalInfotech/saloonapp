@@ -1,0 +1,173 @@
+@charset "UTF-8";
+
+//?############################ About Us Page Start ############################
+
+.seftyMain{
+    padding: 100px 0 40px;
+    & .imgOuter {
+        min-height: 300px;
+        max-height: 400px;
+        & img {
+            object-fit: cover;
+            object-position: top center;
+        }
+    }
+    & .detail {
+        & .title {
+            font-size: 20px;
+        }
+        & .txt {
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 24px;
+        }
+    }
+
+}
+.seftyLevelMain {
+    padding: 40px 0;
+    & .tableOuter{
+        width: 100%;
+        overflow: auto hidden;
+        white-space: nowrap;
+        & .customTable{
+            & thead {
+                & tr {
+                    & th {
+                        padding: 16px;
+                        background-color: $theme1;
+                        text-align: center;
+                        &:first-child {
+                            text-align: left;
+                            width: 40%;
+                        }
+                    }
+                }
+            }
+            & tbody {
+                & tr {
+                    & td {
+                        font-size: 14px;
+                        text-align: center;
+                        padding: 12px 16px;
+                        &:first-child{
+                            text-align: left;
+                        }
+    
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@mixin seftyMain-mixin-min-sm() {
+}
+
+// Medium devices (tablets, 768px and up)
+@mixin seftyMain-mixin-min-md() {
+}
+
+// Large devices (desktops, 992px and up)
+@mixin seftyMain-mixin-min-lg() {
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@mixin seftyMain-mixin-min-xl() {
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@mixin seftyMain-mixin-min-xxl() {
+}
+
+// X-Small devices (portrait phones, less than 576px)
+@mixin seftyMain-mixin-max-xs() {
+    .seftyMain{
+        & .imgOuter {
+            min-height: unset;
+            & img {
+            }
+        }
+        & .detail {
+            & .title {
+                font-size: 18px;
+            }
+            & .txt {
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, less than 768px)
+@mixin seftyMain-mixin-max-sm() {
+    .seftyMain{
+        padding: 80px 0;
+        & .imgOuter {
+            & img {
+            }
+        }
+        & .detail {
+            & .title {
+            }
+            & .txt {
+            }
+        }
+    }
+}
+
+// Medium devices (tablets, less than 992px)
+@mixin seftyMain-mixin-max-md() {
+}
+
+// Large devices (desktops, less than 1200px)
+@mixin seftyMain-mixin-max-lg() {
+}
+.seftyMain{
+    & .imgOuter {
+        & img {
+        }
+    }
+    & .detail {
+        & .title {
+            font-size: 16px;
+        }
+        & .txt {
+            line-height: normal;
+        }
+    }
+
+}
+.seftyLevelMain {
+    & .tableOuter{
+        & .customTable{
+            & thead {
+                & tr {
+                    & th {
+                        &:first-child {
+                        }
+                    }
+                }
+            }
+            & tbody {
+                & tr {
+                    & td {
+                        &:first-child{
+                        }
+    
+                    }
+                }
+            }
+        }
+    }
+}
+
+// X-Large devices (large desktops, less than 1400px)
+@mixin seftyMain-mixin-max-xl() {
+}
+@media (max-width: 360px){
+}
+
+//!############################ About Us Page End ############################
+

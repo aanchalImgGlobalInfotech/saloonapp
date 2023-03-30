@@ -1,0 +1,2818 @@
+@charset "UTF-8";
+
+.vendorProfile {
+
+
+    & .section1 {
+        & .imageleftSide {
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s ease-in-out;
+
+            & .imgOuter {
+                width: 100%;
+                height: 312px;
+
+                & img {
+                    object-fit: cover;
+                    object-position: center;
+                }
+            }
+
+            & .carousalInner {
+                & .carousalInneritem {}
+            }
+
+            & .prevbtn {
+                position: absolute;
+
+                & .iconcontrol {}
+
+                & .previewtext {}
+            }
+
+            & .nextbtn {
+                position: absolute;
+
+                & .iconcontrol {}
+
+                & .nexttext {}
+            }
+
+
+            &:hover {
+                filter: brightness(0.7);
+            }
+        }
+
+        & .contentRightSide {
+            & .namesaloon {
+                font-size: 18px;
+                font-weight: 600;
+                color: $theme1;
+            }
+
+            & .heart {}
+
+            & .saloonAddreas {
+                font-size: 14px;
+                font-weight: 400;
+                color: gray;
+            }
+
+            & .directionsaloon {
+                display: flex;
+                align-items: center;
+
+                & span {
+
+                    & .image {
+
+
+                        & img {}
+                    }
+
+
+
+                    & a {
+                        color: $black;
+                        font-size: 15px;
+                    }
+                }
+            }
+
+            & .typeSaloon {
+                font-size: 16px;
+                font-weight: 400;
+                color: $black;
+                display: flex;
+                align-items: center;
+
+                & span {
+                    & image {}
+
+                    & img {}
+                }
+            }
+
+            & .shadualtime {
+                display: flex;
+                align-items: center;
+
+                & span {
+                    font-size: 14px;
+                }
+
+            }
+        }
+    }
+
+    & .section2 {
+        & .leftSideContent {
+            & .searchforminput {
+                & .input-group {
+                    height: 40px;
+
+                    & .inputsearch {
+                        border-color: gray;
+                        font-size: 13px;
+                    }
+
+                    & .input-group-text {
+                        border-color: gray;
+                        font-size: 13px;
+                        background-color: transparent;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            & .leftSidetabs {
+                & .navInnerPills {
+                    & .navInnerItem {
+                        & .navInnerLink {
+                            color: $black;
+                            font-size: 15px;
+                            font-weight: 500;
+
+                            &.active {
+                                background-color: $theme2;
+                                color: $white;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        & .middlecontent {
+            & .menutabs {
+                & .menutabsinnerrow {
+                    & .navPillNav {
+                        gap: 0.55rem;
+
+                        & .navItem {
+
+                            & .navLink {
+                                color: $black;
+                                font-size: 13px;
+                                border-radius: 20px;
+                                border: 1px solid $theme2;
+                                height: 37px;
+                                width: auto;
+
+                                &.active {
+                                    background-color: $theme2;
+                                    color: $white;
+                                }
+
+                            }
+                        }
+                    }
+
+                    & .middletabsinner {
+                        & .bodytab {
+                            & .accordionsection {
+                                & .accordion-item {
+                                    border-color: $theme2 !important;
+
+                                    & .accordion-header {
+
+                                        & .accordion-button {
+                                            font-size: 14px;
+                                            font-weight: 600;
+                                            color: $theme2;
+                                            background: transparent;
+                                            box-shadow: none;
+
+                                            &:after {
+                                                display: none;
+                                            }
+
+                                            & .customIcon {
+                                                width: 15px;
+                                                height: 15px;
+
+                                                &::before,
+                                                &:after {
+                                                    content: '';
+                                                    display: block;
+                                                    border-radius: 50px;
+                                                    background-color: $theme2;
+                                                    position: absolute;
+                                                    inset: 0;
+                                                    margin: auto;
+                                                }
+
+                                                &:before {
+                                                    width: 3px;
+                                                    height: 0;
+                                                    transition: ease-in-out .3s;
+                                                }
+
+                                                &:after {
+                                                    width: 15px;
+                                                    height: 3px;
+                                                }
+                                            }
+
+                                            &.collapsed {
+                                                & .customIcon {
+
+                                                    &::before,
+                                                    &:after {}
+
+                                                    &:before {
+                                                        height: 15px;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    & .accordion-body {
+                                        & .heading {
+                                            font-size: 15px;
+                                            font-weight: 600;
+                                            color: $theme2;
+                                        }
+
+                                        & .uniongendar {
+                                            width: 10px;
+                                            height: 15px;
+                                        }
+
+                                        & .paymentsection {
+                                            & .payment {
+                                                font-size: 14px;
+                                                font-weight: 600;
+                                                line-height: 8px;
+
+                                                & span {
+                                                    font-weight: 600;
+                                                    font-size: 10px;
+                                                }
+                                            }
+
+                                            & .imagetext {
+                                                & svg {
+                                                    width: 10px;
+                                                    display: inline-block;
+                                                    height: 10px;
+                                                }
+
+                                                & span {
+                                                    font-size: 12px;
+                                                    font-weight: 500;
+                                                }
+                                            }
+                                        }
+
+                                        & .Quantity {
+                                            & .counter {
+                                                & .count-box {
+                                                    & .plus {
+                                                        background: black;
+                                                        width: 25px;
+                                                        height: 25px;
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                        color: #fff;
+                                                        font-size: 14px;
+                                                        font-weight: 600;
+                                                        cursor: pointer;
+                                                        border-top-left-radius: 4px;
+                                                        border-bottom-left-radius: 4px;
+                                                    }
+
+                                                    & .count {
+                                                        width: 25px;
+                                                        height: 25px;
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                        color: #000;
+                                                        font-size: 15px;
+                                                        cursor: pointer;
+                                                        background: white;
+
+                                                    }
+
+                                                    & .minus {
+                                                        background: black;
+                                                        width: 25px;
+                                                        height: 25px;
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                        color: #fff;
+                                                        cursor: pointer;
+                                                        border-top-right-radius: 4px;
+                                                        border-bottom-right-radius: 4px;
+
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        & .inncrmentDecrement {
+                                            align-items: baseline;
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .aboutstabs {
+                & .aboutHeading {
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: $theme1;
+                }
+
+                & .abouttext {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: black;
+                    line-height: 20px;
+                    text-align: justify;
+                }
+            }
+
+            & .reviewtabs {
+                & .reviewcol {
+                    max-height: 520px;
+                    overflow: hidden auto;
+
+                    & .reviewInnerRow {
+                        & .userImage {
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            padding: 1px;
+                            border: 1px solid $theme1;
+
+                            & img {
+                                border-radius: 50%;
+                            }
+                        }
+
+                        & .editReviewBtn {
+                            width: 24px;
+                            height: 24px;
+                        }
+
+                        & .usernameDate {
+                            & .commentusername {
+                                font-size: 14px;
+                                font-weight: 900;
+                                margin-bottom: 0;
+                                line-height: 16px;
+                            }
+
+                            & .usercommmentTime {
+                                color: gray;
+                                font-size: 12px;
+                            }
+                        }
+
+                        & .starreating {
+                            & .reviewStar {
+                                color: $gray-300;
+                                // &.fill {
+                                //     color: #fc0;
+                                // }
+                            }
+                            &.totalRating1 {
+                                & .reviewStar {
+                                    &:nth-child(1){
+                                        color: #fc0;
+                                    }
+                                }
+                            }
+                            &.totalRating2 {
+                                & .reviewStar {
+                                    &:nth-child(1), &:nth-child(2){
+                                        color: #fc0;
+                                    }
+                                }
+                            }
+                            &.totalRating3 {
+                                & .reviewStar {
+                                    &:nth-child(1), &:nth-child(2), &:nth-child(3){
+                                        color: #fc0;
+                                    }
+                                }
+                            }
+                            &.totalRating4 {
+                                & .reviewStar {
+                                    &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4){
+                                        color: #fc0;
+                                    }
+                                }
+                            }
+                            &.totalRating5 {
+                                & .reviewStar {
+                                    &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4), &:nth-child(5){
+                                        color: #fc0;
+                                    }
+                                }
+                            }
+                            & .starList {
+                                gap: 0.15rem;
+
+                                & li {}
+                            }
+
+                            & .usrefoundreview {
+                                font-size: 14px;
+                                font-weight: 400;
+                                color: gray;
+                            }
+                        }
+
+                        & .commentText {
+                            font-size: 13px;
+                            font-weight: 500;
+                            color: #363333;
+                            text-overflow: ellipsis;
+                        }
+
+                        & .prosstext {
+                            font-size: 13px;
+                            font-weight: 400;
+
+                            & strong {
+                                font-size: 14px;
+                            }
+                        }
+
+                        & .constext {
+                            font-size: 13px;
+                            font-weight: 400;
+
+                            & strong {
+                                font-size: 14px;
+                            }
+                        }
+
+                        & .likeunlikeGroup {
+                            & .likebtn {
+
+                                & svg {}
+
+                                & .textspan {
+                                    font-size: 14px;
+                                    color: gray;
+                                }
+
+                                &:active {
+                                    border-color: transparent;
+                                }
+                            }
+
+                            & .unlikebtn {
+                                & svg {}
+
+                                & span {
+                                    font-size: 14px;
+                                    color: gray;
+                                }
+
+                                &:active {
+                                    border-color: transparent;
+                                }
+                            }
+
+                            &.wrapper {
+                                & .radio_group {
+                                    width: 45px;
+                                    position: relative;
+                                    display: flex;
+                                    align-items: center;
+                                    transition: all 0.3s ease-in-out;
+                                    & label {
+                                        width: 100%;
+                                        height: 100%;
+                                        display: flex;
+                                        transform: scale(1);
+                                        align-items: center;
+                                        gap: 0.6rem;
+                                        & svg{
+                                            width: 70px;
+                                            filter: brightness(0);
+                                            opacity: 0.5;
+                                        }
+                                        &[for="dislike"], &[for="like"]{
+                                            &.active {
+                                                & svg{
+                                                    filter: none !important;
+                                                    opacity: 1 !important;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    // & input:checked {
+                                    //         &+label {
+                                    //             & svg {
+                                    //                 filter: none !important;
+                                    //                 opacity: 1 !important;
+                                    //             }
+                                    //         }
+                                    // }
+                                    // & input[type="radio"] {
+                                    //     opacity: 0;
+                                    //     width: 100%;
+                                    //     height: 100%;
+                                    //     position: absolute;
+                                    //     left: 0px;
+                                    //     top: 0px;
+                                    //     margin: 0;
+                                    //     padding: 0;
+                                    //     z-index: 1;
+                                    //     cursor: pointer;
+                                    // }
+
+                                    // & input[type="radio"]+label {
+                                    //     color: #95a5a6;
+                                    //     width: 100%;
+                                    //     height: 100%;
+                                    //     display: flex;
+                                    //     transform: scale(1);
+                                    //     align-items: center;
+                                    //     gap: 0.6rem;
+                                    // }
+
+                                    & .ratingtype {
+                                        display: flex;
+                                        align-items: center;
+                                        font-size: 15px;
+                                    }
+
+                                    // & input[type="radio"]:checked+label svg  {
+                                    //    filter: brightness(1);
+                                    //     opacity: 1;
+                                    //     transform: scale(1.1);
+                                    // }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        & .rightSideContent {
+            & .innerrighttab {
+                & .navpill {
+                    width: 100%;
+                    flex-direction: row-reverse !important;
+                    background: #f0f0f0;
+                    border-radius: 15px;
+                    padding: 15px 0px;
+
+                    & .navItem {
+                        width: 30%;
+
+                        &.active {
+                            & .navLink {
+                                color: $theme1 !important;
+                            }
+
+                            &~.navItem {
+                                & .navLink {
+                                    color: $theme1 !important;
+                                    border-bottom: 2px dashed green !important;
+
+                                    &::before {
+                                        border: 1px solid green;
+                                    }
+                                }
+                            }
+                        }
+
+                        & .navLink {
+                            color: #000;
+                            font-size: 14px;
+                            font-weight: 600;
+                            width: 100%;
+                            border-bottom: 2px dashed $theme2;
+                            border-radius: 0;
+                            position: relative;
+                            text-align: center;
+
+
+                            &.active {
+                                background-color: transparent;
+                                color: $theme1;
+                                border-bottom: 2px dashed $theme1;
+                            }
+
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                top: calc(100% - 6px);
+                                left: calc(50% - 6.5px);
+                                width: 12px;
+                                height: 12px;
+                                border-radius: 50%;
+                                background-color: green;
+                                border: 1px solid #000;
+                            }
+                        }
+                    }
+                }
+
+                & .cartside {
+                    & .addContentt {
+                        height: 400px;
+                        overflow: hidden auto;
+
+                        & .leftSideContent {
+                            & .carditemHeading {
+                                font-size: 13px;
+                                font-weight: 500;
+                                color: $white;
+                                line-height: 18px;
+                            }
+
+                            & .imagetimegender {
+                                display: flex;
+                                align-items: center;
+                                color: $white;
+                                gap: 0.6rem;
+
+                                & .image {
+                                    width: 10px;
+                                    display: flex;
+                                    height: 10px;
+                                }
+
+                                & .time {
+                                    font-size: 12px;
+                                    font-weight: 400;
+                                    color: $white
+                                }
+
+                                & .gender {
+                                    font-size: 12px;
+                                    font-weight: 400;
+                                }
+                            }
+
+                        }
+
+                        & .rightSideContent {
+                            & .discount {
+                                font-size: 13px;
+                                font-weight: 400;
+                                color: $white
+                            }
+
+                            & .payment {
+                                font-size: 14px;
+                                font-weight: 600;
+                                color: $white
+                            }
+
+                            & .removebtn {
+                                box-shadow: none;
+
+                                &:active {}
+                            }
+                        }
+                    }
+
+                    & .footer {
+                        background: #f0f0f0;
+                        border-radius: 15px;
+                        padding: 15px 0px !important;
+
+                        & .totalitems {
+                            font-size: 11px;
+                            font-weight: 500;
+                            color: #070707;
+                        }
+
+                        & .paymenttotal {
+                            font-size: 19px;
+                            font-weight: 600;
+                        }
+
+                        & .buttonfooter {
+                            & .Schedulebtn {
+                                font-size: 11px;
+                                font-weight: 400;
+                                padding: 10px 22px;
+                            }
+                        }
+                    }
+                }
+
+                & .Schedule {
+                    & .selectedtimedate {
+                        height: 300px;
+                        overflow: hidden auto;
+
+                        & .selectDate {
+                            font-size: 13px;
+                            font-weight: 500;
+                            color: $black;
+                        }
+
+                        & .month {
+                            font-size: 15px;
+                            font-weight: 500;
+                            color: gray;
+                        }
+
+                        & .datetimeContent {
+                            & .option {
+                                position: relative;
+
+                                & input {
+                                    opacity: 0;
+                                    position: absolute;
+                                }
+
+                                & span {
+                                    & .time {
+                                        font-size: 13px;
+                                        font-weight: 400;
+                                    }
+                                }
+
+                                & input:checked+span {
+                                    background-color: $theme1;
+                                    color: $white;
+
+                                    &:hover,
+                                    &:focus,
+                                    &:active {
+                                        background-color: $theme1;
+                                    }
+                                }
+
+                                & .btn-option {
+                                    background-color: transparent;
+
+                                    &:hover,
+                                    &:focus,
+                                    &:active {
+                                        background-color: transparent;
+                                    }
+
+                                    &.opectiontime {
+                                        width: 90px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    & .footer {
+                        background: #f0f0f0;
+                        border-radius: 15px;
+                        padding: 15px 0px !important;
+
+                        & .totalitems {
+                            font-size: 11px;
+                            font-weight: 500;
+                            color: #070707;
+                        }
+
+                        & .paymenttotal {
+                            font-size: 19px;
+                            font-weight: 600;
+                        }
+
+                        & .buttonfooter {
+                            & .Schedulebtn {
+                                font-size: 11px;
+                                font-weight: 400;
+                                padding: 10px 22px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.reviewModal {
+    & .modal-dialog {
+        & .modal-content {
+            & .modal-header {
+                & .modal-title {
+                    & .imgOuter {
+                        width: 36px;
+                        height: 36px;
+
+                        & img {
+                            object-fit: Cover;
+                            object-position: top center;
+                        }
+                    }
+                }
+            }
+
+            & .modal-body {
+                & .form {
+                    & .star-rating {
+                        display: flex;
+                        flex-direction: row-reverse;
+                        gap: 1px;
+                        justify-content: start;
+
+                        & input {
+                            display: none;
+                        }
+
+                        & label {
+                            color: #ccc;
+                            cursor: pointer;
+                            height: 16px;
+                            transition: ease-in-out .3s;
+                        }
+
+                        & :checked~label {
+                            color: #f90 !important;
+                        }
+
+                        & label:hover,
+                        & label:hover~label {
+                            color: #fc0;
+                        }
+                    }
+
+                    & textarea {
+                        font-weight: 300;
+                        color: $dark;
+
+                        &:focus {
+                            border-color: $theme1;
+                        }
+
+                        &::placeholder {
+                            color: $gray-300;
+                        }
+
+                        &:focus-visible {
+                            outline: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}
+.modal {
+    &.reviewModal {
+        & .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 1px;
+            justify-content: start;
+        
+            & input {
+                display: none;
+            }
+        
+            & label {
+                color: #ccc;
+                cursor: pointer;
+                height: 16px;
+                transition: ease-in-out .3s;
+            }
+        
+            & :checked~label {
+                color: #f90 !important;
+            }
+        
+            & label:hover,
+            & label:hover~label {
+                color: #fc0;
+            }
+        }
+    }
+    &.saloonAtHome {
+        & .modal-header {
+            & .nav-tabs {
+                & .nav-item{
+                    & .nav-link {
+                        font-size: 14px;
+                        color: $white;
+                        background-color: lighten($dark, 20);
+                        transition: ease-in-out .3s;
+                        &.active, &:hover {
+                            color: $theme1;
+                        }
+                    }
+                }
+            }
+        }
+        & .modal-body{
+            & .input-group {
+                & .form-label {
+                    font-size: 14px;
+                }
+                & .form-control, & .form-select {
+                    font-size: 14px;
+                    height: 40px;
+                    &::placeholder {
+                        color: $gray-400;
+                        font-weight: 300;
+                        font-size: 14px;
+                    }
+                    &:focus {
+                        border-color: $theme1 !important;
+                    }
+                }
+                & .form-select {
+                    & option {
+                        font-size: 14px;
+                    }
+                }
+            }
+            & .card{
+                & .card-header {
+                    & .form-check {
+                        & .form-check-input {
+                            width: 18px;
+                            height: 18px;
+                            position: relative;
+                            transition: ease-in-out .3s;
+                            cursor: pointer;
+                            &:before {
+                                content: '';
+                                display: block;
+                                width: 5px;
+                                height: 10px;
+                                position: absolute;
+                                border-bottom: 2px solid $white;
+                                border-right: 2px solid $white;
+                                opacity: 0;
+                                transition: ease-in-out .3s;
+                                right: 5px;
+                                top: 2px;
+                            }
+                            &:checked {
+                                background-color: $theme1 !important;
+                                border-color: $theme1 !important;
+                                background-image: none;
+                                &:before {
+                                    opacity: 1;
+                                    transform: rotate(45deg);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            & .formOuter {
+                & .form-check {
+                    & .form-check-label {
+                        cursor: pointer;
+                        font-size: 14px;
+                    }
+                    & .form-check-input {
+                        cursor: pointer;
+                        background-image: none;
+                        position: relative;
+                        overflow: hidden;
+                        &:before {
+                            content: "";
+                            width: 16px;
+                            height: 16px;
+                            display: block;
+                            opacity: 0;
+                            border-left: 2px solid $theme1;
+                            border-bottom: 2px solid $theme1;
+                            transition: ease-in-out .3s;
+                        }
+                        &:checked {
+                            border-color: $theme1;
+                            background-color: $white;
+                            &:before {
+                                width: 10px;
+                                height: 6px;
+                                opacity: 1;
+                                transform: rotate(-45deg);
+                                position: absolute;
+                                left: 2px;
+                                top: 3px;
+                            }
+                        }
+                        &:focus {
+                            border-color: $theme1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (max-width: 1399.99px) {
+    .vendorProfile {
+        & .section1 {
+            & .imageleftSide {
+                & .carousalInner {
+                    & .carousalInneritem {}
+                }
+
+                &:hover {}
+            }
+
+            & .contentRightSide {
+                & .namesaloon {}
+
+                & .heart {}
+
+                & .saloonAddreas {}
+
+                & .directionsaloon {
+
+                    & span {
+                        & .image {}
+
+                        & img {}
+
+                        & a {}
+                    }
+                }
+
+                & .typeSaloon {
+
+                    & span {
+                        & .image {}
+
+                        & img {}
+                    }
+                }
+
+                & .shadualtime {
+
+                    & span {
+
+                        & .image {}
+
+                        & img {}
+                    }
+                }
+
+                & .buttonGroup {
+
+                    & button {}
+                }
+            }
+        }
+
+        & .section2 {
+            & .leftSideContent {
+                & .searchforminput {
+                    & .input-group {
+
+                        & .inputsearch {}
+
+                        & .input-group-text {}
+                    }
+                }
+
+                & .leftSidetabs {
+                    & .navInnerPills {
+                        & .navInnerItem {
+                            & .navInnerLink {
+                                &.active {}
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .middlecontent {
+                & .menutabs {
+                    & .menutabsinnerrow {
+                        & .navPillNav {
+                            overflow: auto;
+                            white-space: nowrap;
+                            flex-wrap: nowrap;
+                            gap: 0.25rem;
+
+                            & .navItem {
+
+                                & .navLink {
+
+                                    &.active {}
+
+                                }
+                            }
+                        }
+
+                        & .middletabsinner {
+                            & .bodytab {
+                                & .accordionsection {
+                                    & .accordion-item {
+
+                                        & .accordion-header {
+
+                                            & .accordion-button {
+
+                                                &:after {}
+
+                                                & .customIcon {
+
+                                                    &::before,
+                                                    &:after {}
+
+                                                    &:before {}
+
+                                                    &:after {}
+                                                }
+
+                                                &.collapsed {
+                                                    & .customIcon {
+
+                                                        &::before,
+                                                        &:after {}
+
+                                                        &:before {}
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        & .accordion-body {
+                                            & .heading {}
+
+                                            & .uniongendar {}
+
+                                            & .paymentsection {
+                                                & .payment {
+
+                                                    & span {}
+                                                }
+
+                                                & .imagetext {
+                                                    & svg {}
+
+                                                    & span {}
+                                                }
+                                            }
+
+                                            & .Quantity {
+                                                & .counter {
+                                                    & .count-box {
+                                                        & .plus {}
+
+                                                        & .count {}
+
+                                                        & .minus {}
+                                                    }
+                                                }
+                                            }
+
+                                            & .inncrmentDecrement {}
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                & .aboutstabs {
+                    & .aboutHeading {
+                        font-size: 17px;
+                        font-weight: 600;
+                        color: $theme1;
+                    }
+
+                    & .abouttext {
+                        font-size: 13px;
+                        font-weight: 400;
+                        color: black;
+                        line-height: 20px;
+                        text-align: justify;
+                    }
+                }
+
+                & .reviewtabs {
+                    & .reviewcol {
+                        & .reviewInnerRow {
+                            & .userImage {
+
+                                & img {}
+                            }
+
+                            & .usernameDate {
+                                & .commentusername {}
+
+                                & .usercommmentTime {}
+                            }
+
+                            & .starreating {
+                                & .starList {
+
+                                    & li {}
+                                }
+
+                                & .usrefoundreview {}
+                            }
+
+                            & .commentText {}
+
+                            & .prosstext {
+
+                                & strong {}
+                            }
+
+                            & .constext {
+
+                                & strong {}
+                            }
+
+                            & .likeunlikeGroup {
+                                & .likebtn {
+
+                                    & svg {}
+
+                                    & .textspan {}
+
+                                    &:active {}
+                                }
+
+                                & .unlikebtn {
+                                    & svg {}
+
+                                    & span {}
+
+                                    &:active {}
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            & .rightSideContent {
+                & .innerrighttab {
+                    & .navpill {
+
+                        & .navItem {
+
+                            &.active {
+                                & .navLink {}
+
+                                &~.navItem {
+                                    & .navLink {
+                                        &::before {}
+                                    }
+                                }
+                            }
+
+                            & .navLink {
+
+                                &.active {}
+
+                                &::before {}
+                            }
+                        }
+                    }
+
+                    & .cartside {
+                        & .addContentt {
+
+                            & .leftSideContent {
+                                & .carditemHeading {}
+
+                                & .imagetimegender {
+
+                                    & .image {}
+
+                                    & .time {}
+
+                                    & .gender {}
+                                }
+
+                            }
+
+                            & .rightSideContent {
+                                & .discount {}
+
+                                & .payment {}
+
+                                & .removebtn {
+
+                                    & img {}
+                                }
+                            }
+                        }
+
+                        & .footer {
+
+                            & .totalitems {}
+
+                            & .paymenttotal {}
+
+                            & .buttonfooter {
+                                & .Schedulebtn {}
+                            }
+                        }
+                    }
+
+                    & .Schedule {
+                        & .selectedtimedate {
+
+                            & .selectDate {}
+
+                            & .month {}
+
+                            & .datetimeContent {
+                                & .option {
+
+                                    & input {}
+
+                                    & span {
+
+                                        & .time {}
+                                    }
+
+                                    & input:checked+span {
+
+                                        &:hover,
+                                        &:focus,
+                                        &:active {}
+                                    }
+
+                                    & .btn-option {
+
+                                        &:hover,
+                                        &:focus,
+                                        &:active {}
+
+                                        &.opectiontime {}
+                                    }
+                                }
+                            }
+                        }
+
+                        & .footer {
+
+                            & .totalitems {}
+
+                            & .paymenttotal {}
+
+                            & .buttonfooter {
+
+                                & .Schedulebtn {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+@media only screen and (max-width: 992.99px) {
+    .vendorProfile {
+        & .section1 {
+            & .imageleftSide {
+                & .carousalInner {
+                    & .carousalInneritem {}
+                }
+
+                &:hover {}
+            }
+
+            & .contentRightSide {
+                & .namesaloon {
+                    font-size: 16px;
+                    margin-top: 10px;
+                }
+
+                & .heart {
+                    margin-top: 10px;
+                }
+
+                & .saloonAddreas {
+                    font-size: 15px;
+                }
+
+                & .directionsaloon {
+
+                    & span {
+                        & .image {
+                            width: 30px;
+                            height: 30px;
+                        }
+
+                        & img {}
+
+                        & a {
+                            font-size: 13px;
+                        }
+                    }
+                }
+
+                & .typeSaloon {
+                    font-size: 13px;
+
+                    & span {
+                        & .image {
+                            width: 30px;
+                            height: 30px;
+                        }
+
+                        & img {}
+                    }
+                }
+
+                & .shadualtime {
+
+                    & span {
+                        font-size: 13px;
+
+                        & .image {
+                            width: 30px;
+                            height: 30px;
+                        }
+
+                        & img {}
+                    }
+                }
+
+                & .buttonGroup {
+                    text-align: start !important;
+
+                    & button {
+                        font-size: 13px;
+
+                    }
+                }
+            }
+        }
+
+        & .section2 {
+            & .leftSideContent {
+                & .searchforminput {
+                    & .input-group {
+
+                        & .inputsearch {}
+
+                        & .input-group-text {}
+                    }
+                }
+
+                & .leftSidetabs {
+                    & .navInnerPills {
+                        & .navInnerItem {
+                            & .navInnerLink {
+                                font-size: 13px;
+                                padding: 8px 15px;
+
+                                &.active {}
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .middlecontent {
+                & .menutabs {
+                    & .menutabsinnerrow {
+                        & .navPillNav {
+                            overflow: auto;
+                            white-space: nowrap;
+                            flex-wrap: nowrap;
+
+                            & .navItem {
+
+                                & .navLink {
+                                    font-size: 10px;
+                                    height: 30px;
+
+                                    &.active {}
+
+                                }
+                            }
+                        }
+
+                        & .middletabsinner {
+                            & .bodytab {
+                                & .accordionsection {
+                                    & .accordion-item {
+
+                                        & .accordion-header {
+
+                                            & .accordion-button {
+                                                font-size: 15px;
+
+                                                &:after {}
+
+                                                & .customIcon {
+                                                    width: 12px;
+                                                    height: 12px;
+
+                                                    &::before,
+                                                    &:after {}
+
+                                                    &:before {
+                                                        height: 12px;
+                                                    }
+
+                                                    &:after {
+                                                        width: 12px;
+                                                        height: 2px;
+                                                    }
+                                                }
+
+                                                &.collapsed {
+                                                    & .customIcon {
+
+                                                        &::before,
+                                                        &:after {}
+
+                                                        &:before {
+                                                            height: 12px;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        & .accordion-body {
+                                            & .heading {
+                                                font-size: 14px;
+                                            }
+
+                                            & .uniongendar {
+                                                width: 10px;
+                                                height: 12px;
+                                            }
+
+                                            & .paymentsection {
+                                                & .payment {
+                                                    font-size: 14px;
+
+                                                    & span {
+                                                        font-size: 12px;
+                                                    }
+                                                }
+
+                                                & .imagetext {
+                                                    & svg {
+                                                        width: 12px;
+                                                        height: 12px;
+                                                    }
+
+                                                    & span {
+                                                        font-size: 11px;
+                                                    }
+                                                }
+                                            }
+
+                                            & .Quantity {
+                                                & .counter {
+                                                    & .count-box {
+                                                        & .plus {
+
+                                                            font-size: 14px;
+                                                        }
+
+                                                        & .count {
+                                                            font-size: 14px;
+                                                        }
+
+                                                        & .minus {
+                                                            font-size: 14px;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            & .inncrmentDecrement {}
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                & .aboutstabs {
+                    & .aboutHeading {
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: $theme1;
+                    }
+
+                    & .abouttext {
+                        font-size: 12px;
+                        font-weight: 400;
+                        color: black;
+                        line-height: 20px;
+                        text-align: justify;
+                    }
+                }
+
+                & .reviewtabs {
+                    & .reviewcol {
+                        & .reviewInnerRow {
+                            & .userImage {
+
+                                & img {}
+                            }
+
+                            & .usernameDate {
+                                & .commentusername {}
+
+                                & .usercommmentTime {}
+                            }
+
+                            & .starreating {
+                                & .starList {
+
+                                    & li {}
+                                }
+
+                                & .usrefoundreview {}
+                            }
+
+                            & .commentText {}
+
+                            & .prosstext {
+
+                                & strong {}
+                            }
+
+                            & .constext {
+
+                                & strong {}
+                            }
+
+                            & .likeunlikeGroup {
+                                & .likebtn {
+
+                                    & svg {}
+
+                                    & .textspan {}
+
+                                    &:active {}
+                                }
+
+                                & .unlikebtn {
+                                    & svg {}
+
+                                    & span {}
+
+                                    &:active {}
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            & .rightSideContent {
+                & .innerrighttab {
+                    & .navpill {
+
+                        & .navItem {
+
+                            &.active {
+                                & .navLink {}
+
+                                &~.navItem {
+                                    & .navLink {
+                                        &::before {
+                                            width: 10px;
+                                            height: 10px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            & .navLink {
+                                font-size: 15px;
+
+                                &.active {}
+
+                                &::before {}
+                            }
+                        }
+                    }
+
+                    & .cartside {
+                        & .addContentt {
+
+                            & .leftSideContent {
+                                & .carditemHeading {
+                                    line-height: 20px;
+                                    font-size: 13px;
+                                }
+
+                                & .imagetimegender {
+                                    gap: 0.4rem;
+
+                                    & .image {}
+
+                                    & .time {
+                                        font-size: 10px;
+                                    }
+
+                                    & .gender {
+                                        font-size: 10px;
+                                    }
+                                }
+
+                            }
+
+                            & .rightSideContent {
+                                & .discount {
+                                    font-size: 12px;
+                                }
+
+                                & .payment {
+                                    font-size: 14px;
+                                }
+
+                                & .removebtn {
+                                    width: 15px;
+                                    height: 30px;
+
+                                    & img {
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                }
+                            }
+                        }
+
+                        & .footer {
+
+                            & .totalitems {
+                                font-size: 10px;
+                            }
+
+                            & .paymenttotal {
+                                font-size: 15px;
+                            }
+
+                            & .buttonfooter {
+                                & .Schedulebtn {
+                                    font-size: 11px;
+                                    padding: 10px 20px;
+                                }
+                            }
+                        }
+                    }
+
+                    & .Schedule {
+                        & .selectedtimedate {
+
+                            & .selectDate {
+                                font-size: 11px;
+                            }
+
+                            & .month {
+                                font-size: 13px;
+                            }
+
+                            & .datetimeContent {
+                                & .option {
+
+                                    & input {}
+
+                                    & span {
+                                        font-size: 13px;
+
+                                        & .time {}
+                                    }
+
+                                    & input:checked+span {
+
+                                        &:hover,
+                                        &:focus,
+                                        &:active {}
+                                    }
+
+                                    & .btn-option {
+
+                                        &:hover,
+                                        &:focus,
+                                        &:active {}
+
+                                        &.opectiontime {
+                                            width: auto;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        & .footer {
+
+                            & .totalitems {
+                                font-size: 10px;
+                            }
+
+                            & .paymenttotal {
+                                font-size: 15px;
+                            }
+
+                            & .buttonfooter {
+
+                                & .Schedulebtn {
+                                    font-size: 10px;
+                                    padding: 10px 10px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+@media only screen and (max-width: 767.99px) {
+    .vendorProfile {
+        & .section1 {
+            & .imageleftSide {
+                & .carousalInner {
+                    & .carousalInneritem {}
+                }
+
+                &:hover {}
+            }
+
+            & .contentRightSide {
+                & .namesaloon {
+                    font-size: 15px;
+                    margin-top: 10px;
+                }
+
+                & .heart {
+                    margin-top: 10px;
+                }
+
+                & .saloonAddreas {
+                    font-size: 13px;
+                }
+
+                & .directionsaloon {
+
+                    & span {
+                        & .image {
+                            width: 30px;
+                            height: 30px;
+                        }
+
+                        & img {}
+
+                        & a {
+                            font-size: 13px;
+                        }
+                    }
+                }
+
+                & .typeSaloon {
+                    font-size: 13px;
+
+                    & span {
+                        & .image {
+                            width: 30px;
+                            height: 30px;
+                        }
+
+                        & img {}
+                    }
+                }
+
+                & .shadualtime {
+
+                    & span {
+                        font-size: 13px;
+
+                        & .image {
+                            width: 30px;
+                            height: 30px;
+                        }
+
+                        & img {}
+                    }
+                }
+
+                & .buttonGroup {
+                    text-align: start !important;
+
+                    & button {
+                        font-size: 13px;
+
+                    }
+                }
+            }
+        }
+
+        & .section2 {
+            & .leftSideContent {
+                & .searchforminput {
+                    & .input-group {
+
+                        & .inputsearch {}
+
+                        & .input-group-text {}
+                    }
+                }
+
+                & .leftSidetabs {
+                    & .navInnerPills {
+                        & .navInnerItem {
+                            & .navInnerLink {
+                                font-size: 13px;
+                                padding: 8px 15px;
+
+                                &.active {}
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .middlecontent {
+                & .menutabs {
+                    & .menutabsinnerrow {
+                        & .navPillNav {
+                            overflow: auto;
+                            white-space: nowrap;
+                            flex-wrap: nowrap;
+
+                            & .navItem {
+
+                                & .navLink {
+                                    font-size: 10px;
+                                    height: 30px;
+
+                                    &.active {}
+
+                                }
+                            }
+                        }
+
+                        & .middletabsinner {
+                            & .bodytab {
+                                & .accordionsection {
+                                    & .accordion-item {
+
+                                        & .accordion-header {
+
+                                            & .accordion-button {
+                                                font-size: 13px;
+
+                                                &:after {}
+
+                                                & .customIcon {
+                                                    width: 12px;
+                                                    height: 12px;
+
+                                                    &::before,
+                                                    &:after {}
+
+                                                    &:before {
+                                                        height: 12px;
+                                                    }
+
+                                                    &:after {
+                                                        width: 12px;
+                                                        height: 2px;
+                                                    }
+                                                }
+
+                                                &.collapsed {
+                                                    & .customIcon {
+
+                                                        &::before,
+                                                        &:after {}
+
+                                                        &:before {
+                                                            height: 12px;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        & .accordion-body {
+                                            & .heading {
+                                                font-size: 12px;
+                                            }
+
+                                            & .uniongendar {
+                                                width: 10px;
+                                                height: 12px;
+                                            }
+
+                                            & .paymentsection {
+                                                & .payment {
+                                                    font-size: 13px;
+
+                                                    & span {
+                                                        font-size: 9px;
+                                                    }
+                                                }
+
+                                                & .imagetext {
+                                                    & svg {
+                                                        width: 9px;
+                                                        height: 9px;
+                                                    }
+
+                                                    & span {
+                                                        font-size: 11px;
+                                                    }
+                                                }
+                                            }
+
+                                            & .Quantity {
+                                                & .counter {
+                                                    & .count-box {
+                                                        & .plus {
+                                                            width: 20px;
+                                                            height: 20px;
+                                                            font-size: 13px;
+                                                        }
+
+                                                        & .count {
+                                                            width: 20px;
+                                                            height: 20px;
+                                                            font-size: 13px;
+                                                        }
+
+                                                        & .minus {
+                                                            width: 20px;
+                                                            height: 20px;
+                                                            font-size: 13px;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            & .inncrmentDecrement {}
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                & .aboutstabs {
+                    & .aboutHeading {
+                        font-size: 15px;
+                        font-weight: 600;
+                        color: $theme1;
+                    }
+
+                    & .abouttext {
+                        font-size: 12px;
+                        font-weight: 400;
+                        color: black;
+                        line-height: 20px;
+                        text-align: justify;
+                    }
+                }
+
+                & .reviewtabs {
+                    & .reviewcol {
+                        & .reviewInnerRow {
+                            & .userImage {
+
+                                & img {}
+                            }
+
+                            & .usernameDate {
+                                & .commentusername {}
+
+                                & .usercommmentTime {}
+                            }
+
+                            & .starreating {
+                                & .starList {
+
+                                    & li {}
+                                }
+
+                                & .usrefoundreview {}
+                            }
+
+                            & .commentText {}
+
+                            & .prosstext {
+
+                                & strong {}
+                            }
+
+                            & .constext {
+
+                                & strong {}
+                            }
+
+                            & .likeunlikeGroup {
+                                & .likebtn {
+
+                                    & svg {}
+
+                                    & .textspan {}
+
+                                    &:active {}
+                                }
+
+                                & .unlikebtn {
+                                    & svg {}
+
+                                    & span {}
+
+                                    &:active {}
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            & .rightSideContent {
+                & .innerrighttab {
+                    & .navpill {
+
+                        & .navItem {
+
+                            &.active {
+                                & .navLink {}
+
+                                &~.navItem {
+                                    & .navLink {
+                                        &::before {
+                                            width: 10px;
+                                            height: 10px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            & .navLink {
+                                font-size: 12px;
+
+                                &.active {}
+
+                                &::before {}
+                            }
+                        }
+                    }
+
+                    & .cartside {
+                        & .addContentt {
+
+                            & .leftSideContent {
+                                & .carditemHeading {
+
+                                    font-size: 11px;
+                                }
+
+                                & .imagetimegender {
+                                    gap: 0.2rem;
+
+                                    & .image {}
+
+                                    & .time {
+                                        font-size: 10px;
+                                    }
+
+                                    & .gender {
+                                        font-size: 10px;
+                                    }
+                                }
+
+                            }
+
+                            & .rightSideContent {
+                                & .discount {
+                                    font-size: 10px;
+                                }
+
+                                & .payment {
+                                    font-size: 12px;
+                                }
+
+                                & .removebtn {
+                                    width: 15px;
+                                    height: 30px;
+
+                                    & img {
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                }
+                            }
+                        }
+
+                        & .footer {
+
+                            & .totalitems {
+                                font-size: 10px;
+                            }
+
+                            & .paymenttotal {
+                                font-size: 15px;
+                            }
+
+                            & .buttonfooter {
+                                & .Schedulebtn {
+                                    font-size: 10px;
+                                    padding: 8px 16px;
+                                }
+                            }
+                        }
+                    }
+
+                    & .Schedule {
+                        & .selectedtimedate {
+
+                            & .selectDate {
+                                font-size: 11px;
+                            }
+
+                            & .month {
+                                font-size: 13px;
+                            }
+
+                            & .datetimeContent {
+                                & .option {
+
+                                    & input {}
+
+                                    & span {
+                                        font-size: 13px;
+
+                                        & .time {}
+                                    }
+
+                                    & input:checked+span {
+
+                                        &:hover,
+                                        &:focus,
+                                        &:active {}
+                                    }
+
+                                    & .btn-option {
+
+                                        &:hover,
+                                        &:focus,
+                                        &:active {}
+
+                                        &.opectiontime {
+                                            width: auto;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        & .footer {
+
+                            & .totalitems {
+                                font-size: 10px;
+                            }
+
+                            & .paymenttotal {
+                                font-size: 15px;
+                            }
+
+                            & .buttonfooter {
+
+                                & .Schedulebtn {
+                                    font-size: 10px;
+                                    padding: 10px 10px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+@media only screen and (max-width: 575.99px) {
+    .vendorProfile {
+        & .section1 {
+            & .imageleftSide {
+                & .carousalInner {
+                    & .carousalInneritem {}
+                }
+
+                &:hover {}
+            }
+
+            & .contentRightSide {
+                & .namesaloon {
+                    font-size: 15px;
+                    margin-top: 10px;
+                }
+
+                & .heart {
+                    margin-top: 10px;
+                }
+
+                & .saloonAddreas {
+                    font-size: 13px;
+                }
+
+                & .directionsaloon {
+
+                    & span {
+                        & .image {
+                            width: 30px;
+                            height: 30px;
+                        }
+
+                        & img {}
+
+                        & a {
+                            font-size: 13px;
+                        }
+                    }
+                }
+
+                & .typeSaloon {
+                    font-size: 13px;
+
+                    & span {
+                        & .image {
+                            width: 30px;
+                            height: 30px;
+                        }
+
+                        & img {}
+                    }
+                }
+
+                & .shadualtime {
+
+                    & span {
+                        font-size: 13px;
+
+                        & .image {
+                            width: 30px;
+                            height: 30px;
+                        }
+
+                        & img {}
+                    }
+                }
+
+                & .buttonGroup {
+                    text-align: start !important;
+
+                    & button {
+                        font-size: 13px;
+
+                    }
+                }
+            }
+        }
+
+        & .section2 {
+            & .leftSideContent {
+                & .searchforminput {
+                    & .input-group {
+
+                        & .inputsearch {}
+
+                        & .input-group-text {}
+                    }
+                }
+
+                & .leftSidetabs {
+                    & .navInnerPills {
+                        & .navInnerItem {
+                            & .navInnerLink {
+                                font-size: 13px;
+                                padding: 8px 15px;
+
+                                &.active {}
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .middlecontent {
+                & .menutabs {
+                    & .menutabsinnerrow {
+                        & .navPillNav {
+                            padding-bottom: 4px;
+                            overflow: auto;
+                            white-space: nowrap;
+                            flex-wrap: nowrap;
+
+                            & .navItem {
+
+                                & .navLink {
+                                    font-size: 10px;
+                                    height: 30px;
+
+                                    &.active {}
+
+                                }
+                            }
+
+                            &::-webkit-scrollbar {
+                                width: 0px;
+                                height: 2px;
+                            }
+                        }
+
+                        & .middletabsinner {
+                            & .bodytab {
+                                & .accordionsection {
+                                    & .accordion-item {
+
+                                        & .accordion-header {
+
+                                            & .accordion-button {
+                                                font-size: 13px;
+
+                                                &:after {}
+
+                                                & .customIcon {
+                                                    width: 12px;
+                                                    height: 12px;
+
+                                                    &::before,
+                                                    &:after {}
+
+                                                    &:before {
+                                                        height: 12px;
+                                                    }
+
+                                                    &:after {
+                                                        width: 12px;
+                                                        height: 2px;
+                                                    }
+                                                }
+
+                                                &.collapsed {
+                                                    & .customIcon {
+
+                                                        &::before,
+                                                        &:after {}
+
+                                                        &:before {
+                                                            height: 12px;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        & .accordion-body {
+                                            & .heading {
+                                                font-size: 12px;
+                                            }
+
+                                            & .uniongendar {
+                                                width: 10px;
+                                                height: 12px;
+                                            }
+
+                                            & .paymentsection {
+                                                & .payment {
+                                                    font-size: 13px;
+
+                                                    & span {
+                                                        font-size: 9px;
+                                                    }
+                                                }
+
+                                                & .imagetext {
+                                                    & svg {
+                                                        width: 9px;
+                                                        height: 9px;
+                                                    }
+
+                                                    & span {
+                                                        font-size: 11px;
+                                                    }
+                                                }
+                                            }
+
+                                            & .Quantity {
+                                                & .counter {
+                                                    & .count-box {
+                                                        & .plus {
+                                                            width: 20px;
+                                                            height: 20px;
+                                                            font-size: 13px;
+                                                        }
+
+                                                        & .count {
+                                                            width: 20px;
+                                                            height: 20px;
+                                                            font-size: 13px;
+                                                        }
+
+                                                        & .minus {
+                                                            width: 20px;
+                                                            height: 20px;
+                                                            font-size: 13px;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            & .inncrmentDecrement {}
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                & .aboutstabs {
+                    & .aboutHeading {
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: $theme1;
+                    }
+
+                    & .abouttext {
+                        font-size: 12px;
+                        font-weight: 400;
+                        color: black;
+                        line-height: 20px;
+                        text-align: justify;
+                    }
+                }
+
+                & .reviewtabs {
+                    & .reviewcol {
+                        & .reviewInnerRow {
+                            & .userImage {
+                                width: 40px;
+                                height: 40px;
+
+                                & img {}
+                            }
+
+                            & .usernameDate {
+                                & .commentusername {
+                                    font-size: 13px;
+                                }
+
+                                & .usercommmentTime {
+                                    font-size: 10px;
+                                }
+                            }
+
+                            & .starreating {
+                                & .starList {
+
+                                    & li {}
+                                }
+
+                                & .usrefoundreview {}
+                            }
+
+                            & .commentText {
+                                font-size: 12px;
+                            }
+
+                            & .prosstext {
+                                font-size: 12px;
+
+                                & strong {
+                                    font-size: 13px;
+                                }
+                            }
+
+                            & .constext {
+                                font-size: 12px;
+
+                                & strong {
+                                    font-size: 13px;
+                                }
+                            }
+
+                            & .likeunlikeGroup {
+                                & .likebtn {
+
+                                    & svg {}
+
+                                    & .textspan {
+                                        font-size: 11px;
+                                    }
+
+                                    &:active {}
+                                }
+
+                                & .unlikebtn {
+                                    & svg {}
+
+                                    & span {
+                                        font-size: 11px;
+                                    }
+
+                                    &:active {}
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            & .rightSideContent {
+                & .innerrighttab {
+                    & .navpill {
+
+                        & .navItem {
+
+                            &.active {
+                                & .navLink {}
+
+                                &~.navItem {
+                                    & .navLink {
+                                        &::before {
+                                            width: 10px;
+                                            height: 10px;
+                                        }
+                                    }
+                                }
+                            }
+
+                            & .navLink {
+                                font-size: 12px;
+
+                                &.active {}
+
+                                &::before {}
+                            }
+                        }
+                    }
+
+                    & .cartside {
+                        & .addContentt {
+
+                            & .leftSideContent {
+                                & .carditemHeading {
+
+                                    font-size: 11px;
+                                }
+
+                                & .imagetimegender {
+                                    gap: 0.2rem;
+
+                                    & .image {}
+
+                                    & .time {
+                                        font-size: 10px;
+                                    }
+
+                                    & .gender {
+                                        font-size: 10px;
+                                    }
+                                }
+
+                            }
+
+                            & .rightSideContent {
+                                & .discount {
+                                    font-size: 10px;
+                                }
+
+                                & .payment {
+                                    font-size: 12px;
+                                }
+
+                                & .removebtn {
+                                    width: 15px;
+                                    height: 30px;
+
+                                    & img {
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                }
+                            }
+                        }
+
+                        & .footer {
+
+                            & .totalitems {
+                                font-size: 10px;
+                            }
+
+                            & .paymenttotal {
+                                font-size: 15px;
+                            }
+
+                            & .buttonfooter {
+                                & .Schedulebtn {
+                                    font-size: 10px;
+                                    padding: 8px 16px;
+                                }
+                            }
+                        }
+                    }
+
+                    & .Schedule {
+                        & .selectedtimedate {
+
+                            & .selectDate {
+                                font-size: 11px;
+                            }
+
+                            & .month {
+                                font-size: 13px;
+                            }
+
+                            & .datetimeContent {
+                                & .option {
+
+                                    & input {}
+
+                                    & span {
+                                        font-size: 13px;
+
+                                        & .time {}
+                                    }
+
+                                    & input:checked+span {
+
+                                        &:hover,
+                                        &:focus,
+                                        &:active {}
+                                    }
+
+                                    & .btn-option {
+
+                                        &:hover,
+                                        &:focus,
+                                        &:active {}
+
+                                        &.opectiontime {
+                                            width: auto;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        & .footer {
+
+                            & .totalitems {
+                                font-size: 10px;
+                            }
+
+                            & .paymenttotal {
+                                font-size: 15px;
+                            }
+
+                            & .buttonfooter {
+
+                                & .Schedulebtn {
+                                    font-size: 10px;
+                                    padding: 10px 10px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
