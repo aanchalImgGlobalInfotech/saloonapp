@@ -46,7 +46,6 @@ function UserProfile() {
 
     for (var key in value) {
       formdata.append(key, value[key]);
-      console.log(key, value[key]);
     }
     console.log(formdata, "formdataaaaaa");
     const res = await postformdata("user-Edit-Profile", formdata);

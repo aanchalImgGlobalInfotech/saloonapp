@@ -22,29 +22,27 @@ function CartAdd({
   const coupid = useSelector((state) => state.CouponItem);
   const value1 = localStorage.getItem("cartid");
   const navigate = useNavigate();
-  const [data, setdata] = useState([]);
-  const [alldays, setAlldays] = useState([]);
-  const [OderId, setOderId] = useState([]);
-
-  const [currentTime, setCurrentTime] = useState("");
-  const [sheduledata, setsheduleData] = useState([]);
+  // const [data, setdata] = useState([]);
+  // const [alldays, setAlldays] = useState([]);
+  // const [OderId, setOderId] = useState([]);
+  const [clikedDate, setClikedDate] = useState(new Date(Date.now()).toISOString());
+  const [sheduledata, setsheduleData] = useState(
+    value[0]?.ProfileInfo?.workingday
+  );
   const [slots, setSlots] = useState({
     time: "",
     date: "",
   });
-
-  var timeStops = [];
-  const setSlot = (el) => {
-    const uniqueNames = timeStops.filter((val) => val.includes(el));
-    console.log("aaa", uniqueNames[0]);
-    setSlots({ ...slots, time: uniqueNames[0] });
-  };
+  const stime = value[0]?.ProfileInfo.starting_time;
+  const etime = value[0]?.ProfileInfo.ending_time;
   const [total, settoatal] = useState("");
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState("cart");
-
-  const Data = useSelector((state) => state.payment);
-  console.log(sheduledata, "this is sheduele data");
+  var timeStops = [];
+  const setSlot = (el) => {
+    const uniqueNames = timeStops.filter((val) => val.includes(el));
+    setSlots({ ...slots, time: uniqueNames[0] });
+  };
   const removeCart = async (id, serviceId) => {
     const res = await getData(
       `remove-service-from-cart/?id=${id}&serviceId=${serviceId}`
@@ -55,32 +53,54 @@ function CartAdd({
     }
   };
 
-  let weekDays = [0, 1, 2, 3, 4, 5, 6, 7].map((d) => ({
+  let weekDays = [0, 1, 2, 3, 4, 5, 6].map((d) => ({
     day: new Date(Date.now() + d * 24 * 60 * 60 * 1000)
       .toLocaleDateString("en-US", { weekday: "long" })
       .slice(0, 9),
     date: new Date(Date.now() + d * 24 * 60 * 60 * 1000).toISOString(),
   }));
 
-  const scheduleArray = sheduledata.map((el) => {
-    const matchedDays = weekDays.filter((day1) =>el.includes(day1.day));
-    console.log('matchedDays', matchedDays)
-    if (matchedDays.length > 0) {
-      return {
-        day: matchedDays[0].day,
-        date:matchedDays[0].date,
-      };
-    } 
-  }); ;  
+  // const scheduleArray = sheduledata.map((el) => {
+  //   const matchedDays = weekDays.filter((day1) => el.includes(day1.day));
+  //   if (matchedDays.length > 0) {
+  //     return {
+  //       day: matchedDays[0].day,
+  //       date: matchedDays[0].date,
+  //     };
+  //   }
+  // });
 
-   console.log('kkknnnnn', scheduleArray)
-  var startTime = moment().startOf("hour");
-  var endTime = moment().utc().set({ hour: 15 });
-
-  while (startTime <= endTime) {
-    timeStops.push(new moment(startTime).format("hh:mm a"));
-    startTime.add(15, "minutes");
+  var startTime1 = stime;
+  const endTime1 = etime;
+  const durationInMinutes = "15";
+  const timeArry = [];
+  while (startTime1 <= endTime1) {
+    startTime1 = moment(startTime1, "HH:mm:ss ")
+      .add(durationInMinutes, "minutes")
+      .format("HH:mm ");
+    timeArry.push(startTime1);
   }
+  console.log("qwertrewadrewd,", timeArry);
+
+  let currenttime = new Date().toTimeString().slice(0, 5);
+  let a = [];
+  if (new Date(Date.now()).toISOString().slice(0, 10) == clikedDate.slice(0, 10)) {
+    a = timeArry?.filter((el) => el >= currenttime);
+  } else {
+    a = timeArry;
+  }
+
+  // var startTime = moment().startOf("hour");
+  // var endTime = moment("22:50").utc().set({ hour: 20 });
+  // console.log("momentmoment", moment("07:40").format());
+
+  // console.log("startTime", startTime);
+  // console.log("endTime", endTime);
+
+  // while (startTime <= endTime) {
+  //   timeStops.push(new moment(startTime).format("hh:mm a"));
+  //   startTime.add(15, "minutes");
+  // }
 
   const hanldeSlot = async () => {
     var body = {
@@ -92,10 +112,7 @@ function CartAdd({
       `Schedule-your-visit?saloonId=${value[0]?._id ? value[0]?._id : ""}`,
       body
     );
- 
-    setsheduleData(res?.data);
   };
-
 
   const cheoutpage = async () => {
     const path = `Checkout?saloonId=${
@@ -104,24 +121,15 @@ function CartAdd({
     const res = await getData(path);
 
     settoatal(...total, res.data[0]?.totalamount);
-    // CreateRazor(res.da
-
     dispatch(checkoutvalues(res.data));
     if (res.status) {
       if (slots.time == "") {
         alert("please choose date & time !");
       } else {
-        // navigate("/checkout");
+        navigate("/checkout");
       }
     }
   };
-
-  // const checkTimeslots = () => {
-  //   console.log('jjjjjj')
-  // if(slots.time || slots.date == ''){
-  //   alert('please choose date & time !')
-  // }
-  // }
 
   return (
     <>
@@ -306,27 +314,36 @@ function CartAdd({
                   <div className="month text-muted">March</div>
                 </div>
                 {weekDays.map((item, i) => {
-                  console.log('weekdayass' , item)
+                  console.log(sheduledata, "iiiii", item.day);
                   return (
-                    <div className="col-auto datetimeContent px-1 mb-2">
+                    <div
+                      className={`col-auto px-1 mb-2 datetimeContent ${
+                        sheduledata.includes(item.day)
+                          ? "datetimeContent"
+                          : "disabled"
+                      }`}
+                      // style={{ backgroundColor:  sheduledata.includes(item.day)  ? '' : "gray" }}
+                    >
                       <label className="option">
                         <input
-                          type="checkbox"
-                          checked={
-                            item.date.slice(0, 10) == slots.date.slice(0, 10)
-                              ? true
-                              : false
+                          type="radio"
+                          onChange={() => {
+                            setSlots({ ...slots, date: item.date });
+                            setClikedDate(item.date);
+                          }}
+                          disabled={
+                            sheduledata.includes(item.day) ? false : true
                           }
-                          disabled 
                           name="optradio"
+                        
                         />
                         <span
-                          onClick={() =>
-                            setSlots({ ...slots, date: item.date })
-                          }
+                          // onClick={() =>
+                          //   setSlots({ ...slots, date: item.date })
+                          // }
                           className="btn btn-theme1 btn-option"
                         >
-                          <div>{item.day}</div>
+                          <div>{item.day.slice(0, 1)}</div>
                           <div>{item.date.slice(8, 10)}</div>
                         </span>
                       </label>
@@ -337,14 +354,13 @@ function CartAdd({
                 <div className="col-12 py-2">
                   <div className="selectDate">Choose Time Slot</div>
                 </div>
-                {timeStops.map((el) => {
-                  // console.log('elelelelleellelelele', el)
+                {a?.map((el) => {
                   return (
-                    <div className="col-sm-auto col-4 datetimeContent px-2 mb-2">
+                    <div className="col-sm-auto col-4 datetimeContent  px-2 mb-2">
                       <label className="option w-100">
                         <input
                           type="checkbox"
-                          checked={el == slots.time ? true : false}
+                          // checked={el == slots.time ? true : false}
                           name="optradio"
                         />
                         <span
