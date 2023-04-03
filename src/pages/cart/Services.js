@@ -95,7 +95,7 @@ function Services({ couponid }) {
     addressType: "",
     dataCheck: false,
   });
-
+console.log('kkkkkkk', Data[0]?._id)
   const EditId = async (id, parentId) => {
     let saloonId = Data[0]?._id;
     const res = await getData(`add-cart?saloonId=${saloonId}&serviceId=${id}`);
@@ -113,7 +113,6 @@ function Services({ couponid }) {
 
   const handle = async () => {
     const res = await getData("getCategoryListing");
-
     setvalues(res.data);
     if (res.status) {
       let catId = categoryId ? categoryId : res?.data[0]?._id;

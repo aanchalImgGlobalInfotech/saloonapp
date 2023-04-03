@@ -4,16 +4,18 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { postData } from "../../components/apiinstance/Api";
 import { setUsers } from "../../components/redux/redux1/actions";
+import Footer from "../../common/layout/footer";
+import { ToastContainer, toast } from "react-toastify";
 
 function Verifyotp() {
   let location = useLocation();
   const dispatch = useDispatch();
   console.log(location.state);
   const navigate = useNavigate();
-  const [otp, setOtp] = useState([]);
+  const [otp, setOtp] = useState('');
   const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(1);
-
+ const phoneNum = localStorage.getItem('phone')
   useEffect(() => {
     const interval = setInterval(() => {
       if (seconds > 0) {
@@ -35,13 +37,17 @@ function Verifyotp() {
     };
   }, [seconds]);
 
-  const resendOTP = (e) => {
-    setOtp([]);
+  const resendOTP = async(e) => {
+    var body = {
+      phone: phoneNum,
+    };
+    const res = await postData("login", body);
     setMinutes(1);
     setSeconds(1);
   };
   const handleChange = (e) => {
     let a = e.target.value;
+    console.log('ototototppp', a)
     console.log(a);
     setOtp((prev) => prev + a);
     if (e.target.name == "otp4") {
@@ -50,27 +56,36 @@ function Verifyotp() {
   };
 
   const genOtp = async (digit) => {
-    console.log(otp);
     var body = {
       otp: Number(otp + digit),
-      phone: location.state,
+      phone: phoneNum,
     };
     const res = await postData("login-otp-verify", body);
+    if(res.status){
+      toast.success(res.message,{
+        position: toast.POSITION.TOP_RIGHT,})
+        dispatch(setUsers(res.data));
+        setTimeout(() => {
+          navigate("/Dashboard");
+        }, 2000);
+    }else{
+       toast.error(res.message,{
+        position:toast.POSITION.TOP_RIGHT
+       })
+    }
     let token = localStorage.setItem("token", res?.data[1]?.auth);
     console.log(res, "ressssss56789");
-    if (res.status) {
-      dispatch(setUsers(res.data));
-      navigate("/Dashboard");
-    }
     setMinutes(0);
     setSeconds(0);
   };
 
-  console.log("hello");
+
 
   return (
     <div>
       <div className="container-fluid login px-lg-5">
+      <ToastContainer
+        autoClose ='2000'/>
         <div className="login2 h-100">
           <div className="row h-100 align-items-center">
             <div className="col-md-5 col-12  order-md-1 order-2 h-100 d-flex flex-column justify-content-center mt-5 px-sm-5">
@@ -149,7 +164,7 @@ function Verifyotp() {
                                   ? "#DFE3E8"
                                   : "#FF5630",
                             }}
-                            onClick={() => resendOTP()}
+                            onClick={() => {resendOTP(); setOtp('');}}
                           >
                             Resend OTP
                           </button>

@@ -40,7 +40,7 @@ function CartAdd({
   const [isOpen, setIsOpen] = useState("cart");
   var timeStops = [];
   const setSlot = (el) => {
-    const uniqueNames = timeStops.filter((val) => val.includes(el));
+    const uniqueNames = timeStops.filter((val) => val?.includes(el));
     setSlots({ ...slots, time: uniqueNames[0] });
   };
   const removeCart = async (id, serviceId) => {
@@ -52,7 +52,7 @@ function CartAdd({
       subsData(categoryId);
     }
   };
-
+ console.log('value[0]?.ProfileInfo?.workingday',value[0]?.ProfileInfo?.workingday)
   let weekDays = [0, 1, 2, 3, 4, 5, 6].map((d) => ({
     day: new Date(Date.now() + d * 24 * 60 * 60 * 1000)
       .toLocaleDateString("en-US", { weekday: "long" })
@@ -84,7 +84,11 @@ function CartAdd({
     }
   });
   } else {
-    timevalue = timeArry;
+    timevalue = timeArry.filter((el)=>{
+      if(el<=endTime1){
+        return el
+      }
+    })
   }
 
   // var startTime = moment().startOf("hour");
@@ -104,7 +108,6 @@ function CartAdd({
       date: slots.date.slice(0, 10),
       timeslot: slots.time,
     };
-
     const res = await postData(
       `Schedule-your-visit?saloonId=${value[0]?._id ? value[0]?._id : ""}`,
       body
@@ -287,13 +290,13 @@ function CartAdd({
                   return (
                     <div
                       className={`col-auto px-1 mb-2 datetimeContent ${
-                        sheduledata.includes(item.day)
+                        sheduledata?.includes(item.day)
                           ? "datetimeContent"
                           : "disabled"
                       }`}
                 
                     >
-                      <label className="option"  style={{ backgroundColor:  sheduledata.includes(item.day)  ? '' : "gray" }}>
+                      <label className="option"  style={{ backgroundColor:  sheduledata?.includes(item.day)  ? '' : "gray" }}>
                         <input
                           type="radio"
                           onChange={() => {
@@ -301,7 +304,7 @@ function CartAdd({
                             setClikedDate(item.date);
                           }}
                           disabled={
-                            sheduledata.includes(item.day) ? false : true
+                            sheduledata?.includes(item.day) ? false : true
                           }
                           name="optradio"
                         

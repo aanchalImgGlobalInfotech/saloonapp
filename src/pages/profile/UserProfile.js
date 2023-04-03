@@ -12,6 +12,10 @@ import Header from "../../common/layout/header/header";
 import { setUsers } from "../../components/redux/redux1/actions";
 import { useDispatch, useSelector } from "react-redux";
 import HeaderHome from "../../common/layout/header/HeaderHome";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import Footer2 from "../../common/layout/header/Footer2";
+import Footer from "../../common/layout/footer";
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -40,7 +44,7 @@ function UserProfile() {
     gender: Data[0]?.gender,
     file: Data?.image,
   });
-
+ 
   const handler = async (value) => {
     var formdata = new FormData();
 
@@ -49,12 +53,42 @@ function UserProfile() {
     }
     console.log(formdata, "formdataaaaaa");
     const res = await postformdata("user-Edit-Profile", formdata);
+    const resimg = await postformdata("Edit-User-Profile", formdata);
+    if(res.status && resimg.status){
+      toast.success(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+     });
+      }else{
+      toast.error(res.message, {
+         position: toast.POSITION.TOP_RIGHT,
+    });
+      }
     console.log("ress", res);
 
     const profile = await getData("user-Profile");
     dispatch(setUsers(profile.data));
   };
 
+  const ImageApi = async (value) => {
+    var formdata = new FormData();
+    for (var key in value) {
+      formdata.append(key, value[key]);
+      console.log(key, value[key]);
+    }
+    console.log(formdata, "formdataaaaaa");
+    const res = await postformdata("Edit-User-Profile", formdata);
+    if(res.status){
+          toast.success(res.message, {
+            position: toast.POSITION.TOP_RIGHT,
+         });
+          }else{
+          toast.error(res.message, {
+             position: toast.POSITION.TOP_RIGHT,
+        });
+          }
+    const profile = await getData("user-Profile");
+    dispatch(setUsers(profile.data));
+  };
   function logout() {
     localStorage.removeItem("token");
     navigate("/login");
@@ -121,6 +155,8 @@ function UserProfile() {
   return (
     <div>
       <HeaderHome />
+      <ToastContainer
+      autoClose ='2000'/>
       <section className="container-fluid profilepage py-5 bg-dark">
         <div className="row">
           <div className="col-12">
@@ -934,7 +970,7 @@ function UserProfile() {
             <Formik
               initialValues={defaultvalues}
               validationSchema={validationschema}
-              onSubmit={(value) => handler(value)}
+              onSubmit={(value) =>{ handler(value)}}
             >
               {(props) => {
                 return (
@@ -1113,6 +1149,8 @@ function UserProfile() {
                             <button
                               className="btn bg-theme1 fw-bold text-white btnsave  me-md-2 rounded-4 px-4"
                               type="submit"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
                             >
                               Save Changes
                             </button>
@@ -1285,443 +1323,8 @@ function UserProfile() {
 
       {/* Profile Page end */}
       {/* herewe we Section start */}
-      <section className="container-fluid wherWeSection bg-dark">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="heading py-3">Where We Are</div>
-            </div>
-            <div className="col-12">
-              <ul className="where-we-list">
-                <li>
-                  <a href="#">Greater Noida West</a>
-                </li>
-                <li>
-                  <a href="#">Greater Noida</a>
-                </li>
-                <li>
-                  <a href="#">Faridabad</a>
-                </li>
-                <li>
-                  <a href="#">Delhi</a>
-                </li>
-                <li>
-                  <a href="#">Ghaziabad</a>
-                </li>
-                <li>
-                  <a href="#">Lucknow</a>
-                </li>
-                <li>
-                  <a href="#">Meerut</a>
-                </li>
-                <li>
-                  <a href="#">Agra</a>
-                </li>
-                <li>
-                  <a href="#">Chandigarh</a>
-                </li>
-                <li>
-                  <a href="#">Mohali</a>
-                </li>
-                <li>
-                  <a href="#">Zirakpur</a>
-                </li>
-                <li>
-                  <a href="#">Jalandhar City</a>
-                </li>
-                <li>
-                  <a href="#">Aligarh</a>
-                </li>
-                <li>
-                  <a href="#">Jaipur</a>
-                </li>
-                <li>
-                  <a href="#">Pune</a>
-                </li>
-                <li>
-                  <a href="#">Bhopal</a>
-                </li>
-                <li>
-                  <a href="#">Ludhiana</a>
-                </li>
-                <li>
-                  <a href="#">Khair</a>
-                </li>
-                <li>
-                  <a href="#">Panchkula</a>
-                </li>
-                <li>
-                  <a href="#">Gorakhpur</a>
-                </li>
-                <li>
-                  <a href="#">Daman</a>
-                </li>
-                <li>
-                  <a href="#">Haridwar</a>
-                </li>
-                <li>
-                  <a href="#">Roorkee</a>
-                </li>
-                <li>
-                  <a href="#">Dehradun</a>
-                </li>
-                <li>
-                  <a href="#">Kanpur</a>
-                </li>
-                <li>
-                  <a href="#">Unnao</a>
-                </li>
-                <li>
-                  <a href="#">Karnal</a>
-                </li>
-                <li>
-                  <a href="#">Kurukshetra</a>
-                </li>
-                <li>
-                  <a href="#">Panipat</a>
-                </li>
-                <li>
-                  <a href="#">Amritsar</a>
-                </li>
-                <li>
-                  <a href="#">Kota</a>
-                </li>
-                <li>
-                  <a href="#">Gurugram</a>
-                </li>
-                <li>
-                  <a href="#">Noida</a>
-                </li>
-              </ul>
-              <div className="tabswhere py-3">
-                <ul
-                  className="nav nav-pills mb-3 pillcontent"
-                  id="pills-tab"
-                  role="tablist"
-                >
-                  <li className="nav-item navitem" role="presentation">
-                    <button
-                      className="nav-link navLink active"
-                      id="pills-saloon-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-saloon"
-                      type="button"
-                      role="tab"
-                      aria-controls="pills-saloon"
-                      aria-selected="true"
-                    >
-                      Saloon
-                    </button>
-                  </li>
-                  <li className="nav-item navitem" role="presentation">
-                    <button
-                      className="nav-link navLink"
-                      id="pills-parlour-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-parlour"
-                      type="button"
-                      role="tab"
-                      aria-controls="pills-parlour"
-                      aria-selected="false"
-                    >
-                      Parlour
-                    </button>
-                  </li>
-                  <li className="nav-item navitem" role="presentation">
-                    <button
-                      className="nav-link navLink"
-                      id="pills-spa-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-spa"
-                      type="button"
-                      role="tab"
-                      aria-controls="pills-spa"
-                      aria-selected="false"
-                    >
-                      Spa
-                    </button>
-                  </li>
-                </ul>
-                <div className="tab-content" id="pills-tabContent">
-                  <div
-                    className="tab-pane fade show active"
-                    id="pills-saloon"
-                    role="tabpanel"
-                    aria-labelledby="pills-saloon-tab"
-                    tabIndex={0}
-                  >
-                    <div>
-                      <ul className="where-we-list category_list">
-                        <li>
-                          <a href={3}>Salon in Greater Noida West</a>
-                        </li>
-                        <li>
-                          <a href={3}>Salon in Greater Noida</a>
-                        </li>
-                        <li>
-                          <a href={3}>Salon in Faridabad</a>
-                        </li>
-                        <li>
-                          <a href={3}>Salon in Delhi</a>
-                        </li>
-                        <li>
-                          <a href={3}>Salon in Ghaziabad</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Lucknow</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Meerut</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Agra</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Chandigarh</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Mohali</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Jalandhar City</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Aligarh</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Jaipur</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Pune</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Bhopal</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Ludhiana</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Khair</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Panchkula</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Gorakhpur</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Daman</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Haridwar</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Roorkee</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Dehradun</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Kanpur</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Unnao</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Karnal</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Kurukshetra</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Panipat</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Amritsar</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Kota</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Gurugram</a>
-                        </li>
-                        <li>
-                          <a href="#">Salon in Noida</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div
-                    className="tab-pane fade"
-                    id="pills-parlour"
-                    role="tabpanel"
-                    aria-labelledby="pills-parlour-tab"
-                    tabIndex={0}
-                  >
-                    <div>
-                      <ul className="where-we-list category_list">
-                        <li>
-                          <a href="#">Parlour in Greater Noida West</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Greater Noida</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Faridabad</a>
-                        </li>
-                        <li>
-                          <a href="#i">Parlour in Delhi</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Ghaziabad</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Lucknow</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Meerut</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Agra</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Chandigarh</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Mohali</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Zirakpur</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Jalandhar City</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Aligarh</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Jaipur</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Pune</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Bhopal</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Ludhiana</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Daman</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Haridwar</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Roorkee</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Dehradun</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Kanpur</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Unnao</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Karnal</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Kurukshetra</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Panipat</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Amritsar</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Kota</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Gurugram</a>
-                        </li>
-                        <li>
-                          <a href="#">Parlour in Noida</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div
-                    className="tab-pane fade"
-                    id="pills-spa"
-                    role="tabpanel"
-                    aria-labelledby="pills-spa-tab"
-                    tabIndex={0}
-                  >
-                    <div>
-                      <ul className="where-we-list category_list">
-                        <li>
-                          <a href="#">Spa in Greater Noida</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Faridabad</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Delhi</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Ghaziabad</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Lucknow</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Chandigarh</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Mohali</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Zirakpur</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Jalandhar City</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Jaipur</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Pune</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Ludhiana</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Daman</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Roorkee</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Dehradun</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Gurugram</a>
-                        </li>
-                        <li>
-                          <a href="#">Spa in Noida</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Footer2/>
+      <Footer/>
     </div>
   );
 }
