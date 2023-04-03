@@ -1,0 +1,2036 @@
+@charset "UTF-8";
+
+.heroSection {
+
+    & .leftSidecontent {
+        & .heading {
+            font-size: 40px;
+            line-height: 57px;
+            font-weight: 900;
+            flex-direction: row-reverse;
+            display: flex;
+            background: linear-gradient(to right, #fff 0%, #f0a834 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+        }
+
+        & .perograph {
+            font-size: 16px;
+            color: #fff;
+            line-height: 30px;
+            text-align: end;
+        }
+
+        & .contactbtn {
+            &:active {
+                border: none;
+            }
+
+            & .buttoncontact {
+                font-size: 16px;
+                color: $white;
+                background-color: $theme1;
+                border-radius: 17px;
+                font-weight: 600;
+                transition: all 0.3s ease-in-out;
+                border-color: $theme1;
+
+                &:hover {
+                    background-color: $theme1;
+                    color: $white;
+                }
+            }
+        }
+
+        & .cardsectionhero {
+            & .incard {
+                & .cardInner {
+                    background-image: linear-gradient(45deg, rgb(15 15 16), rgba(0, 0, 0, 0.54));
+                    border-radius: 0 8px 8px 0;
+                }
+
+                & .headingcard {
+                    font-size: 22px;
+                    color: #efa834;
+                    line-height: 38px;
+                }
+
+                & .textperograph {
+                    font-size: 14px;
+                    color: #fff;
+                    line-height: 24px;
+                }
+                &.cardHover {
+                    cursor: pointer;
+                    & .tabsOuter {
+                        transition: ease-in-out .3s;
+                        transform: translateY(-84px);
+                        opacity: 0;           
+                    }
+                    &:hover {
+                        & .tabsOuter {
+                            height: unset;
+                            transform: translateY(0);
+                            opacity: 1 !important;
+                            z-index: 0 !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    & .bannervideo {
+        & .bannervideo {
+            height: 100%;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        & .banner .bannervideo video {
+            width: auto;
+            min-height: 100%;
+            position: relative;
+            top: -200px;
+        }
+
+        & .banner .bannervideo video.phone {
+            display: none;
+        }
+    }
+
+    & .maincontainerleft {
+        left: 0;
+        right: 0;
+        top: 100px;
+    }
+
+}
+
+.heroButton{
+    bottom: 50px;
+    & ul {
+        & .heroItems {
+            width: 25%;
+            & a {
+                transition: ease-in-out .3s;
+                &:hover {
+                    background-color: $theme1 !important;
+                }
+            }
+        }
+    }
+}
+.cardSection {
+    & .heading {
+        font-size: 22px;
+        font-weight: 900;
+        color: #efa834;
+    }
+
+    & .cardmain {
+        & .card-image {
+            transition: 0.4s ease;
+
+            &:hover {
+                transform: scale(1.08);
+            }
+        }
+    }
+}
+
+.businesscard {
+    & .tabsection {
+        & .navPill {
+            padding-top: 20px;
+            padding-bottom: 20px;
+
+            & .navitem {
+                & .innernav {
+                    & .navlink {
+                        color: $white;
+                        font-size: 16px;
+                        font-weight: 600;
+
+                        &.active {
+                            background-color: transparent;
+                            color: #efa834;
+                        }
+                    }
+                }
+            }
+        }
+
+        & .headingsection {
+            font-size: 25px;
+            font-weight: 900;
+            line-height: 26px;
+            color: #efa834;
+            letter-spacing: 5px;
+        }
+
+        & .subHeading {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 26px;
+            color: $white;
+            letter-spacing: 20px;
+
+        }
+
+        & .maincard {
+            & .imagecolleft {
+                & img {}
+            }
+
+            & .colRight {
+                & .card-body {
+                    & .card-title {
+                        font-size: 25px;
+                        font-weight: 600;
+                        color: #efa834;
+                        line-height: 30px;
+                    }
+
+                    & .card-text {
+                        color: #5a5a5a;
+                        font-size: 16px;
+                        line-height: 23px;
+                    }
+
+                    & .headingcard {
+                        font-size: 25px;
+                        line-height: 23px;
+                        color: #efa834;
+                        font-weight: 600;
+                        margin-bottom: 18px;
+                    }
+
+                    & .card-perograph {
+                        font-size: 16px;
+                        line-height: 23px;
+                        color: #5a5a5a;
+                    }
+
+                    & .formsection {}
+                }
+            }
+        }
+    }
+}
+
+.whyChooseSection {
+    & .heading {
+        font-size: 22px;
+        font-weight: 900;
+        color: #efa834;
+    }
+
+    & .maincardchosse {
+        & .card-body {
+            & .imagecard {
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 25px;
+                background: linear-gradient(145deg, #000 0%, #efa834 100%);
+                position: relative;
+
+                & img {
+                    width: 50%;
+                    z-index: 1;
+                }
+
+                &::after {
+                    content: "";
+                    width: 70px;
+                    height: 70px;
+                    border-radius: 50%;
+                    background: linear-gradient(145deg, rgb(239 168 52 / 71%) 0%, rgb(239 168 52 / 71%) 100%);
+                    position: absolute;
+                    inset: 0;
+                    margin: auto;
+                    z-index: 0;
+                    animation: runpulse 3s infinite linear;
+                    animation-delay: 1s;
+                    opacity: 1;
+                }
+
+                @keyframes runpulse {
+                    50% {
+                        transform: scale(1.2);
+                    }
+
+                }
+            }
+
+            & .card-title {
+                font-size: 19px;
+                font-weight: 600;
+                color: #efa834;
+
+            }
+
+            & .card-text {
+                font-size: 14px;
+                font-weight: 500;
+                color: #5a5a5a;
+            }
+        }
+    }
+}
+
+.sectionreating {
+    & .leftSideimage {
+        filter: brightness(0.5);
+
+        & img {}
+    }
+
+    & .rightside {
+        & .headingreating {
+            font-size: 25px;
+            line-height: 33px;
+            color: #efa834;
+            font-weight: 600;
+
+        }
+
+        & .perograph {
+            font-size: 16px;
+            line-height: 25px;
+            color: #eee;
+            font-weight: 500;
+        }
+
+        & .maincard {
+            & .leftside {
+                & .rettingHeadingsection {
+                    & .reating {
+                        font-size: 60px;
+                        font-weight: 900;
+                        background: linear-gradient(to right, #f1af46 0%, #f0a834 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: rgba(0, 0, 0, 0);
+                    }
+
+                    & .outufreating {
+                        display: flex;
+                        align-items: end;
+                        font-size: 13px;
+                        font-weight: 600;
+                        color: black;
+                    }
+                }
+            }
+
+            & .rightSide {
+                & .card-body {
+                    & .ratetext {}
+
+                    & .progress {
+                        width: 90%;
+                        margin-left: auto;
+                        height: 8px;
+                        background-color: #1d1d1d;
+                        border-color: #1d1d1d;
+
+                        & .progress-bar {
+                            background-color: #efa834;
+                        }
+                    }
+                }
+            }
+
+            & .buttonreating {
+                & .buttoncustom {
+                    // width: 40%;
+                }
+            }
+        }
+    }
+}
+
+.swipperSection{
+    & .swipperslide{
+        & .innerswipper{
+            & .swiper-slide{
+                & .swipperimage{
+                    min-height: 70px;
+                    min-width: 180px;
+                    & .image{
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+.wherWeSection {
+    background-image: linear-gradient(45deg, rgb(0 0 0 / 59%), rgb(0 0 0 / 40%)), url(../img/index/Footer.png);
+    // background-image: url(../img/index/Footer.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    & .heading {
+        font-size: 22px;
+        font-weight: 900;
+        color: #efa834;
+    }
+
+    & .where-we-list {
+        margin: unset !important;
+        list-style: none;
+        padding: 0;
+
+        & li {
+            display: inline-block !important;
+            margin: 0 0 11px !important;
+
+            & a {
+                padding: 0 7px;
+                color: $white;
+                display: block;
+                border-right: solid 1px $theme1 ;
+                line-height: 16px;
+                font-size: 14px;
+                font-weight: 300;
+                text-decoration: none;
+                transition: all 0.3s ease-in-out;
+
+                &:hover {
+                    color: $theme1;
+                }
+            }
+        }
+    }
+
+    & .tabswhere {
+
+        & .pillcontent {
+            & .navitem {
+                & .navLink {
+                    color: white;
+
+                    &.active {
+                        background-color: #efa834;
+                    }
+                }
+            }
+        }
+
+        & .where-we-list {
+            margin: unset;
+            list-style: none;
+            padding: 0;
+
+            & li {
+                display: inline-block !important;
+                margin: 0 0 11px;
+
+                & a {
+                    padding: 0 7px;
+                    color: $white;
+                    display: block;
+                    border-right: solid 1px $theme1;
+                    line-height: 16px;
+                    font-size: 14px;
+                    font-weight: 300;
+                    text-decoration: none;
+                    transition: all 0.3s ease-in-out;
+
+                    &:hover {
+                        color: $theme1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.modal {
+    &.modalMain {
+        backdrop-filter: blur(8px);
+        & .modal-dialog {
+            & .modal-content{
+                & .modal-header{
+                    & .modal-title{
+                    }
+                    & .btn-close {
+                        filter: invert(1);
+                        font-size: 12px;
+                    }
+                }
+                & .modal-body {
+                    & .categoryOuter{
+                        & .imgouter{
+                            height: 170px;
+                            & img {
+                                object-fit: cover;
+                                object-position: top center;
+                            }
+                        }
+                        & .title{
+                            & span {
+                                inset: 0;
+                                margin: auto;
+                                width: 0;
+                                height: 0;
+                                display: flex;
+                                font-size: 0;
+                                align-items: center;
+                                justify-content: center;
+                                background: rgba($dark, 0.5);
+                                transition: ease-in-out .3s;
+                            }
+                        }
+                        &:hover {
+                            & .title{
+                                & span {
+                                    width: 100%;
+                                    height: 100%;
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ********************Responsive****************
+@media only screen and (max-width: 1400px) {
+    .heroSection {
+
+        & .leftSidecontent {
+            & .heading {}
+    
+            & .perograph {}
+    
+            & .contactbtn {
+                &:active {}
+    
+                & .buttoncontact {
+    
+                    &:hover {}
+                }
+            }
+    
+            & .cardsectionhero {
+                & .incard {
+    
+                    & .headingcard {}
+    
+                    & .textperograph {}
+    
+                }
+            }
+        }
+    
+        & .bannervideo {
+            & .bannervideo {}
+    
+            &::before {}
+    
+            & .banner .bannervideo video {}
+    
+            & .banner .bannervideo video.phone {}
+        }
+    
+        & .maincontainerleft {
+        }
+    
+    }
+    
+}
+@media only screen and (max-width: 1200px) {
+    .heroSection {
+
+        & .leftSidecontent {
+            & .heading {
+                flex-direction: unset;
+                font-size: 23px;
+                line-height: 35px;
+            }
+
+            & .perograph {
+                text-align: left;
+                font-size: 14px;
+                width: 50%;
+            }
+
+            & .contactbtn {
+                text-align: left  !important;
+
+                &:active {}
+
+                & .buttoncontact {
+                    padding: 15px 24px;
+                    
+
+                    &:hover {}
+                }
+            }
+
+            & .cardsectionhero {
+                & .incard {
+
+                    & .headingcard {
+                        font-size: 14px;
+                    }
+
+                    & .textperograph {
+                        line-height: 20px;
+                        font-size: 12px;
+                    }
+
+                }
+
+                & .cardimageH {
+                    height: 100%;
+                    max-height: 200px;
+                }
+            }
+
+            &.leftSidecontent2 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(50px, 90px);
+                flex: 0 0 86%;
+                width: 86%;
+            }
+        }
+
+        & .bannervideo {
+
+
+            & .bannervideo {}
+
+            &::before {}
+
+            & .banner .bannervideo video {}
+
+            & .banner .bannervideo video.phone {}
+        }
+
+        & .maincontainerleft {
+            position: unset !important;
+            transform: unset;
+        }
+
+    }
+
+    .cardSection {
+        & .heading {}
+
+        & .cardmain {
+            & .card-image {
+
+                &:hover {}
+            }
+        }
+    }
+
+    .businesscard {
+        & .tabsection {
+            & .navPill {
+                align-items: start !important;
+
+                & .navitem {
+                    & .innernav {
+                        & .navlink {
+                            padding-left: 0;
+                            margin-top: 10px;
+
+                            &.active {}
+                        }
+                    }
+                }
+            }
+
+            & .headingsection {
+                & .heading {
+                    font-size: 22px;
+                    font-weight: 900;
+                    color: #efa834;
+                }
+
+                & .subHeading {
+                    text-align: left !important;
+                    letter-spacing: 12px;
+                    font-size: 18px;
+                }
+            }
+
+
+
+            & .maincard {
+                & .imagecolleft {
+                    border-radius: 8px;
+
+                    & img {}
+                }
+
+                & .colRight {
+                    & .card-body {
+                        & .card-title {
+                            font-size: 18px;
+                        }
+
+                        & .card-text {
+                            font-size: 14px;
+                            line-height: 21px;
+                        }
+
+                        & .buttoncustom {
+                            font-size: 14px;
+                            padding: 9px 20px;
+                        }
+
+                        & .headingcard {
+                            font-size: 18px;
+                        }
+
+                        & .card-perograph {
+                            font-size: 14px;
+                        }
+
+                        & .formsection {
+                            & .forminput {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .whyChooseSection {
+        & .heading {}
+
+        & .maincardchosse {
+            & .card-body {
+                & .imagecard {
+
+                    & img {}
+
+                }
+
+                & .card-title {
+                    font-size: 18px;
+                }
+
+                & .card-text {}
+            }
+        }
+    }
+
+    .sectionreating {
+        & .leftSideimage {
+
+            & img {}
+        }
+
+        & .rightside {
+            & .headingreating {
+                font-size: 18px;
+                line-height: 29px;
+            }
+
+            & .perograph {
+                font-size: 13px;
+                line-height: 24px;
+            }
+
+            & .maincard {
+                & .leftside {
+                    justify-content: left !important;
+                    padding-left: 10px;
+
+                    & .rettingHeadingsection {
+                        & .reating {}
+
+                        & .outufreating {}
+                    }
+                }
+
+                & .rightSide {
+                    & .card-body {
+                        & .ratetext {}
+
+                        & .progress {
+
+                            & .progress-bar {}
+                        }
+                    }
+                }
+
+                & .buttonreating {
+                    & .buttoncustom {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .wherWeSection {
+        & .heading {}
+
+        & .where-we-list {
+
+            & li {
+
+                & a {}
+            }
+        }
+
+        & .tabswhere {
+            & .pillcontent {
+                & .navitem {
+                    & .navLink {
+                        &.active {}
+                    }
+                }
+            }
+
+            & .where-we-list {
+
+                & li {
+
+                    & a {}
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1100px) {
+    .heroSection {
+
+        & .leftSidecontent {
+            & .heading {
+                flex-direction: row-reverse;
+                font-size: 23px;
+                line-height: 35px;
+            }
+
+            & .perograph {
+                text-align: right;
+                font-size: 14px;
+                width: unset;
+            }
+
+            & .contactbtn {
+                text-align: right !important;
+
+                &:active {}
+
+                & .buttoncontact {
+                    padding: 15px 24px;
+
+                    &:hover {}
+                }
+            }
+
+            & .cardsectionhero {
+                & .incard {
+
+                    & .headingcard {
+                        font-size: 14px;
+                    }
+
+                    & .textperograph {
+                        line-height: 20px;
+                        font-size: 12px;
+                    }
+
+                }
+
+                & .cardimageH {
+                    height: 100%;
+                    max-height: 200px;
+                }
+            }
+
+            &.leftSidecontent2 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(50px, 90px);
+                flex: 0 0 86%;
+                width: 86%;
+            }
+        }
+
+        & .bannervideo {
+
+
+            & .bannervideo {}
+
+            &::before {}
+
+            & .banner .bannervideo video {}
+
+            & .banner .bannervideo video.phone {}
+        }
+
+        & .maincontainerleft {
+            position: unset !important;
+            transform: unset;
+        }
+
+    }
+
+    .cardSection {
+        & .heading {}
+
+        & .cardmain {
+            & .card-image {
+
+                &:hover {}
+            }
+        }
+    }
+
+    .businesscard {
+        & .tabsection {
+            & .navPill {
+                align-items: start !important;
+
+                & .navitem {
+                    & .innernav {
+                        & .navlink {
+                            padding-left: 0;
+                            margin-top: 10px;
+
+                            &.active {}
+                        }
+                    }
+                }
+            }
+
+            & .headingsection {
+                & .heading {
+                    font-size: 22px;
+                    font-weight: 900;
+                    color: #efa834;
+                }
+
+                & .subHeading {
+                    text-align: left !important;
+                    letter-spacing: 12px;
+                    font-size: 18px;
+                }
+            }
+
+
+
+            & .maincard {
+                & .imagecolleft {
+                    border-radius: 8px;
+
+                    & img {}
+                }
+
+                & .colRight {
+                    & .card-body {
+                        & .card-title {
+                            font-size: 18px;
+                        }
+
+                        & .card-text {
+                            font-size: 14px;
+                            line-height: 21px;
+                        }
+
+                        & .buttoncustom {
+                            font-size: 14px;
+                            padding: 9px 20px;
+                        }
+
+                        & .headingcard {
+                            font-size: 18px;
+                        }
+
+                        & .card-perograph {
+                            font-size: 14px;
+                        }
+
+                        & .formsection {
+                            & .forminput {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .whyChooseSection {
+        & .heading {}
+
+        & .maincardchosse {
+            & .card-body {
+                & .imagecard {
+
+                    & img {}
+
+                }
+
+                & .card-title {
+                    font-size: 18px;
+                }
+
+                & .card-text {}
+            }
+        }
+    }
+
+    .sectionreating {
+        & .leftSideimage {
+
+            & img {}
+        }
+
+        & .rightside {
+            & .headingreating {
+                font-size: 18px;
+                line-height: 29px;
+            }
+
+            & .perograph {
+                font-size: 13px;
+                line-height: 24px;
+            }
+
+            & .maincard {
+                & .leftside {
+                    justify-content: left !important;
+                    padding-left: 10px;
+
+                    & .rettingHeadingsection {
+                        & .reating {}
+
+                        & .outufreating {}
+                    }
+                }
+
+                & .rightSide {
+                    & .card-body {
+                        & .ratetext {}
+
+                        & .progress {
+
+                            & .progress-bar {}
+                        }
+                    }
+                }
+
+                & .buttonreating {
+                    & .buttoncustom {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .wherWeSection {
+        & .heading {}
+
+        & .where-we-list {
+
+            & li {
+
+                & a {}
+            }
+        }
+
+        & .tabswhere {
+            & .pillcontent {
+                & .navitem {
+                    & .navLink {
+                        &.active {}
+                    }
+                }
+            }
+
+            & .where-we-list {
+
+                & li {
+
+                    & a {}
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 991.98px) {
+    .heroSection {
+
+        & .leftSidecontent {
+            & .heading {
+                flex-direction: row-reverse;
+                font-size: 23px;
+                line-height: 35px;
+            }
+
+            & .perograph {
+                text-align: right;
+                font-size: 14px;
+            }
+
+            & .contactbtn {
+                text-align: right !important;
+
+                &:active {}
+
+                & .buttoncontact {
+                    padding: 15px 24px;
+
+                    &:hover {}
+                }
+            }
+
+            & .cardsectionhero {
+                & .incard {
+
+                    & .headingcard {
+                        font-size: 14px;
+                    }
+
+                    & .textperograph {
+                        line-height: 20px;
+                        font-size: 12px;
+                    }
+
+                }
+
+                & .cardimageH {
+                    height: 100%;
+                    max-height: 200px;
+                }
+            }
+
+            &.leftSidecontent2 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(50px, 90px);
+                flex: 0 0 86%;
+                width: 86%;
+            }
+        }
+
+        & .bannervideo {
+
+
+            & .bannervideo {}
+
+            &::before {}
+
+            & .banner .bannervideo video {}
+
+            & .banner .bannervideo video.phone {}
+        }
+
+        & .maincontainerleft {
+            position: unset !important;
+            transform: unset;
+        }
+
+    }
+
+    .cardSection {
+        & .heading {}
+
+        & .cardmain {
+            & .card-image {
+
+                &:hover {}
+            }
+        }
+    }
+
+    .businesscard {
+        & .tabsection {
+            & .navPill {
+                align-items: start !important;
+
+                & .navitem {
+                    & .innernav {
+                        & .navlink {
+                            padding-left: 0;
+                            margin-top: 10px;
+
+                            &.active {}
+                        }
+                    }
+                }
+            }
+
+            & .headingsection {
+                & .heading {
+                    font-size: 22px;
+                    font-weight: 900;
+                    color: #efa834;
+                }
+
+                & .subHeading {
+                    text-align: left !important;
+                    letter-spacing: 12px;
+                    font-size: 18px;
+                }
+            }
+
+
+
+            & .maincard {
+                & .imagecolleft {
+                    border-radius: 8px;
+
+                    & img {}
+                }
+
+                & .colRight {
+                    & .card-body {
+                        & .card-title {
+                            font-size: 18px;
+                        }
+
+                        & .card-text {
+                            font-size: 14px;
+                            line-height: 21px;
+                        }
+
+                        & .buttoncustom {
+                            font-size: 14px;
+                            padding: 9px 20px;
+                        }
+
+                        & .headingcard {
+                            font-size: 18px;
+                        }
+
+                        & .card-perograph {
+                            font-size: 14px;
+                        }
+
+                        & .formsection {
+                            & .forminput {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .whyChooseSection {
+        & .heading {}
+
+        & .maincardchosse {
+            & .card-body {
+                & .imagecard {
+
+                    & img {}
+
+                }
+
+                & .card-title {
+                    font-size: 18px;
+                }
+
+                & .card-text {}
+            }
+        }
+    }
+
+    .sectionreating {
+        & .leftSideimage {
+
+            & img {}
+        }
+
+        & .rightside {
+            & .headingreating {
+                font-size: 18px;
+                line-height: 29px;
+            }
+
+            & .perograph {
+                font-size: 13px;
+                line-height: 24px;
+            }
+
+            & .maincard {
+                & .leftside {
+                    justify-content: left !important;
+                    padding-left: 10px;
+
+                    & .rettingHeadingsection {
+                        & .reating {}
+
+                        & .outufreating {}
+                    }
+                }
+
+                & .rightSide {
+                    & .card-body {
+                        & .ratetext {}
+
+                        & .progress {
+
+                            & .progress-bar {}
+                        }
+                    }
+                }
+
+                & .buttonreating {
+                    & .buttoncustom {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .wherWeSection {
+        & .heading {}
+
+        & .where-we-list {
+
+            & li {
+
+                & a {}
+            }
+        }
+
+        & .tabswhere {
+            & .pillcontent {
+                & .navitem {
+                    & .navLink {
+                        &.active {}
+                    }
+                }
+            }
+
+            & .where-we-list {
+
+                & li {
+
+                    & a {}
+                }
+            }
+        }
+    }
+    .modal {
+        &.modalMain {
+            & .modal-dialog {
+                & .modal-content{
+                    & .modal-header{
+                        & .modal-title{
+                        }
+                        & .btn-close {
+                        }
+                    }
+                    & .modal-body {
+                        & .categoryOuter{
+                            & .imgouter{
+                                height: 104px;
+                                & img {
+                                }
+                            }
+                            & .title{
+                                & span {
+                                }
+                            }
+                            &:hover {
+                                & .title{
+                                    & span {
+                                        font-size: 12px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 767.98px) {
+    .heroSection {
+
+        & .leftSidecontent {
+            & .heading {
+                flex-direction: row-reverse;
+                font-size: 23px;
+                line-height: 29px;
+            }
+
+            & .perograph {
+                text-align: right;
+                font-size: 14px;
+                line-height: 26px;
+            }
+
+            & .contactbtn {
+                text-align: right !important;
+
+                &:active {}
+
+                & .buttoncontact {
+                    padding: 15px 24px;
+
+                    &:hover {}
+                }
+            }
+
+            & .cardsectionhero {
+                & .incard {
+
+                    & .headingcard {
+                        font-size: 14px;
+                        line-height: 22px;
+                    }
+
+                    & .textperograph {
+                        line-height: 20px;
+                        font-size: 12px;
+                    }
+
+                }
+
+                & .cardimageH {
+                    height: 100%;
+                    max-height: 200px;
+                }
+            }
+
+            &.leftSidecontent2 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                transform: translate(50px, -1px);
+                flex: 0 0 83%;
+                width: 83%;
+            }
+        }
+
+        & .bannervideo {
+
+
+            & .bannervideo {}
+
+            &::before {}
+
+            & .banner .bannervideo video {}
+
+            & .banner .bannervideo video.phone {}
+        }
+
+        & .maincontainerleft {
+            position: unset !important;
+            transform: unset;
+        }
+
+    }
+
+    .cardSection {
+        & .heading {}
+
+        & .cardmain {
+            & .card-image {
+
+                &:hover {}
+            }
+        }
+    }
+
+    .businesscard {
+        & .tabsection {
+            & .navPill {
+                align-items: start !important;
+
+                & .navitem {
+                    & .innernav {
+                        & .navlink {
+                            padding-left: 0;
+                            margin-top: 10px;
+
+                            &.active {}
+                        }
+                    }
+                }
+            }
+
+            & .headingsection {
+                & .heading {
+                    font-size: 22px;
+                    font-weight: 900;
+                    color: #efa834;
+                }
+
+                & .subHeading {
+                    text-align: left !important;
+                    letter-spacing: 12px;
+                    font-size: 18px;
+                }
+            }
+
+
+
+            & .maincard {
+                & .imagecolleft {
+                    border-radius: 8px;
+
+                    & img {}
+                }
+
+                & .colRight {
+                    & .card-body {
+                        & .card-title {
+                            font-size: 18px;
+                        }
+
+                        & .card-text {
+                            font-size: 14px;
+                            line-height: 21px;
+                        }
+
+                        & .buttoncustom {
+                            font-size: 14px;
+                            padding: 9px 20px;
+                        }
+
+                        & .headingcard {
+                            font-size: 18px;
+                        }
+
+                        & .card-perograph {
+                            font-size: 14px;
+                        }
+
+                        & .formsection {
+                            & .forminput {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .whyChooseSection {
+        & .heading {}
+
+        & .maincardchosse {
+            & .card-body {
+                & .imagecard {
+
+                    & img {}
+
+                }
+
+                & .card-title {
+                    font-size: 18px;
+                }
+
+                & .card-text {}
+            }
+        }
+    }
+
+    .sectionreating {
+        & .leftSideimage {
+
+            & img {}
+        }
+
+        & .rightside {
+            & .headingreating {
+                font-size: 18px;
+                line-height: 29px;
+            }
+
+            & .perograph {
+                font-size: 13px;
+                line-height: 24px;
+            }
+
+            & .maincard {
+                & .leftside {
+                    justify-content: left !important;
+                    padding-left: 10px;
+
+                    & .rettingHeadingsection {
+                        & .reating {}
+
+                        & .outufreating {}
+                    }
+                }
+
+                & .rightSide {
+                    & .card-body {
+                        & .ratetext {}
+
+                        & .progress {
+
+                            & .progress-bar {}
+                        }
+                    }
+                }
+
+                & .buttonreating {
+                    & .buttoncustom {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .wherWeSection {
+        & .heading {}
+
+        & .where-we-list {
+
+            & li {
+
+                & a {}
+            }
+        }
+
+        & .tabswhere {
+            & .pillcontent {
+                & .navitem {
+                    & .navLink {
+                        &.active {}
+                    }
+                }
+            }
+
+            & .where-we-list {
+
+                & li {
+
+                    & a {}
+                }
+            }
+        }
+    }
+    .modal {
+        &.modalMain {
+            & .modal-dialog {
+                & .modal-content{
+                    & .modal-header{
+                        & .modal-title{
+                        }
+                        & .btn-close {
+                        }
+                    }
+                    & .modal-body {
+                        & .categoryOuter{
+                            & .imgouter{
+                                & img {
+                                }
+                            }
+                            & .title{
+                                & span {
+                                }
+                            }
+                            &:hover {
+                                & .title{
+                                    & span {
+                                    }
+                                }
+                            }
+                        }
+                        & .btnsHeading {
+                            font-size: 12px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 575.98px) {
+    .heroSection {
+
+        & .leftSidecontent {
+            & .heading {
+                flex-direction: unset;
+                font-size: 23px;
+                line-height: 35px;
+            }
+
+            & .perograph {
+                text-align: left;
+                font-size: 14px;
+            }
+
+            & .contactbtn {
+                text-align: left !important;
+
+                &:active {}
+
+                & .buttoncontact {
+                    padding: 15px 24px;
+
+                    &:hover {}
+                }
+            }
+
+            & .cardsectionhero {
+                & .incard {
+
+                    & .headingcard {
+                        font-size: 14px;
+                        line-height: 25px;
+                    }
+
+                    & .textperograph {
+                        line-height: 20px;
+                        font-size: 12px;
+                    }
+
+                }
+
+                & .cardimageH {
+                    height: 100%;
+                    max-height: 200px;
+                }
+            }
+            &.leftSidecontent2 {
+                position: unset;
+                transform: unset;
+                flex: 0 0 100%;
+                width: 100%;
+            }
+        }
+
+        & .bannervideo {
+            display: none;
+
+            & .bannervideo {}
+
+            &::before {}
+
+            & .banner .bannervideo video {}
+
+            & .banner .bannervideo video.phone {}
+        }
+
+        & .maincontainerleft {
+            position: unset !important;
+            transform: unset;
+        }
+
+    }
+
+    .cardSection {
+        & .heading {}
+
+        & .cardmain {
+            & .card-image {
+
+                &:hover {}
+            }
+        }
+    }
+
+    .businesscard {
+        & .tabsection {
+            & .navPill {
+                flex-direction: column-reverse;
+                align-items: start !important;
+
+                & .navitem {
+                    & .innernav {
+                        & .navlink {
+                            padding-left: 0;
+                            margin-top: 10px;
+
+                            &.active {}
+                        }
+                    }
+                }
+            }
+
+            & .headingsection {
+                & .heading {
+                    text-align: left !important;
+                    font-size: 22px;
+                    font-weight: 900;
+                    color: #efa834;
+                }
+
+                & .subHeading {
+                    text-align: left !important;
+                    letter-spacing: 8px;
+                    font-size: 18px;
+                }
+            }
+
+
+
+            & .maincard {
+                & .imagecolleft {
+                    border-radius: 8px;
+
+                    & img {}
+                }
+
+                & .colRight {
+                    & .card-body {
+                        & .card-title {
+                            font-size: 18px;
+                        }
+
+                        & .card-text {
+                            font-size: 14px;
+                            line-height: 21px;
+                        }
+
+                        & .buttoncustom {
+                            font-size: 14px;
+                            padding: 9px 20px;
+                        }
+
+                        & .headingcard {
+                            font-size: 18px;
+                        }
+
+                        & .card-perograph {
+                            font-size: 14px;
+                        }
+
+                        & .formsection {
+                            & .forminput {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .whyChooseSection {
+        & .heading {}
+
+        & .maincardchosse {
+            & .card-body {
+                & .imagecard {
+
+                    & img {}
+
+                }
+
+                & .card-title {
+                    font-size: 18px;
+                }
+
+                & .card-text {}
+            }
+        }
+    }
+
+    .sectionreating {
+        & .leftSideimage {
+
+            & img {}
+        }
+
+        & .rightside {
+            & .headingreating {
+                font-size: 18px;
+                line-height: 29px;
+            }
+
+            & .perograph {
+                font-size: 13px;
+                line-height: 24px;
+            }
+
+            & .maincard {
+                & .leftside {
+                    justify-content: left !important;
+                    padding-left: 10px;
+
+                    & .rettingHeadingsection {
+                        & .reating {}
+
+                        & .outufreating {}
+                    }
+                }
+
+                & .rightSide {
+                    & .card-body {
+                        & .ratetext {}
+
+                        & .progress {
+
+                            & .progress-bar {}
+                        }
+                    }
+                }
+
+                & .buttonreating {
+                    & .buttoncustom {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .wherWeSection {
+        & .heading {}
+
+        & .where-we-list {
+
+            & li {
+
+                & a {}
+            }
+        }
+
+        & .tabswhere {
+            & .pillcontent {
+                & .navitem {
+                    & .navLink {
+                        &.active {}
+                    }
+                }
+            }
+
+            & .where-we-list {
+
+                & li {
+
+                    & a {}
+                }
+            }
+        }
+    }
+    .modal {
+        &.modalMain {
+            & .modal-dialog {
+                & .modal-content{
+                    & .modal-header{
+                        & .modal-title{
+                        }
+                        & .btn-close {
+                        }
+                    }
+                    & .modal-body {
+                        & .categoryOuter{
+                            & .imgouter{
+                                height: 100%;
+                                & img {
+                                }
+                            }
+                            & .title{
+                                & span {
+                                }
+                            }
+                            &:hover {
+                                & .title{
+                                    & span {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.brand-wheel {
+    height: 100px;
+    & .brand-slide {
+      flex-shrink: 0;
+      animation-name: slidelogo;
+      animation-duration: 10s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      transition: animation-play-state 1s;
+      min-width: 100%;
+      @keyframes slidelogo {
+        from {
+          transform: translateX(0%);
+        }
+        to {
+          transform: translateX(-100%);
+        }
+      }
+      &.delay {
+        transform: translateX(100%);
+        animation-name: slidelogo2;
+        @keyframes slidelogo2 {
+          from {
+            transform: translateX(100%);
+          }
+          to {
+            transform: translateX(0%);
+          }
+        }
+      }
+      & .logo-div {
+        animation: fade-in 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) forwards;
+        // padding: 0 20px 0 20px;
+        cursor: pointer;
+        width: 100px;
+        height: 56px;
+        & img {
+            object-fit: cover;
+            object-position: center;
+        }
+        @keyframes fade-in {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    &:hover {
+      & .brand-slide {
+        animation-play-state: paused;
+      }
+    }
+  }

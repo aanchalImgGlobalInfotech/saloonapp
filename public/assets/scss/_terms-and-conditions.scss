@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+//?############################ Download Page Start ############################
+.treamConditionMain{
+    padding: 80px 0;
+     & .customTabs{
+        & .nav-item {
+            width: calc(100% / 2);
+            &:last-child{
+                border-right: none !important;
+            }
+            & .nav-link {
+                border-bottom: 3px solid $gray-600 !important;
+                &.active {
+                    background-color: transparent !important;
+                    color: $theme1 !important;
+                    border-color: $theme1 !important;
+                }
+            }
+        }
+    }
+    & .title {
+        font-size: 16px;
+    }
+    & .txt{
+        font-weight: 300;
+        & ul {
+            &.list-styled-number {
+                list-style: auto;
+            }
+        }
+        
+    }
+}
+
+.offcanvas{
+    & .offcanvas-header {
+        & .offcanvas-title{
+        }
+        & .btn-close{
+            font-size: 12px;
+            filter: invert(1);
+        }
+    }
+    & .offcanvas-body{
+        
+    }
+}
+// Small devices (landscape phones, 576px and up)
+@mixin treamConditionMain-mixin-min-sm() {
+}
+
+// Medium devices (tablets, 768px and up)
+@mixin treamConditionMain-mixin-min-md() {
+}
+
+// Large devices (desktops, 992px and up)
+@mixin treamConditionMain-mixin-min-lg() {
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@mixin treamConditionMain-mixin-min-xl() {
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@mixin treamConditionMain-mixin-min-xxl() {
+}
+
+// X-Small devices (portrait phones, less than 576px)
+@mixin treamConditionMain-mixin-max-xs() {
+    .treamConditionMain{
+        & .customTabs{
+           & .nav-item {
+               &:last-child{
+               }
+               & .nav-link {
+                   font-size: 12px !important;
+                   &.active {
+                   }
+               }
+           }
+       }
+       & .title {
+           font-size: 14px;
+       }
+       & .txt{
+           font-size: 12px !important;
+           & span {
+            display: block;
+           }
+           & ul {
+               &.list-styled-number {
+               }
+           }
+           
+       }
+   }
+}
+
+// Small devices (landscape phones, less than 768px)
+@mixin treamConditionMain-mixin-max-sm() {
+    .treamConditionMain{
+         & .customTabs{
+            & .nav-item {
+                &:last-child{
+                }
+                & .nav-link {
+                    font-size: 12px !important;
+                    &.active {
+                    }
+                }
+            }
+        }
+        & .title {
+            font-size: 14px;
+        }
+        & .txt{
+            font-size: 12px !important;
+
+            & ul {
+                &.list-styled-number {
+                }
+            }
+            
+        }
+    }
+}
+
+// Medium devices (tablets, less than 992px)
+@mixin treamConditionMain-mixin-max-md() {
+}
+
+// Large devices (desktops, less than 1200px)
+@mixin treamConditionMain-mixin-max-lg() {
+}
+
+// X-Large devices (large desktops, less than 1400px)
+@mixin treamConditionMain-mixin-max-xl() {
+}
+@media (max-width: 360px){
+}
+//!############################ Download Page End ############################
+

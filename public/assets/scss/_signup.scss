@@ -1,0 +1,141 @@
+@charset "UTF-8";
+
+.login {
+    height: calc(100% - 130px);
+
+    & .chekboxcol {
+        font-size: 14px;
+        text-align: justify;
+
+        & a {
+            color: #f0a834;
+            text-decoration: none;
+        }
+
+        & .form-check-input:checked {
+            background-color: #f0a834;
+            border-color: #f0a834;
+        }
+    }
+
+    & .signinbtn {
+        width: 100%;
+        border-radius: 15px;
+        background-color: #f5a629;
+        color: $theme2;
+
+        &:hover {
+            background-color: #f0a834;
+        }
+    }
+
+    & .textfooter {
+        font-size: 15px;
+
+    }
+
+    .hedtext {
+        font-size: 22px;
+        font-weight: 900;
+    }
+
+    & .subheading {
+        font-size: 26px;
+        font-weight: 800;
+    }
+
+    & .textp {
+        font-size: 15px;
+    }
+
+    & .signup-OTPSection {
+        margin-bottom: 10px;
+        position: relative;
+
+        & .outerdiv {
+            text-align: center;
+            width: 190px;
+            overflow: hidden;
+
+            & .divinner {
+                left: 0;
+                position: sticky;
+
+                & .signuo-partitioned {
+                    padding-left: 15px;
+                    letter-spacing: 45px;
+                    border: 0;
+                    background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+                    background-position: bottom;
+                    background-size: 50px 1px;
+                    background-repeat: repeat-x;
+                    background-position-x: 35px;
+                    width: 220px;
+                    min-width: 220px;
+                    background-color: transparent;
+                    &:focus-visible{
+                        border: 0;
+                        outline: none;
+                    }
+                }
+            }
+        }
+    }
+
+
+}
+
+@media only screen and (max-width: 767.99px) {}
+
+@media only screen and (max-width: 575.99px) {
+
+    .login {
+        & .chekboxcol {
+            font-size: 14px;
+            text-align: justify;
+
+            & a {
+                color: #f0a834;
+            }
+
+            & .form-check-input:checked {
+                background-color: #f0a834;
+                border-color: #f0a834;
+            }
+
+            & .textleb {
+                font-size: 12px;
+            }
+        }
+
+        & .signinbtn {
+            width: 100%;
+            border-radius: 15px;
+            background-color: #f5a629;
+            color: $theme2;
+
+            &:hover {
+                background-color: #f0a834;
+            }
+        }
+
+        & .textfooter {
+            font-size: 15px;
+
+        }
+
+        .hedtext {
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        & .subheading {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        & .textp {
+            font-size: 12px;
+        }
+    }
+}

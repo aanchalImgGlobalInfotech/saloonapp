@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+.pt-60 {
+    padding-top: 60px !important;
+}
+
+.orderId {
+    & .card {
+        & .cardBody {
+            & .orderStatus {
+                & .imgOuter {
+                    width: 60px;
+                    height: 60px;
+                }
+                & .title {
+                }
+            }
+            & .orderDec {
+            }
+        }
+    }
+}
+
+// ********************Responsive****************
+@media only screen and (max-width: 1400px) {
+    
+}
+@media only screen and (max-width: 1200px) {
+}
+@media only screen and (max-width: 1100px) {
+}
+@media only screen and (max-width: 991.98px) {
+}
+@media only screen and (max-width: 767.98px) {
+}
+@media only screen and (max-width: 575.98px) {
+}

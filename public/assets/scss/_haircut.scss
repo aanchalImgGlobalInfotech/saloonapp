@@ -1,0 +1,589 @@
+@charset "UTF-8";
+
+
+.mainOuter {
+    & .cardMainOuter {
+        & .cardsOuter {
+            & .sectionHeader {
+                & .dropdown{
+                    & .dropdown-menu{
+                        & .dropdown-item{
+                            font-size: 12px;
+                            transition: ease-in-out .3s;
+                            &:hover {
+                                color: $theme1;
+                            }
+                            &:active, &:focus {
+                                background-color: $theme1;
+                                color: $white;
+                            }
+                        }
+                    }
+                }
+            }
+            & .cardOuter {
+                & .imgOuter {
+                    height: 180px;
+                    & img {
+                        object-fit: cover;
+                        object-position: top center;
+                    }
+                    & .showRating{
+                        padding: 4px 12px;
+                        background-color: rgba($theme1, 0.4);
+                        border-radius: 8px 0 0 0;
+                        font-size: 14px;
+                        transition: ease-in-out .3s;
+                    }
+                }
+                &:hover {
+                    & .showRating{
+                        background-color: rgba($theme1, 1);
+                    }
+                }
+                & .saloonDetail {
+                    & .saloonName {
+                        font-size: 14px;
+                        transition: ease-in-out .3s;
+                        &:hover {
+                            color: $theme1 !important;
+                        }
+                    }
+                    & .serviceName, & .price, & .address {
+                        font-size: 12px;
+                    }
+                    & .address {
+                        & .add{
+                            color: $gray-500;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            width: 70%;
+                        }
+                        & .icon {
+                            align-items: center;
+                            display: flex;
+                            width: 16px;
+                            height: 16px;
+                            & img {
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    & .filterMain {
+        top: 80px;
+        & .filterHeader{
+            & .filterTitle {
+                font-size: 16px;
+            }
+            & .filterIcon {
+            }
+        }
+        & .filterBody {
+            height: 80vh;
+            overflow: hidden auto;
+            & .filterGroup {
+                & .grouptitle{
+                    font-size: 14px;
+                }
+                & .form-check {
+                    & .form-check-label {
+                        cursor: pointer;
+                        font-size: 14px;
+                    }
+                    & .form-check-input {
+                        cursor: pointer;
+                        background-image: none;
+                        position: relative;
+                        overflow: hidden;
+                        &:before {
+                            content: "";
+                            width: 16px;
+                            height: 16px;
+                            display: block;
+                            opacity: 0;
+                            border-left: 2px solid $theme1;
+                            border-bottom: 2px solid $theme1;
+                            transition: ease-in-out .3s;
+                        }
+                        &:checked {
+                            border-color: $theme1;
+                            background-color: $white;
+                            &:before {
+                                width: 10px;
+                                height: 6px;
+                                opacity: 1;
+                                transform: rotate(-45deg);
+                                position: absolute;
+                                left: 2px;
+                                top: 3px;
+                            }
+                        }
+                        &:focus {
+                            border-color: $theme1;
+                        }
+                    }
+                }
+                & .form-control{
+                    font-size: 14px;
+                    font-weight: normal;
+                    &::placeholder {
+                        font-size: 14px;
+                        color: $gray-600;
+                    }
+                }
+                .rate {
+                    float: left;
+                    flex-direction: row-reverse;
+                    // height: 46px;
+                    &:not(:checked) > input {
+                        position:absolute;
+                        top:-9999px;
+                    }
+                    &:not(:checked) > label {
+                        float:right;
+                        width:1em;
+                        overflow:hidden;
+                        white-space:nowrap;
+                        cursor:pointer;
+                        font-size:24px;
+                        color:#ccc;
+                    }
+                    &:not(:checked) > label:before {
+                        content: '★';
+                    }
+                    & > input:checked ~ label {
+                        color: $theme1;    
+                    }
+                    &:not(:checked) > label:hover, &:not(:checked) > label:hover ~ label {
+                        color: $theme1;  
+                    }
+                    & > input:checked + label:hover, & > input:checked + label:hover ~ label,
+                    .rate > input:checked ~ label:hover,
+                    .rate > input:checked ~ label:hover ~ label,
+                    .rate > label:hover ~ input:checked ~ label {
+                        color: $theme1;
+                    }
+                }
+            }
+        }
+    }
+    & .offcanvasFilter{
+        
+    }
+}
+
+
+.modal{
+    &.customModal {
+        & .modal-dialog{
+            max-width: 430px !important;
+            & .modal-content{
+                & .modal-header{
+                    & .modal-title{
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+                    & .btn-close{
+                        font-size: 12px;
+                    }
+                }
+                & .modal-body {
+                    & .outer {
+                        border-color: $gray-100 !important;
+                        transition: ease-in-out .3s;
+                        & .imgOuter {
+                            width: 60px;
+                            height: 60px;
+                            & img {
+                                object-fit: cover;
+                                object-position: top center;
+                            }
+                        }
+                        & .packagename{
+                            font-size: 14px;
+                            font-weight: bold;
+                        }
+                        & .packageDec {
+                            font-size: 12px;
+                        }
+                        &:hover {
+                            box-shadow: 0 0.5rem 1rem rgba($dark, 0.15) !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+nav {
+    &.Page{
+        & .pagination {
+            & .page-item{
+                & .nav-link {
+                    font-size: 14px;
+                    &.buttons {
+
+                    }
+                }
+            }
+        }
+    }
+}
+// ********************Responsive****************
+@media only screen and (max-width: 1400px) { 
+}
+@media only screen and (max-width: 1200px) {
+    .cardSection {
+        & .heading {}
+
+        & .cardmain {
+            & .card-image {
+
+                &:hover {}
+            }
+        }
+    }
+    .wherWeSection {
+        & .heading {}
+
+        & .where-we-list {
+
+            & li {
+
+                & a {}
+            }
+        }
+
+        & .tabswhere {
+            & .pillcontent {
+                & .navitem {
+                    & .navLink {
+                        &.active {}
+                    }
+                }
+            }
+
+            & .where-we-list {
+
+                & li {
+
+                    & a {}
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1100px) {
+    .cardSection {
+        & .heading {}
+
+        & .cardmain {
+            & .card-image {
+
+                &:hover {}
+            }
+        }
+    }
+    .wherWeSection {
+        & .heading {}
+
+        & .where-we-list {
+
+            & li {
+
+                & a {}
+            }
+        }
+
+        & .tabswhere {
+            & .pillcontent {
+                & .navitem {
+                    & .navLink {
+                        &.active {}
+                    }
+                }
+            }
+
+            & .where-we-list {
+
+                & li {
+
+                    & a {}
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 991.98px) {
+}
+@media only screen and (max-width: 767.98px) {
+}
+@media only screen and (max-width: 575.99px) {
+    .mainOuter {
+        & .cardMainOuter {
+            & .cardsOuter {
+                & .sectionHeader {
+                    & .dropdown{
+                        & .dropdownBtn {
+                        font-size: 12px;
+                        & img {
+                            width: 10%;
+                        }
+                    } 
+                        & .dropdown-menu{
+                            & .dropdown-item{
+                                &:hover {
+                                }
+                                &:active, &:focus {
+                                }
+                            }
+                        }
+                    }
+                }
+                & .cardOuter {
+                    & .imgOuter {
+                        height: 150px;
+                        & img {
+                        }
+                        & .showRating{
+                        }
+                    }
+                    &:hover {
+                        & .showRating{
+                        }
+                    }
+                    & .saloonDetail {
+                        & .saloonName {
+                            font-size: 12px;
+                            &:hover {
+                            }
+                        }
+                        & .serviceName, & .price, & .address {
+                            font-size: 10px;
+                        }
+                        & .address {
+                            & .add{
+                            }
+                            & .icon {
+                                & img {
+    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        & .filterMain {
+            height: 100%;
+            position: unset !important;
+            & .filterHeader{
+                & .filterTitle {
+                }
+                & .filterIcon {
+                }
+                & .btn-close{
+                }
+            }
+            & .filterBody {
+                height: 100%;
+                & .filterGroup {
+                    & .grouptitle{
+                        font-size: 12px;
+                    }
+                    & .form-check {
+                        & .form-check-label {
+                            font-size: 12px;
+                        }
+                        & .form-check-input {
+                            &:before {
+                            }
+                            &:checked {
+                                &:before {
+                                }
+                            }
+                            &:focus {
+                            }
+                        }
+                    }
+                    & .form-control{
+                        &::placeholder {
+                        }
+                    }
+                    .rate {
+                        &:not(:checked) > input {
+                        }
+                        &:not(:checked) > label {
+                        }
+                        &:not(:checked) > label:before {
+                        }
+                        & > input:checked ~ label {
+                        }
+                        &:not(:checked) > label:hover, &:not(:checked) > label:hover ~ label {
+                        }
+                        & > input:checked + label:hover, & > input:checked + label:hover ~ label,
+                        .rate > input:checked ~ label:hover,
+                        .rate > input:checked ~ label:hover ~ label,
+                        .rate > label:hover ~ input:checked ~ label {
+                        }
+                    }
+                }
+            }
+        }
+        & .offcanvasFilter{
+            padding: 0;
+        }
+    }
+    .modal{
+        &.customModal {
+            & .modal-dialog{
+                & .modal-content{
+                    & .modal-header{
+                        & .modal-title{
+                            font-size: 14px;
+                        }
+                        & .btn-close{
+                        }
+                    }
+                    & .modal-body {
+                        & .outer {
+                            & .imgOuter {
+                                width: 50px;
+                                height: 50px;
+                                & img {
+                                }
+                            }
+                            & .packagename{
+                                font-size: 12px;
+                            }
+                            & .packageDec {
+                                font-size: 10px;
+                            }
+                            &:hover {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 360px) {
+    
+    .mainOuter {
+        & .cardMainOuter {
+            & .cardsOuter {
+                & .col-6 {
+                    flex: 0 0 auto !important;
+                    width: 100% !important;
+                }
+                & .sectionHeader {
+                    & .dropdown{
+                        & .dropdown-menu{
+                            & .dropdown-item{
+                                &:hover {
+                                }
+                                &:active, &:focus {
+                                }
+                            }
+                        }
+                    }
+                }
+                & .cardOuter {
+                    max-width: 240px;
+                    margin: auto;
+                    & .imgOuter {
+                        height: 150px;
+                        & img {
+                        }
+                        & .showRating{
+                        }
+                    }
+                    &:hover {
+                        & .showRating{
+                        }
+                    }
+                    & .saloonDetail {
+                        & .saloonName {
+                            font-size: 12px;
+                            &:hover {
+                            }
+                        }
+                        & .serviceName, & .price, & .address {
+                            font-size: 10px;
+                        }
+                        & .address {
+                            & .add{
+                            }
+                            & .icon {
+                                & img {
+    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        & .filterMain {
+            height: 100%;
+            position: unset !important;
+            & .filterHeader{
+                & .filterTitle {
+                }
+                & .filterIcon {
+                }
+                & .btn-close{
+                }
+            }
+            & .filterBody {
+                height: 100%;
+                & .filterGroup {
+                    & .grouptitle{
+                    }
+                    & .form-check {
+                        & .form-check-label {
+                        }
+                        & .form-check-input {
+                            &:before {
+                            }
+                            &:checked {
+                                &:before {
+                                }
+                            }
+                            &:focus {
+                            }
+                        }
+                    }
+                    & .form-control{
+                        &::placeholder {
+                        }
+                    }
+                    .rate {
+                        &:not(:checked) > input {
+                        }
+                        &:not(:checked) > label {
+                        }
+                        &:not(:checked) > label:before {
+                        }
+                        & > input:checked ~ label {
+                        }
+                        &:not(:checked) > label:hover, &:not(:checked) > label:hover ~ label {
+                        }
+                        & > input:checked + label:hover, & > input:checked + label:hover ~ label,
+                        .rate > input:checked ~ label:hover,
+                        .rate > input:checked ~ label:hover ~ label,
+                        .rate > label:hover ~ input:checked ~ label {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

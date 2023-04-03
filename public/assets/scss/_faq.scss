@@ -1,0 +1,218 @@
+@charset "UTF-8";
+
+//?############################ Cancellation and Refund Page Start ############################
+.faqMain{
+    padding: 80px 0;
+    & .title {
+        font-size: 16px;
+    }
+    & .txt{
+        font-weight: 300;
+        & ul {
+            &.list-styled-number {
+                list-style: auto;
+            }
+        }
+        
+    }
+    & .accordion{
+        & .accordion-item{
+            & .accordion-header {
+                & .accordion-button {
+                    &:after {
+                        display: none;
+                    }
+                    & span {
+                        &:first-child {
+                            width: 95%;
+                        }
+                    }
+                    & .circle {
+                        opacity: 1;
+                        width: 12px;
+                        height: 12px;
+                            & .vertical {
+                                transition: all 0.3s ease-in-out;
+                                transform: rotate(90deg);
+                                width: 2px;
+                                height: 12px;
+                                inset: 0;
+                            }
+                            & .horizontal {
+                                transition: all 0.3s ease-in-out;
+                                transform: rotate(90deg);
+                                opacity: 0;
+                                width: 12px;
+                                height: 2px;
+                                inset: 0;
+                            }
+                    }
+                    &.collapsed {
+                        & .circle{
+                            & .vertical {
+                                transform: rotate(-90deg);
+                            }
+                            & .horizontal {
+                                transform: rotate(-90deg);
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@mixin faqMain-mixin-min-sm() {
+}
+
+// Medium devices (tablets, 768px and up)
+@mixin faqMain-mixin-min-md() {
+}
+
+// Large devices (desktops, 992px and up)
+@mixin faqMain-mixin-min-lg() {
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@mixin faqMain-mixin-min-xl() {
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@mixin faqMain-mixin-min-xxl() {
+}
+
+// X-Small devices (portrait phones, less than 576px)
+@mixin faqMain-mixin-max-xs() {
+    .faqMain{
+       & .title {
+           font-size: 14px;
+       }
+       & .txt{
+           font-size: 12px !important;
+           & span {
+            display: block;
+           }
+           & ul {
+               &.list-styled-number {
+               }
+           }
+           
+       }
+       & .accordion{
+        & .accordion-item{
+            & .accordion-header {
+                & .accordion-button {
+                    padding: 12px 20px;
+                    &:after {
+                    }
+                    & .circle {l {
+                            }
+                            & .horizontal {
+                            }
+                    }
+                    &.collapsed {
+                        & .circle{
+                            & .vertical {
+                            }
+                            & .horizontal {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+   }
+}
+
+// Small devices (landscape phones, less than 768px)
+@mixin faqMain-mixin-max-sm() {
+    .faqMain{
+         & .customTabs{
+            & .nav-item {
+                &:last-child{
+                }
+                & .nav-link {
+                    font-size: 12px !important;
+                    &.active {
+                    }
+                }
+            }
+        }
+        & .title {
+            font-size: 14px;
+        }
+        & .txt{
+            font-size: 12px !important;
+
+            & ul {
+                &.list-styled-number {
+                }
+            }
+            
+        }
+    }
+}
+
+// Medium devices (tablets, less than 992px)
+@mixin faqMain-mixin-max-md() {
+}
+
+// Large devices (desktops, less than 1200px)
+@mixin faqMain-mixin-max-lg() {
+}
+
+// X-Large devices (large desktops, less than 1400px)
+@mixin faqMain-mixin-max-xl() {
+}
+@media (max-width: 360px){
+    .faqMain{
+        & .title {
+            font-size: 14px;
+        }
+        & .txt{
+            font-size: 12px !important;
+            & span {
+             display: block;
+            }
+            & ul {
+                &.list-styled-number {
+                }
+            }
+            
+        }
+        & .accordion{
+         & .accordion-item{
+             & .accordion-header {
+                 & .accordion-button {
+                    font-size: 12px !important;
+                    padding: 8px 12px !important;
+                     &:after {
+                     }
+                     & .circle {
+                        width: 14px !important;
+                        & .horizontal {
+                        }
+                     }
+                     &.collapsed {
+                         & .circle{
+                             & .vertical {
+                             }
+                             & .horizontal {
+                             }
+                         }
+                     }
+                 }
+             }
+             & .accordion-body {
+                padding: 8px 12px !important;
+             }
+         }
+     }
+    }
+}
+//!############################ Cancellation and Refund Page End ############################
+

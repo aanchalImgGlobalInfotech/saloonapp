@@ -1,0 +1,588 @@
+@charset "UTF-8";
+
+//?############################ Download Page Start ############################
+.downloadMain {
+    padding: 100px 0 50px;
+    background: linear-gradient(-90deg, $dark 77%, $black 50%);
+    & .leftSideOuter {
+        top: 100px;
+        & .imgOuter {
+            width: 220px;
+            & img {
+                animation: infinite motion 3s;
+                @keyframes motion {
+                    50% {
+                        transform: translateY(30px);
+                    }
+                }
+            }
+        }
+    }
+    & .rightSideOuter{
+        & .heaading{
+            font-size: 32px;
+            font-weight: bold;
+        }
+        & .qrCodeOuter {
+            & .imgOuter{
+                width: 80px;
+                height: 80px;
+                & img {
+                    object-fit: cover;
+                    object-position: center;
+                }
+            }
+            & .qrTxt{
+            }
+        }
+        
+        & .getLink{
+            & form{
+                &.form {
+                    & .input-group {
+                        & .form-label {
+                            font-size: 14px;
+                        }
+                        & textarea {
+                            min-height: 80px;
+        
+                        }
+                        & .form-control, & .form-select {
+                            font-size: 14px;
+                            color: $gray-400;
+                            height: 40px;
+                            font-weight: 300;
+                            border-color: $black;
+                            &::placeholder {
+                                color: $gray-400;
+                                font-weight: 300;
+                                font-size: 14px;
+                            }
+                            &:focus {
+                                z-index: 1;
+                                border-color: $theme1 !important;
+                            }
+                        }
+                        & .form-select {
+                            & option {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                    & .getLinkBtn{
+                        top: 5px;
+                        bottom: 5px;
+                        right: 5px;
+                    }
+                }
+            }
+        }
+        & .counterOuter {
+            & .counting {
+            }
+        }
+        & .otherDetails {
+            & .cardOuter{
+                max-width: 260px;
+                min-width: 260px;
+                margin: auto;
+                cursor: pointer;
+                & .icon {
+                    width: 60px;
+                    height: 60px;
+                    transition: ease-in-out .3s;
+                }
+                & .detail {
+                    & .title{
+                    }
+                    & .dec {
+                    }
+                }
+                &:before, &:after {
+                    content: "";
+                    width: 67%;
+                    height: 180%;
+                    position: absolute;
+                    background-color: rgba($white, 0.1);
+                    z-index: 0;
+                    transition: ease-in-out .3s;
+                    transform: rotate(-48deg);
+                }
+                &:before {
+                    top: -1%;
+                    left: 5%;
+                }
+                &::after {
+                    bottom: -2%;
+                    right: 5%;
+                }
+                &:hover {
+                    & .icon {
+                        background-color: $dark !important;
+                    }
+                    &:before {
+                        top: 0%;
+                        left: -100%;
+                    }
+                    &::after {
+                        bottom: 0%;
+                        right: -100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@mixin downloadMain-mixin-min-sm() {
+}
+
+// Medium devices (tablets, 768px and up)
+@mixin downloadMain-mixin-min-md() {
+}
+
+// Large devices (desktops, 992px and up)
+@mixin downloadMain-mixin-min-lg() {
+    .downloadMain {
+        & .leftSideOuter {
+            & .imgOuter {
+                & img {
+                }
+            }
+        }
+        & .rightSideOuter{
+            & .heaading{
+            }
+            & .qrCodeOuter {
+                & .imgOuter{
+                    & img {
+                    }
+                }
+                & .qrTxt{
+                }
+            }
+            
+            & .getLink{
+                & form{
+                    &.form {
+                        & .input-group {
+                            & .form-label {
+                            }
+                            & textarea {
+            
+                            }
+                            & .form-control, & .form-select {
+                                &::placeholder {
+                                }
+                                &:focus {
+                                }
+                            }
+                            & .form-select {
+                                & option {
+                                }
+                            }
+                        }
+                        & .getLinkBtn{
+                        }
+                    }
+                }
+            }
+            & .counterOuter {
+                & .counting {
+                }
+            }
+            & .otherDetails {
+                & .cardOuter{
+                    & .icon {
+                    }
+                    & .detail {
+                        & .title{
+                        }
+                        & .dec {
+                        }
+                    }
+                    &:before, &:after {
+                        height: 180.1%;
+                    }
+                    &:before {
+                    }
+                    &::after {
+                    }
+                    &:hover {
+                        & .icon {
+                        }
+                        &:before {
+                        }
+                        &::after {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// X-Large devices (large desktops, 1200px and up)
+@mixin downloadMain-mixin-min-xl() {
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@mixin downloadMain-mixin-min-xxl() {
+}
+
+// X-Small devices (portrait phones, less than 576px)
+@mixin downloadMain-mixin-max-xs() {
+    .downloadMain {
+        padding: 80px 0;
+        & .leftSideOuter {
+            & .imgOuter {
+                & img {
+                }
+            }
+        }
+        & .rightSideOuter{
+            & .heaading{
+                font-size: 16px;
+            }
+            & .qrCodeOuter {
+                & .imgOuter{
+                    & img {
+                    }
+                }
+                & .qrTxt{
+                }
+            }
+            
+            & .getLink{
+                & form{
+                    &.form {
+                        & .input-group {
+                            & .form-label {
+                            }
+                            & textarea {
+            
+                            }
+                            & .form-control, & .form-select {
+                                &::placeholder {
+                                }
+                                &:focus {
+                                }
+                            }
+                            & .form-select {
+                                & option {
+                                }
+                            }
+                        }
+                        & .getLinkBtn{
+                        }
+                    }
+                }
+            }
+            & .counterOuter {
+                & .counting {
+                    --bs-text-opacity: .75 !important;
+                }
+            }
+            & .otherDetails {
+                & .title {
+                    font-size: 14px;
+                }
+                & .cardOuter{
+                    max-width: 380px;
+                    & .icon {
+                    }
+                    & .detail {
+                        & .title{
+                        }
+                        & .dec {
+                        }
+                    }
+                    &:before, &:after {
+                        transform: none;
+                        width: 50%;
+                        height: 100%;
+                        top: 0;
+                    }
+                    &:before {
+                        left: 0;
+                    }
+                    &::after {
+                        right: 0;
+                    }
+                    &:hover {
+                        & .icon {
+                        }
+                        &:before {
+                            left: -50%;
+                        }
+                        &:after {
+                            right: -50%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, less than 768px)
+@mixin downloadMain-mixin-max-sm() {
+}
+
+// Medium devices (tablets, less than 992px)
+@mixin downloadMain-mixin-max-md() {
+    .downloadMain {
+        background: $dark;
+        & .leftSideOuter {
+            & .imgOuter {
+                & img {
+                }
+            }
+        }
+        & .rightSideOuter{
+            & .heaading{
+            }
+            & .qrCodeOuter {
+                & .imgOuter{
+                    & img {
+                    }
+                }
+                & .qrTxt{
+                }
+            }
+            
+            & .getLink{
+                & form{
+                    &.form {
+                        & .input-group {
+                            & .form-label {
+                            }
+                            & textarea {
+            
+                            }
+                            & .form-control, & .form-select {
+                                &::placeholder {
+                                }
+                                &:focus {
+                                }
+                            }
+                            & .form-select {
+                                & option {
+                                }
+                            }
+                        }
+                        & .getLinkBtn{
+                        }
+                    }
+                }
+            }
+            & .counterOuter {
+                & .counting {
+                }
+            }
+            & .otherDetails {
+                & .cardOuter{
+                    & .icon {
+                    }
+                    & .detail {
+                        & .title{
+                        }
+                        & .dec {
+                        }
+                    }
+                    &:before, &:after {
+                    }
+                    &:before {
+                    }
+                    &::after {
+                    }
+                    &:hover {
+                        & .icon {
+                        }
+                        &:before {
+                        }
+                        &::after {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Large devices (desktops, less than 1200px)
+@mixin downloadMain-mixin-max-lg() {
+    .downloadMain {
+        background: linear-gradient(-90deg, $dark 73%, $black 50%);
+        & .leftSideOuter {
+            & .imgOuter {
+                & img {
+                }
+            }
+        }
+        & .rightSideOuter{
+            & .heaading{
+                font-size: 28px;
+            }
+            & .qrCodeOuter {
+                & .imgOuter{
+                    & img {
+                    }
+                }
+                & .qrTxt{
+                }
+            }
+            
+            & .getLink{
+                & form{
+                    &.form {
+                        & .input-group {
+                            & .form-label {
+                            }
+                            & textarea {
+            
+                            }
+                            & .form-control, & .form-select {
+                                &::placeholder {
+                                }
+                                &:focus {
+                                }
+                            }
+                            & .form-select {
+                                & option {
+                                }
+                            }
+                        }
+                        & .getLinkBtn{
+                        }
+                    }
+                }
+            }
+            & .counterOuter {
+                & .counting {
+                }
+            }
+            & .otherDetails {
+                & .cardOuter{
+                    & .icon {
+                    }
+                    & .detail {
+                        & .title{
+                        }
+                        & .dec {
+                        }
+                    }
+                    &:before, &:after {
+                        height: 180.5%;
+                    }
+                    &:before {
+                        top: -1%;
+                    }
+                    &::after {
+                    }
+                    &:hover {
+                        & .icon {
+                        }
+                        &:before {
+                        }
+                        &::after {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// X-Large devices (large desktops, less than 1400px)
+@mixin downloadMain-mixin-max-xl() {
+}
+@media (max-width: 360px){
+    .downloadMain {
+        & .leftSideOuter {
+            & .imgOuter {
+                & img {
+                }
+            }
+        }
+        & .rightSideOuter{
+            & .heaading{
+                font-size: 14px !important;
+            }
+            & .qrCodeOuter {
+                padding: 8px !important;
+                & .imgOuter{
+                    padding: 4px !important;
+                    width: 70px !important;
+                    height: 70px !important;
+                    & img {
+                    }
+                }
+                & .qrTxt{
+                    font-size: 12px !important;
+                }
+            }
+            
+            & .getLink{
+                & form{
+                    &.form {
+                        & .input-group {
+                            & .form-label {
+                            }
+                            & textarea {
+            
+                            }
+                            & .form-control, & .form-select {
+                                &::placeholder {
+                                }
+                                &:focus {
+                                }
+                            }
+                            & .form-select {
+                                & option {
+                                }
+                            }
+                        }
+                        & .getLinkBtn{
+                        }
+                    }
+                }
+            }
+            & .counterOuter {
+                & .counting {
+                }
+            }
+            & .otherDetails {
+                & .title {
+                }
+                & .cardOuter{
+                    & .icon {
+                    }
+                    & .detail {
+                        & .title{
+                        }
+                        & .dec {
+                        }
+                    }
+                    &:before, &:after {
+                    }
+                    &:before {
+                    }
+                    &::after {
+                    }
+                    &:hover {
+                        & .icon {
+                        }
+                        &:before {
+                        }
+                        &:after {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+//!############################ Download Page End ############################
+

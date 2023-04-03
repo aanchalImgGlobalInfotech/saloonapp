@@ -1,0 +1,349 @@
+@charset "UTF-8";
+
+.blogMain{
+    padding: 56px 0 0;
+    & .mainInner {
+        & .banner {
+            & .imgOuter {
+                height: 100vh;
+                max-height: 600px;
+                & img {
+                    object-fit: cover;
+                    object-position: center;
+                }
+            }
+            & .formOuter {
+                & .title {
+                    font-size: 26px;
+                }
+                & .text{
+                    font-size: 14px;
+                    font-weight: 300;
+                }
+                & .input-group {
+                    & .form-label {
+                        font-size: 14px;
+                    }
+                    & .form-control, & .form-select {
+                        font-size: 14px;
+                        height: 40px;
+                        &::placeholder {
+                            color: $gray-400;
+                            font-weight: 300;
+                            font-size: 14px;
+                        }
+                        &:focus {
+                            border-color: $theme1 !important;
+                        }
+                    }
+                    & .form-select {
+                        & option {
+                            font-size: 14px;
+                        }
+                    }
+                    & .searchBtn{
+                        // bottom: 2px;
+                        // right: 2px;
+                    }
+                }
+            }
+        }
+        & .blogsOuter{
+            & .pageHeading{
+                & .title {
+                    font-size: 24px;
+                    white-space: nowrap;
+                }
+                & .lines {
+                    width: -webkit-fill-available;
+                    &:before, &:after {
+                        content: '';
+                        display: block;
+                        height: 1px;
+                        border-radius: 50px;
+                    }
+                    &:before {
+                        width: 30px;
+                        background-color: $theme1;
+                    }
+                    &:after {
+                        width: 100%;
+                        background-color: $white;
+                    }
+                }
+            }
+            & .blogOuter {
+                & .imgOuter {
+                    height: 160px;
+                    & img {
+                        object-fit: cover;
+                        object-position: top center;
+                        transition: ease-in-out .3s;
+                    }
+                }
+                & .blogDetail {
+                    & .blogTitle {
+                        font-size: 14px;
+                        transition: ease-in-out .3s;
+                    }
+                    & .blogDecription {
+                        font-size: 12px;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 3;
+                        -webkit-box-orient: vertical; 
+                    }
+                    & ul {
+                        & li {
+                            font-size: 12px;
+                        }
+                    }
+                }
+                &:hover {
+                    & .imgOuter {
+                        & img {
+                            transform: scale(1.1);
+                        }
+                    }
+                    & .blogDetail {
+                        & .blogTitle {
+                            color: $theme1 !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ********************Responsive****************
+@media only screen and (max-width: 1400px) { 
+}
+@media only screen and (max-width: 1200px) {
+}
+@media only screen and (max-width: 1100px) {
+}
+@media only screen and (max-width: 991.98px) {
+    .blogMain{
+        & .mainInner {
+            & .banner {
+                & .imgOuter {
+                    & img {
+                    }
+                }
+                & .formOuter {
+                    & .title {
+                    }
+                    & .text{
+                    }
+                    & .input-group {
+                        & .form-label {
+                        }
+                        & .form-control, & .form-select {
+                            &::placeholder {
+                            }
+                            &:focus {
+                            }
+                        }
+                        & .form-select {
+                            & option {
+                            }
+                        }
+                        & .searchBtn{
+                        }
+                    }
+                }
+            }
+            & .blogsOuter{
+                & .pageHeading{
+                    & .title {
+                        font-size: 20px;
+                    }
+                    & .lines {
+                    }
+                }
+                & .blogOuter {
+                    & .imgOuter {
+                        & img {
+                        }
+                    }
+                    & .blogDetail {
+                        & .blogTitle {
+                        }
+                        & .blogDecription {
+                        }
+                        & ul {
+                            & li {
+                            }
+                        }
+                    }
+                    &:hover {
+                        & .imgOuter {
+                            & img {
+                            }
+                        }
+                        & .blogDetail {
+                            & .blogTitle {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 767.98px) {
+    .blogMain{
+        & .mainInner {
+            & .banner {
+                & .imgOuter {
+                    height: 100%;
+                    & img {
+                    }
+                }
+                & .formOuter {
+                    max-width: 620px;
+                    margin: auto;
+                    & .title {
+                    }
+                    & .text{
+                    }
+                    & .input-group {
+                        & .form-label {
+                        }
+                        & .form-control, & .form-select {
+                            &::placeholder {
+                            }
+                            &:focus {
+                            }
+                        }
+                        & .form-select {
+                            & option {
+                            }
+                        }
+                        & .searchBtn{
+                        }
+                    }
+                }
+            }
+            & .blogsOuter{
+                & .pageHeading{
+                    & .title {
+                    }
+                    & .lines {
+                        &:before {
+                        }
+                    }
+                }
+                & .blogOuter {
+                    & .imgOuter {
+                        & img {
+                        }
+                    }
+                    & .blogDetail {
+                        & .blogTitle {
+                        }
+                        & .blogDecription {
+                        }
+                        & ul {
+                            & li {
+                            }
+                        }
+                    }
+                    &:hover {
+                        & .imgOuter {
+                            & img {
+                            }
+                        }
+                        & .blogDetail {
+                            & .blogTitle {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 575.98px) {
+    .blogMain{
+        & .mainInner {
+            & .banner {
+                & .imgOuter {
+                    & img {
+                    }
+                }
+                & .formOuter {
+                    & .title {
+                        font-size: 18px;
+                    }
+                    & .text{
+                        font-size: 12px;
+                    }
+                    & .input-group {
+                        & .form-label {
+                            font-size: 12px;
+                        }
+                        & .form-control, & .form-select {
+                            font-size: 12px;
+                            &::placeholder {
+                                font-size: 12px;
+                            }
+                            &:focus {
+                            }
+                        }
+                        & .form-select {
+                            & option {
+                            }
+                        }
+                        & .searchBtn{
+                        }
+                    }
+                }
+            }
+            & .blogsOuter{
+                & .pageHeading{
+                    max-width: 400px;
+                    margin: auto;
+                    & .title {
+                        font-size: 16px;
+                    }
+                    & .lines {
+                        &:before {
+                            width: 20px;
+                        }
+                    }
+                }
+                & .blogOuter {
+                    max-width: 400px;
+                    margin: auto;
+                    & .imgOuter {
+                        & img {
+                        }
+                    }
+                    & .blogDetail {
+                        & .blogTitle {
+                        }
+                        & .blogDecription {
+                        }
+                        & ul {
+                            & li {
+                            }
+                        }
+                    }
+                    &:hover {
+                        & .imgOuter {
+                            & img {
+                            }
+                        }
+                        & .blogDetail {
+                            & .blogTitle {
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 360px) {
+}

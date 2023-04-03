@@ -1,0 +1,767 @@
+.navbarhed {
+    z-index: 99;
+
+    & .logonav {
+        height: 40px;
+        width: 100px;
+
+        & img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    & .searchOuter {
+        padding: 7px;
+
+        & input {
+            text-overflow: ellipsis;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        & .currentLocation {
+            & a {
+                width: 16px;
+                height: 16px;
+                border: 1px solid $theme1;
+
+                &:before {
+                    content: '';
+                    width: 8px;
+                    height: 8px;
+                    display: block;
+                    position: absolute;
+                    background-color: $theme1;
+                    border-radius: 50px;
+                    inset: 0;
+                    margin: auto;
+                }
+            }
+        }
+    }
+
+    & .togglrbtn {}
+
+    & .navcolapse {
+        & .navullist {
+            & .navitem {
+
+                & .navlink {
+                    padding: 10px 15px;
+                    position: relative;
+
+                    &.droptoglee {
+                        &::after {
+                            display: none;
+                        }
+                    }
+
+                    &:hover {}
+
+                }
+
+                & .dropdown2 {
+                    min-width: 400px;
+                    width: 400px;
+                    padding: 10px;
+
+                    & .navPill {
+                        justify-content: space-around;
+
+                        & .naviteminner {
+                            width: 50%;
+
+                            & .navlinkinner {
+                                width: 100%;
+                                color: black;
+                                font-size: 14px;
+                                font-weight: 600;
+                                border: 1px solid $theme1 !important;
+                                margin: 0 0;
+
+                                &.active {
+                                    background-color: $theme1;
+                                    color: white;
+                                }
+
+                            }
+                        }
+                    }
+                }
+
+                &:hover {
+                    & .navlink {
+                        color: $theme1;
+
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            top: 100%;
+                            right: 0;
+                            width: 0%;
+                            height: 2px;
+                            background-color: #fff;
+                            transition: .3s;
+                        }
+                    }
+                }
+            }
+        }
+
+        & .hiddenDropdown {
+            width: 100px;
+            height: 44px;
+            cursor: pointer;
+
+            & .dropedownOuter {
+                top: 0;
+                width: 260px;
+                opacity: 0;
+                visibility: hidden;
+                transition: ease-in-out 0.3s;
+                margin-top: 10px;
+
+                & .inputGroup {
+                    & .form-control {
+                        font-size: 12px;
+
+                        &::placeholder {
+                            font-size: 12px;
+                            color: $gray-500;
+                        }
+                    }
+                }
+            }
+
+            &:hover {
+                & .dropedownOuter {
+                    top: 100%;
+                    opacity: 1;
+                    visibility: visible;
+
+                    & .inputGroup {
+                        & .form-control {
+                            &::placeholder {}
+                        }
+                    }
+                }
+            }
+        }
+
+        & .searchsection {
+            transition: all 0.5s ease-in-out;
+
+            & .searchinput {
+                &:focus {
+                    outline: none;
+                    box-shadow: none;
+                    border-color: $theme1;
+                }
+            }
+
+            & .loginIcon {
+                & .btnlogin {
+                    & img {}
+                }
+            }
+
+            & .inputdropdown {
+                width: 100%;
+                top: 0;
+                left: 0;
+                visibility: hidden;
+                opacity: 0;
+                width: 290px;
+                max-width: 320px;
+                height: auto;
+                overflow: hidden;
+                max-height: 260px; 
+                transition: all 0.4s ease-in-out;
+
+                & .navPill {
+                    & .navItem {
+                        & .navLink {
+                            font-size: 13px;
+                            font-weight: 600;
+                            color: $black;
+
+                            &.active {
+                                background-color: $theme2;
+                                color: $white;
+                            }
+                        }
+                    }
+                }
+                & .dropOuter{
+                    overflow: hidden auto;
+                    max-height: 190px;
+                }
+                & .tab-content {           
+                }
+                & .innertabs {
+                    & .buttoncontent {
+                        background-color: transparent;
+                        color: $black;
+                        padding: 7px 7px;
+                        font-size: 12px;
+                        height: 32px;
+                        cursor: pointer;
+                        border: 1px solid #0000005c;
+                        transition: ease-in-out 0.3s;
+
+                        &:hover {
+                            border-color: $theme1;
+                            color: $theme1 !important;
+                            background-color: lighten($theme1, 35);
+                        }
+                    }
+                }
+
+                & .searchResult {
+                    & .relatedSearch {
+                        & ul {
+                            & li {
+                                font-size: 14px;
+
+                                & a {
+
+                                    &:before,
+                                    &:after {
+                                        content: '';
+                                        display: block;
+                                        background: transparent;
+                                        border-radius: 50px;
+                                        transition: ease-in-out .3s;
+                                    }
+
+                                    &:before {
+                                        width: 20px;
+                                        height: 20px;
+                                        border: 2px solid $theme1;
+                                    }
+
+                                    &:after {
+                                        width: 12px;
+                                        height: 12px;
+                                        position: absolute;
+                                        top: 4px;
+                                        left: 4px;
+                                    }
+
+                                    &:hover {
+                                        &:after {
+                                            background: $dark;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    & .vanues {
+                        & .title {
+                            &:after {
+                                content: '';
+                                display: block;
+                                width: -webkit-fill-available;
+                                height: 2px;
+                                background: $theme1;
+                            }
+                        }
+
+                        & .venueOuter {
+                            transition: ease-in-out .3s;
+
+                            & .imgOuter {
+                                width: 50px;
+                                height: 50px;
+
+                                & img {
+                                    object-fit: cover;
+                                    object-position: center;
+                                }
+                            }
+
+                            & .venueDetai {
+                                & a {
+                                    transition: ease-in-out .3s;
+                                }
+                            }
+
+                            &:hover {
+                                border-color: $theme1 !important;
+
+                                & .venueDetai {
+                                    & a {
+                                        color: $theme1 !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            &:hover {
+                & .inputdropdown {
+                    opacity: 1;
+                    visibility: visible;
+                    top: 100%;
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}
+
+.cart {
+    & .card {
+        background-color: rgb(47, 45, 45);
+
+        & .cardimage {
+            width: 75px;
+            height: 75px;
+
+            & img {}
+        }
+
+        & .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        & .card-text {
+            font-size: 13px;
+        }
+
+        & .card-payment {
+            font-size: 14px;
+        }
+
+        & .itemscart {
+            background: #4c4848;
+            font-size: 12px;
+            border-radius: 20px;
+            padding: 6px 13px;
+            color: white;
+        }
+
+        & .buttoncard {
+            background: black;
+
+            & .cartbtn {
+                height: 100px;
+                width: 40px;
+
+                &:active {
+                    border: none !important;
+                    border-color: none;
+                }
+            }
+        }
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@mixin navbarhed-mixin-min-sm() {}
+
+// Medium devices (tablets, 768px and up)
+@mixin navbarhed-mixin-min-md() {}
+
+// Large devices (desktops, 992px and up)
+@mixin navbarhed-mixin-min-lg() {}
+
+// X-Large devices (large desktops, 1200px and up)
+@mixin navbarhed-mixin-min-xl() {}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@mixin navbarhed-mixin-min-xxl() {}
+
+// X-Small devices (portrait phones, less than 576px)
+@mixin navbarhed-mixin-max-xs() {
+    .navbarhed {
+
+        & .logonav {
+
+            & img {}
+        }
+
+        & .searchOuter {
+            width: 140px;
+
+            & input {}
+
+            & .currentLocation {
+                & a {
+                    &:before {}
+                }
+            }
+        }
+
+        & .togglrbtn {}
+
+        & .navcolapse {
+            & .navullist {
+                & .navitem {
+                    & .navlink {
+                        &.droptoglee {
+                            &::after {}
+                        }
+
+                        &:hover {}
+                    }
+
+                    & .dropdown2 {
+                        width: 100%;
+                        min-width: unset;
+                        & .navPill {
+                            & .naviteminner {
+                                & .navlinkinner {
+                                    font-size: 13px;
+                                    &.active {}
+                                }
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        & .navlink {
+                            &::before {}
+                        }
+                    }
+                }
+            }
+
+            & .hiddenDropdown {
+                cursor: pointer;
+
+                & .dropedownOuter {
+                    & .inputGroup {
+                        & .form-control {
+                            &::placeholder {}
+                        }
+                    }
+                }
+
+                &:hover {
+                    & .dropedownOuter {
+                        & .inputGroup {
+                            & .form-control {
+                                &::placeholder {}
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .searchsection {
+                & .searchinput {
+                    &:focus {}
+                }
+
+                & .loginIcon {
+                    & .btnlogin {
+                        & img {}
+                    }
+                }
+
+                & .inputdropdown {
+                    & .navPill {
+                        & .navItem {
+                            & .navLink {
+                                &.active {}
+                            }
+                        }
+                    }
+
+                    & .innertabs {
+                        & .buttoncontent {
+                            &:hover {}
+                        }
+                    }
+
+                }
+
+                &:hover {
+                    & .inputdropdown {}
+                }
+            }
+        }
+    }
+
+    .cart {
+        & .card {
+
+            & .cardimage {
+                width: 60px;
+                height: 60px;
+
+                & img {}
+            }
+
+            & .card-title {
+                font-size: 13px;
+            }
+
+            & .card-text {
+                font-size: 11px;
+            }
+
+            & .card-payment {
+                font-size: 12px;
+            }
+
+            & .itemscart {
+                padding: 5px 10px;
+                font-size: 10px;
+            }
+
+            & .buttoncard {
+
+                & .cartbtn {
+                    height: 100px;
+                    width: 28px;
+                    padding: 0px 6px;
+
+                    &:active {
+                        border: none !important;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+// Small devices (landscape phones, less than 768px)
+@mixin navbarhed-mixin-max-sm() {}
+
+// Medium devices (tablets, less than 992px)
+@mixin navbarhed-mixin-max-md() {
+    .navbarhed {
+
+        & .logonav {
+
+            & img {}
+        }
+
+        & .searchOuter {
+            width: 240px;
+
+            & input {}
+
+            & .currentLocation {
+                & a {
+                    &:before {}
+                }
+            }
+        }
+
+        & .togglrbtn {}
+
+        & .navcolapse {
+            & .navullist {
+                & .navitem {
+                    & .navlink {
+                        &.droptoglee {
+                            &::after {}
+                        }
+
+                        &:hover {}
+                    }
+
+                    & .dropdown2 {
+                        & .navPill {
+                            & .naviteminner {
+                                & .navlinkinner {
+                                    &.active {}
+                                }
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        & .navlink {
+                            &::before {}
+                        }
+                    }
+                }
+            }
+
+            & .hiddenDropdown {
+                cursor: pointer;
+
+                & .dropedownOuter {
+                    & .inputGroup {
+                        & .form-control {
+                            &::placeholder {}
+                        }
+                    }
+                }
+
+                &:hover {
+                    & .dropedownOuter {
+                        & .inputGroup {
+                            & .form-control {
+                                &::placeholder {}
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .searchsection {
+                & .searchinput {
+                    &:focus {}
+                }
+
+                & .loginIcon {
+                    & .btnlogin {
+                        & img {}
+                    }
+                }
+
+                & .inputdropdown {
+                    & .navPill {
+                        & .navItem {
+                            & .navLink {
+                                &.active {}
+                            }
+                        }
+                    }
+
+                    & .innertabs {
+                        & .buttoncontent {
+                            &:hover {}
+                        }
+                    }
+
+                }
+
+                &:hover {
+                    & .inputdropdown {}
+                }
+            }
+        }
+    }
+
+}
+
+// Large devices (desktops, less than 1200px)
+@mixin navbarhed-mixin-max-lg() {}
+
+// X-Large devices (large desktops, less than 1400px)
+@mixin navbarhed-mixin-max-xl() {}
+
+@media (max-width: 360px) {
+    .navbarhed {
+
+        & .logonav {
+
+            & img {}
+        }
+
+        & .searchOuter {
+            width: 80px !important;
+
+            & input {}
+
+            & .currentLocation {
+                & a {
+                    &:before {}
+                }
+            }
+        }
+
+        & .togglrbtn {}
+
+        & .navcolapse {
+            & .navullist {
+                & .navitem {
+                    & .navlink {
+                        &.droptoglee {
+                            &::after {}
+                        }
+
+                        &:hover {}
+                    }
+
+                    & .dropdown2 {
+                        & .navPill {
+                            & .naviteminner {
+                                & .navlinkinner {
+                                    &.active {}
+                                }
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        & .navlink {
+                            &::before {}
+                        }
+                    }
+                }
+            }
+
+            & .hiddenDropdown {
+                cursor: pointer;
+
+                & .dropedownOuter {
+                    & .inputGroup {
+                        & .form-control {
+                            &::placeholder {}
+                        }
+                    }
+                }
+
+                &:hover {
+                    & .dropedownOuter {
+                        & .inputGroup {
+                            & .form-control {
+                                &::placeholder {}
+                            }
+                        }
+                    }
+                }
+            }
+
+            & .searchsection {
+                & .searchinput {
+                    &:focus {}
+                }
+
+                & .loginIcon {
+                    & .btnlogin {
+                        & img {}
+                    }
+                }
+
+                & .inputdropdown {
+                    & .navPill {
+                        & .navItem {
+                            & .navLink {
+                                &.active {}
+                            }
+                        }
+                    }
+
+                    & .innertabs {
+                        & .buttoncontent {
+                            &:hover {}
+                        }
+                    }
+
+                }
+
+                &:hover {
+                    & .inputdropdown {}
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,163 @@
+@charset "UTF-8";
+
+.artistRegistration{
+    padding: 100px 0 40px;
+    background-image:  linear-gradient(90deg, rgba($black, 0.8) 100%, rgba($black, 0.8) 100%), url(../img/partnerWithUsBg.jpg);
+    background-size: cover;
+    background-position: top center;
+    background-attachment: fixed;
+    height: 100vh;
+    & .mainInner {
+        & .formOuter {
+            max-width: 500px;
+            margin: 0 auto;
+            & .loginOuter{
+                & .loginHeader {
+                }
+                & form {
+                    &.form {
+                        & .input-group {
+                            & .form-label {
+                                font-size: 14px;
+                            }
+                            & .form-control {
+                                font-size: 14px;
+                                &::placeholder {
+                                    color: $gray-400;
+                                    font-weight: 300;
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.modal{
+    &.customModal{
+        & .modal-dialog{
+            // max-width: 430px !important;
+            margin: auto;
+            & .modal-content{
+                & .modal-header{
+                }
+                & .modal-body {
+                    & .orderStatus {
+                        & .imgOuter {
+                            width: 60px;
+                            height: 60px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+// ********************Responsive****************
+@media only screen and (max-width: 1400px) { 
+}
+@media only screen and (max-width: 1200px) {
+}
+@media only screen and (max-width: 1100px) {
+}
+@media only screen and (max-width: 991.98px) {
+    .artistRegistration{
+        height: unset;
+        max-height: 600px;
+        & .mainInner {
+            & .formOuter {
+                & .loginOuter{
+                    & .loginHeader {
+                    }
+                    & form {
+                        &.form {
+                            & .input-group {
+                                & .form-label {
+                                    font-size: 12px;
+                                }
+                                & .form-control {
+                                    font-size: 12px;
+                                    &::placeholder {
+                                        font-size: 12px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 767.98px) {
+}
+@media only screen and (max-width: 575.98px) {
+    .artistRegistration{
+        & .mainInner {
+            & .formOuter {
+                & .loginOuter{
+                    & .loginHeader {
+                        & span {
+                            &:first-child {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                    & form {
+                        &.form {
+                            & .input-group {
+                                & .form-label {
+                                }
+                                & .form-control {
+                                    &::placeholder {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .modal{
+        &.partnerLogin{
+            & .modal-dialog{
+                & .modal-content{
+                    & .modal-header{
+                        & .modal-title{
+                            font-size: 14px;
+                        }
+                        & .btn-close{
+                        }
+                    }
+                    & .modal-body {
+                        & .formOuter {
+                            & .loginOuter{
+                                & .loginHeader {
+                                    font-size: 14px;
+                                }
+                                & form {
+                                    &.form {
+                                        & .input-group {
+                                            & .form-label, & .form-control {
+                                                font-size: 12px;
+                                                &::placeholder {
+                                                    font-size: 12px;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 360px) {
+}
