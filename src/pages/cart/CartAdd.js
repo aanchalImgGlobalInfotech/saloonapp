@@ -57,18 +57,12 @@ function CartAdd({
     day: new Date(Date.now() + d * 24 * 60 * 60 * 1000)
       .toLocaleDateString("en-US", { weekday: "long" })
       .slice(0, 9),
+      month: new Date()
+      .toLocaleDateString("en-US", { month: 'long' }),
     date: new Date(Date.now() + d * 24 * 60 * 60 * 1000).toISOString(),
   }));
 
-  // const scheduleArray = sheduledata.map((el) => {
-  //   const matchedDays = weekDays.filter((day1) => el.includes(day1.day));
-  //   if (matchedDays.length > 0) {
-  //     return {
-  //       day: matchedDays[0].day,
-  //       date: matchedDays[0].date,
-  //     };
-  //   }
-  // });
+ console.log('weeekkkdayss',weekDays[0]?.month)
 
   var startTime1 = stime;
   const endTime1 = etime;
@@ -77,17 +71,20 @@ function CartAdd({
   while (startTime1 <= endTime1) {
     startTime1 = moment(startTime1, "HH:mm:ss ")
       .add(durationInMinutes, "minutes")
-      .format("HH:mm ");
+      .format("HH:mm A");
     timeArry.push(startTime1);
   }
   console.log("qwertrewadrewd,", timeArry);
 
   let currenttime = new Date().toTimeString().slice(0, 5);
-  let a = [];
+  let timevalue = [];
   if (new Date(Date.now()).toISOString().slice(0, 10) == clikedDate.slice(0, 10)) {
-    a = timeArry?.filter((el) => el >= currenttime);
+    timevalue = timeArry?.filter((el) => {if(el >= currenttime && el<=endTime1){
+      return el
+    }
+  });
   } else {
-    a = timeArry;
+    timevalue = timeArry;
   }
 
   // var startTime = moment().startOf("hour");
@@ -248,34 +245,7 @@ function CartAdd({
                     </>
                   );
                 })}
-                {/* <div className="col-6 leftSideContent">
-                  <div className="carditemHeading">Full Body Bleach</div>
-                  <div className="imagetimegender ">
-                    <span className="image">
-                      <img
-                        className="w-100 h-100"
-                        src="assets/img/vandorProfile/clock.svg"
-                        alt
-                      />
-                    </span>
-                    <span className="time">30 min </span> |
-                    <span className="gender">Female</span>
-                  </div>
-                </div>
-                <div className="col-6 rightSideContent">
-                  <div className="d-flex align-items-center justify-content-around">
-                    <div className="text-decoration-line-through discount">
-                      ₹1500
-                    </div>
-                    <div className="payment">₹1275</div>
-                    <button className="btn border-0 p-0 removebtn">
-                      <img
-                        src="assets/img/vandorProfile/remove.svg"
-                        alt="cross"
-                      />
-                    </button>
-                  </div>
-                </div> */}
+               
               </div>
 
               <div className="row row mx-0 py-2 justify-content-between ounded-3 text-black footer">
@@ -311,10 +281,9 @@ function CartAdd({
               <div className="row mx-0 px-0 selectedtimedate">
                 <div className="col-12 mb-2">
                   <div className="selectDate">Select Date</div>
-                  <div className="month text-muted">March</div>
+                  <div className="month text-muted">{weekDays[0]?.month}</div>
                 </div>
                 {weekDays.map((item, i) => {
-                  console.log(sheduledata, "iiiii", item.day);
                   return (
                     <div
                       className={`col-auto px-1 mb-2 datetimeContent ${
@@ -322,9 +291,9 @@ function CartAdd({
                           ? "datetimeContent"
                           : "disabled"
                       }`}
-                      // style={{ backgroundColor:  sheduledata.includes(item.day)  ? '' : "gray" }}
+                
                     >
-                      <label className="option">
+                      <label className="option"  style={{ backgroundColor:  sheduledata.includes(item.day)  ? '' : "gray" }}>
                         <input
                           type="radio"
                           onChange={() => {
@@ -354,7 +323,7 @@ function CartAdd({
                 <div className="col-12 py-2">
                   <div className="selectDate">Choose Time Slot</div>
                 </div>
-                {a?.map((el) => {
+                {timevalue?.map((el) => {
                   return (
                     <div className="col-sm-auto col-4 datetimeContent  px-2 mb-2">
                       <label className="option w-100">
