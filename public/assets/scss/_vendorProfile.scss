@@ -388,41 +388,61 @@
                                 //     color: #fc0;
                                 // }
                             }
+
                             &.totalRating1 {
                                 & .reviewStar {
-                                    &:nth-child(1){
+                                    &:nth-child(1) {
                                         color: #fc0;
                                     }
                                 }
                             }
+
                             &.totalRating2 {
                                 & .reviewStar {
-                                    &:nth-child(1), &:nth-child(2){
+
+                                    &:nth-child(1),
+                                    &:nth-child(2) {
                                         color: #fc0;
                                     }
                                 }
                             }
+
                             &.totalRating3 {
                                 & .reviewStar {
-                                    &:nth-child(1), &:nth-child(2), &:nth-child(3){
+
+                                    &:nth-child(1),
+                                    &:nth-child(2),
+                                    &:nth-child(3) {
                                         color: #fc0;
                                     }
                                 }
                             }
+
                             &.totalRating4 {
                                 & .reviewStar {
-                                    &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4){
+
+                                    &:nth-child(1),
+                                    &:nth-child(2),
+                                    &:nth-child(3),
+                                    &:nth-child(4) {
                                         color: #fc0;
                                     }
                                 }
                             }
+
                             &.totalRating5 {
                                 & .reviewStar {
-                                    &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4), &:nth-child(5){
+
+                                    &:nth-child(1),
+                                    &:nth-child(2),
+                                    &:nth-child(3),
+                                    &:nth-child(4),
+                                    &:nth-child(5) {
                                         color: #fc0;
                                     }
                                 }
                             }
+
                             & .starList {
                                 gap: 0.15rem;
 
@@ -496,6 +516,7 @@
                                     display: flex;
                                     align-items: center;
                                     transition: all 0.3s ease-in-out;
+
                                     & label {
                                         width: 100%;
                                         height: 100%;
@@ -503,20 +524,24 @@
                                         transform: scale(1);
                                         align-items: center;
                                         gap: 0.6rem;
-                                        & svg{
+
+                                        & svg {
                                             width: 70px;
                                             filter: brightness(0);
                                             opacity: 0.5;
                                         }
-                                        &[for="dislike"], &[for="like"]{
+
+                                        &[for="dislike"],
+                                        &[for="like"] {
                                             &.active {
-                                                & svg{
+                                                & svg {
                                                     filter: none !important;
                                                     opacity: 1 !important;
                                                 }
                                             }
                                         }
                                     }
+
                                     // & input:checked {
                                     //         &+label {
                                     //             & svg {
@@ -770,6 +795,19 @@
                                     &.opectiontime {
                                         width: 90px;
                                     }
+
+                                }
+
+                            }
+
+                            &.disabled {
+                                cursor: not-allowed;
+                                filter: grayscale(1);
+                                & .option{
+                                    cursor: none;
+                                    & input{
+                                        cursor: none;
+                                    }
                                 }
                             }
                         }
@@ -872,8 +910,9 @@
             }
         }
     }
-    
+
 }
+
 .modal {
     &.reviewModal {
         & .star-rating {
@@ -881,68 +920,78 @@
             flex-direction: row-reverse;
             gap: 1px;
             justify-content: start;
-        
+
             & input {
                 display: none;
             }
-        
+
             & label {
                 color: #ccc;
                 cursor: pointer;
                 height: 16px;
                 transition: ease-in-out .3s;
             }
-        
+
             & :checked~label {
                 color: #f90 !important;
             }
-        
+
             & label:hover,
             & label:hover~label {
                 color: #fc0;
             }
         }
     }
+
     &.saloonAtHome {
         & .modal-header {
             & .nav-tabs {
-                & .nav-item{
+                & .nav-item {
                     & .nav-link {
                         font-size: 14px;
                         color: $white;
                         background-color: lighten($dark, 20);
                         transition: ease-in-out .3s;
-                        &.active, &:hover {
+
+                        &.active,
+                        &:hover {
                             color: $theme1;
                         }
                     }
                 }
             }
         }
-        & .modal-body{
+
+        & .modal-body {
             & .input-group {
                 & .form-label {
                     font-size: 14px;
                 }
-                & .form-control, & .form-select {
+
+                & .form-control,
+                & .form-select {
                     font-size: 14px;
                     height: 40px;
+
                     &::placeholder {
                         color: $gray-400;
                         font-weight: 300;
                         font-size: 14px;
                     }
+
                     &:focus {
                         border-color: $theme1 !important;
                     }
                 }
+
                 & .form-select {
                     & option {
                         font-size: 14px;
                     }
                 }
             }
-            & .card{
+
+            & .card {
                 & .card-header {
                     & .form-check {
                         & .form-check-input {
@@ -951,6 +1000,7 @@
                             position: relative;
                             transition: ease-in-out .3s;
                             cursor: pointer;
+
                             &:before {
                                 content: '';
                                 display: block;
@@ -964,10 +1014,12 @@
                                 right: 5px;
                                 top: 2px;
                             }
+
                             &:checked {
                                 background-color: $theme1 !important;
                                 border-color: $theme1 !important;
                                 background-image: none;
+
                                 &:before {
                                     opacity: 1;
                                     transform: rotate(45deg);
@@ -977,17 +1029,20 @@
                     }
                 }
             }
+
             & .formOuter {
                 & .form-check {
                     & .form-check-label {
                         cursor: pointer;
                         font-size: 14px;
                     }
+
                     & .form-check-input {
                         cursor: pointer;
                         background-image: none;
                         position: relative;
                         overflow: hidden;
+
                         &:before {
                             content: "";
                             width: 16px;
@@ -998,9 +1053,11 @@
                             border-bottom: 2px solid $theme1;
                             transition: ease-in-out .3s;
                         }
+
                         &:checked {
                             border-color: $theme1;
                             background-color: $white;
+
                             &:before {
                                 width: 10px;
                                 height: 6px;
@@ -1011,6 +1068,7 @@
                                 top: 3px;
                             }
                         }
+
                         &:focus {
                             border-color: $theme1;
                         }

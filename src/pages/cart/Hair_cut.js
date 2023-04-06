@@ -5,7 +5,9 @@ import Footer from "../../common/layout/footer";
 import Footer2 from "../../common/layout/header/Footer2";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData } from "../../components/apiinstance/Api";
+import moment from "moment";
 import { saloonservice, searchdata, WhislistItem } from "../../components/redux/redux1/actions";
+
 
 function Hair_cut() {
   const location = useLocation();
@@ -15,6 +17,7 @@ function Hair_cut() {
   const id = useSelector((state)=> state.categoryItem)
   const cityName=useSelector((state)=>state.cityName)
   const cityF=useSelector((state)=>state.cityFooter)
+  const value = useSelector((state) => state.saloonData);
   const[multiGender,setMultiGender]=useState([])
   const [preferencesForm, setPreferencesForm] = useState({
     minPrice: "",
@@ -91,8 +94,6 @@ function Hair_cut() {
       navigate("/services")
     }
   };
-
-  
 
   return (
     <div>

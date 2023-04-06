@@ -281,7 +281,7 @@ console.log(dataByLocation)
                               aria-selected="false"
                               onClick={()=>{filterAllData('spa');setType('spa');clearLocalStorage()}}
                             >
-                              Spass
+                              Spa
                             </button>
                           </li>
                         </ul>
@@ -343,7 +343,7 @@ console.log(dataByLocation)
                               aria-selected="false"
                               onClick={()=>{filterAllData('spa');setType('spa')}}
                             >
-                              Spas
+                              Spa
                             </button>
                           </li>
                         </ul>

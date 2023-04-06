@@ -238,7 +238,7 @@ const CheckOut = ({ setCouponID }) => {
                              </div>
                            </div>
                            <div className="col">
-                             <div className="dec text-white">{arr[0]?.userAddress?.aria}</div>
+                             <div className="dec text-white">{arr[0]?.userAddress?.Area}</div>
                            </div>
                          </div>
                          <div className="row">

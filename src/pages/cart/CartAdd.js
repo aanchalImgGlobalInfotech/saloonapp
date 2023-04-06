@@ -22,29 +22,27 @@ function CartAdd({
   const coupid = useSelector((state) => state.CouponItem);
   const value1 = localStorage.getItem("cartid");
   const navigate = useNavigate();
-  const [data, setdata] = useState([]);
-  const [alldays, setAlldays] = useState([]);
-  const [OderId, setOderId] = useState([]);
-
-  const [currentTime, setCurrentTime] = useState("");
-  const [sheduledata, setsheduleData] = useState([]);
+  // const [data, setdata] = useState([]);
+  // const [alldays, setAlldays] = useState([]);
+  // const [OderId, setOderId] = useState([]);
+  const [clikedDate, setClikedDate] = useState(new Date(Date.now()).toISOString());
+  const [sheduledata, setsheduleData] = useState(
+    value[0]?.ProfileInfo?.workingday
+  );
   const [slots, setSlots] = useState({
     time: "",
     date: "",
   });
-
-  var timeStops = [];
-  const setSlot = (el) => {
-    const uniqueNames = timeStops.filter((val) => val.includes(el));
-    console.log("aaa", uniqueNames[0]);
-    setSlots({ ...slots, time: uniqueNames[0] });
-  };
+  const stime = value[0]?.ProfileInfo.starting_time;
+  const etime = value[0]?.ProfileInfo.ending_time;
   const [total, settoatal] = useState("");
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState("cart");
-
-  const Data = useSelector((state) => state.payment);
-  console.log(sheduledata, "this is sheduele data");
+  var timeStops = [];
+  const setSlot = (el) => {
+    const uniqueNames = timeStops.filter((val) => val?.includes(el));
+    setSlots({ ...slots, time: uniqueNames[0] });
+  };
   const removeCart = async (id, serviceId) => {
     const res = await getData(
       `remove-service-from-cart/?id=${id}&serviceId=${serviceId}`
@@ -54,48 +52,67 @@ function CartAdd({
       subsData(categoryId);
     }
   };
-
-  let weekDays = [0, 1, 2, 3, 4, 5, 6, 7].map((d) => ({
+ console.log('value[0]?.ProfileInfo?.workingday',value[0]?.ProfileInfo?.workingday)
+  let weekDays = [0, 1, 2, 3, 4, 5, 6].map((d) => ({
     day: new Date(Date.now() + d * 24 * 60 * 60 * 1000)
       .toLocaleDateString("en-US", { weekday: "long" })
       .slice(0, 9),
+      month: new Date()
+      .toLocaleDateString("en-US", { month: 'long' }),
     date: new Date(Date.now() + d * 24 * 60 * 60 * 1000).toISOString(),
   }));
 
-  const scheduleArray = sheduledata.map((el) => {
-    const matchedDays = weekDays.filter((day1) =>el.includes(day1.day));
-    console.log('matchedDays', matchedDays)
-    if (matchedDays.length > 0) {
-      return {
-        day: matchedDays[0].day,
-        date:matchedDays[0].date,
-      };
-    } 
-  }); ;  
+ console.log('weeekkkdayss',weekDays[0]?.month)
 
-   console.log('kkknnnnn', scheduleArray)
-  var startTime = moment().startOf("hour");
-  var endTime = moment().utc().set({ hour: 15 });
-
-  while (startTime <= endTime) {
-    timeStops.push(new moment(startTime).format("hh:mm a"));
-    startTime.add(15, "minutes");
+  var startTime1 = stime;
+  const endTime1 = etime;
+  const durationInMinutes = "15";
+  const timeArry = [];
+  while (startTime1 <= endTime1) {
+    startTime1 = moment(startTime1, "HH:mm:ss ")
+      .add(durationInMinutes, "minutes")
+      .format("HH:mm A");
+    timeArry.push(startTime1);
   }
+  console.log("qwertrewadrewd,", timeArry);
+
+  let currenttime = new Date().toTimeString().slice(0, 5);
+  let timevalue = [];
+  if (new Date(Date.now()).toISOString().slice(0, 10) == clikedDate.slice(0, 10)) {
+    timevalue = timeArry?.filter((el) => {if(el >= currenttime && el<=endTime1){
+      return el
+    }
+  });
+  } else {
+    timevalue = timeArry.filter((el)=>{
+      if(el<=endTime1){
+        return el
+      }
+    })
+  }
+
+  // var startTime = moment().startOf("hour");
+  // var endTime = moment("22:50").utc().set({ hour: 20 });
+  // console.log("momentmoment", moment("07:40").format());
+
+  // console.log("startTime", startTime);
+  // console.log("endTime", endTime);
+
+  // while (startTime <= endTime) {
+  //   timeStops.push(new moment(startTime).format("hh:mm a"));
+  //   startTime.add(15, "minutes");
+  // }
 
   const hanldeSlot = async () => {
     var body = {
       date: slots.date.slice(0, 10),
       timeslot: slots.time,
     };
-
     const res = await postData(
       `Schedule-your-visit?saloonId=${value[0]?._id ? value[0]?._id : ""}`,
       body
     );
- 
-    setsheduleData(res?.data);
   };
-
 
   const cheoutpage = async () => {
     const path = `Checkout?saloonId=${
@@ -104,24 +121,15 @@ function CartAdd({
     const res = await getData(path);
 
     settoatal(...total, res.data[0]?.totalamount);
-    // CreateRazor(res.da
-
     dispatch(checkoutvalues(res.data));
     if (res.status) {
       if (slots.time == "") {
         alert("please choose date & time !");
       } else {
-        // navigate("/checkout");
+        navigate("/checkout");
       }
     }
   };
-
-  // const checkTimeslots = () => {
-  //   console.log('jjjjjj')
-  // if(slots.time || slots.date == ''){
-  //   alert('please choose date & time !')
-  // }
-  // }
 
   return (
     <>
@@ -240,34 +248,7 @@ function CartAdd({
                     </>
                   );
                 })}
-                {/* <div className="col-6 leftSideContent">
-                  <div className="carditemHeading">Full Body Bleach</div>
-                  <div className="imagetimegender ">
-                    <span className="image">
-                      <img
-                        className="w-100 h-100"
-                        src="assets/img/vandorProfile/clock.svg"
-                        alt
-                      />
-                    </span>
-                    <span className="time">30 min </span> |
-                    <span className="gender">Female</span>
-                  </div>
-                </div>
-                <div className="col-6 rightSideContent">
-                  <div className="d-flex align-items-center justify-content-around">
-                    <div className="text-decoration-line-through discount">
-                      ₹1500
-                    </div>
-                    <div className="payment">₹1275</div>
-                    <button className="btn border-0 p-0 removebtn">
-                      <img
-                        src="assets/img/vandorProfile/remove.svg"
-                        alt="cross"
-                      />
-                    </button>
-                  </div>
-                </div> */}
+               
               </div>
 
               <div className="row row mx-0 py-2 justify-content-between ounded-3 text-black footer">
@@ -303,30 +284,38 @@ function CartAdd({
               <div className="row mx-0 px-0 selectedtimedate">
                 <div className="col-12 mb-2">
                   <div className="selectDate">Select Date</div>
-                  <div className="month text-muted">March</div>
+                  <div className="month text-muted">{weekDays[0]?.month}</div>
                 </div>
                 {weekDays.map((item, i) => {
-                  console.log('weekdayass' , item)
                   return (
-                    <div className="col-auto datetimeContent px-1 mb-2">
-                      <label className="option">
+                    <div
+                      className={`col-auto px-1 mb-2 datetimeContent ${
+                        sheduledata?.includes(item.day)
+                          ? "datetimeContent"
+                          : "disabled"
+                      }`}
+                
+                    >
+                      <label className="option"  style={{ backgroundColor:  sheduledata?.includes(item.day)  ? '' : "gray" }}>
                         <input
-                          type="checkbox"
-                          checked={
-                            item.date.slice(0, 10) == slots.date.slice(0, 10)
-                              ? true
-                              : false
+                          type="radio"
+                          onChange={() => {
+                            setSlots({ ...slots, date: item.date });
+                            setClikedDate(item.date);
+                          }}
+                          disabled={
+                            sheduledata?.includes(item.day) ? false : true
                           }
-                          disabled 
                           name="optradio"
+                        
                         />
                         <span
-                          onClick={() =>
-                            setSlots({ ...slots, date: item.date })
-                          }
+                          // onClick={() =>
+                          //   setSlots({ ...slots, date: item.date })
+                          // }
                           className="btn btn-theme1 btn-option"
                         >
-                          <div>{item.day}</div>
+                          <div>{item.day.slice(0, 1)}</div>
                           <div>{item.date.slice(8, 10)}</div>
                         </span>
                       </label>
@@ -337,14 +326,13 @@ function CartAdd({
                 <div className="col-12 py-2">
                   <div className="selectDate">Choose Time Slot</div>
                 </div>
-                {timeStops.map((el) => {
-                  // console.log('elelelelleellelelele', el)
+                {timevalue?.map((el) => {
                   return (
-                    <div className="col-sm-auto col-4 datetimeContent px-2 mb-2">
+                    <div className="col-sm-auto col-4 datetimeContent  px-2 mb-2">
                       <label className="option w-100">
                         <input
                           type="checkbox"
-                          checked={el == slots.time ? true : false}
+                          // checked={el == slots.time ? true : false}
                           name="optradio"
                         />
                         <span

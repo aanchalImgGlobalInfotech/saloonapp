@@ -24,6 +24,9 @@ function HeaderHome() {
   const value = useSelector((state) => state.saloonData);
   const cityN=useSelector((state)=> state.cityName)
   const cityF=useSelector((state)=>state.cityFooter)
+  const [category, setCategory] = useState();
+  const [querysearch , setQuerysearch] = useState('')
+  const [filtered , setfiltered] = useState([])
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null,
@@ -53,15 +56,23 @@ function HeaderHome() {
     navigate("/hair");
   };
 
-  const [category, setCategory] = useState();
- 
-
   const searchCategory = async () => {
-    const res = await getData("getCategoryListing");
-
+   const res = await getData("getCategoryListing");
     setCategory(res.data);
+    setfiltered(res.data)
   };
 
+  const search = (value)=>{
+    setQuerysearch(value)
+    if(value.length > 0){
+    const filtervalue = filtered?.filter((el)=>el.Name.toLowerCase().includes(value.toLowerCase()))
+    setCategory(filtervalue);
+  }else{
+    if(!value){
+      setCategory(filtered);
+    }
+  }
+}
   const locationSearchHandler =  (city) => {
     dispatch(cityName(city))
      navigate(`/salon-in`)
@@ -75,10 +86,21 @@ function HeaderHome() {
 
     setCartData(res.data)
   }
+  
+  const cartHome = Cartdata?.filter((el)=>{ 
+    if(el.cart[0]?.addressId){
+      return el
+    }
+  })
+
+  const cartShop =  Cartdata?.filter((el)=>{ 
+    if(!el.cart[0]?.addressId){
+      return el
+    }
+  })
 
   const removeCart = async (id)=> {
     const res = await getData(`remove-cart?id=${id}`);
-    console.log('remewmememememem', res.data)
     if(res.status){
       GetCartApi();
     }
@@ -191,57 +213,59 @@ function HeaderHome() {
                       aria-labelledby="pills-zoylee-tab"
                       tabIndex={0}
                     >
-                      <div className="cart">
-                          {Cartdata.map((el)=>{
-                            console.log('ellelelelle', el)
-                            return(<>
-                        <div className="card mb-3 h-100 border-0">
-                             <div className="row g-0 align-items-center">
-                            <div className="col-auto p-2">
-                              <div className="cardimage">
-                                <img
-                                  src="/assets/img/about/img-2.png"
-                                  className="img-fluid rounded-start w-100 h-100"
-                                  alt="..."
-                                />
-                              </div>
-                            </div>
-                            <div className="col p-1">
-                              <div className="card-body px-2 py-0">
-                                <h5 className="card-title mb-0 my-1">
-                                 {el.storeName}
-                                </h5>
-                                <p className="card-text my-2 text-white">
-                                  {el?.location?.aria}
-                                </p>
-                                <div className="d-flex align-items-center">
-                                  <p className="card-payment mb-0 text-white me-3">
-                                    ₹ {el?.cart[0]?.totalamount}
-                                  </p>
-                                  {/* <NavLink to='/services'> */}
-                                  
-                                  <div className="itemscart"> {el?.cart?.length == 1 ? `${el?.cart?.length} item` :  `${el?.cart?.length} items`}</div>
-                                  {/* </NavLink> */}
-                                </div>
-                              </div>
-                            </div>
-                            <div className="col-auto h-100">
-                              <div className="buttoncard h-100  w-100 rounded">
-                                <button className="btn cartbtn text-white rounded" onClick={()=>{ removeCart(el?.cart[0]?._id); getcartApi();}}>
-                                  <img
-                                    className="w-100 h-100"
-                                    src="/assets/img/header/times.svg"
-                                    alt
-                                  />
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                         
-                        </div>
-                            </>)
-                          })}
-                      </div>
+                     
+
+                         <div className="cart">
+                         {cartShop?.map((el)=>{
+                           return(<>
+                          <div className="card mb-3 h-100 border-0">
+                            <div className="row g-0 align-items-center">
+                           <div className="col-auto p-2">
+                             <div className="cardimage">
+                               <img
+                                 src="/assets/img/about/img-2.png"
+                                 className="img-fluid rounded-start w-100 h-100"
+                                 alt="..."
+                               />
+                             </div>
+                           </div>
+                           <div className="col p-1">
+                             <div className="card-body px-2 py-0">
+                               <h5 className="card-title mb-0 my-1">
+                                {el.storeName}
+                               </h5>
+                               <p className="card-text my-2 text-white">
+                                 {el?.location?.aria}
+                               </p>
+                               <div className="d-flex align-items-center">
+                                 <p className="card-payment mb-0 text-white me-3">
+                                   ₹ {el?.cart[0]?.totalamount}
+                                 </p>
+                                 {/* <NavLink to='/services'> */}
+                                 
+                                 <div className="itemscart"> {el?.cart?.length == 1 ? `${el?.cart?.length} item` :  `${el?.cart?.length} items`}</div>
+                                 {/* </NavLink> */}
+                               </div>
+                             </div>
+                           </div>
+                           <div className="col-auto h-100">
+                             <div className="buttoncard h-100  w-100 rounded">
+                               <button className="btn cartbtn text-white rounded" onClick={()=>{ removeCart(el?.cart[0]?._id); getcartApi();}}>
+                                 <img
+                                   className="w-100 h-100"
+                                   src="/assets/img/header/times.svg"
+                                   alt
+                                 />
+                               </button>
+                             </div>
+                           </div>
+                         </div>
+                        
+                       </div>
+                           </>)
+                         })}
+                     </div>
+                     
                     </div>
                     <div
                       className="tab-pane tabpane fade"
@@ -250,7 +274,58 @@ function HeaderHome() {
                       aria-labelledby="pills-zoyleeHome-tab"
                       tabIndex={0}
                     >
-                      No Items
+                    
+                         <div className="cart">
+                         {cartHome?.map((el)=>{
+                           return(<>
+                       <div className="card mb-3 h-100 border-0">
+                            <div className="row g-0 align-items-center">
+                           <div className="col-auto p-2">
+                             <div className="cardimage">
+                               <img
+                                 src="/assets/img/about/img-2.png"
+                                 className="img-fluid rounded-start w-100 h-100"
+                                 alt="..."
+                               />
+                             </div>
+                           </div>
+                           <div className="col p-1">
+                             <div className="card-body px-2 py-0">
+                               <h5 className="card-title mb-0 my-1">
+                                {el.storeName}
+                               </h5>
+                               <p className="card-text my-2 text-white">
+                                 {el?.location?.aria}
+                               </p>
+                               <div className="d-flex align-items-center">
+                                 <p className="card-payment mb-0 text-white me-3">
+                                   ₹ {el?.cart[0]?.totalamount}
+                                 </p>
+                                 {/* <NavLink to='/services'> */}
+                                 
+                                 <div className="itemscart"> {el?.cart?.length == 1 ? `${el?.cart?.length} item` :  `${el?.cart?.length} items`}</div>
+                                 {/* </NavLink> */}
+                               </div>
+                             </div>
+                           </div>
+                           <div className="col-auto h-100">
+                             <div className="buttoncard h-100  w-100 rounded">
+                               <button className="btn cartbtn text-white rounded" onClick={()=>{ removeCart(el?.cart[0]?._id); getcartApi();}}>
+                                 <img
+                                   className="w-100 h-100"
+                                   src="/assets/img/header/times.svg"
+                                   alt
+                                 />
+                               </button>
+                             </div>
+                           </div>
+                         </div>
+                        
+                       </div>
+                           </>)
+                         })}
+                     </div>
+                  
                     </div>
                   </div>
                 </ul>
@@ -361,6 +436,8 @@ function HeaderHome() {
               <input
                 className="form-control searchinput"
                 type="search"
+                value={querysearch}
+                onChange={(e)=> search(e.target.value)}
                 placeholder="Search"
                 aria-label="Search"
               />

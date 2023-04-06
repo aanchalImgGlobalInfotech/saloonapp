@@ -7,6 +7,8 @@ import { postData, getData } from "../../components/apiinstance/Api";
 import { NavLink, useNavigate } from "react-router-dom";
 import Header from "../../common/layout/header/header";
 import Footer from "../../common/layout/footer";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 function Login() {
   let navigate = useNavigate();
   const [defaultvalues, setdefaultvalues] = useState({
@@ -66,10 +68,19 @@ function Login() {
       phone: value,
     };
     const res = await postData("login", body);
-
-    if (res.status == true) {
-      navigate("/verifyotp", { state: res?.data[0]?.phone });
-    }
+    if(res.status){
+      localStorage.setItem("phone",res?.data[0]?.phone)
+      toast.success(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+    });
+    setTimeout(() => {
+      navigate("/verifyotp");
+}, 2000);
+     }else{
+      toast.error(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+    });
+     }
     console.log(res?.data[0]?.phone);
     // setotpvalue(res?.data[0]?.phone)
   };
@@ -78,6 +89,9 @@ function Login() {
   return (
     <>
       <div className="container-fluid login px-5">
+    <ToastContainer
+      autoClose ='2000'/>
+      
         <div className="login2 h-100">
           <div className="row h-100 align-items-center">
             <div className="col-md-5 col-12  order-md-1 order-2 h-100 d-flex flex-column justify-content-center mt-5 px-5">

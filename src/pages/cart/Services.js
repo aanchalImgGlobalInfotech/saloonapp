@@ -49,10 +49,6 @@ function Services({ couponid }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
-  console.log("Data[0]?._id", Data[0]?._id);
- 
-
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const validationschema = yup.object().shape({
@@ -99,11 +95,10 @@ function Services({ couponid }) {
     addressType: "",
     dataCheck: false,
   });
-
+console.log('kkkkkkk', Data[0]?._id)
   const EditId = async (id, parentId) => {
     let saloonId = Data[0]?._id;
     const res = await getData(`add-cart?saloonId=${saloonId}&serviceId=${id}`);
-
     if (res.status) {
       getcartApi();
       const cat = parentId?.parent_Name || categoryId;
@@ -118,7 +113,6 @@ function Services({ couponid }) {
 
   const handle = async () => {
     const res = await getData("getCategoryListing");
-
     setvalues(res.data);
     if (res.status) {
       let catId = categoryId ? categoryId : res?.data[0]?._id;
@@ -244,14 +238,6 @@ function Services({ couponid }) {
   const handlesaerch = async (e) => {
     const data = e.target.value;
     searchApi(data);
-    // if (!!data) {
-    //   const FilterData = subdata.filter((item) => {
-    //     return item.Name.toLowerCase().includes(data.toLowerCase());
-    //   });
-    //   setFilterData(FilterData);
-    // } else {
-    //   setFilterData(subdata);
-    // }
     setsearchData(data);
   };
 
@@ -781,7 +767,6 @@ function Services({ couponid }) {
                                       id="accordionExample"
                                     >
                                       {Filterdata?.map((items) => {
-                                        console.log("iiyiyiyiy", items);
                                         return (
                                           <div
                                             className="accordion-item"
