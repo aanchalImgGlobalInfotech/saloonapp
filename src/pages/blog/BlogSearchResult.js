@@ -1,173 +1,148 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation,Link,NavLink } from "react-router-dom";
 import Footer from "../../common/layout/footer/footer";
+import Footer2 from "../../common/layout/footer/Footer2 ";
+import Header2 from "../../common/layout/header/Header2";
 import { getData } from "../../components/apiinstance/Api";
 
-
-function Blog() {
-  const navigate=useNavigate()
+const BlogSearchResult = () => {
+  const location = useLocation();
+  const [categoryId, setCategoryId] = useState(location?.state?.categoryId);
+  const [category, setCategory] = useState([]);
+  const[searchValue,setSearchValue]=useState(location?.state?.searchKey)
   const [Blog, setBlog] = useState([]);
-  const [categoryId,setCategoryId]=useState('')
-  const [category, setCategory] = useState();
-  const [searchValue,setSearchValue]=useState('')
+  const[selectedCategory,setSelectedCategory]=useState('')
+
   const getBlog = async () => {
-    const res = await getData("get-blog");
+    const res = await getData(`get-blog?categoryId=${categoryId?categoryId:''}&Title=${searchValue?searchValue:''}`);
     const response = await getData("getCategoryListing");
     setCategory(response.data);
     setBlog(res.data[0]);
-    //console.log(res, "get blog");
+    console.log(res, "get blog");
     //console.log(response.data,'categorylist' );
   };
 
   useEffect(() => {
     getBlog();
-  }, []);
+  }, [categoryId]);
 
+  //  Custom Pegination
 
-    const selectHandler = (e) =>{
-      console.log(e.target.value)
-      navigate('/blog-search-result',{state:{
-        categoryId:e.target.value
-     }})
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordPerPage = 4;
+  const lastIndex = currentPage * recordPerPage;
+  const firstIndex = lastIndex - recordPerPage;
+  const records =  Blog?.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(Blog?.length / recordPerPage);
+   const numbers = [...Array(npage + 1)?.keys()]?.slice(1);
+  
+
+  const prevPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
     }
-  //  Custom Pegination 
+  };
 
-  const[currentPage,setCurrentPage]=useState(1)
-  const recordPerPage=4;
-  const lastIndex=currentPage*recordPerPage;
-  const firstIndex=lastIndex-recordPerPage
-  const records=Blog?.slice(firstIndex,lastIndex)
-  const npage= Math.ceil(Blog?.length/recordPerPage)
-  const numbers=[...Array(npage + 1).keys()].slice(1)
+  const changePage = (id) => {
+    setCurrentPage(id);
+  };
+  const nextPage = () => {
+    if (currentPage !== lastIndex) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
-   const prevPage = () =>{
-      if(currentPage !== 1){
-        setCurrentPage(currentPage-1)
-      }
-   }
-
-  const changePage = (id) =>{
-      setCurrentPage(id)
-  }
-  const nextPage = () =>{
-      if(currentPage !== lastIndex) {
-        setCurrentPage(currentPage+1)
-      }
+  const selectHandler = (e) =>{
+    setCategoryId(e.target.value)
+    setSelectedCategory(e.target.value)
+    setSearchValue('')
+  
   }
 
   const startSearch = () =>{
-    navigate('/blog-search-result',{state:{
-      searchKey:searchValue
-   }})
+    getBlog()
+    setCategoryId('')
+    setSelectedCategory('')
   }
+// console.log(Blog)
   return (
     <div>
-      <nav
-        className="navbar navbar-expand-md navbar-dark bg-theme2 navbarhed position-fixed w-100"
-        aria-label="Fourth navbar example"
-      >
-        <div className="container">
-          <Link className="navbar-brand logonav" to="/Dashboard">
-            <img src="assets/img/header/logo.svg" alt="logo" />
-          </Link>
-          <div className="buttons d-flex gap-sm-3 gap-2">
-            <NavLink
-              to="/downloadPage"
-              className="btn btn-light loginBtn px-sm-4 py-sm-2"
-              download
-            >
-              Download
-            </NavLink>
-            <NavLink
-              to="/login"
-              className="btn btn-theme1 loginBtn text-white px-sm-4 py-sm-2"
-            >
-              Login
-            </NavLink>
-          </div>
-        </div>
-      </nav>
-      <div className="breadcrumbMain position-absolute">
-        <ul className="breadcrumb d-block m-auto list-unstyled">
-          <li className="crumb first-crumb position-relative d-inline-block fs-12 float-start text-white">
-            <NavLink
-              className="text-decoration-none text-white"
-              to="/Dashboard"
-            >
-              Home
-            </NavLink>
-          </li>
-          <li className="crumb middle-crumb position-relative d-inline-block fs-12 float-start text-white active">
-            Blog
-          </li>
-        </ul>
-      </div>
+      <Header2 />
       <div className="blogMain possition-re;ative">
         <div className="container-fluid px-0">
           <div className="mainInner">
             <div className="row mx-0">
-              <div className="col-12 px-0">
-                <div className="banner">
-                  <div className="row mx-0">
-                    <div className="col-lg-8 col-md-7 px-0">
-                      <div className="imgOuter w-100">
-                        <img
-                          className="w-100 h-100"
-                          src="/assets/img/blog/blogMain.jpg"
-                          alt
-                        />
-                      </div>
-                    </div>
-                    <div className="col-lg-4 col-md-5 px-0 bg-black d-flex align-items-center">
-                      <div className="formOuter p-4 px-sm-5">
-                        <div className="title text-white">Quote of the Day</div>
-                        <div className="text text-white mt-3">
-                          " A woman whose smile is open and whose expression is
-                          glad has a kind of beauty no matter what she wears. "
-                        </div>
-                        <div className="category text-white fs-sm-5 fs-6 mt-4">
-                          Category
-                        </div>
-                        <div className="input-group d-block mt-3">
-                          <label htmlFor className="form-label text-white">
-                            Select Category
-                          </label>
-                          <select
-                            className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
-                            aria-label="Default select example"
-                            onChange={selectHandler}
-                          >
-                            <option selected  >Select Category</option>
-                            {category?.map((el, i) => (
-                              <option value={el._id}>{el.Name}</option>
-                            ))}
-                          </select>
-                        </div>
-                        <div className="input-group d-block mt-3 position-relative">
-                          <label
-                            htmlFor="search"
-                            className="form-label text-white"
-                          >
-                            Search
-                          </label>
-                          <input
-                            type="search"
-                            className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none pe-5 z-2"
-                            placeholder="Search..."
-                            value={searchValue}
-                            onChange={(e)=>setSearchValue(e.target.value)}
-
-                          />
-                          <button
-                            type="button"
-                            className="btn btn-transparent searchBtn border-0 shadow-none position-absolute z-3 bottom-0 end-0 border-start py-2"
-                            onClick={startSearch}
-                            >
-
-                            <img src="/assets/img/icon/search1.svg" alt />
-                          </button>
+              <div className="col-12 px-0 bg-black">
+                <div className="container">
+                  <div className="banner">
+                    <div className="row mx-0">
+                      <div className="col-12 px-0 align-items-center">
+                        <div className="formOuter py-5">
+                          {/* <div class="title text-white">Quote of the Day</div>
+                                          <div class="text text-white mt-3">" A woman whose smile is open and whose expression is glad has a kind of beauty no matter what she wears. "</div> */}
+                          <div className="category text-white fs-sm-5 fs-6 ">
+                            Category
+                          </div>
+                          <div className="row">
+                            <div className="col-sm-6">
+                              <div className="row">
+                                <div className="col-8">
+                                  <div className="input-group d-block mt-3">
+                                    <label
+                                      htmlFor
+                                      className="form-label text-white"
+                                    >
+                                      Select Category
+                                    </label>
+                                    <select
+                                      className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
+                                      aria-label="Default select example"
+                                      onChange={selectHandler}
+                                      value={selectedCategory}
+                                      
+                                      >
+                                        <option selected  >Select Category</option>
+                                        {category?.map((el, i) => (
+                                          <option value={el._id}>{el.Name}</option>
+                                        ))}
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="col-sm-6">
+                              <div className="row">
+                                <div className="col-8">
+                                  <div className="input-group d-block mt-3 position-relative">
+                                    <label
+                                      htmlFor="search"
+                                      className="form-label text-white"
+                                    >
+                                      Search
+                                    </label>
+                                    <input
+                                      type="search"
+                                      className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none pe-5 z-2"
+                                      id="search"
+                                      placeholder="Search..."
+                                      value={searchValue}
+                                      onChange={(e)=>setSearchValue(e.target.value)}
+                                    />
+                                    <button
+                                      type="button"
+                                      className="btn btn-transparent searchBtn border-0 shadow-none position-absolute z-3 bottom-0 end-0 border-start py-2"
+                                      onClick={startSearch}
+                                    >
+                                      <img
+                                        src="assets/img/icon/search1.svg"
+                                        alt
+                                      />
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -261,7 +236,7 @@ function Blog() {
                           </Link>
                         </div>
                       </div>
-                      <Footer />
+                    
                     </div>
                   </div>
                 </div>
@@ -270,8 +245,10 @@ function Blog() {
           </div>
         </div>
       </div>
+      <Footer2 />
+      <Footer />
     </div>
   );
-}
+};
 
-export default Blog;
+export default BlogSearchResult;

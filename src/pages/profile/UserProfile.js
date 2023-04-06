@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import Footer2 from "../../common/layout/header/Footer2";
-import Footer from "../../common/layout/footer";
+import Footer2 from "../../common/layout/footer/Footer2 ";
+import Footer from "../../common/layout/footer/footer";
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -69,26 +69,7 @@ function UserProfile() {
     dispatch(setUsers(profile.data));
   };
 
-  const ImageApi = async (value) => {
-    var formdata = new FormData();
-    for (var key in value) {
-      formdata.append(key, value[key]);
-      console.log(key, value[key]);
-    }
-    console.log(formdata, "formdataaaaaa");
-    const res = await postformdata("Edit-User-Profile", formdata);
-    if(res.status){
-          toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-         });
-          }else{
-          toast.error(res.message, {
-             position: toast.POSITION.TOP_RIGHT,
-        });
-          }
-    const profile = await getData("user-Profile");
-    dispatch(setUsers(profile.data));
-  };
+ 
   function logout() {
     localStorage.removeItem("token");
     navigate("/login");
@@ -1324,7 +1305,7 @@ function UserProfile() {
       {/* Profile Page end */}
       {/* herewe we Section start */}
       <Footer2/>
-      <Footer/>
+ <Footer />
     </div>
   );
 }

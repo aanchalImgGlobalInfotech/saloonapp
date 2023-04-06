@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import Footer from "../../common/layout/footer";
+import Footer from "../../common/layout/footer/footer";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData, postData } from "../../components/apiinstance/Api";
 import { cart, cartdata } from "../../components/redux/redux1/actions";
@@ -69,7 +69,7 @@ function Services({ couponid }) {
       .min(1, "Enter valid Housenumber!")
       .max(6, "Too Long!")
       .required("HouseNo. is required"),
-    area: Yup.string()
+    aria: Yup.string()
       .min(2, "Enter valid area!")
       .max(40, "Too Long!")
       .required("area is required"),
@@ -87,7 +87,7 @@ function Services({ couponid }) {
   const [Addressdetails, setAddressDetails] = useState({
     name: "",
     House: "",
-    area: "",
+    aria: "",
     Pincode: "",
     Mobile: "",
     City: "",
@@ -95,7 +95,7 @@ function Services({ couponid }) {
     addressType: "",
     dataCheck: false,
   });
-console.log('kkkkkkk', Data[0]?._id)
+  console.log("kkkkkkk", Data[0]?._id);
   const EditId = async (id, parentId) => {
     let saloonId = Data[0]?._id;
     const res = await getData(`add-cart?saloonId=${saloonId}&serviceId=${id}`);
@@ -145,7 +145,7 @@ console.log('kkkkkkk', Data[0]?._id)
 
   var Cartfun = getcartApi;
   var subsData = subcategory;
-  const removeCart = async (id , parentId) => {
+  const removeCart = async (id, parentId) => {
     const res = await getData(
       `remove-service-from-cart/?id=${Cartid}&serviceId=${id}`
     );
@@ -329,14 +329,17 @@ console.log('kkkkkkk', Data[0]?._id)
   };
 
   const EditAddresApi = async (value) => {
+    console.log('fffffff', value)
     var body = {
       name: value.name,
       mobile: value.Mobile,
-      houseNumber: value.House,
-      area: value.aria,
-      pincode: value.Pincode,
-      city: value.City,
-      state: value.State,
+      location: {
+        houseNumber: value.House,
+        aria: value.aria,
+        pincode: value.Pincode,
+        city: value.City,
+        state: value.State,
+      },
       type: value.addressType,
       dataCheck: value.dataCheck,
     };
@@ -357,7 +360,7 @@ console.log('kkkkkkk', Data[0]?._id)
       name: data?.name,
       House: data?.location?.houseNumber,
       Mobile: data?.phone,
-      area: data.location?.aria,
+      aria: data.location?.aria,
       Pincode: data?.location?.pincode,
       City: data?.location?.city,
       State: data?.location?.state,
@@ -372,7 +375,6 @@ console.log('kkkkkkk', Data[0]?._id)
     }
   };
   const handleRadioApi = async (id) => {
-    console.log(id, "yeyyeyey", Cartid);
     const res = await getData(
       `add-addresss-in-user-cart?id=${id ? id : ""}&cartId=${
         Cartid ? Cartid : ""
@@ -380,7 +382,6 @@ console.log('kkkkkkk', Data[0]?._id)
     );
     //  localStorage.setItem('value',res.data[0]?.addressId)
     setHomeCheckout(res.data[0]?.addressId);
-    console.log(res.data, "oorrrrrr");
   };
   return (
     <div>
@@ -887,7 +888,8 @@ console.log('kkkkkkk', Data[0]?._id)
                                                                       className="minus"
                                                                       onClick={() => {
                                                                         removeCart(
-                                                                          el._id,  items
+                                                                          el._id,
+                                                                          items
                                                                         );
                                                                         setCount(
                                                                           el.Quantity_In_Cart -
@@ -1588,16 +1590,15 @@ console.log('kkkkkkk', Data[0]?._id)
                 <Formik
                   initialValues={Addressdetails}
                   validationSchema={validationschema}
-                  onSubmit={(value, { resetForm }) => {
-                    if (editId) {
+                  onSubmit={(value) => {
+                    if (!!editId) {
                       EditAddresApi(value);
-
                       getAddress();
                     } else {
                       PostAddApi(value);
                       getAddress();
                     }
-                    resetForm({ Addressdetails: "" });
+                   
                   }}
                   enableReinitialize={true}
                 >
@@ -1665,16 +1666,16 @@ console.log('kkkkkkk', Data[0]?._id)
                                   </label>
                                   <input
                                     type="text"
-                                    name="area"
+                                    name="aria"
                                     className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none pe-5 z-2"
                                     id="area"
-                                    value={props.values.area}
+                                    value={props.values.aria}
                                     onChange={props.handleChange}
                                     placeholder="Area"
                                   />
                                   <p className="text-danger text-start">
-                                    {props.errors.area && props.touched.area
-                                      ? props.errors.area
+                                    {props.errors.aria && props.touched.aria
+                                      ? props.errors.aria
                                       : ""}
                                   </p>
                                 </div>

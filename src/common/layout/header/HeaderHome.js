@@ -214,7 +214,6 @@ function HeaderHome() {
                       tabIndex={0}
                     >
                      
-
                          <div className="cart">
                          {cartShop?.map((el)=>{
                            return(<>
@@ -274,7 +273,6 @@ function HeaderHome() {
                       aria-labelledby="pills-zoyleeHome-tab"
                       tabIndex={0}
                     >
-                    
                          <div className="cart">
                          {cartHome?.map((el)=>{
                            return(<>

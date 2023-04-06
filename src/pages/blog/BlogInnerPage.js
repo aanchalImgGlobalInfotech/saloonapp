@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 import { getData } from "../../components/apiinstance/Api";
 
 function BlogInnerPage() {
+  const location=useLocation()
   const [InnerData, setInnerData] = useState();
-  const { id } = useParams();
-  console.log(id, "idddddddddd");
+  const[innerId,setInnerId]=useState(location.state.itemId)
+  
+  console.log(location, "idddddddddd");
 
   const BlogInnerData = async () => {
-    const res = await getData(`get-blog/${id}`);
-    setInnerData(res.data);
+    const res = await getData(`get-blog?id=${innerId}`);
+    setInnerData(res.data[0][0]);
+    //console.log(res)
   };
-  console.log(InnerData, "innnner-dataaaaaaaaaaaaa");
+  
 
   useEffect(() => {
     BlogInnerData();
-  }, []);
-
+  }, [innerId]);
+    console.log(InnerData)
   return (
     <div>
       <nav
@@ -24,9 +27,9 @@ function BlogInnerPage() {
         aria-label="Fourth navbar example"
       >
         <div className="container">
-          <a className="navbar-brand logonav" href="index.html">
+          <Link className="navbar-brand logonav" to='/Dashboard' >
             <img src="/assets/img/header/logo.svg" alt="logo" />
-          </a>
+          </Link>
           <div className="buttons d-flex gap-sm-3 gap-2">
             <NavLink
               to="/downloadPage"
@@ -86,19 +89,19 @@ function BlogInnerPage() {
                       <div className="imgOuter w-100 position-relative">
                         <img
                           className="w-100 h-100"
-                          src="/assets/img/blog/Valentine-Makeup.jpg"
+                          src={InnerData?.image[0]}
                           alt
                         />
                         <ul className="importantDate position-absolute bottom-0 end-0 p-2 list-unstyled m-0 d-flex fs-12 gap-2 text-white">
-                          <li className="pe-2 border-end">February 07, 2023</li>
-                          <li className>By Oshin Bijalwan</li>
+                          <li className="pe-2 border-end">{InnerData?.WriteDate.slice(0,10)}</li>
+                          <li className>By {InnerData?.WriterName}</li>
                         </ul>
                       </div>
                     </div>
                     <div className="col-lg-4 col-md-5 px-0 bg-black d-md-flex align-items-md-center">
                       <div className="formOuter p-4 px-sm-5">
                         <div className="title text-white">
-                          Valentine’s Day Makeup Look 2023
+                          Valentine's Day Makeup Look 2023
                         </div>
                         <div className="category text-white fs-sm-5 fs-6 mt-4">
                           Category
@@ -157,19 +160,8 @@ function BlogInnerPage() {
               <div className="row">
                 <div className="col-12">
                   <div className="txt fs-14 text-white text-align-justify mb-4">
-                    Valentine’s week is around! Are you excited? The main focus
-                    is the look we carry. When it comes to valentine’s day
-                    makeup look, women are not sure about how to become
-                    date-perfect.
-                    <br />
-                    <br />
-                    So ladies! Looking for a good valentine’s offer? Use
-                    ‘ZOYLOV’ and get 30% off on booking your valentine’s makeup
-                    with Saloon.
-                    <br />
-                    <br />
-                    There are some beautiful valentine’s day makeup ideas that
-                    you can try-
+                     {InnerData?.Description.slice(0,800)}
+                    
                   </div>
                   <a
                     href="javascript:;"
@@ -581,110 +573,42 @@ function BlogInnerPage() {
                   </div>
                   <div className="col-12">
                     <div className="row g-4">
-                      <div className="col-lg-12 col-sm-6">
-                        <div className="blogOuter rounded-4 overflow-hidden position-relative">
-                          <div className="imgOuter overflow-hidden">
-                            <img
-                              className="w-100 h-100"
-                              src="/assets/img/blog/blogImg1.jpg"
-                              alt
-                            />
-                          </div>
-                          <div className="blogDetail p-3 bg-white row gap-2 mx-0">
-                            <div className="blogTitle col-12 px-0">
-                              Valentine’s Day Makeup Look 2023
+                      {
+                        InnerData?.RelatedPosts?.map((item)=>{
+                          return(
+                            <div className="col-lg-12 col-sm-6"
+                            style={{cursor:'pointer'}}
+                              onClick={()=>setInnerId(item._id)}
+                            >
+                        
+                            <div className="blogOuter rounded-4 overflow-hidden position-relative">
+                              <div className="imgOuter overflow-hidden"
+                              
+                              >
+                                <img
+                                  className="w-100 h-100"
+                                  src="/assets/img/blog/blogImg1.jpg"
+                                  alt
+                                />
+                              </div>
+                              <div className="blogDetail p-3 bg-white row gap-2 mx-0">
+                                <div className="blogTitle col-12 px-0">
+                                  {item?.Description?.slice(0,40)}
+                                </div>
+                                <ul className="d-flex align-items-center gap-sm-3 gap-2 list-unstyled p-0 m-0 col-12 px-0">
+                                  <li className="text-muted border-end border-2 border-gray pe-sm-3 pe-2">
+                                  {item?.Title}
+                                  </li>
+                                  <li className="text-muted">{item?.WriteDate?.slice(0,10)}</li>
+                                </ul>
+                                
+                              </div>
                             </div>
-                            <ul className="d-flex align-items-center gap-sm-3 gap-2 list-unstyled p-0 m-0 col-12 px-0">
-                              <li className="text-muted border-end border-2 border-gray pe-sm-3 pe-2">
-                                Beauty, Tranding
-                              </li>
-                              <li className="text-muted">Feb 21, 2023</li>
-                            </ul>
-                            <a
-                              href="blogInnerPage.html"
-                              className="col stretched-link"
-                            />
                           </div>
-                        </div>
-                      </div>
-                      <div className="col-lg-12 col-sm-6">
-                        <div className="blogOuter rounded-4 overflow-hidden position-relative">
-                          <div className="imgOuter overflow-hidden">
-                            <img
-                              className="w-100 h-100"
-                              src="/assets/img/blog/blogImg1.jpg"
-                              alt
-                            />
-                          </div>
-                          <div className="blogDetail p-3 bg-white row gap-2 mx-0">
-                            <div className="blogTitle col-12 px-0">
-                              Valentine’s Day Makeup Look 2023
-                            </div>
-                            <ul className="d-flex align-items-center gap-sm-3 gap-2 list-unstyled p-0 m-0 col-12 px-0">
-                              <li className="text-muted border-end border-2 border-gray pe-sm-3 pe-2">
-                                Beauty, Tranding
-                              </li>
-                              <li className="text-muted">Feb 21, 2023</li>
-                            </ul>
-                            <a
-                              href="blogInnerPage.html"
-                              className="col stretched-link"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-lg-12 col-sm-6">
-                        <div className="blogOuter rounded-4 overflow-hidden position-relative">
-                          <div className="imgOuter overflow-hidden">
-                            <img
-                              className="w-100 h-100"
-                              src="/assets/img/blog/blogImg1.jpg"
-                              alt
-                            />
-                          </div>
-                          <div className="blogDetail p-3 bg-white row gap-2 mx-0">
-                            <div className="blogTitle col-12 px-0">
-                              Valentine’s Day Makeup Look 2023
-                            </div>
-                            <ul className="d-flex align-items-center gap-sm-3 gap-2 list-unstyled p-0 m-0 col-12 px-0">
-                              <li className="text-muted border-end border-2 border-gray pe-sm-3 pe-2">
-                                Beauty, Tranding
-                              </li>
-                              <li className="text-muted">Feb 21, 2023</li>
-                            </ul>
-                            <a
-                              href="blogInnerPage.html"
-                              className="col stretched-link"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-lg-12 col-sm-6">
-                        <div className="blogOuter rounded-4 overflow-hidden position-relative">
-                          <div className="imgOuter overflow-hidden">
-                            <img
-                              className="w-100 h-100"
-                              src="/assets/img/blog/blogImg1.jpg"
-                              alt
-                            />
-                          </div>
-                          <div className="blogDetail p-3 bg-white row gap-2 mx-0">
-                            <div className="blogTitle col-12 px-0">
-                              Valentine’s Day Makeup Look 2023
-                            </div>
-                            <ul className="d-flex align-items-center gap-sm-3 gap-2 list-unstyled p-0 m-0 col-12 px-0">
-                              <li className="text-muted border-end border-2 border-gray pe-sm-3 pe-2">
-                                Beauty, Tranding
-                              </li>
-                              <li className="text-muted">Feb 21, 2023</li>
-                            </ul>
-                            <a
-                              href="blogInnerPage.html"
-                              className="col stretched-link"
-                            />
-                          </div>
-                        </div>
-                      </div>
+                          )
+                        })
+                      }
+                      
                     </div>
                   </div>
                 </div>

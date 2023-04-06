@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import Footer from "../../common/layout/footer";
-import Footer2 from "../../common/layout/header/Footer2";
+import Footer from "../../common/layout/footer/footer";
+import Footer2 from "../../common/layout/footer/Footer2 ";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData } from "../../components/apiinstance/Api";
 import moment from "moment";
@@ -239,7 +239,7 @@ function Hair_cut() {
                                         <div className="imgOuter w-100 position-relative">
                                           <img
                                             className="w-100 h-100"
-                                            src={items?.data?.image[0]}
+                                            src={items?.data?.image}
                                             alt
                                           />
                                           <div className="showRating position-absolute text-white bottom-0 end-0">

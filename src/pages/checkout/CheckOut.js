@@ -4,6 +4,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData, postData } from "../../components/apiinstance/Api";
 import { couPon } from "../../components/redux/redux1/actions";
+import Footer2 from "../../common/layout/footer/Footer2 ";
 
 const CheckOut = ({ setCouponID }) => {
   const dispatch = useDispatch();
@@ -71,7 +72,7 @@ const CheckOut = ({ setCouponID }) => {
     }
 
     const options = {
-      key: "rzp_test_3uHHxnLRNsxBwI",
+      key: "rzp_test_3NbMeDVOudCrn5",
       order_id: value,
 
       handler: async function (response) {
@@ -541,9 +542,7 @@ const CheckOut = ({ setCouponID }) => {
         <section className="container-fluid wherWeSection bg-dark">
           <div className="container">
             <div className="row">
-              <div className="col-12">
-                <div className="heading py-3">Where We Are</div>
-              </div>
+              <Footer2 />
               <div className="col-12">
                 <ul className="where-we-list">
                   <li>

@@ -1,11 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import Footer from "../../common/layout/footer";
-import Footer2 from "../../common/layout/header/Footer2";
+import Footer from "../../common/layout/footer/footer";
+import Footer2 from "../../common/layout/footer/Footer2 ";
 import Header from "../../common/layout/header/header";
 import HeaderHome from "../../common/layout/header/HeaderHome";
+import {Formik,Form,Field} from 'formik'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import * as yup from "yup";
+import * as Yup from "yup";
+import { postData } from "../../components/apiinstance/Api";
 
 function Home() {
+
+  const [initialValues, setInitialValues] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    location: "",
+  });
+
+const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const validationschema = yup.object().shape({
+    mobile: yup
+      .string()
+      .required("Enter your mobile number")
+      .length(10, "Please enter a valid mobile number.")
+      .matches(phoneRegExp, "Please enter a valid mobile number."),
+    name: Yup.string()
+    .required("Please Enter Your Name"),
+    // email: Yup.string().email().required("Please Enter Email"),
+    location: Yup.string().required("Please fill this field"),
+  });
+  const submitHandler = async (value, { resetForm }) => {
+    const data = {
+      name: value.name,
+      email: value.email,
+      phone: value.mobile,
+      gender: "",
+      location: {
+        city: value.location,
+      },
+      skiils: "",
+    };
+    const res = await postData("artist-signup", data);
+    if (res.status) {
+      toast.success(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      resetForm();
+    } else {
+      toast.error(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+    console.log(value,'artist signup')
+  };
   const location = useLocation();
   let token = localStorage.getItem("token");
 
@@ -13,6 +64,7 @@ function Home() {
   return (
     <div>
       <HeaderHome />
+      <ToastContainer autoClose={1000} />
       <div>
         <section className="container-fluid heroSection position-relative px-0 bg-dark">
           <div className="bannervideo position-relative">
@@ -333,7 +385,7 @@ function Home() {
                           <div className="col-lg-7 col-md-6 col-sm-12 col-12 imagecolleft">
                             <img
                               className="w-100 h-100 rounded-3"
-                              src="assets/img/index/bussine2.png"
+                              src="/assets/img/index/bussine2.png"
                               alt="..."
                             />
                           </div>
@@ -347,53 +399,84 @@ function Home() {
                                 operate your business. All-in-one application
                                 for you and your clients. Kindly click on
                               </p>
-                              <form action>
-                                <div className="row mx-0 formsection">
-                                  <div className="col-12 mb-3 px-0">
-                                    <input
-                                      type="text"
-                                      className="form-control border-0 border-bottom rounded-0 shadow-none forminput"
-                                      id="exampleFormControlname"
-                                      name="name"
-                                      placeholder="Name"
-                                      required
-                                    />
-                                  </div>
-                                  <div className="col-12 mb-3 px-0">
-                                    <input
-                                      type="tel"
-                                      className="form-control border-0 border-bottom rounded-0 shadow-none forminput"
-                                      name="phone"
-                                      id="exampleFormControlnumber"
-                                      placeholder="Mobile(+91)"
-                                      required
-                                    />
-                                  </div>
-                                  <div className="col-12 mb-3 px-0">
-                                    <input
-                                      type="email"
-                                      className="form-control border-0 border-bottom rounded-0 shadow-none forminput"
-                                      name="email"
-                                      id="exampleFormControlemail"
-                                      placeholder="Email (optional)"
-                                      required
-                                    />
-                                  </div>
-                                  <div className="col-12 mb-3 px-0">
-                                    <input
-                                      type="text"
-                                      className="form-control border-0 border-bottom rounded-0 shadow-none forminput"
-                                      name="address"
-                                      id="exampleFormControlloection"
-                                      placeholder="Your Location"
-                                      required
-                                    />
-                                  </div>
-                                </div>
-                                <a className="btn buttoncustom px-5" href>
-                                  Submit
-                                </a>
-                              </form>
+                              <Formik
+                                initialValues={initialValues}
+                                onSubmit={(value, resetForm) =>
+                                  submitHandler(value, resetForm)
+                                }
+                                validationSchema={validationschema}
+                                enableReinitialize={true}
+                              >
+                                {(formik) => {
+                                  return (
+                                    <Form>
+                                      <div className="row mx-0 formsection">
+                                        <div className="col-12 mb-3 px-0">
+                                          <Field
+                                            type="text"
+                                            className="form-control border-0 border-bottom rounded-0 shadow-none forminput"
+                                            id="exampleFormControlname"
+                                            name="name"
+                                            placeholder="Name"
+                                          />
+                                          <p className="text-danger text-start">
+                                            {formik.touched.name &&
+                                            formik.errors.name
+                                              ? formik.errors.name
+                                              : ""}
+                                          </p>
+                                        </div>
+                                        <div className="col-12 mb-3 px-0">
+                                          <Field
+                                            type="number"
+                                            className="form-control border-0 border-bottom rounded-0 shadow-none forminput"
+                                            name="mobile"
+                                            id="exampleFormControlnumber"
+                                            placeholder="Mobile(+91)"
+                                          />
+                                          <p className="text-danger text-start">
+                                            {formik.touched.mobile &&
+                                            formik.errors.mobile
+                                              ? formik.errors.mobile
+                                              : ""}
+                                          </p>
+                                        </div>
+                                        <div className="col-12 mb-3 px-0">
+                                          <Field
+                                            type="email"
+                                            className="form-control border-0 border-bottom rounded-0 shadow-none forminput"
+                                            name="email"
+                                            id="exampleFormControlemail"
+                                            placeholder="Email (optional)"
+                                          />
+                                        </div>
+                                        <div className="col-12 mb-3 px-0">
+                                          <Field
+                                            type="text"
+                                            className="form-control border-0 border-bottom rounded-0 shadow-none forminput"
+                                            name="location"
+                                            id="exampleFormControlloection"
+                                            placeholder="Enter Your City"
+                                          />
+                                          <p className="text-danger text-start">
+                                            {formik.touched.location &&
+                                            formik.errors.location
+                                              ? formik.errors.location
+                                              : ""}
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <button
+                                        type="submit"
+                                        //onClick={()=> resetForm()}
+                                        className="btn buttoncustom px-5"
+                                      >
+                                        Submit
+                                      </button>
+                                    </Form>
+                                  );
+                                }}
+                              </Formik>
                             </div>
                           </div>
                         </div>
@@ -692,7 +775,7 @@ function Home() {
           </div>
         </div>
         {/* herewe we Section start */}
-      <Footer2 />
+        <Footer2 />
       </div>
       <div
         className="modal modalMain fade"
