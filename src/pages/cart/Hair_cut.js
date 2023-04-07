@@ -80,12 +80,14 @@ function Hair_cut() {
     const path = `saloon-store?id=${value ? value : ""}`;
     const res = await getData(path);
     dispatch(saloonservice(res.data));
+    if(res.status){
+      navigate("/services");
+    }
   };
 
   const getWhislistapi = async (value) => {
-    const path = `get-wishlist?id=${value ? value : ""}`;
+    const path = 'get-wishlist';
     const res = await getData(path);
-    
     if (res.status == true) {
       dispatch(WhislistItem(res.data));
       navigate("/services");
@@ -232,7 +234,7 @@ function Hair_cut() {
                                     <p
                                       onClick={() => {
                                         handler(items.data.saloonStore, i);
-                                        getWhislistapi(items.data.saloonStore);
+                                        // getWhislistapi(items.data.saloonStore);
                                       }}
                                     >
                                       <div className="cardOuter rounded-sm-4 rounded-3 overflow-hidden position-relative bg-white">

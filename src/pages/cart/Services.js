@@ -40,8 +40,11 @@ function Services({ couponid }) {
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
   const [activeBtn, setActiveBtn] = useState("none");
+  const [getwishdata ,setWishData] = useState('')
   const Data = useSelector((state) => state.saloonData);
   const whishdata = useSelector((state) => state.whishlistItem);
+  // console.log('oooohdfhfxdhdfh',whishdata)
+  console.log('getwishdatagetwishdata',getwishdata)
   const userprofile = useSelector((state) => state.userData);
   const search = useSelector((state) => state.search);
   const [Filterdata, setFilterData] = useState([]);
@@ -156,10 +159,14 @@ function Services({ couponid }) {
       }
     }
   };
-
-  // useEffect(() => {
-  //   getcartApi();
-  // }, [count]);
+  const getWhislistapi = async () => {
+    const path = 'get-wishlist';
+    const res = await getData(path);
+    console.log('reeeeeeeeeeeeeee', res.data)
+  }
+  useEffect(() => {
+    getWhislistapi();
+  }, []);
   useEffect(() => {
     subcategory();
   }, [count]);
@@ -170,16 +177,16 @@ function Services({ couponid }) {
     getcartApi();
   }, [count]);
 
-  const whishlistApi = async (value) => {
-    if (!isWishAdd) {
-      setWishCount((prev) => prev + 1);
-      const path = `user-wishlist?id=${value ? value : ""}`;
 
+  const whishlistApi = async (value) => {
+    if (!!isWishAdd) {
+      const path = `wishlist?id=${value ? value : ""}`;
       const res = await getData(path);
+      setWishData(res.data[0].saloonId)
     } else {
-      setWishCount((prev) => prev - 1);
-      const path = `remove-store-from-wishlist?id=${value ? value : ""}`;
+      const path = `wishlist?id=${value ? value : ""}`;
       const res = await getData(path);
+      
     }
     setIsWishAdd((prev) => !prev);
   };
@@ -188,12 +195,15 @@ function Services({ couponid }) {
     if (!color) {
       setcolor(val);
     } else {
-      setcolor("");
+      setcolor('');
     }
   };
 
+
+  const wishval = whishdata.filter((el)=>getwishdata.includes(el.result._d))
+  console.log('wishvalwishvalwishval',wishval)
   useEffect(() => {
-    setcolor(whishdata[0]?.saloonId ? "red" : "");
+    // setcolor(whishdata[0]?.result._id ? "red" : "");
   }, []);
 
   const shutAccordian = (id) => {
@@ -405,7 +415,7 @@ function Services({ couponid }) {
                                 <div className="carousel-item rounded-2 carousalInneritem active">
                                   <div className="imgOuter">
                                     <img
-                                      src={el?.image[0]}
+                                      src={el?.image[0] ?el?.image[0] : el?.image}
                                       className="d-block w-100 h-100 rounded-3"
                                       alt
                                     />

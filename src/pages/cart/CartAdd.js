@@ -143,7 +143,14 @@ function CartAdd({
               tabIndex={isOpen == "checkout" ? "-1" : ""}
               onClick={() => setIsOpen("checkout")}
             >
-              <button className="nav-link navLink">Checkout</button>
+              <button className="nav-link navLink"
+              onClick={()=>  {if(slots.date && slots.time){
+                cheoutpage();
+              }else{
+                alert('please enter date and time both!')
+              }
+            }}
+              >Checkout</button>
             </li>
             <li
               className={`nav-item navItem ${
