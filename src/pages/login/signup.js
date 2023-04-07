@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { postData, getData } from "../../components/apiinstance/Api";
 import { NavLink } from "react-router-dom";
 import Header from "../../common/layout/header/header";
-import Footer from "../../common/layout/footer";
+import Footer from "../../common/layout/footer/footer";
 
 function Signup() {
   const [defaultvalues, setdefaultvalues] = useState({

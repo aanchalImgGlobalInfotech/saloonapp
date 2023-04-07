@@ -10,20 +10,20 @@ function Footer() {
             <div class="col-sm-6 col-md-6 col-lg-3 columnfirst">
               <ul class="list-unstyled list1 d-flex align-items-cente justify-content-center gap-3 flex-column">
                 <li>
-                  <a
+                  <Link
                     class="text-decoration-none text-white"
-                    href="aboutus.html"
+                    to="/aboutus"
                   >
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     class="text-decoration-none text-white"
-                    href="contactus.html"
+                    to="/contact"
                   >
                     Contact Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <Link to='/blog' className="text-decoration-none text-white" >
@@ -31,12 +31,12 @@ function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     class="text-decoration-none text-white"
-                    href="saloonSafety.html"
+                    to='/saloonsafetyprogram'
                   >
                     Saloon Safety Program
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <Link
@@ -59,41 +59,41 @@ function Footer() {
             <div class="col-sm-6 col-md-6 col-lg-3 columnfirst">
               <ul class="list-unstyled list1 d-flex align-items-cente justify-content-center gap-3 flex-column">
                 <li>
-                  <a
+                  <Link
                     class="text-decoration-none text-white"
-                    href="termsandConditions.html"
+                    to="/termsandconditions"
                   >
                     Terms and Conditions
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     class="text-decoration-none text-white"
-                    href="cancellationRefund.html"
+                   to='/cancellationandrefund'
                   >
                     Cancellation and Refund
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     class="text-decoration-none text-white"
-                    href="privacyPolicy.html"
+                    to='/privacyandpolicy'
                   >
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     class="text-decoration-none text-white"
-                    href="cookiePolicy.html"
+                    to='/cookieandpolicy'
                   >
                     Cookie Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a class="text-decoration-none text-white" href="faqs.html">
+                  <Link class="text-decoration-none text-white" to='/FAQs'>
                     FAQs
-                  </a>
+                  </Link>
                 </li>
               </ul>
               <ul class="list-unstyled d-flex iconlist">

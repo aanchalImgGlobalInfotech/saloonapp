@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import Footer from "../../common/layout/footer";
-import Footer2 from "../../common/layout/header/Footer2";
+import Footer from "../../common/layout/footer/footer";
+import Footer2 from "../../common/layout/footer/Footer2 ";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData } from "../../components/apiinstance/Api";
 import { saloonservice, WhislistItem } from "../../components/redux/redux1/actions";
@@ -71,7 +71,7 @@ function Hair_cut2() {
   
 //  Filter according saloon ,parlour and spa
      const filterAllData = async(typ) =>{
-  
+      console.log('ghghhnghnhg', typ ,'ll',categories)
       let types =typ || categories?categories: type
       let typeMale = `&type=${multiGender[0]}`;
       let typeFemale =    `&type=${multiGender[1]}`;
@@ -100,7 +100,6 @@ function Hair_cut2() {
    
       const clearLocalStorage = ()=>{
         localStorage.removeItem('category')
-        console.log('hello')
      }
 console.log(dataByLocation)
   return (
@@ -382,7 +381,7 @@ console.log(dataByLocation)
                                       <div className="imgOuter w-100 position-relative">
                                         <img
                                           className="w-100 h-100"
-                                          src={items?.image[0] ? items?.image[0] :'/images/mahi hairstyle.jpg'}
+                                          src={items?.image? items?.image :'/images/mahi hairstyle.jpg'}
                                           alt
                                         />
                                         <div className="showRating position-absolute text-white bottom-0 end-0">
@@ -395,7 +394,7 @@ console.log(dataByLocation)
                                         </p>
                                         <div className="d-flex justify-content-between align-items-center">
                                           <div className="serviceName">
-                                            {items?.description.slice(0,10)}
+                                            {items?.description?.slice(0,10)}
                                           </div>
                                           <div className="price">
                                             {items?.type}

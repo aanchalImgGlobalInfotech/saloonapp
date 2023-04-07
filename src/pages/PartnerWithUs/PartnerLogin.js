@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../../common/layout/footer";
-import Footer2 from "../../common/layout/header/Footer2";
+import Footer from "../../common/layout/footer/footer";
+import Footer2 from "../../common/layout/footer/Footer2 ";
 import HeaderHome from "./../../common/layout/header/HeaderHome";
 import BusinessFooter from "./BusinessFooter";
 import {Link} from 'react-router-dom'

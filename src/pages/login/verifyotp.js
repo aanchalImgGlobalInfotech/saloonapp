@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { postData } from "../../components/apiinstance/Api";
 import { setUsers } from "../../components/redux/redux1/actions";
-import Footer from "../../common/layout/footer";
+import Footer from "../../common/layout/footer/footer";
 import { ToastContainer, toast } from "react-toastify";
 
 function Verifyotp() {

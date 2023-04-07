@@ -6,7 +6,7 @@ import { setLocale } from "yup";
 import { NavLink, useNavigate } from "react-router-dom";
 import { checkoutvalues, Razor } from "../../components/redux/redux1/actions";
 import CheckOut from "../checkout/CheckOut";
-import Footer2 from "../../common/layout/header/Footer2";
+import Footer2 from "../../common/layout/footer/Footer2 ";
 
 function CartAdd({
   subdata,
@@ -22,10 +22,9 @@ function CartAdd({
   const coupid = useSelector((state) => state.CouponItem);
   const value1 = localStorage.getItem("cartid");
   const navigate = useNavigate();
-  // const [data, setdata] = useState([]);
-  // const [alldays, setAlldays] = useState([]);
-  // const [OderId, setOderId] = useState([]);
-  const [clikedDate, setClikedDate] = useState(new Date(Date.now()).toISOString());
+  const [clikedDate, setClikedDate] = useState(
+    new Date(Date.now()).toISOString()
+  );
   const [sheduledata, setsheduleData] = useState(
     value[0]?.ProfileInfo?.workingday
   );
@@ -38,9 +37,9 @@ function CartAdd({
   const [total, settoatal] = useState("");
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState("cart");
-  var timeStops = [];
+  var timeArry = [];
   const setSlot = (el) => {
-    const uniqueNames = timeStops.filter((val) => val?.includes(el));
+    const uniqueNames = timeArry.filter((val) => val?.includes(el));
     setSlots({ ...slots, time: uniqueNames[0] });
   };
   const removeCart = async (id, serviceId) => {
@@ -52,43 +51,43 @@ function CartAdd({
       subsData(categoryId);
     }
   };
- console.log('value[0]?.ProfileInfo?.workingday',value[0]?.ProfileInfo?.workingday)
+
   let weekDays = [0, 1, 2, 3, 4, 5, 6].map((d) => ({
     day: new Date(Date.now() + d * 24 * 60 * 60 * 1000)
       .toLocaleDateString("en-US", { weekday: "long" })
       .slice(0, 9),
-      month: new Date()
-      .toLocaleDateString("en-US", { month: 'long' }),
+    month: new Date().toLocaleDateString("en-US", { month: "long" }),
     date: new Date(Date.now() + d * 24 * 60 * 60 * 1000).toISOString(),
   }));
 
- console.log('weeekkkdayss',weekDays[0]?.month)
+  console.log("weeekkkdayss", slots.date, slots.time);
 
   var startTime1 = stime;
   const endTime1 = etime;
   const durationInMinutes = "15";
-  const timeArry = [];
   while (startTime1 <= endTime1) {
     startTime1 = moment(startTime1, "HH:mm:ss ")
       .add(durationInMinutes, "minutes")
       .format("HH:mm A");
     timeArry.push(startTime1);
   }
-  console.log("qwertrewadrewd,", timeArry);
 
   let currenttime = new Date().toTimeString().slice(0, 5);
   let timevalue = [];
-  if (new Date(Date.now()).toISOString().slice(0, 10) == clikedDate.slice(0, 10)) {
-    timevalue = timeArry?.filter((el) => {if(el >= currenttime && el<=endTime1){
-      return el
-    }
-  });
-  } else {
-    timevalue = timeArry.filter((el)=>{
-      if(el<=endTime1){
-        return el
+  if (
+    new Date(Date.now()).toISOString().slice(0, 10) == clikedDate.slice(0, 10)
+  ) {
+    timevalue = timeArry?.filter((el) => {
+      if (el >= currenttime && el <= endTime1) {
+        return el;
       }
-    })
+    });
+  } else {
+    timevalue = timeArry.filter((el) => {
+      if (el <= endTime1) {
+        return el;
+      }
+    });
   }
 
   // var startTime = moment().startOf("hour");
@@ -123,11 +122,7 @@ function CartAdd({
     settoatal(...total, res.data[0]?.totalamount);
     dispatch(checkoutvalues(res.data));
     if (res.status) {
-      if (slots.time == "") {
-        alert("please choose date & time !");
-      } else {
         navigate("/checkout");
-      }
     }
   };
 
@@ -248,7 +243,6 @@ function CartAdd({
                     </>
                   );
                 })}
-               
               </div>
 
               <div className="row row mx-0 py-2 justify-content-between ounded-3 text-black footer">
@@ -294,9 +288,15 @@ function CartAdd({
                           ? "datetimeContent"
                           : "disabled"
                       }`}
-                
                     >
-                      <label className="option"  style={{ backgroundColor:  sheduledata?.includes(item.day)  ? '' : "gray" }}>
+                      <label
+                        className="option"
+                        style={{
+                          backgroundColor: sheduledata?.includes(item.day)
+                            ? ""
+                            : "gray",
+                        }}
+                      >
                         <input
                           type="radio"
                           onChange={() => {
@@ -306,8 +306,7 @@ function CartAdd({
                           disabled={
                             sheduledata?.includes(item.day) ? false : true
                           }
-                          name="optradio"
-                        
+                          name="optradios"
                         />
                         <span
                           // onClick={() =>
@@ -331,14 +330,12 @@ function CartAdd({
                     <div className="col-sm-auto col-4 datetimeContent  px-2 mb-2">
                       <label className="option w-100">
                         <input
-                          type="checkbox"
+                          type="radio"
                           // checked={el == slots.time ? true : false}
                           name="optradio"
-                        />
-                        <span
-                          className="btn btn-theme1 btn-option opectiontime"
                           onClick={() => setSlot(el)}
-                        >
+                        />
+                        <span className="btn btn-theme1 btn-option opectiontime">
                           <div className="time">{el} </div>
                         </span>
                       </label>
@@ -348,7 +345,7 @@ function CartAdd({
               </div>
               <div className="row row mx-0 py-2 justify-content-between ounded-3 text-black footer">
                 <div className="col-4">
-                  <div className="totalitems">March</div>
+                  <div className="totalitems">{weekDays[0]?.month}</div>
                   <div className="paymenttotal">
                     {slots.time ? slots.time : "--Time--"}
                   </div>
@@ -368,7 +365,11 @@ function CartAdd({
                       onClick={() => {
                         setIsOpen("checkout");
                         hanldeSlot();
-                        cheoutpage();
+                        if(slots.date && slots.time){
+                          cheoutpage();
+                        }else{
+                          alert('please enter date and time both!')
+                        }
                       }}
                       className=" btn border-0  shadow-none bg-theme2 text-white rounded-3 Schedulebtn mt-xl-2"
                     >

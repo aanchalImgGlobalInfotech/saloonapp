@@ -1,8 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-import Footer from '../../common/layout/footer'
-import Footer2 from '../../common/layout/header/Footer2';
-import Header from '../../common/layout/header/header'
+import Footer from '../../common/layout/footer/footer';
+import Footer2 from '../../common/layout/footer/Footer2 ';
+import Header from '../../common/layout/header/header';
 import HeaderHome from '../../common/layout/header/HeaderHome'
 
 function Dasbord() {

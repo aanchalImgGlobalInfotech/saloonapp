@@ -19,6 +19,7 @@ const Footer2 = () => {
    
     const getAllSaloonCityByCategory = async(category)=>{
       let categoryName =category||'saloon'
+       
       const res = await getData(`get-all-saloon-city?category=${categoryName}`)
       setAllCityCategory(res.data)
      
@@ -32,11 +33,10 @@ const Footer2 = () => {
     }
 
     const cityHandlerByTypes = (data,cate) =>{
-          
-      dispatch(cityName(data))
-      navigate('/salon-in',{state:cate})
-       localStorage.setItem('category',cate)
-       
+           dispatch(cityName(data))
+           navigate('/salon-in',{state:cate})
+              console.log('Hello this is console from footer2' )
+              localStorage.setItem('category',cate)
     }
    useEffect(()=>{
         getAllSaloonCity()

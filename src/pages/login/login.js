@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { postData, getData } from "../../components/apiinstance/Api";
 import { NavLink, useNavigate } from "react-router-dom";
 import Header from "../../common/layout/header/header";
-import Footer from "../../common/layout/footer";
+import Footer from "../../common/layout/footer/footer";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 function Login() {
