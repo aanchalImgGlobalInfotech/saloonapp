@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
 const Header2 = () => {
   return (
   <div classname="overflow-hideen ">
@@ -28,29 +27,57 @@ const Header2 = () => {
     </div>
   </nav>
   <div className="offcanvas offcanvas-top bg-dark favoruteSaloon" tabIndex={-1} id="favroutsaloon" aria-labelledby="favroutsaloonLabel">
-    <div className="offcanvas-header border-bottom">
-      <div className="offcanvas-title text-white" id="favroutsaloonLabel">Search here...</div>
-      <button type="button" className="btn-close shadow-none" data-bs-dismiss="offcanvas" aria-label="Close" />
-    </div>
-    <div className="offcanvas-body">
-      <form action className="form">
-        <div className="row justify-content-center gap-3 gap-sm-0">
-          <div className="col-lg-4 col-sm-6">
-            <div className="input-group">
-              <input type="text" className="form-control shadow-none fs-13 py-2" id placeholder="Enter Your City Name" />
-            </div>
-          </div>
-          <div className="col-lg-4 col-sm-6">
-            <div className="input-group">
-              <input type="text" className="form-control shadow-none fs-13 py-2" id placeholder="Search Salon, Style or Brand..." />
-            </div>
+  <div className="offcanvas-header border-bottom">
+    <div className="offcanvas-title text-white" id="favroutsaloonLabel">Search here...</div>
+    <button type="button" className="btn-close shadow-none" data-bs-dismiss="offcanvas" aria-label="Close" />
+  </div>
+  <div className="offcanvas-body overflow-visible">
+    <form action className="form">
+      <div className="row justify-content-center gap-3 gap-sm-0">
+        <div className="col-lg-4 col-sm-6">
+          <div className="input-group">
+            <input type="text" className="form-control shadow-none fs-13 py-2" id placeholder="Enter Your City Name" />
           </div>
         </div>
-      </form>
-    </div>
+        <div className="col-lg-4 col-sm-6 position-relative">
+          <div className="input-group">
+            <input type="text" className="form-control shadow-none fs-13 py-2" id placeholder="Search Salon, Style or Brand..." />
+          </div>
+          <div className="searchResult position-absolute bg-light p-3 py-2 rounded-4 ">
+            <ul className="p-0 m-0 list-unstyled">
+              <li className="searchItem py-1">
+                <a className="searchLink fs-14 text-decoration-none text-dark" href="javascript:;"><span className="text-dark fw-bold">Hair</span> Wash</a>
+              </li>
+              <li className="searchItem py-1">
+                <a className="searchLink fs-14 text-decoration-none text-dark" href="javascript:;"><span className="text-dark fw-bold">Hair</span> Wash</a>
+              </li>
+              <li className="searchItem py-1">
+                <a className="searchLink fs-14 text-decoration-none text-dark" href="javascript:;"><span className="text-dark fw-bold">Hair</span> Wash</a>
+              </li>
+              <li className="searchItem py-1">
+                <a className="searchLink fs-14 text-decoration-none text-dark" href="javascript:;"><span className="text-dark fw-bold">Hair Sage Luxury Salon</span> in Sector 104, Noida</a>
+              </li>
+              <li className="searchItem py-1">
+                <a className="searchLink fs-14 text-decoration-none text-dark" href="javascript:;"><span className="text-dark fw-bold">Hair Sage Luxury Salon</span> in Sector 104, Noida</a>
+              </li>
+              <li className="searchItem py-1">
+                <a className="searchLink fs-14 text-decoration-none text-dark" href="javascript:;"><span className="text-dark fw-bold">Hair Sage Luxury Salon</span> in Sector 104, Noida</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
+</div>
   </div>
   )
 }
-
 export default Header2
+
+
+
+
+
+
+

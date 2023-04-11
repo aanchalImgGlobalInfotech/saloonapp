@@ -86,15 +86,15 @@ function Hair_cut() {
   };
 
   const getWhislistapi = async (value) => {
-    const path = 'get-wishlist';
-    const res = await getData(path);
-    if (res.status == true) {
-      dispatch(WhislistItem(res.data));
-      navigate("/services");
-    }else{
-      dispatch(WhislistItem(res.data));
-      navigate("/services")
-    }
+    // const path = 'get-wishlist';
+    // const res = await getData(path);
+    // if (res.status == true) {
+    //   dispatch(WhislistItem(res.data));
+    //   navigate("/services");
+    // }else{
+    //   dispatch(WhislistItem(res.data));
+    //   navigate("/services")
+    // }
   };
 
   return (

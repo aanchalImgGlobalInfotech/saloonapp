@@ -13,6 +13,7 @@
   @include cancellationRefundMain-mixin-min-sm();
   @include checkoutMain-mixin-min-sm();
   @include faqMain-mixin-min-sm();
+  @include privacyPolicyMain-mixin-min-sm();
   @include aboutMain-mixin-min-sm();
   @include seftyMain-mixin-min-sm();
 }
@@ -29,6 +30,7 @@
   @include cancellationRefundMain-mixin-min-md();
   @include checkoutMain-mixin-min-md();
   @include faqMain-mixin-min-md();
+  @include privacyPolicyMain-mixin-min-md();
   @include aboutMain-mixin-min-md();
   @include seftyMain-mixin-min-md();
 }
@@ -45,6 +47,7 @@
   @include cancellationRefundMain-mixin-min-lg();
   @include checkoutMain-mixin-min-lg();
   @include faqMain-mixin-min-lg();
+  @include privacyPolicyMain-mixin-min-lg();
   @include aboutMain-mixin-min-lg();
   @include seftyMain-mixin-min-lg();
 }
@@ -61,6 +64,7 @@
   @include cancellationRefundMain-mixin-min-xl();
   @include checkoutMain-mixin-min-xl();
   @include faqMain-mixin-min-xl();
+  @include privacyPolicyMain-mixin-min-xl();
   @include aboutMain-mixin-min-xl();
   @include seftyMain-mixin-min-xl();
 }
@@ -77,6 +81,7 @@
   @include cancellationRefundMain-mixin-min-xxl();
   @include checkoutMain-mixin-min-xxl();
   @include faqMain-mixin-min-xxl();
+  @include privacyPolicyMain-mixin-min-xxl();
   @include aboutMain-mixin-min-xxl();
   @include seftyMain-mixin-min-xxl();
 }
@@ -93,6 +98,7 @@
   @include cancellationRefundMain-mixin-max-xl();
   @include checkoutMain-mixin-max-xl();
   @include faqMain-mixin-max-xl();
+  @include privacyPolicyMain-mixin-max-xl();
   @include aboutMain-mixin-max-xl();
   @include seftyMain-mixin-max-xl();
 }
@@ -109,6 +115,7 @@
   @include cancellationRefundMain-mixin-max-lg();
   @include checkoutMain-mixin-max-lg();
   @include faqMain-mixin-max-lg();
+  @include privacyPolicyMain-mixin-max-lg();
   @include aboutMain-mixin-max-lg();
   @include seftyMain-mixin-max-lg();
 }
@@ -125,6 +132,7 @@
   @include cancellationRefundMain-mixin-max-md();
   @include checkoutMain-mixin-max-md();
   @include faqMain-mixin-max-md();
+  @include privacyPolicyMain-mixin-max-md();
   @include aboutMain-mixin-max-md();
   @include seftyMain-mixin-max-md();
 }
@@ -141,6 +149,7 @@
   @include cancellationRefundMain-mixin-max-sm();
   @include checkoutMain-mixin-max-sm();
   @include faqMain-mixin-max-sm();
+  @include privacyPolicyMain-mixin-max-sm();
   @include aboutMain-mixin-max-sm();
   @include seftyMain-mixin-max-sm();
 }
@@ -157,6 +166,7 @@
   @include cancellationRefundMain-mixin-max-xs();
   @include checkoutMain-mixin-max-xs();
   @include faqMain-mixin-max-xs();
+  @include privacyPolicyMain-mixin-max-xs();
   @include aboutMain-mixin-max-xs();
   @include seftyMain-mixin-max-xs();
 }

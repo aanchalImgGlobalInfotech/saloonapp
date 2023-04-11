@@ -1,7 +1,10 @@
 import React from "react";
-import { NavLink ,Link} from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 function Footer() {
+  const openingPage = (url) => {
+    window.open(`${url}`);
+  };
   return (
     <>
       <footer class="container-fluid footer py-5 bg-dark">
@@ -10,30 +13,24 @@ function Footer() {
             <div class="col-sm-6 col-md-6 col-lg-3 columnfirst">
               <ul class="list-unstyled list1 d-flex align-items-cente justify-content-center gap-3 flex-column">
                 <li>
-                  <Link
-                    class="text-decoration-none text-white"
-                    to="/aboutus"
-                  >
+                  <Link class="text-decoration-none text-white" to="/aboutus">
                     About Us
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    class="text-decoration-none text-white"
-                    to="/contact"
-                  >
+                  <Link class="text-decoration-none text-white" to="/contact">
                     Contact Us
                   </Link>
                 </li>
                 <li>
-                  <Link to='/blog' className="text-decoration-none text-white" >
+                  <Link to="/blog" className="text-decoration-none text-white">
                     Blog
                   </Link>
                 </li>
                 <li>
                   <Link
                     class="text-decoration-none text-white"
-                    to='/saloonsafetyprogram'
+                    to="/saloonsafetyprogram"
                   >
                     Saloon Safety Program
                   </Link>
@@ -41,7 +38,7 @@ function Footer() {
                 <li>
                   <Link
                     class="text-decoration-none text-white"
-                    to='/artist-registration'
+                    to="/artist-registration"
                   >
                     Artist Signup
                   </Link>
@@ -49,7 +46,7 @@ function Footer() {
                 <li>
                   <Link
                     class="text-decoration-none text-white"
-                    to='/partnerlogin'
+                    to="/partnerlogin"
                   >
                     Partner With Us
                   </Link>
@@ -69,7 +66,7 @@ function Footer() {
                 <li>
                   <Link
                     class="text-decoration-none text-white"
-                   to='/cancellationandrefund'
+                    to="/cancellationandrefund"
                   >
                     Cancellation and Refund
                   </Link>
@@ -77,7 +74,7 @@ function Footer() {
                 <li>
                   <Link
                     class="text-decoration-none text-white"
-                    to='/privacyandpolicy'
+                    to="/privacyandpolicy"
                   >
                     Privacy Policy
                   </Link>
@@ -85,40 +82,69 @@ function Footer() {
                 <li>
                   <Link
                     class="text-decoration-none text-white"
-                    to='/cookieandpolicy'
+                    to="/cookieandpolicy"
                   >
                     Cookie Policy
                   </Link>
                 </li>
                 <li>
-                  <Link class="text-decoration-none text-white" to='/FAQs'>
+                  <Link class="text-decoration-none text-white" to="/FAQs">
                     FAQs
                   </Link>
                 </li>
               </ul>
               <ul class="list-unstyled d-flex iconlist">
                 <li>
-                  <a class="imagefb" href="">
+                  <a
+                    class="imagefb"
+                    onClick={() =>
+                      openingPage("http://facebook.com/prashanttiwari")
+                    }
+                  >
                     <img src="/assets/img/footer/FB.png" alt="Facebook" />
                   </a>
                 </li>
                 <li>
-                  <a class="imageinsta" href="">
+                  <a
+                    class="imageinsta"
+                    onClick={() =>
+                      openingPage("http://instagram.com/prashanttiwari6354")
+                    }
+                  >
                     <img src="/assets/img/footer/insta.png" alt="instagram" />
                   </a>
                 </li>
                 <li>
-                  <a class="imagetwit" href="">
+                  <a
+                    class="imagetwit"
+                    onClick={() =>
+                      openingPage("http://twitter.com/ShibuDubey01")
+                    }
+                  >
                     <img src="/assets/img/footer/Twtr.png" alt="twitter" />
                   </a>
                 </li>
                 <li>
-                  <a class="imageyt" href="">
+                  <a
+                    class="imageyt"
+                    onClick={() =>
+                      openingPage(
+                        "https://www.youtube.com/channel/UCLIybPUSufqpW5ezbdBQ9OA"
+                      )
+                    }
+                  >
                     <img src="/assets/img/footer/YT.png" alt="youtube" />
                   </a>
                 </li>
                 <li>
-                  <a class="imagelink" href="">
+                  <a
+                    class="imagelink"
+                    onClick={() =>
+                      openingPage(
+                        "https://www.linkedin.com/in/shibu-dubey-3a429421b/"
+                      )
+                    }
+                  >
                     <img src="/assets/img/footer/linkedin.png" alt="linkedin" />
                   </a>
                 </li>

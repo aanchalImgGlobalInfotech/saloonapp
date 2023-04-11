@@ -39,7 +39,7 @@ function UserProfile() {
     name: Data[0]?.name,
     phone: Data[0]?.phone,
     email: Data[0]?.email,
-    dateOfBirth: Data[0]?.dateOfBirth.slice(0,10),
+    dateOfBirth: Data[0]?.dateOfBirth?.slice(0, 10),
     gender: Data[0]?.gender,
     file: Data?.image,
   });
@@ -53,7 +53,7 @@ function UserProfile() {
     console.log(formdata, "formdataaaaaa");
     const res = await postformdata("user-Edit-Profile", formdata);
     const resimg = await postformdata("Edit-User-Profile", formdata);
-    if (res.status && resimg.status) {
+    if (res.status) {
       toast.success(res.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
@@ -78,7 +78,7 @@ function UserProfile() {
 
     setWhishlist(res.data);
   };
-
+  console.log("whishlistwhishlistwhishlistwhishlistwhishlist", whishlist);
   useEffect(() => {
     Getwhishlist();
   }, []);
@@ -105,8 +105,10 @@ function UserProfile() {
       .max(20, "Too Long!")
       .required("Name is required"),
     email: Yup.string().email().required("Email is required"),
-    // gender: Yup.boolean().required("gender is required"),
-    // date: yup.date().required().max(new Date(), "Are you a time traveler?!"),
+    gender: Yup.string().required("gender is required"),
+    dateOfBirth: Yup.date()
+      .required("Date is required!")
+      .max(new Date(), "Date should not be later than today!"),
   });
   const [Items, setitems] = useState([]);
   const BookingApi = async () => {
@@ -122,7 +124,7 @@ function UserProfile() {
     });
     setBookedByHome(filter);
   };
-  console.log('orderIdorderId', bookedbyhome)
+  console.log("orderIdorderId", bookedbyhome);
   const Itemhandle = (el) => {
     setmaodalvalue({ data: el });
   };
@@ -399,7 +401,7 @@ function UserProfile() {
                           <div className="row tabInnerRow">
                             <div className="col-md-10 mx-auto">
                               {BookedData?.map((el) => {
-                                if(el.item.addressId == null){
+                                if (el.item.addressId == null) {
                                   return (
                                     <>
                                       <div className="card mb-3 border-0 shadow myBookingCard">
@@ -455,7 +457,9 @@ function UserProfile() {
                                                     className="btn btn-theme1 text-white rounded-5 py-1 border-0 shadow-none itemsbtn"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#exampleModal1"
-                                                    onClick={() => Itemhandle(el)}
+                                                    onClick={() =>
+                                                      Itemhandle(el)
+                                                    }
                                                   >
                                                     {el.item.data.length == 1
                                                       ? `${el.item.data.length} Item`
@@ -496,7 +500,7 @@ function UserProfile() {
                           tabIndex={0}
                         >
                           {bookedbyhome?.map((el) => {
-                            if(el.item.addressId != null){
+                            if (el.item.addressId != null) {
                               return (
                                 <>
                                   <div className="card mb-3 border-0 shadow myBookingCard">
@@ -542,7 +546,10 @@ function UserProfile() {
                                               <p className="card-text mb-0">
                                                 <small className="text-theme2">
                                                   ₹{" "}
-                                                  {el?.item.data[0]?.totalamount}
+                                                  {
+                                                    el?.item.data[0]
+                                                      ?.totalamount
+                                                  }
                                                 </small>
                                               </p>
                                               <button
@@ -592,7 +599,7 @@ function UserProfile() {
                   tabIndex={0}
                 >
                   {whishlist?.map((el) => {
-                    console.log('elelel77', el)
+                    console.log("elelel77", el);
                     return (
                       <>
                         <div className="row innerrowtab g-3">
@@ -658,12 +665,49 @@ function UserProfile() {
                                       {el?.result.description}
                                     </div>
                                     <p className="card-text text-muted">
-                                      Sec 110,
+                                      {el?.result.location
+                                        ? el?.result.location.aria ||
+                                          el?.result.location.aria.city ||
+                                          el?.result.location.aria.pincode ||
+                                          el?.result.location.aria.shopNumber
+                                        : ""}
                                     </p>
                                     <div className="border-bottom bordermb" />
                                     <div className="footerimage d-flex align-items-center justify-content-between ">
                                       <ul className="d-flex align-items-center justify-content-start list-unstyled gap-3 listImage mb-0 ">
-                                        <li>
+                                        {el?.result?.ProfileInfo?.amenities?.map((el)=>{
+                                          if(el == 'wifi'){
+                                            return (
+                                              <li>
+                                          <img
+                                            className="w-100 h-100"
+                                            src="assets/img/profile/wifi.png"
+                                            alt={1}
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-title="Beverage"
+                                          />
+                                        </li>
+                                            )
+                                          }
+                                        })}
+                                            {el?.result?.ProfileInfo?.amenities?.map((el)=>{
+                                          if(el == "cctv"){
+                                            return (
+                                              <li>
+                                          <img
+                                            className="w-100 h-100"
+                                            src="assets/img/profile/TV-old.png"
+                                            alt={1}
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-title="Beverage"
+                                          />
+                                        </li>
+                                            )
+                                          }
+                                        })}
+                                        {/* <li>
                                           <img
                                             className="w-100 h-100"
                                             src="assets/img/profile/drink.png"
@@ -722,7 +766,7 @@ function UserProfile() {
                                             data-bs-placement="top"
                                             data-bs-title="Card Payment"
                                           />
-                                        </li>
+                                        </li> */}
                                       </ul>
                                       <div className="distanceimage">
                                         <img
@@ -1046,6 +1090,7 @@ function UserProfile() {
               }}
             >
               {(props) => {
+                console.log("ooohhhh", props);
                 return (
                   <Form onSubmit={props.handleSubmit}>
                     <div className="modal-body">
@@ -1171,7 +1216,9 @@ function UserProfile() {
                             />
                           </div>
                           <p className="text-danger text-start">
-                            {props.errors.date ? props.errors.date : ""}
+                            {props.errors.dateOfBirth
+                              ? props.errors.dateOfBirth
+                              : ""}
                           </p>
                         </div>
                         <div className="col-md-6 mb-3">
@@ -1196,6 +1243,11 @@ function UserProfile() {
                                 >
                                   Male
                                 </label>
+                                <p className="text-danger text-start">
+                                  {props.errors.gender
+                                    ? props.errors.gender
+                                    : ""}
+                                </p>
                               </div>
                               <div className="form-check ps-3">
                                 <input
@@ -1213,6 +1265,11 @@ function UserProfile() {
                                 >
                                   Female
                                 </label>
+                                <p className="text-danger text-start">
+                                  {props.errors.gender
+                                    ? props.errors.gender
+                                    : ""}
+                                </p>
                               </div>
                             </div>
                           </div>
