@@ -72,7 +72,7 @@ function Hair_cut2() {
 //  Filter according saloon ,parlour and spa
      const filterAllData = async(typ) =>{
       console.log('ghghhnghnhg', typ ,'ll',categories)
-      let types =typ || categories?categories: type
+      let types =typ || categories || type
       let typeMale = `&type=${multiGender[0]}`;
       let typeFemale =    `&type=${multiGender[1]}`;
       let typeUnisex = `&type=${multiGender[2]}`;

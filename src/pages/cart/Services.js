@@ -5,10 +5,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../common/layout/footer/footer";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData, postData } from "../../components/apiinstance/Api";
-import { cart, cartdata } from "../../components/redux/redux1/actions";
+import {
+  WhislistItem,
+  cart,
+  cartdata,
+} from "../../components/redux/redux1/actions";
 import CartAdd from "./CartAdd";
 import * as yup from "yup";
 import * as Yup from "yup";
+import localStorage from "redux-persist/es/storage";
 
 function Services({ couponid }) {
   const location = useLocation();
@@ -39,15 +44,20 @@ function Services({ couponid }) {
   const [rating, setrating] = useState("");
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
-  const [activeBtn, setActiveBtn] = useState("none");
+  const [getwishdata, setWishData] = useState("");
   const Data = useSelector((state) => state.saloonData);
-  const whishdata = useSelector((state) => state.whishlistItem);
+  const whishlistarray = useSelector((state) => state.whishlistItem);
+  // console.log("oooohdfhfxdhdfh", Data);
+  const [selectwishlist, setselectWhishList] = useState([]);
+  // console.log("getwishdatagetwishdata", getwishdata);
   const userprofile = useSelector((state) => state.userData);
   const search = useSelector((state) => state.search);
   const [Filterdata, setFilterData] = useState([]);
   const [searchdata, setsearchData] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const whishdata = localStorage.getItem("whishlistId");
+  console.log("jjbbbb", whishdata);
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -95,7 +105,6 @@ function Services({ couponid }) {
     addressType: "",
     dataCheck: false,
   });
-  console.log("kkkkkkk", Data[0]?._id);
   const EditId = async (id, parentId) => {
     let saloonId = Data[0]?._id;
     const res = await getData(`add-cart?saloonId=${saloonId}&serviceId=${id}`);
@@ -157,9 +166,6 @@ function Services({ couponid }) {
     }
   };
 
-  // useEffect(() => {
-  //   getcartApi();
-  // }, [count]);
   useEffect(() => {
     subcategory();
   }, [count]);
@@ -171,29 +177,24 @@ function Services({ couponid }) {
   }, [count]);
 
   const whishlistApi = async (value) => {
-    if (!isWishAdd) {
-      setWishCount((prev) => prev + 1);
-      const path = `user-wishlist?id=${value ? value : ""}`;
-
+    if (!!isWishAdd) {
+      const path = `wishlist?id=${value ? value : ""}`;
       const res = await getData(path);
     } else {
-      setWishCount((prev) => prev - 1);
-      const path = `remove-store-from-wishlist?id=${value ? value : ""}`;
+      const path = `wishlist?id=${value ? value : ""}`;
       const res = await getData(path);
     }
     setIsWishAdd((prev) => !prev);
+    getWhislistapi();
   };
 
-  const whishlistcolor = (val) => {
-    if (!color) {
-      setcolor(val);
-    } else {
-      setcolor("");
-    }
+  const getWhislistapi = async () => {
+    const path = "get-wishlist";
+    const res = await getData(path);
+    setselectWhishList(res.data);
   };
-
   useEffect(() => {
-    setcolor(whishdata[0]?.saloonId ? "red" : "");
+    getWhislistapi();
   }, []);
 
   const shutAccordian = (id) => {
@@ -226,13 +227,11 @@ function Services({ couponid }) {
     const res = await getData(
       `get-all-saloon-Service-by-catogory?saloonId=${saloonid}&categoryName=${data}`
     );
-    // setsubdata(res.data);
     if (!!data) {
       setFilterData(res.data);
     } else {
       subcategory(categoryId);
     }
-    console.log("kkkk", res.data);
   };
 
   const handlesaerch = async (e) => {
@@ -329,7 +328,6 @@ function Services({ couponid }) {
   };
 
   const EditAddresApi = async (value) => {
-    console.log('fffffff', value)
     var body = {
       name: value.name,
       mobile: value.Mobile,
@@ -405,7 +403,9 @@ function Services({ couponid }) {
                                 <div className="carousel-item rounded-2 carousalInneritem active">
                                   <div className="imgOuter">
                                     <img
-                                      src={el?.image[0]}
+                                      src={
+                                        el?.image[0] ? el?.image[0] : el?.image
+                                      }
                                       className="d-block w-100 h-100 rounded-3"
                                       alt
                                     />
@@ -471,7 +471,6 @@ function Services({ couponid }) {
                                 class="form-check-label"
                                 onClick={() => {
                                   whishlistApi(el._id);
-                                  whishlistcolor("red");
                                 }}
                               >
                                 <svg
@@ -487,7 +486,13 @@ function Services({ couponid }) {
                                     transform="translate(-1.823 -3.997)"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
-                                    fill={color ? color : ""}
+                                    fill={
+                                      selectwishlist.filter((item) =>
+                                        item.saloonId.includes(el._id)
+                                      ).length
+                                        ? "red"
+                                        : ""
+                                    }
                                     strokeWidth={1}
                                   />
                                 </svg>
@@ -1598,7 +1603,6 @@ function Services({ couponid }) {
                       PostAddApi(value);
                       getAddress();
                     }
-                   
                   }}
                   enableReinitialize={true}
                 >

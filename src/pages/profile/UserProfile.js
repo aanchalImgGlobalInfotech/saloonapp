@@ -13,7 +13,7 @@ import { setUsers } from "../../components/redux/redux1/actions";
 import { useDispatch, useSelector } from "react-redux";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import Footer2 from "../../common/layout/footer/Footer2 ";
 import Footer from "../../common/layout/footer/footer";
 
@@ -22,8 +22,6 @@ function UserProfile() {
   const location = useLocation();
   const dispatch = useDispatch();
   const Data = useSelector((state) => state.userData);
-
-  // console.log(location?.state?.title);
   const arr = location?.state?.title.map((el) => el);
   const [whishlist, setWhishlist] = useState([]);
   const [wishCount, setWishCount] = useState(0);
@@ -31,6 +29,7 @@ function UserProfile() {
   const [color, setcolor] = useState("");
   const [images, setimages] = useState([]);
   const [BookedData, setBookedData] = useState([]);
+  const [bookedbyhome, setBookedByHome] = useState([]);
   const [modaldata, setModalData] = useState([]);
   const [modalvalue, setmaodalvalue] = useState({
     data: "",
@@ -40,11 +39,11 @@ function UserProfile() {
     name: Data[0]?.name,
     phone: Data[0]?.phone,
     email: Data[0]?.email,
-    dateOfBirth: Data[0]?.dateOfBirth,
+    dateOfBirth: Data[0]?.dateOfBirth?.slice(0, 10),
     gender: Data[0]?.gender,
     file: Data?.image,
   });
- 
+
   const handler = async (value) => {
     var formdata = new FormData();
 
@@ -54,22 +53,21 @@ function UserProfile() {
     console.log(formdata, "formdataaaaaa");
     const res = await postformdata("user-Edit-Profile", formdata);
     const resimg = await postformdata("Edit-User-Profile", formdata);
-    if(res.status && resimg.status){
+    if (res.status) {
       toast.success(res.message, {
         position: toast.POSITION.TOP_RIGHT,
-     });
-      }else{
+      });
+    } else {
       toast.error(res.message, {
-         position: toast.POSITION.TOP_RIGHT,
-    });
-      }
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
     console.log("ress", res);
 
     const profile = await getData("user-Profile");
     dispatch(setUsers(profile.data));
   };
 
- 
   function logout() {
     localStorage.removeItem("token");
     navigate("/login");
@@ -80,7 +78,7 @@ function UserProfile() {
 
     setWhishlist(res.data);
   };
-
+  console.log("whishlistwhishlistwhishlistwhishlistwhishlist", whishlist);
   useEffect(() => {
     Getwhishlist();
   }, []);
@@ -89,13 +87,10 @@ function UserProfile() {
     setimages(Data[0]?.image);
   }, []);
   const whishlistApi = async (value) => {
-    console.log("valuevalue", value);
-    const path = `remove-store-from-wishlist?id=${value ? value : ""}`;
+    const path = `wishlist?id=${value ? value : ""}`;
     const res = await getData(path);
     Getwhishlist();
   };
-
-
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -110,14 +105,26 @@ function UserProfile() {
       .max(20, "Too Long!")
       .required("Name is required"),
     email: Yup.string().email().required("Email is required"),
-    // gender: Yup.boolean().required("gender is required"),
-    // date: yup.date().required().max(new Date(), "Are you a time traveler?!"),
+    gender: Yup.string().required("gender is required"),
+    dateOfBirth: Yup.date()
+      .required("Date is required!")
+      .max(new Date(), "Date should not be later than today!"),
   });
   const [Items, setitems] = useState([]);
   const BookingApi = async () => {
     const res = await getData("get-user-order");
     setBookedData(res.data[0]);
   };
+
+  const SaloonAtHome = () => {
+    const filter = BookedData?.filter((el) => {
+      if (el.item.addressId != null) {
+        return el;
+      }
+    });
+    setBookedByHome(filter);
+  };
+  console.log("orderIdorderId", bookedbyhome);
   const Itemhandle = (el) => {
     setmaodalvalue({ data: el });
   };
@@ -136,8 +143,7 @@ function UserProfile() {
   return (
     <div>
       <HeaderHome />
-      <ToastContainer
-      autoClose ='2000'/>
+      <ToastContainer autoClose="2000" />
       <section className="container-fluid profilepage py-5 bg-dark">
         <div className="row">
           <div className="col-12">
@@ -375,6 +381,7 @@ function UserProfile() {
                             role="tab"
                             aria-controls="pills-saloonatHome"
                             aria-selected="false"
+                            onClick={() => SaloonAtHome()}
                           >
                             Saloon at Home
                           </button>
@@ -394,90 +401,93 @@ function UserProfile() {
                           <div className="row tabInnerRow">
                             <div className="col-md-10 mx-auto">
                               {BookedData?.map((el) => {
-                                console.log(el.item.data[0]?._id);
-                                return (
-                                  <>
-                                    <div
-                                      className="card mb-3 border-0 shadow myBookingCard"
-                                      
-                                    >
-                                      <div className="row g-0">
-                                        <div className="col-md-4 leftSide">
-                                          <div className="cardleftimage h-100 w-100">
-                                            <img
-                                              className="w-100 h-100 rounded-3"
-                                              src={el.image[0]}
-                                              alt="..."
-                                            />
-                                          </div>
-                                        </div>
-                                        <div className="col-md-8 rightSide">
-                                          <div className="card-body bodycard">
-                                            <div className="body-Header d-flex align-items-center justify-content-between ">
-                                              <div className="orderid text-theme2 mb-3">
-                                                Order Id:{" "}
-                                                {el?.item.data[0]?.orderId}
-                                              </div>
-                                              <div className="panding text-theme1 mb-3">
-                                                {el?.item.data[0]?.status}
-                                              </div>
-                                            </div>
-                                            <div className="cardHeading my-2">
-                                              {el?.storeName}
-                                            </div>
-                                            <p className="dateText mb-3 d-flex align-items-center">
+                                if (el.item.addressId == null) {
+                                  return (
+                                    <>
+                                      <div className="card mb-3 border-0 shadow myBookingCard">
+                                        <div className="row g-0">
+                                          <div className="col-md-4 leftSide">
+                                            <div className="cardleftimage h-100 w-100">
                                               <img
-                                                className="w100 h100 me-2"
-                                                src="assets/img/profile/calendar.svg"
-                                                alt
+                                                className="w-100 h-100 rounded-3"
+                                                src={el.image[0]}
+                                                alt="..."
                                               />
-                                              {""}
-                                              <span>
-                                                {new Date(el?.updatedAt)
-                                                  .toString()
-                                                  .slice(0, 15)}
-                                              </span>
-                                            </p>
-                                            <div className="row align-items-center mb-3 gap-3 paymentItems">
-                                              <div className="col d-flex gap-3 align-items-center">
-                                                <p className="card-text mb-0">
-                                                  <small className="text-theme2">
-                                                    ₹{" "}
-                                                    {
-                                                      el?.item.data[0]
-                                                        ?.totalamount
-                                                    }
-                                                  </small>
-                                                </p>
-                                                <button
-                                                  className="btn btn-theme1 text-white rounded-5 py-1 border-0 shadow-none itemsbtn" data-bs-toggle="modal"
-                                                  data-bs-target="#exampleModal1"
-                                                  onClick={() => Itemhandle(el)}
-                                                >
-                                                  {el.item.data.length == 1
-                                                    ? `${el.item.data.length} Item`
-                                                    : ` ${el.item.data.length} Items`}
-                                                </button>
+                                            </div>
+                                          </div>
+                                          <div className="col-md-8 rightSide">
+                                            <div className="card-body bodycard">
+                                              <div className="body-Header d-flex align-items-center justify-content-between ">
+                                                <div className="orderid text-theme2 mb-3">
+                                                  Order Id:{" "}
+                                                  {el?.item.data[0]?.orderId}
+                                                </div>
+                                                <div className="panding text-theme1 mb-3">
+                                                  {el?.item.data[0]?.status}
+                                                </div>
                                               </div>
-                                              <div className="col-auto">
-                                                <p className="card-text mb-0  ">
-                                                  <small
-                                                    className="text-theme2 text-danger fs-12"
+                                              <div className="cardHeading my-2">
+                                                {el?.storeName}
+                                              </div>
+                                              <p className="dateText mb-3 d-flex align-items-center">
+                                                <img
+                                                  className="w100 h100 me-2"
+                                                  src="assets/img/profile/calendar.svg"
+                                                  alt
+                                                />
+                                                {""}
+                                                <span>
+                                                  {new Date(el?.updatedAt)
+                                                    .toString()
+                                                    .slice(0, 15)}
+                                                </span>
+                                              </p>
+                                              <div className="row align-items-center mb-3 gap-3 paymentItems">
+                                                <div className="col d-flex gap-3 align-items-center">
+                                                  <p className="card-text mb-0">
+                                                    <small className="text-theme2">
+                                                      ₹{" "}
+                                                      {
+                                                        el?.item.data[0]
+                                                          ?.totalamount
+                                                      }
+                                                    </small>
+                                                  </p>
+                                                  <button
+                                                    className="btn btn-theme1 text-white rounded-5 py-1 border-0 shadow-none itemsbtn"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal1"
                                                     onClick={() =>
-                                                      cancelApi(el.item.data[0]?._id)
+                                                      Itemhandle(el)
                                                     }
                                                   >
-                                                    cancel
-                                                  </small>
-                                                </p>
+                                                    {el.item.data.length == 1
+                                                      ? `${el.item.data.length} Item`
+                                                      : ` ${el.item.data.length} Items`}
+                                                  </button>
+                                                </div>
+                                                <div className="col-auto">
+                                                  <p className="card-text mb-0  ">
+                                                    <small
+                                                      className="text-theme2 text-danger fs-12"
+                                                      onClick={() =>
+                                                        cancelApi(
+                                                          el.item.data[0]?._id
+                                                        )
+                                                      }
+                                                    >
+                                                      cancel
+                                                    </small>
+                                                  </p>
+                                                </div>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  </>
-                                );
+                                    </>
+                                  );
+                                }
                               })}
                             </div>
                           </div>
@@ -489,7 +499,93 @@ function UserProfile() {
                           aria-labelledby="pills-saloonatHome-tab"
                           tabIndex={0}
                         >
-                          2
+                          {bookedbyhome?.map((el) => {
+                            if (el.item.addressId != null) {
+                              return (
+                                <>
+                                  <div className="card mb-3 border-0 shadow myBookingCard">
+                                    <div className="row g-0">
+                                      <div className="col-md-4 leftSide">
+                                        <div className="cardleftimage h-100 w-100">
+                                          <img
+                                            className="w-100 h-100 rounded-3"
+                                            src={el.image[0]}
+                                            alt="..."
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="col-md-8 rightSide">
+                                        <div className="card-body bodycard">
+                                          <div className="body-Header d-flex align-items-center justify-content-between ">
+                                            <div className="orderid text-theme2 mb-3">
+                                              Order Id:{" "}
+                                              {el?.item.data[0]?.orderId}
+                                            </div>
+                                            <div className="panding text-theme1 mb-3">
+                                              {el?.item.data[0]?.status}
+                                            </div>
+                                          </div>
+                                          <div className="cardHeading my-2">
+                                            {el?.storeName}
+                                          </div>
+                                          <p className="dateText mb-3 d-flex align-items-center">
+                                            <img
+                                              className="w100 h100 me-2"
+                                              src="assets/img/profile/calendar.svg"
+                                              alt
+                                            />
+                                            {""}
+                                            <span>
+                                              {new Date(el?.updatedAt)
+                                                .toString()
+                                                .slice(0, 15)}
+                                            </span>
+                                          </p>
+                                          <div className="row align-items-center mb-3 gap-3 paymentItems">
+                                            <div className="col d-flex gap-3 align-items-center">
+                                              <p className="card-text mb-0">
+                                                <small className="text-theme2">
+                                                  ₹{" "}
+                                                  {
+                                                    el?.item.data[0]
+                                                      ?.totalamount
+                                                  }
+                                                </small>
+                                              </p>
+                                              <button
+                                                className="btn btn-theme1 text-white rounded-5 py-1 border-0 shadow-none itemsbtn"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal1"
+                                                onClick={() => Itemhandle(el)}
+                                              >
+                                                {el.item.data.length == 1
+                                                  ? `${el.item.data.length} Item`
+                                                  : ` ${el.item.data.length} Items`}
+                                              </button>
+                                            </div>
+                                            <div className="col-auto">
+                                              <p className="card-text mb-0  ">
+                                                <small
+                                                  className="text-theme2 text-danger fs-12"
+                                                  onClick={() =>
+                                                    cancelApi(
+                                                      el.item.data[0]?._id
+                                                    )
+                                                  }
+                                                >
+                                                  cancel
+                                                </small>
+                                              </p>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </>
+                              );
+                            }
+                          })}
                         </div>
                       </div>
                     </div>
@@ -503,6 +599,7 @@ function UserProfile() {
                   tabIndex={0}
                 >
                   {whishlist?.map((el) => {
+                    console.log("elelel77", el);
                     return (
                       <>
                         <div className="row innerrowtab g-3">
@@ -513,7 +610,7 @@ function UserProfile() {
                                   <div className="imagewishlistcard position-relative">
                                     <img
                                       className="w-100 h-100 rounded-2"
-                                      src={el?.image[0]}
+                                      src={el?.result.image}
                                       alt="..."
                                     />
                                     <div className="position-absolute top-0 end-0 me-1 imagesvg align-items-center">
@@ -534,7 +631,7 @@ function UserProfile() {
                                         <label
                                           class="form-check-label"
                                           onClick={() => {
-                                            whishlistApi(el.saloonId);
+                                            whishlistApi(el?.result?._id);
                                           }}
                                         >
                                           <svg
@@ -562,18 +659,55 @@ function UserProfile() {
                                 <div className="col-md-8 contentcardright">
                                   <div className="card-body">
                                     <div className="text-theme1 saloon">
-                                      {el?.storeName}
+                                      {el?.result.storeName}
                                     </div>
                                     <div className="saloonname text-theme2">
-                                      {el?.description}
+                                      {el?.result.description}
                                     </div>
                                     <p className="card-text text-muted">
-                                      Sec 110,
+                                      {el?.result.location
+                                        ? el?.result.location.aria ||
+                                          el?.result.location.aria.city ||
+                                          el?.result.location.aria.pincode ||
+                                          el?.result.location.aria.shopNumber
+                                        : ""}
                                     </p>
                                     <div className="border-bottom bordermb" />
                                     <div className="footerimage d-flex align-items-center justify-content-between ">
                                       <ul className="d-flex align-items-center justify-content-start list-unstyled gap-3 listImage mb-0 ">
-                                        <li>
+                                        {el?.result?.ProfileInfo?.amenities?.map((el)=>{
+                                          if(el == 'wifi'){
+                                            return (
+                                              <li>
+                                          <img
+                                            className="w-100 h-100"
+                                            src="assets/img/profile/wifi.png"
+                                            alt={1}
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-title="Beverage"
+                                          />
+                                        </li>
+                                            )
+                                          }
+                                        })}
+                                            {el?.result?.ProfileInfo?.amenities?.map((el)=>{
+                                          if(el == "cctv"){
+                                            return (
+                                              <li>
+                                          <img
+                                            className="w-100 h-100"
+                                            src="assets/img/profile/TV-old.png"
+                                            alt={1}
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            data-bs-title="Beverage"
+                                          />
+                                        </li>
+                                            )
+                                          }
+                                        })}
+                                        {/* <li>
                                           <img
                                             className="w-100 h-100"
                                             src="assets/img/profile/drink.png"
@@ -632,7 +766,7 @@ function UserProfile() {
                                             data-bs-placement="top"
                                             data-bs-title="Card Payment"
                                           />
-                                        </li>
+                                        </li> */}
                                       </ul>
                                       <div className="distanceimage">
                                         <img
@@ -951,9 +1085,12 @@ function UserProfile() {
             <Formik
               initialValues={defaultvalues}
               validationSchema={validationschema}
-              onSubmit={(value) =>{ handler(value)}}
+              onSubmit={(value) => {
+                handler(value);
+              }}
             >
               {(props) => {
+                console.log("ooohhhh", props);
                 return (
                   <Form onSubmit={props.handleSubmit}>
                     <div className="modal-body">
@@ -1074,12 +1211,14 @@ function UserProfile() {
                               className="form-cantrol inputform shadow-none py-2 border-0 border-bottom ms-2 w-100"
                               type="date"
                               name="dateOfBirth"
-                              value={props.values.date}
+                              value={props.values.dateOfBirth}
                               onChange={props.handleChange}
                             />
                           </div>
                           <p className="text-danger text-start">
-                            {props.errors.date ? props.errors.date : ""}
+                            {props.errors.dateOfBirth
+                              ? props.errors.dateOfBirth
+                              : ""}
                           </p>
                         </div>
                         <div className="col-md-6 mb-3">
@@ -1104,6 +1243,11 @@ function UserProfile() {
                                 >
                                   Male
                                 </label>
+                                <p className="text-danger text-start">
+                                  {props.errors.gender
+                                    ? props.errors.gender
+                                    : ""}
+                                </p>
                               </div>
                               <div className="form-check ps-3">
                                 <input
@@ -1121,6 +1265,11 @@ function UserProfile() {
                                 >
                                   Female
                                 </label>
+                                <p className="text-danger text-start">
+                                  {props.errors.gender
+                                    ? props.errors.gender
+                                    : ""}
+                                </p>
                               </div>
                             </div>
                           </div>
@@ -1252,7 +1401,6 @@ function UserProfile() {
                         <div className="Servicestext text-theme1">Services</div>
                       </div>
                       {modalvalue.data?.item?.data?.map((el) => {
-                        // console.log("elelelle3333", el);
                         return (
                           <>
                             <div className="d-flex align-items-center justify-content-between mb-3">
@@ -1301,11 +1449,8 @@ function UserProfile() {
           </div>
         </div>
       </div>
-
-      {/* Profile Page end */}
-      {/* herewe we Section start */}
-      <Footer2/>
- <Footer />
+      <Footer2 />
+      <Footer />
     </div>
   );
 }

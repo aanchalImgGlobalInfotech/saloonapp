@@ -8,6 +8,8 @@ import { postData, getData } from "../../components/apiinstance/Api";
 import { NavLink } from "react-router-dom";
 import Header from "../../common/layout/header/header";
 import Footer from "../../common/layout/footer/footer";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function Signup() {
   const [defaultvalues, setdefaultvalues] = useState({
@@ -56,6 +58,14 @@ function Signup() {
       otp: "1234",
     };
     const res = await postData("register", data);
+    if(res.status){
+      toast.success(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+    })}else {
+      toast.error(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+    });
+    }
   };
 
   const sendotp = async (value) => {
@@ -66,11 +76,18 @@ function Signup() {
       };
       const res = await postData("otp-sent", body);
       setopen((prev) => !prev);
-      // console.log(res);
+      if(res.status){
+        toast.success(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+      })}else {
+        toast.error(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+      });
+      }
     } else {
       alert("please enter valid number!");
     }
-    console.log("kkkk");
+  
   };
   const verify = async (value) => {
     var body = {
@@ -79,12 +96,21 @@ function Signup() {
     };
     const res = await postData("otp-verify", body);
     setopen((prev) => !prev);
+    if(res.status){
+      toast.success(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+    })}else {
+      toast.error(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+    });
+    }
   };
 
-  console.log('ooooooooooooooooooooo89',openpop)
   return (
     <>
       <div className="container-fluid login px-5 ">
+      <ToastContainer
+      autoClose ='2000'/>
         <div className="login2 h-100">
           <div className="row h-100 align-items-center">
             <div className="col-md-5 col-12  order-md-1 order-2 h-100 d-flex flex-column justify-content-center mt-5 px-5">

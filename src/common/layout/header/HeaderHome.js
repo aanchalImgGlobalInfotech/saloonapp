@@ -26,6 +26,8 @@ function HeaderHome() {
   const cityF=useSelector((state)=>state.cityFooter)
   const [category, setCategory] = useState();
   const [querysearch , setQuerysearch] = useState('')
+  const [subdata ,setSubData] = useState([])
+  const [filterdata , setFilterData] = useState([])
   const [filtered , setfiltered] = useState([])
   const [coordinates, setCoordinates] = useState({
     lat: null,
@@ -56,22 +58,38 @@ function HeaderHome() {
     navigate("/hair");
   };
 
+  console.log('nnnnnnn',category)
   const searchCategory = async () => {
    const res = await getData("getCategoryListing");
-    setCategory(res.data);
+    
+   setCategory(res.data);
     setfiltered(res.data)
+    // search(res.data.filter((el)=>))
   };
 
-  const search = (value)=>{
-    setQuerysearch(value)
-    if(value.length > 0){
-    const filtervalue = filtered?.filter((el)=>el.Name.toLowerCase().includes(value.toLowerCase()))
-    setCategory(filtervalue);
-  }else{
-    if(!value){
-      setCategory(filtered);
-    }
+  const subcategory = async () => {
+    const res = await getData("getAllCategoryListing")
+    setSubData(res.data)
+    setFilterData(res.data)
+    console.log('res.data', res.data)
   }
+//   const search = (value)=>{
+//     setQuerysearch(value)
+//     if(value.length > 0){
+//     const filtervalue = filtered?.filter((el)=>el.Name.toLowerCase().includes(value.toLowerCase()))
+//     setCategory(filtervalue);
+//   }else{
+//     if(!value){
+//       setCategory(filtered);
+//     }
+//   }
+// }
+ 
+const search = async (value)=>{
+  setQuerysearch(value)
+  const filter = subdata.map((el) => el.subchild?.filter((item)=>item.Name.toLowerCase()?.includes(value)))
+  // console.log('jjhj', filter)
+ setFilterData(filter) 
 }
   const locationSearchHandler =  (city) => {
     dispatch(cityName(city))
@@ -79,6 +97,7 @@ function HeaderHome() {
   }
   useEffect(() => {
     searchCategory();
+    subcategory();
   }, []);
 
   const GetCartApi = async () => {
@@ -493,7 +512,8 @@ function HeaderHome() {
                             aria-labelledby="pills-saloonH-tab"
                             tabindex="0"
                           >
-                            <div className="row row-cols-3 innertabs g-3">
+
+                           <div className="row row-cols-3 innertabs g-3">
                               {category?.map((item) => (
                                 <div className="col">
                                   <p
@@ -514,11 +534,11 @@ function HeaderHome() {
                             aria-labelledby="pills-atHome-tab"
                             tabindex="0"
                           >
-                            <div className="row mx-0 innertabs">
+                            <div className="row row-cols-3 innertabs g-3">
                               {category?.map((item) => (
-                                <div className="col-auto mb-3">
+                                <div className="col">
                                   <NavLink
-                                    className="buttoncontent text-decoration-none text-black"
+                                    className="buttoncontent m-0 rounded-pill w-100 d-flex justify-content-center align-items-center text-decoration-none text-black"
                                     to="/hair"
                                     state={{ id: item._id }}
                                   >
