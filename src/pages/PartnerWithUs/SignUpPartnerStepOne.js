@@ -4,10 +4,14 @@ import BusinessFooter from "./BusinessFooter";
 import BusinessHeader from "./BusinessHeader";
 import {Formik,Form,Field} from 'formik'
 import { postData } from "../../components/apiinstance/Api";
+import {ToastContainer,toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import * as yup from "yup";
+import * as Yup from "yup";
 
 const SignUpPartnerStepOne = () => {
   let location=useLocation()
-  const[userData,setUserData]=useState(location.state[0])
+  const[userData,setUserData]=useState(location?.state[0])
   let navigate = useNavigate();
   const[initialValues,setInitialValues]=useState({
     yourService:'',
@@ -20,9 +24,34 @@ const SignUpPartnerStepOne = () => {
     websiteUrl:'',
     amenities:[]
   })
+
+  const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const validationschema = yup.object().shape({
+  // contactNumber: yup
+  //   .string()
+  //   .required("Enter your mobile number")
+  //   .length(10, "Please enter a valid mobile number.")
+  //   .matches(phoneRegExp, "Please enter a valid mobile number."),
+  yourService: Yup.string()
+    
+    .required("Please Enter Mobile Number"),
+  alternateNumber: yup
+      .string()
+      .required("Enter your mobile number")
+      .length(10, "Please enter a valid mobile number.")
+      .matches(phoneRegExp, "Please enter a valid mobile number."),
+ 
+    openingTiming: Yup.string().required("Please Enter Open Time"),
+    closingTiming: Yup.string().required("Please Enter Close Time "),
+
+    amenities:  Yup.array().min(1).of(yup.string().required()).required('Please Enter Amenities'),
+    workingDays:  Yup.array().min(1).of(yup.string().required()).required('Please Enter Working Days '),
+  
+});
   const handleSubmit = async(value) => {
     //navigate("/signup-partner-step-two");
-    console.log(value.workingDays)
+    console.log('asdadadadadadadd')
     const  data={
         yourService:value.yourService,
         alternatePhone:value.alternateNumber,
@@ -36,22 +65,37 @@ const SignUpPartnerStepOne = () => {
       }
       const res= await postData(`business-profile-info?id=${userData._id}`,data)
       if(res.status){
-        navigate("/signup-partner-step-two",{
-          state:userData
-        });
+        toast.success(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+         
+      });
+        setTimeout(()=>{
+
+          navigate("/signup-partner-step-two",{
+            state:userData
+          });
+        },2000)
+      }else{
+        toast.error(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+          
+      });
       }
       console.log(res)
   };
   console.log(userData)
   return (
     <div className="overflow-hideen vh-100 innerFooter">
+      <ToastContainer
+        autoClose={1000}
+        ></ToastContainer>
       <BusinessHeader />
       <div className="signUpPartnermain">
         <div className="container">
           <div className="mainInner">
             <div className="row gap-4">
               <div className="col-12">
-                <div className="pageHeading text-center">{userData.storeName}</div>
+                <div className="pageHeading text-center">{userData?.storeName}</div>
                 <div className="subHeading fs-20 fw-medium text-center text-theme1">
                   Partner Registration Form - 2
                 </div>
@@ -106,6 +150,7 @@ const SignUpPartnerStepOne = () => {
               <div className="col-12">
                 <Formik
                 initialValues={initialValues}
+                validationSchema={validationschema}
                 onSubmit={(value)=>handleSubmit(value)}
                 >
                   {(formik) => {
@@ -133,6 +178,11 @@ const SignUpPartnerStepOne = () => {
                                     name='yourService'
                                   />
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.yourService && formik.errors.yourService
+                                    ? formik.errors.yourService
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-sm-6">
                                 <div className="input-group d-block">
@@ -150,6 +200,11 @@ const SignUpPartnerStepOne = () => {
                                     name='alternateNumber'
                                   />
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.alternateNumber && formik.errors.alternateNumber
+                                    ? formik.errors.alternateNumber
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-sm-6">
                                 <div className="input-group d-block">
@@ -168,6 +223,11 @@ const SignUpPartnerStepOne = () => {
                                     <option value='10:30 AM'>10:30AM</option>
                                   </Field>
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.openingTiming && formik.errors.openingTiming
+                                    ? formik.errors.openingTiming
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-sm-6">
                                 <div className="input-group d-block">
@@ -186,6 +246,11 @@ const SignUpPartnerStepOne = () => {
                                     <option value='09:00 PM'>9:00PM</option>
                                   </Field>
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.closingTiming && formik.errors.closingTiming
+                                    ? formik.errors.closingTiming
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-12 mt-4">
                                 <div className="miniHeading mb-2">
@@ -298,6 +363,11 @@ const SignUpPartnerStepOne = () => {
                                     </label>
                                   </div>
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.workingDays && formik.errors.workingDays
+                                    ? formik.errors.workingDays
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
@@ -462,6 +532,11 @@ const SignUpPartnerStepOne = () => {
                                       Beverage
                                     </label>
                                   </div>
+                                  <p className="text-danger text-start">
+                                  {formik.touched.amenities && formik.errors.amenities
+                                    ? formik.errors.amenities
+                                    : ""}
+                                </p>
                                 </div>
                               </div>
                               <div className="col-12 justify-content-sm-end justify-content-center d-flex gap-3">

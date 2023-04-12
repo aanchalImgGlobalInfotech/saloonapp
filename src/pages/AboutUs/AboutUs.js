@@ -165,7 +165,7 @@ const AboutUs = () => {
                       <span className="counter">{data?.Totelsaloon}</span>+
                     </div>
                     <div className="text-white fs-12 text-opacity-75">
-                      Salons &amp; Spas
+                      Salons &amp; Spa
                     </div>
                   </div>
                   <div className="col-md text-center px-md-0">

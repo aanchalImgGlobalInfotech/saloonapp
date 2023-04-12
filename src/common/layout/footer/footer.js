@@ -1,10 +1,38 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
+import { Formik,Form,Field} from 'formik'
+import * as yup from "yup";
+import * as Yup from "yup";
+import {toast,ToastContainer} from 'react-toastify'
+import { postData } from "../../../components/apiinstance/Api";
+import { useState } from "react";
 
 function Footer() {
+  const[initialValue,setInitialValue]=useState({
+    email:''
+  })
   const openingPage = (url) => {
     window.open(`${url}`);
   };
+  const validationschema = yup.object().shape({
+    email: Yup.string().email().required("Please Enter Email"),
+  });
+    const submitHandler = async(value,{resetForm}) =>{
+       const data ={
+          email:value.email
+       }
+        const res =await postData('Newsletter',data)
+          if(res.status){
+            toast.success(res.message,{
+              position:toast.POSITION.TOP_RIGHT
+            })
+            resetForm();
+          }else{
+            toast.error(res.message,{
+              position:toast.POSITION.TOP_RIGHT
+            })
+          }
+    }
   return (
     <>
       <footer class="container-fluid footer py-5 bg-dark">
@@ -152,20 +180,38 @@ function Footer() {
             </div>
             <div class="col-sm-6 col-md-6 col-lg-3 columnfirst">
               <p class="text-white mb-0">Newsletter</p>
-              <form action="" class="emailform">
-                <div class="d-flex align-items-cente">
-                  <input
-                    class="inputemail"
-                    type="text"
-                    required=""
-                    placeholder="Enter Your Email ID"
-                    name="email"
-                  />
-                  <button class="inputbtn" type="submit">
-                    Subscribe
-                  </button>
-                </div>
-              </form>
+              <Formik
+              initialValues={initialValue}
+              validationschema={validationschema}
+              onSubmit={(value,resetForm)=>submitHandler(value,resetForm)}
+              enableReinitialize
+              >
+                 {
+                  (formik)=>{
+                    return(
+                      <Form  className="emailform">
+                      <div class="d-flex align-items-cente">
+                        <Field
+                          class="inputemail"
+                          type="email"
+                          required
+                          placeholder="Enter Your Email ID"
+                          name="email"
+                        />
+                        <button class="inputbtn" type="submit" >
+                          Subscribe
+                        </button>
+                      </div>
+                      <p className="text-danger text-start">
+                                  { formik.touched.email && formik.errors.email
+                                    ? formik.errors.email
+                                    : ""}
+                                </p>
+                    </Form>
+                    )
+                  }
+                 }
+              </Formik>
               <div class="d-flex appiconsection mt-3">
                 <ul class="list-unstyled d-flex flex-column gap-3">
                   <li>

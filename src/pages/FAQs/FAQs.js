@@ -47,7 +47,7 @@ const FAQs = () => {
                                   id="headingOne"
                                 >
                                   <button
-                                    className="accordion-button shadow-none bg-theme1 text-white fs-14 justify-content-between d-flex align-items-center"
+                                    className="accordion-button shadow-none bg-theme1 text-white fs-14 justify-content-between d-flex align-items-center collapsed"
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target={`#${item?._id}`}

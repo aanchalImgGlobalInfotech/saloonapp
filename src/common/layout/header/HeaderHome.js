@@ -8,7 +8,7 @@ import {
   saloonservice,
   serviceId,
   setUsers,
-  cityName
+  cityName,
 } from "../../../components/redux/redux1/actions";
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -20,20 +20,25 @@ function HeaderHome() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [address, setAddress] = useState("");
-  const [Cartdata , setCartData] = useState([]);
+  const [Cartdata, setCartData] = useState([]);
   const value = useSelector((state) => state.saloonData);
-  const cityN=useSelector((state)=> state.cityName)
-  const cityF=useSelector((state)=>state.cityFooter)
+  const cityN = useSelector((state) => state.cityName);
+  const cityF = useSelector((state) => state.cityFooter);
   const [category, setCategory] = useState();
-  const [querysearch , setQuerysearch] = useState('')
-  const [subdata ,setSubData] = useState([])
-  const [filterdata , setFilterData] = useState([])
-  const [filtered , setfiltered] = useState([])
+  const [querysearch, setQuerysearch] = useState("");
+  const [subdata, setSubData] = useState([]);
+  const [filterdata, setFilterData] = useState([]);
+  const [filtered, setfiltered] = useState([]);
+  const [query, setQuery] = useState("");
+  const [recentSearches, setRecentSearches] = useState([]);
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null,
   });
+  const [arr, setarr] = useState([]);
+  const selectdata = localStorage.getItem("selectitem");
 
+  console.log("aaaaa", selectdata);
   const handleSelect = async (value) => {
     const result = await geocodeByAddress(value);
 
@@ -44,7 +49,7 @@ function HeaderHome() {
   };
 
   const Data = useSelector((state) => state.userData);
-
+  console.log("filterdatafilterdata", filterdata);
   const hanlder = async () => {
     const res = await getData("user-Profile");
     if (res.status) {
@@ -58,78 +63,110 @@ function HeaderHome() {
     navigate("/hair");
   };
 
-  console.log('nnnnnnn',category)
+  console.log("nnnnnnn", category);
   const searchCategory = async () => {
-   const res = await getData("getCategoryListing");
-    
-   setCategory(res.data);
-    setfiltered(res.data)
+    const res = await getData("getCategoryListing");
+
+    setCategory(res.data);
+    setfiltered(res.data);
     // search(res.data.filter((el)=>))
   };
 
   const subcategory = async () => {
-    const res = await getData("getAllCategoryListing")
-    setSubData(res.data)
-    setFilterData(res.data)
-    console.log('res.data', res.data)
-  }
-//   const search = (value)=>{
-//     setQuerysearch(value)
-//     if(value.length > 0){
-//     const filtervalue = filtered?.filter((el)=>el.Name.toLowerCase().includes(value.toLowerCase()))
-//     setCategory(filtervalue);
-//   }else{
-//     if(!value){
-//       setCategory(filtered);
-//     }
-//   }
-// }
- 
-const search = async (value)=>{
-  setQuerysearch(value)
-  const filter = subdata.map((el) => el.subchild?.filter((item)=>item.Name.toLowerCase()?.includes(value)))
-  // console.log('jjhj', filter)
- setFilterData(filter) 
-}
-  const locationSearchHandler =  (city) => {
-    dispatch(cityName(city))
-     navigate(`/salon-in`)
-  }
+    const res = await getData("getAllCategoryListing");
+    setSubData(res.data);
+    // setFilterData(res.data);
+    console.log("res.data", res.data);
+  };
+  //   const search = (value)=>{
+  //     setQuerysearch(value)
+  //     if(value.length > 0){
+  //     const filtervalue = filtered?.filter((el)=>el.Name.toLowerCase().includes(value.toLowerCase()))
+  //     setCategory(filtervalue);
+  //   }else{
+  //     if(!value){
+  //       setCategory(filtered);
+  //     }
+  //   }
+  // }
+
+  const search = async (value) => {
+    setQuerysearch(value);
+    if (value.length > 0) {
+      const filter = subdata.map((el) =>
+        el.subchild?.filter((item) => {
+          if (item.Name.toLowerCase()?.includes(value))
+            if (!!item.parent_Name) {
+              return item;
+            }
+        })
+      );
+      setFilterData(filter);
+    } else {
+      if (!value) {
+        setFilterData([]);
+      }
+    }
+  };
+
+  const handleSearch = (val) => {
+    console.log("val", val);
+    const values = localStorage.getItem("selectitem");
+    const parseValues = JSON.parse(values);
+    if (parseValues) {
+      localStorage.setItem(
+        "selectitem",
+        JSON.stringify([...parseValues, val.Name])
+      );
+    } else {
+      localStorage.setItem("selectitem", JSON.stringify([val.Name]));
+    }
+    const values1 = localStorage.getItem("selectitem");
+    const parseValues1 = JSON.parse(values1);
+    console.log(
+      "parseValues1parseValues1parseValues1parseValues1",
+      parseValues1
+    );
+    //  const recent = [...values]
+  };
+  const locationSearchHandler = (city) => {
+    dispatch(cityName(city));
+    navigate(`/salon-in`);
+  };
   useEffect(() => {
     searchCategory();
     subcategory();
   }, []);
 
   const GetCartApi = async () => {
-    const res = await getData('get-cart')
+    const res = await getData("get-cart");
 
-    setCartData(res.data)
-  }
-  
-  const cartHome = Cartdata?.filter((el)=>{ 
-    if(el.cart[0]?.addressId){
-      return el
+    setCartData(res.data);
+  };
+
+  const cartHome = Cartdata?.filter((el) => {
+    if (el.cart[0]?.addressId) {
+      return el;
     }
-  })
+  });
 
-  const cartShop =  Cartdata?.filter((el)=>{ 
-    if(!el.cart[0]?.addressId){
-      return el
+  const cartShop = Cartdata?.filter((el) => {
+    if (!el.cart[0]?.addressId) {
+      return el;
     }
-  })
+  });
 
-  const removeCart = async (id)=> {
+  const removeCart = async (id) => {
     const res = await getData(`remove-cart?id=${id}`);
-    if(res.status){
+    if (res.status) {
       GetCartApi();
     }
-  }
- 
+  };
+
   const getcartApi = async () => {
     let saloonid = value[0]?._id;
     const path = `get-cart?saloonId=${saloonid}`;
     const res = await getData(path);
-    
   };
 
   return (
@@ -163,9 +200,7 @@ const search = async (value)=>{
                   className="nav-link navlink active"
                   aria-current="page"
                   to="index.html"
-                >
-               
-                </NavLink>
+                ></NavLink>
               </li>
               <li className="nav-item navitem">
                 <NavLink className="nav-link navlink" to="/blog">
@@ -179,7 +214,7 @@ const search = async (value)=>{
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                   data-bs-auto-close="outside"
-                  onClick={()=> GetCartApi()}
+                  onClick={() => GetCartApi()}
                 >
                   Cart
                 </NavLink>
@@ -232,58 +267,68 @@ const search = async (value)=>{
                       aria-labelledby="pills-zoylee-tab"
                       tabIndex={0}
                     >
-                     
-                         <div className="cart">
-                         {cartShop?.map((el)=>{
-                           return(<>
-                          <div className="card mb-3 h-100 border-0">
-                            <div className="row g-0 align-items-center">
-                           <div className="col-auto p-2">
-                             <div className="cardimage">
-                               <img
-                                 src="/assets/img/about/img-2.png"
-                                 className="img-fluid rounded-start w-100 h-100"
-                                 alt="..."
-                               />
-                             </div>
-                           </div>
-                           <div className="col p-1">
-                             <div className="card-body px-2 py-0">
-                               <h5 className="card-title mb-0 my-1">
-                                {el.storeName}
-                               </h5>
-                               <p className="card-text my-2 text-white">
-                                 {el?.location?.aria}
-                               </p>
-                               <div className="d-flex align-items-center">
-                                 <p className="card-payment mb-0 text-white me-3">
-                                   ₹ {el?.cart[0]?.totalamount}
-                                 </p>
-                                 {/* <NavLink to='/services'> */}
-                                 
-                                 <div className="itemscart"> {el?.cart?.length == 1 ? `${el?.cart?.length} item` :  `${el?.cart?.length} items`}</div>
-                                 {/* </NavLink> */}
-                               </div>
-                             </div>
-                           </div>
-                           <div className="col-auto h-100">
-                             <div className="buttoncard h-100  w-100 rounded">
-                               <button className="btn cartbtn text-white rounded" onClick={()=>{ removeCart(el?.cart[0]?._id); getcartApi();}}>
-                                 <img
-                                   className="w-100 h-100"
-                                   src="/assets/img/header/times.svg"
-                                   alt
-                                 />
-                               </button>
-                             </div>
-                           </div>
-                         </div>
-                        
-                       </div>
-                           </>)
-                         })}
-                     </div>
-                     
+                      <div className="cart">
+                        {cartShop?.map((el) => {
+                          return (
+                            <>
+                              <div className="card mb-3 h-100 border-0">
+                                <div className="row g-0 align-items-center">
+                                  <div className="col-auto p-2">
+                                    <div className="cardimage">
+                                      <img
+                                        src="/assets/img/about/img-2.png"
+                                        className="img-fluid rounded-start w-100 h-100"
+                                        alt="..."
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col p-1">
+                                    <div className="card-body px-2 py-0">
+                                      <h5 className="card-title mb-0 my-1">
+                                        {el.storeName}
+                                      </h5>
+                                      <p className="card-text my-2 text-white">
+                                        {el?.location?.aria}
+                                      </p>
+                                      <div className="d-flex align-items-center">
+                                        <p className="card-payment mb-0 text-white me-3">
+                                          ₹ {el?.cart[0]?.totalamount}
+                                        </p>
+                                        {/* <NavLink to='/services'> */}
+
+                                        <div className="itemscart">
+                                          {" "}
+                                          {el?.cart?.length == 1
+                                            ? `${el?.cart?.length} item`
+                                            : `${el?.cart?.length} items`}
+                                        </div>
+                                        {/* </NavLink> */}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="col-auto h-100">
+                                    <div className="buttoncard h-100  w-100 rounded">
+                                      <button
+                                        className="btn cartbtn text-white rounded"
+                                        onClick={() => {
+                                          removeCart(el?.cart[0]?._id);
+                                          getcartApi();
+                                        }}
+                                      >
+                                        <img
+                                          className="w-100 h-100"
+                                          src="/assets/img/header/times.svg"
+                                          alt
+                                        />
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </>
+                          );
+                        })}
+                      </div>
                     </div>
                     <div
                       className="tab-pane tabpane fade"
@@ -292,57 +337,68 @@ const search = async (value)=>{
                       aria-labelledby="pills-zoyleeHome-tab"
                       tabIndex={0}
                     >
-                         <div className="cart">
-                         {cartHome?.map((el)=>{
-                           return(<>
-                       <div className="card mb-3 h-100 border-0">
-                            <div className="row g-0 align-items-center">
-                           <div className="col-auto p-2">
-                             <div className="cardimage">
-                               <img
-                                 src="/assets/img/about/img-2.png"
-                                 className="img-fluid rounded-start w-100 h-100"
-                                 alt="..."
-                               />
-                             </div>
-                           </div>
-                           <div className="col p-1">
-                             <div className="card-body px-2 py-0">
-                               <h5 className="card-title mb-0 my-1">
-                                {el.storeName}
-                               </h5>
-                               <p className="card-text my-2 text-white">
-                                 {el?.location?.aria}
-                               </p>
-                               <div className="d-flex align-items-center">
-                                 <p className="card-payment mb-0 text-white me-3">
-                                   ₹ {el?.cart[0]?.totalamount}
-                                 </p>
-                                 {/* <NavLink to='/services'> */}
-                                 
-                                 <div className="itemscart"> {el?.cart?.length == 1 ? `${el?.cart?.length} item` :  `${el?.cart?.length} items`}</div>
-                                 {/* </NavLink> */}
-                               </div>
-                             </div>
-                           </div>
-                           <div className="col-auto h-100">
-                             <div className="buttoncard h-100  w-100 rounded">
-                               <button className="btn cartbtn text-white rounded" onClick={()=>{ removeCart(el?.cart[0]?._id); getcartApi();}}>
-                                 <img
-                                   className="w-100 h-100"
-                                   src="/assets/img/header/times.svg"
-                                   alt
-                                 />
-                               </button>
-                             </div>
-                           </div>
-                         </div>
-                        
-                       </div>
-                           </>)
-                         })}
-                     </div>
-                  
+                      <div className="cart">
+                        {cartHome?.map((el) => {
+                          return (
+                            <>
+                              <div className="card mb-3 h-100 border-0">
+                                <div className="row g-0 align-items-center">
+                                  <div className="col-auto p-2">
+                                    <div className="cardimage">
+                                      <img
+                                        src="/assets/img/about/img-2.png"
+                                        className="img-fluid rounded-start w-100 h-100"
+                                        alt="..."
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col p-1">
+                                    <div className="card-body px-2 py-0">
+                                      <h5 className="card-title mb-0 my-1">
+                                        {el.storeName}
+                                      </h5>
+                                      <p className="card-text my-2 text-white">
+                                        {el?.location?.aria}
+                                      </p>
+                                      <div className="d-flex align-items-center">
+                                        <p className="card-payment mb-0 text-white me-3">
+                                          ₹ {el?.cart[0]?.totalamount}
+                                        </p>
+                                        {/* <NavLink to='/services'> */}
+
+                                        <div className="itemscart">
+                                          {" "}
+                                          {el?.cart?.length == 1
+                                            ? `${el?.cart?.length} item`
+                                            : `${el?.cart?.length} items`}
+                                        </div>
+                                        {/* </NavLink> */}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="col-auto h-100">
+                                    <div className="buttoncard h-100  w-100 rounded">
+                                      <button
+                                        className="btn cartbtn text-white rounded"
+                                        onClick={() => {
+                                          removeCart(el?.cart[0]?._id);
+                                          getcartApi();
+                                        }}
+                                      >
+                                        <img
+                                          className="w-100 h-100"
+                                          src="/assets/img/header/times.svg"
+                                          alt
+                                        />
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
                 </ul>
@@ -358,7 +414,9 @@ const search = async (value)=>{
               </li>
             </ul>
             <div className="hiddenDropdown dnone d-lg-flex justify-content-center align-items-center position-relative me-3">
-              <span className="dnone fs-14 text-white text-center">{cityN}</span>
+              <span className="dnone fs-14 text-white text-center">
+                {cityN}
+              </span>
               <div className="dropedownOuter position-absolute end-0 bg-white rounded-1 shadow">
                 {/* <PlacesAutocomplete
                    value={address}
@@ -454,10 +512,14 @@ const search = async (value)=>{
                 className="form-control searchinput"
                 type="search"
                 value={querysearch}
-                onChange={(e)=> search(e.target.value)}
+                onChange={(e) => {
+                  search(e.target.value);
+                  handleSearch(e.target.value);
+                }}
                 placeholder="Search"
                 aria-label="Search"
               />
+
               <div className="loginIcon d-none">
                 <a className="btn btnlogin" href="login.html">
                   <img src="/assets/img/header/person-fill.svg" alt="icon" />
@@ -512,8 +574,7 @@ const search = async (value)=>{
                             aria-labelledby="pills-saloonH-tab"
                             tabindex="0"
                           >
-
-                           <div className="row row-cols-3 innertabs g-3">
+                            <div className="row row-cols-3 innertabs g-3">
                               {category?.map((item) => (
                                 <div className="col">
                                   <p
@@ -546,6 +607,142 @@ const search = async (value)=>{
                                   </NavLink>
                                 </div>
                               ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-12 ">
+                        <div className="searchResult p-3 dnone">
+                          <div className="row gap-3">
+                            <div className="col-12">
+                              <div className="relatedSearch">
+                                <ul className="m-0 p-0 list-unstyled d-flex flex-column gap-3">
+                                  {filterdata?.map((el) =>
+                                    el?.map((item) => {
+                                      return (
+                                        <li
+                                          onClick={() => {
+                                            handleSearch(item);
+                                          }}
+                                        >
+                                          <a
+                                            className="text-decoration-none text-dark d-flex align-items-center gap-2 position-relative"
+                                            href="javascript:;"
+                                          >
+                                            {item.Name}
+                                          </a>
+                                        </li>
+                                      );
+                                    })
+                                  )}
+                                </ul>
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="vanues">
+                                <div className="title fs-14 text-theme1 mb-3 d-flex align-items-center gap-1">
+                                  recent serach
+                                </div>
+                                {recentSearches.map((el) => {
+                                  return (
+                                    <li>
+                                      <a
+                                        className="text-decoration-none text-dark d-flex align-items-center gap-2 position-relative"
+                                        href="javascript:;"
+                                      >
+                                        {el}
+                                      </a>
+                                    </li>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                            <div className="col-12">
+                              <div className="vanues">
+                                <div className="title fs-14 text-theme1 mb-3 d-flex align-items-center gap-3">
+                                  Venues
+                                </div>
+                                <ul className="m-0 p-0 list-unstyled d-flex flex-column gap-3">
+                                  <li className="venueOuter p-2 rounded-4 border border-light position-relative">
+                                    <div className="row align-items-center">
+                                      <div className="col-auto pe-2">
+                                        <div className="imgOuter rounded-4 overflow-hidden">
+                                          <img
+                                            className="w-100 h-100"
+                                            src="assets/img/img-1.png"
+                                            alt
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="col px-2">
+                                        <div className="venueDetai">
+                                          <a
+                                            href="javascript:;"
+                                            className="stretched-link text-decoration-none text-dark fs-12"
+                                          >
+                                            Hair Sage Luxury Salon
+                                          </a>
+                                          <div className="fs-10 text-muted mt-1">
+                                            Sector 104 <span>2.5 km</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </li>
+                                  <li className="venueOuter p-2 rounded-4 border border-light position-relative">
+                                    <div className="row align-items-center">
+                                      <div className="col-auto pe-2">
+                                        <div className="imgOuter rounded-4 overflow-hidden">
+                                          <img
+                                            className="w-100 h-100"
+                                            src="assets/img/img-1.png"
+                                            alt
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="col px-2">
+                                        <div className="venueDetai">
+                                          <a
+                                            href="javascript:;"
+                                            className="stretched-link text-decoration-none text-dark fs-12"
+                                          >
+                                            Hair Sage Luxury Salon
+                                          </a>
+                                          <div className="fs-10 text-muted mt-1">
+                                            Sector 104 <span>2.5 km</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </li>
+                                  <li className="venueOuter p-2 rounded-4 border border-light position-relative">
+                                    <div className="row align-items-center">
+                                      <div className="col-auto pe-2">
+                                        <div className="imgOuter rounded-4 overflow-hidden">
+                                          <img
+                                            className="w-100 h-100"
+                                            src="assets/img/img-1.png"
+                                            alt
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="col px-2">
+                                        <div className="venueDetai">
+                                          <a
+                                            href="javascript:;"
+                                            className="stretched-link text-decoration-none text-dark fs-12"
+                                          >
+                                            Hair Sage Luxury Salon
+                                          </a>
+                                          <div className="fs-10 text-muted mt-1">
+                                            Sector 104 <span>2.5 km</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
                             </div>
                           </div>
                         </div>

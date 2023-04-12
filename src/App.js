@@ -93,7 +93,7 @@ function App() {
           <Route exact path="/nextblog/:id" element={<BlogInnerPage />} />
           <Route exact path="/userprofile" element={<UserProfile />} />
           <Route exact path="/hair" element={<Hair_cut />} />
-          <Route exact path="/salon-in" element={<Hair_cut2 />} />
+          <Route exact path="/:category" element={<Hair_cut2 />} />
           <Route exact path="/services" element={<Services />} />
           <Route exact path="/checkout" element={<CheckOut />} />
         </Route>

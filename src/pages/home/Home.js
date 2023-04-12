@@ -1,26 +1,27 @@
 import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../common/layout/footer/footer";
 import Footer2 from "../../common/layout/footer/Footer2 ";
 import Header from "../../common/layout/header/header";
 import HeaderHome from "../../common/layout/header/HeaderHome";
-import {Formik,Form,Field} from 'formik'
+import { Formik, Form, Field } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
 import * as Yup from "yup";
 import { postData } from "../../components/apiinstance/Api";
+import { useSelector } from "react-redux";
 
 function Home() {
-
+  const navigate = useNavigate()
   const [initialValues, setInitialValues] = useState({
     name: "",
     mobile: "",
     email: "",
     location: "",
   });
-
-const phoneRegExp =
+  const cityName=useSelector((state)=>state.cityName)
+  const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const validationschema = yup.object().shape({
     mobile: yup
@@ -28,9 +29,8 @@ const phoneRegExp =
       .required("Enter your mobile number")
       .length(10, "Please enter a valid mobile number.")
       .matches(phoneRegExp, "Please enter a valid mobile number."),
-    name: Yup.string()
-    .required("Please Enter Your Name"),
-    // email: Yup.string().email().required("Please Enter Email"),
+    name: Yup.string().required("Please Enter Your Name"),
+    email: Yup.string().email().required("Please Enter Email"),
     location: Yup.string().required("Please fill this field"),
   });
   const submitHandler = async (value, { resetForm }) => {
@@ -55,12 +55,17 @@ const phoneRegExp =
         position: toast.POSITION.TOP_RIGHT,
       });
     }
-    console.log(value,'artist signup')
+    console.log(value, "artist signup");
   };
   const location = useLocation();
   let token = localStorage.getItem("token");
+  const categoryHandler = (cate) => {
+    let route = `${cate}-in-${cityName}`;
+    navigate("/" + route, { state: cate });
+    //console.log(route,'Hello this is console from footer2' )
+    localStorage.setItem("category", cate);
+  };
 
-  // console.log(location);
   return (
     <div>
       <HeaderHome />
@@ -169,6 +174,7 @@ const phoneRegExp =
                                 role="tab"
                                 aria-controls="salons-tab-pane"
                                 aria-selected="true"
+                                onClick={() => categoryHandler("saloon")}
                               >
                                 Nearby Salons
                               </button>
@@ -186,6 +192,7 @@ const phoneRegExp =
                                 role="tab"
                                 aria-controls="parlours-tab-pane"
                                 aria-selected="false"
+                                onClick={() => categoryHandler("parlour")}
                               >
                                 Parlours
                               </button>
@@ -203,6 +210,7 @@ const phoneRegExp =
                                 role="tab"
                                 aria-controls="spas-tab-pane"
                                 aria-selected="false"
+                                onClick={() => categoryHandler("spa")}
                               >
                                 Spas
                               </button>
