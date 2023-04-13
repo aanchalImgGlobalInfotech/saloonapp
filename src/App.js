@@ -101,6 +101,7 @@ function App() {
         <Route exact path="/verifyotp" element={<Verifyotp />} />
         <Route exact path="/signup" element={<Signup />} />
         <Route exact path="/login" element={<Login />} />
+        <Route exact path="/login-with-password" element={<LoginWithPassword/>}/>
         <Route exact path="/partnerlogin" element={<PartnerLogin />} />
         <Route exact path="/signup-partner" element={<SignUpPartner />} />
         <Route

@@ -2,49 +2,46 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { postData } from "../../components/apiinstance/Api";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setUsers } from "../../components/redux/redux1/actions";
 
 const LoginWithPassword = () => {
-     const navigate =useNavigate()
-    const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [initialValue, setInitialValue] = useState({
     email: "",
     password: "",
   });
 
+  const submitHandler = async (value) => {
+    const body = {
+      email: value?.email,
+      password: value?.password,
+    };
 
-      const submitHandler = async(value) =>{
-            const body ={
-                email:value?.email,
-                password:value?.password
-            }
-
-            const res = await postData("login", body);
-            console.log(res)
-    if(res.status){
-      toast.success(res.message,{
-        position: toast.POSITION.TOP_RIGHT,})
-        dispatch(setUsers(res.data));
-        setTimeout(() => {
-          navigate("/Dashboard");
-        }, 2000);
-   
-    }else{
-       toast.error(res.message,{
-        position:toast.POSITION.TOP_RIGHT
-       })
+    const res = await postData("login", body);
+    console.log(res);
+    if (res.status) {
+      toast.success(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      dispatch(setUsers(res.data));
+      setTimeout(() => {
+        navigate("/Dashboard");
+      }, 2000);
+    } else {
+      toast.error(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
     let token = localStorage.setItem("token", res?.data[1]?.auth);
-      }
+  };
   return (
     <div>
       <div className="container-fluid login px-lg-5">
-      <ToastContainer
-      autoClose={1000}
-      />
+        <ToastContainer autoClose={1000} />
         <div className="login2 h-100">
           <div className="row h-100 align-items-center">
             <div className="col-md-5 col-12  order-md-1 order-2 h-100 d-flex flex-column justify-content-center mt-5 px-sm-5">
@@ -72,7 +69,7 @@ const LoginWithPassword = () => {
                                   className="form-control border-bottom shadow-none border-0 rounded-0 fs-12"
                                   id="formGroupExampleInput1"
                                   placeholder="Enter Your Email or Number"
-                                   name="email"
+                                  name="email"
                                 />
                               </div>
                               <div className="mb-1">
@@ -81,7 +78,7 @@ const LoginWithPassword = () => {
                                   className="form-control border-bottom shadow-none border-0 rounded-0  fs-12"
                                   id="formGroupExampleInput1"
                                   placeholder="Password"
-                                  name='password'
+                                  name="password"
                                   required
                                 />
                               </div>
@@ -105,10 +102,8 @@ const LoginWithPassword = () => {
                           </div>
                         </Form>
                       );
-                      }
-                    }
+                    }}
                   </Formik>
-                  
                 </div>
                 <div className="text-center pb-3">
                   <div className="textresend">

@@ -36,9 +36,6 @@ function HeaderHome() {
     lng: null,
   });
   const [arr, setarr] = useState([]);
-  const selectdata = localStorage.getItem("selectitem");
-
-  console.log("aaaaa", selectdata);
   const handleSelect = async (value) => {
     const result = await geocodeByAddress(value);
 
@@ -49,7 +46,11 @@ function HeaderHome() {
   };
 
   const Data = useSelector((state) => state.userData);
-  console.log("filterdatafilterdata", filterdata);
+  console.log(
+    "recentSearches",
+    recentSearches.slice(recentSearches.length - 2),
+    recentSearches.length
+  );
   const hanlder = async () => {
     const res = await getData("user-Profile");
     if (res.status) {
@@ -62,33 +63,16 @@ function HeaderHome() {
     dispatch(serviceId(id));
     navigate("/hair");
   };
-
-  console.log("nnnnnnn", category);
   const searchCategory = async () => {
     const res = await getData("getCategoryListing");
-
     setCategory(res.data);
     setfiltered(res.data);
-    // search(res.data.filter((el)=>))
   };
 
   const subcategory = async () => {
     const res = await getData("getAllCategoryListing");
     setSubData(res.data);
-    // setFilterData(res.data);
-    console.log("res.data", res.data);
   };
-  //   const search = (value)=>{
-  //     setQuerysearch(value)
-  //     if(value.length > 0){
-  //     const filtervalue = filtered?.filter((el)=>el.Name.toLowerCase().includes(value.toLowerCase()))
-  //     setCategory(filtervalue);
-  //   }else{
-  //     if(!value){
-  //       setCategory(filtered);
-  //     }
-  //   }
-  // }
 
   const search = async (value) => {
     setQuerysearch(value);
@@ -109,8 +93,9 @@ function HeaderHome() {
     }
   };
 
+  const values1 = localStorage.getItem("selectitem");
+  const parseValues1 = JSON.parse(values1);
   const handleSearch = (val) => {
-    console.log("val", val);
     const values = localStorage.getItem("selectitem");
     const parseValues = JSON.parse(values);
     if (parseValues) {
@@ -121,13 +106,6 @@ function HeaderHome() {
     } else {
       localStorage.setItem("selectitem", JSON.stringify([val.Name]));
     }
-    const values1 = localStorage.getItem("selectitem");
-    const parseValues1 = JSON.parse(values1);
-    console.log(
-      "parseValues1parseValues1parseValues1parseValues1",
-      parseValues1
-    );
-    //  const recent = [...values]
   };
   const locationSearchHandler = (city) => {
     dispatch(cityName(city));
@@ -418,50 +396,6 @@ function HeaderHome() {
                 {cityN}
               </span>
               <div className="dropedownOuter position-absolute end-0 bg-white rounded-1 shadow">
-                {/* <PlacesAutocomplete
-                   value={address}
-                   onChange={setAddress}
-                   onSelect={handleSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div className="inputGroup p-3 pb-2">
-            <input
-              {...getInputProps({
-                
-                className:"form-control border-0 border-bottom border-2 rounded-0 shadow-none",
-                placeholder:"Search City..."
-              })}
-            />
-              <button className="btn btn-dark shadow-none border-none rounded-pill d-flex gap-1 align-items-center fs-10 mt-2" >
-                    <img src="assets/img/icon/nearmeIcon.svg" alt />{" "}
-                    <span>Near Me</span>
-                  </button>
-            <div className="relatedSearch pb-3">
-              {loading && <div>Loading...</div>}
-              {suggestions.map(suggestion => {
-                 
-                return (
-                  <ul
-                  className="p-0 m-0 list-unstyled fs-14"
-                    {...getSuggestionItemProps(suggestion, { 
-                    })}
-                  >
-                    <span></span>
-                    <li className=" p-1 px-3">
-                     <a className="text-decoration-none text-muted " href>
-                      {suggestion.description}
-                     </a>
-                   </li>
-                  </ul>
-                   
-                   
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </PlacesAutocomplete> */}
-
                 <div className="inputGroup p-3 pb-2">
                   <input
                     type="search"
@@ -476,31 +410,6 @@ function HeaderHome() {
                     <span>Near Me</span>
                   </button>
                 </div>
-
-                {/* <div className="relatedSearch pb-3">
-                  <ul className="p-0 m-0 list-unstyled fs-14">
-                    <li className=" p-1 px-3">
-                      <a className="text-decoration-none text-muted " href>
-                        jaipur, vaishali Nagar
-                      </a>
-                    </li>
-                    <li className=" p-1 px-3">
-                      <a className="text-decoration-none text-muted " href>
-                        jaipur, 302012
-                      </a>
-                    </li>
-                    <li className=" p-1 px-3">
-                      <a className="text-decoration-none text-muted " href>
-                        jaipur, Ram Nagar
-                      </a>
-                    </li>
-                    <li className=" p-1 px-3">
-                      <a className="text-decoration-none text-muted " href>
-                        jaipur, Kalwar Road
-                      </a>
-                    </li>
-                  </ul>
-                </div> */}
               </div>
             </div>
 
@@ -514,7 +423,6 @@ function HeaderHome() {
                 value={querysearch}
                 onChange={(e) => {
                   search(e.target.value);
-                  handleSearch(e.target.value);
                 }}
                 placeholder="Search"
                 aria-label="Search"
@@ -640,21 +548,26 @@ function HeaderHome() {
                             </div>
                             <div className="col-12">
                               <div className="vanues">
-                                <div className="title fs-14 text-theme1 mb-3 d-flex align-items-center gap-1">
-                                  recent serach
+                                <div className="title gap-2 text-theme1 mb-1 d-flex align-items-center gap-1 ">
+                                  recent search
                                 </div>
-                                {recentSearches.map((el) => {
-                                  return (
-                                    <li>
-                                      <a
-                                        className="text-decoration-none text-dark d-flex align-items-center gap-2 position-relative"
-                                        href="javascript:;"
-                                      >
-                                        {el}
-                                      </a>
-                                    </li>
-                                  );
-                                })}
+                                {parseValues1
+                                  ?.slice(parseValues1.length - 2)
+                                  ?.map((el) => {
+                                    console.log("elelelle", el);
+                                    {
+                                      if (el) {
+                                        return (
+                                          <a
+                                            className="text-decoration-none text-dark d-flex align-items-center "
+                                            href="javascript:;"
+                                          >
+                                            <li>{el}</li>
+                                          </a>
+                                        );
+                                      }
+                                    }
+                                  })}
                               </div>
                             </div>
                             <div className="col-12">

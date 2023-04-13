@@ -179,7 +179,14 @@ function Login() {
                           </button>
                         </NavLink>
                       </div>
+                    
                       <div className="text-center">
+                      <NavLink
+                        className="text-theme1 recendtext text-decoration-none"
+                        to="/login-with-password"
+                      >
+                        Log In using Password
+                      </NavLink>
                         <div className="textfooter">
                           Don't have an account?
                           <NavLink

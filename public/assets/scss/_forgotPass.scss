@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+.forgotPassMain {
+    padding-top: 60px;
+    & .forgotCotainer{
+        & .card{
+            & .input-group {
+                & .form-control {
+                    &:focus {
+                        border-color: $theme1 !important;
+                    }
+                }
+            }
+            & .optsection {
+                & .inputs {
+                    & .formotp {
+                        width: 40px;
+                        height: 40px;
+                        border-color: $theme1;
+                        box-shadow: none;
+                        aspect-ratio: 2/2;
+                        &:focus-visible {
+                            color: $theme1;
+                            border-color: $theme1;
+                            outline: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ********************Responsive****************
+@media only screen and (max-width: 1400px) { 
+}
+@media only screen and (max-width: 1200px) {
+}
+@media only screen and (max-width: 1100px) {
+}
+@media only screen and (max-width: 991.98px) {
+}
+@media only screen and (max-width: 767.98px) {
+}
+@media only screen and (max-width: 575.99px) {
+}
+@media (max-width: 360px) {
+}

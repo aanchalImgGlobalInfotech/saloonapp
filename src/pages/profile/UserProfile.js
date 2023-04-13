@@ -31,10 +31,8 @@ function UserProfile() {
   const [BookedData, setBookedData] = useState([]);
   const [bookedbyhome, setBookedByHome] = useState([]);
   const [modaldata, setModalData] = useState([]);
-  const [modalvalue, setmaodalvalue] = useState({
-    data: "",
-  });
-  console.log("BookedData", BookedData);
+  const [modalvalue, setmaodalvalue] = useState({ data: "" });
+
   const [defaultvalues, setdefaultvalues] = useState({
     name: Data[0]?.name,
     phone: Data[0]?.phone,
@@ -43,7 +41,7 @@ function UserProfile() {
     gender: Data[0]?.gender,
     file: Data?.image,
   });
-
+  console.log("DataDataDataData", Data);
   const handler = async (value) => {
     var formdata = new FormData();
 
@@ -139,7 +137,18 @@ function UserProfile() {
       BookingApi();
     }
   };
-
+  const showDirection = (location) => {
+    window.open(
+      "https://maps.google.com?q=" +
+        location.aria +
+        "," +
+        location.city +
+        "," +
+        location.pincode +
+        "," +
+        location.state
+    );
+  };
   return (
     <div>
       <HeaderHome />
@@ -161,7 +170,7 @@ function UserProfile() {
                     <div className="profileImage ms-auto  position-relative">
                       <img
                         className="w-100 h-100"
-                        src={arr ? Data[0]?.image : ""}
+                        src={Data[0]?.image}
                         alt="image-75"
                       />
                     </div>
@@ -324,6 +333,25 @@ function UserProfile() {
                             Refer &amp; Earn
                           </span>
                           <span>0</span>
+                        </button>
+                        <button
+                          className="nav-link border-0 rounded-0 ps-lg-4 ps-xl-5 navLink navlink2"
+                          id="wallet-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#wallet"
+                          type="button"
+                          role="tab"
+                          aria-controls="wallet"
+                          aria-selected="false"
+                        >
+                          <span>
+                            {" "}
+                            <span className="pe-3">
+                              <img src="assets/img/profile/user.svg" alt />
+                            </span>{" "}
+                            Wallet
+                          </span>
+                          <span>₹ {Data[0]?.userWallet?.balance}</span>
                         </button>
                       </div>
                       ;
@@ -599,7 +627,6 @@ function UserProfile() {
                   tabIndex={0}
                 >
                   {whishlist?.map((el) => {
-                    console.log("elelel77", el);
                     return (
                       <>
                         <div className="row innerrowtab g-3">
@@ -675,38 +702,42 @@ function UserProfile() {
                                     <div className="border-bottom bordermb" />
                                     <div className="footerimage d-flex align-items-center justify-content-between ">
                                       <ul className="d-flex align-items-center justify-content-start list-unstyled gap-3 listImage mb-0 ">
-                                        {el?.result?.ProfileInfo?.amenities?.map((el)=>{
-                                          if(el == 'wifi'){
-                                            return (
-                                              <li>
-                                          <img
-                                            className="w-100 h-100"
-                                            src="assets/img/profile/wifi.png"
-                                            alt={1}
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            data-bs-title="Beverage"
-                                          />
-                                        </li>
-                                            )
+                                        {el?.result?.ProfileInfo?.amenities?.map(
+                                          (el) => {
+                                            if (el == "wifi") {
+                                              return (
+                                                <li>
+                                                  <img
+                                                    className="w-100 h-100"
+                                                    src="assets/img/profile/wifi.png"
+                                                    alt={1}
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    data-bs-title="Beverage"
+                                                  />
+                                                </li>
+                                              );
+                                            }
                                           }
-                                        })}
-                                            {el?.result?.ProfileInfo?.amenities?.map((el)=>{
-                                          if(el == "cctv"){
-                                            return (
-                                              <li>
-                                          <img
-                                            className="w-100 h-100"
-                                            src="assets/img/profile/TV-old.png"
-                                            alt={1}
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            data-bs-title="Beverage"
-                                          />
-                                        </li>
-                                            )
+                                        )}
+                                        {el?.result?.ProfileInfo?.amenities?.map(
+                                          (el) => {
+                                            if (el == "cctv") {
+                                              return (
+                                                <li>
+                                                  <img
+                                                    className="w-100 h-100"
+                                                    src="assets/img/profile/TV-old.png"
+                                                    alt={1}
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    data-bs-title="Beverage"
+                                                  />
+                                                </li>
+                                              );
+                                            }
                                           }
-                                        })}
+                                        )}
                                         {/* <li>
                                           <img
                                             className="w-100 h-100"
@@ -1056,6 +1087,77 @@ function UserProfile() {
                     </div>
                   </div>
                 </div>
+                <div
+                  className="tab-pane fade p-sm-4 p-3 tabForth"
+                  id="wallet"
+                  role="tabpanel"
+                  aria-labelledby="wallet-tab"
+                  tabIndex={0}
+                >
+                  <div className="row mx-0 ">
+                    <div className="col-12">
+                      <div className="card mb-3 refercard border-0 shadow">
+                        <div className="row g-0">
+                          <div className="col-md-4 d-flex align-items-cente justify-content-center flex-column leftSideContent">
+                            <div className="text100">
+                              {Data[0]?.userWallet?.point}
+                            </div>
+                            <div className="textSubHeading text-center">
+                              Your Total Point Earning
+                            </div>
+                          </div>
+                          <div className="col-md-8 rightSideContent">
+                            <div className="card-body bodycard">
+                              <h5 className="card-title">
+                                Share Earn &amp; Have Fun
+                              </h5>
+                              <p className="card-text">
+                                Get 50 Points for every person you refer to.
+                                Your friend will also get 100 points when they
+                                download the app
+                              </p>
+                              <p className="card-textsub">
+                                <small>
+                                  You can use 50pts in one transaction on
+                                  payment page during checkout
+                                </small>
+                              </p>
+                              <div className="border-bottom bdbottom my-3" />
+                              <div className="sharetext">
+                                <small className="text-muted">
+                                  Click here & and convert your point into
+                                  rupees.
+                                </small>
+                              </div>
+                              <div className="copytext">
+                                <button
+                                  className="nav-link w-100 border-0 rounded-0 m-0"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#saloonWallet"
+                                >
+                                  Add Money
+                                </button>
+                                {/* <div className="copy-text">
+                                  <input
+                                    type="text"
+                                    className="text"
+                                    defaultValue="Q06730U"
+                                  />
+                                  <button className="position-absolute end-0 me-2">
+                                    <img
+                                      src="assets/img/profile/copyicon.svg"
+                                      alt
+                                    />
+                                  </button>
+                                </div> */}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1090,7 +1192,6 @@ function UserProfile() {
               }}
             >
               {(props) => {
-                console.log("ooohhhh", props);
                 return (
                   <Form onSubmit={props.handleSubmit}>
                     <div className="modal-body">
@@ -1384,7 +1485,11 @@ function UserProfile() {
                           className="text-decoration-none d-flex align-items-center gap-4 mb-3 text-theme2"
                           href="#"
                         >
-                          <span>
+                          <span
+                            onClick={() =>
+                              showDirection(modalvalue.data?.location)
+                            }
+                          >
                             <img
                               className="w-100 h-100 me-3"
                               src="assets/img/profile/cursor.svg"
@@ -1444,6 +1549,121 @@ function UserProfile() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* wallet modal */}
+      <div
+        className="modal saloonAtHome fade"
+        id="saloonWallet"
+        aria-hidden="true"
+        aria-labelledby="saloonAtHomeLabel"
+        tabIndex={-1}
+      >
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-header p-0 mx-0 row">
+              <div className="col-12 d-flex justify-content-between align-items-center py-2">
+                <div
+                  className="modal-title fs-6 text-dark"
+                  id="saloonAtHomeLabel"
+                >
+                  Saloon at Home
+                </div>
+                <button
+                  type="button"
+                  className="btn-close fs-12 shadow-none"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                />
+              </div>
+              {/* <div className="col-12 px-0">
+                <ul className="nav w-100 nav-tabs border-0">
+                  <li className="nav-item w-50 border-end border-theme1">
+                    <button className="nav-link w-100 border-0 rounded-0 m-0 active">
+                      My Address
+                    </button>
+                  </li>
+                  <li className="nav-item w-50" role="presentation">
+                    <button
+                      className="nav-link w-100 border-0 rounded-0 m-0"
+                      data-bs-target="#addNewAddress"
+                      data-bs-toggle="modal"
+                    >
+                      New Address
+                    </button>
+                  </li>
+                </ul>
+              </div> */}
+            </div>
+            <div className="modal-body p-3">
+              <div className="row gap-3">
+                <div className="col-12">
+                  <div className="card bg-white border-0 shadow">
+                    <div className="card-header border-0 bg-white">
+                      <div className="row">
+                        <div className="col fs-16 text-dark d-flex gap-2 align-items-center">
+                          {/* <span>{el?.name}</span>{" "} */}
+                          <span className="px-2 bg-theme1 bg-opacity-25 fs-12 fw-normal text-dark rounded-1">
+                            {/* {el?.type} */}
+                          </span>
+                        </div>
+
+                        <div className="col-auto d-flex gap-2 align-items-center">
+                          <a
+                            role="button"
+                            className="editB"
+                            data-bs-target="#addNewAddress"
+                            data-bs-toggle="modal"
+                          >
+                            <img src="assets/img/icon/editIcon.svg" alt />
+                          </a>
+                          <div className="form-check p-0 m-0 align-items-center d-flex justify-content-center">
+                            <input
+                              className="form-check-input shadow-none m-0"
+                              type="radio"
+                              name="flexRadioDefault"
+
+                              // id="address1"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-body pt-0">
+                      <div className="fs-14 text-muted">
+                        <span className="houseNo"></span>,
+                        <span className="area"></span>,
+                        <span className="pincode"></span>,
+                        <span className="city"></span>,
+                        <span className="state"></span>
+                      </div>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <div className="fs-14 mobileNumber mt-2">
+                          {/* +91 {el?.phone} */}
+                        </div>
+                        <span
+                          className="text-danger fs-12"
+                          // onClick={() => deleteAddressApi(el?._id)}
+                        >
+                          remove
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* <div className="col-12 text-end">
+                    <button
+                      type="button"
+                      className="btn btn-theme1 px-3 fs-14 text-white"
+                    >
+                      Submit
+                    </button>
+                  </div> */}
               </div>
             </div>
           </div>

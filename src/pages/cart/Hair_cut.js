@@ -6,19 +6,22 @@ import Footer2 from "../../common/layout/footer/Footer2 ";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData } from "../../components/apiinstance/Api";
 import moment from "moment";
-import { saloonservice, searchdata, WhislistItem } from "../../components/redux/redux1/actions";
-
+import {
+  saloonservice,
+  searchdata,
+  WhislistItem,
+} from "../../components/redux/redux1/actions";
 
 function Hair_cut() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [Data, setData] = useState();
-  const id = useSelector((state)=> state.categoryItem)
-  const cityName=useSelector((state)=>state.cityName)
-  const cityF=useSelector((state)=>state.cityFooter)
+  const id = useSelector((state) => state.categoryItem);
+  const cityName = useSelector((state) => state.cityName);
+  const cityF = useSelector((state) => state.cityFooter);
   const value = useSelector((state) => state.saloonData);
-  const[multiGender,setMultiGender]=useState([])
+  const [multiGender, setMultiGender] = useState([]);
   const [preferencesForm, setPreferencesForm] = useState({
     minPrice: "",
     maxPrice: "",
@@ -26,48 +29,52 @@ function Hair_cut() {
   });
 
   const dataFilter = async () => {
-    if(Data.status == true){
+    if (Data.status == true) {
       let typeMale = `&type=${multiGender[0]}`;
       let typeFemale = `&type=${multiGender[1]}`;
       let typeUnisex = `&type=${multiGender[2]}`;
       let max = `&ServicePrice_lt=${preferencesForm.maxPrice}`;
       let min = `&ServicePrice_gt=${preferencesForm.minPrice}`;
       let sort = `&sort=${preferencesForm.sortPrice}`;
-      const path = `get-Service-By-Category? ${preferencesForm.maxPrice ? max : ""}${preferencesForm.minPrice ? min : ""}${preferencesForm.sortPrice ? sort : ""}&id=${id}&city=${cityName}${multiGender[1] !==undefined ? typeFemale : ""}${multiGender[2] !==undefined ?typeUnisex : ""}${multiGender[0] !==undefined ? typeMale : ""}`;
+      const path = `get-Service-By-Category? ${
+        preferencesForm.maxPrice ? max : ""
+      }${preferencesForm.minPrice ? min : ""}${
+        preferencesForm.sortPrice ? sort : ""
+      }&id=${id}&city=${cityName}${
+        multiGender[1] !== undefined ? typeFemale : ""
+      }${multiGender[2] !== undefined ? typeUnisex : ""}${
+        multiGender[0] !== undefined ? typeMale : ""
+      }`;
       const res = await getData(path);
-     setData(res);
+      setData(res);
     }
-};
-   const multiGenderHandler= (e)=>{
-    const value=e.target.value;
-    const checked=e.target.checked
-    if(checked){
-           setMultiGender(
-            [
-              ...multiGender,value
-            ]
-           )
-    }else{
-           setMultiGender(multiGender.filter((e)=>(e !== value)))
+  };
+  const multiGenderHandler = (e) => {
+    const value = e.target.value;
+    const checked = e.target.checked;
+    if (checked) {
+      setMultiGender([...multiGender, value]);
+    } else {
+      setMultiGender(multiGender.filter((e) => e !== value));
     }
- }
- const handleChange = (evt)=>{
-  const value =evt.target.value;
-     setPreferencesForm({
-       ...preferencesForm,
-       [evt.target.name]:value
-     })
-   }
+  };
+  const handleChange = (evt) => {
+    const value = evt.target.value;
+    setPreferencesForm({
+      ...preferencesForm,
+      [evt.target.name]: value,
+    });
+  };
 
   useEffect(() => {
     dataFilter();
-  }, [preferencesForm , multiGender] );
+  }, [preferencesForm, multiGender]);
 
   const categoryData = async () => {
     const path = `get-Service-By-Category?id=${id ? id : ""}`;
     const res = await getData(path);
-    console.log('get-Service-By-Category?id=', res.data)
-    dispatch(searchdata(res.data))
+    console.log("get-Service-By-Category?id=", res.data);
+    dispatch(searchdata(res.data));
     setData(res);
   };
 
@@ -80,7 +87,7 @@ function Hair_cut() {
     const path = `saloon-store?id=${value ? value : ""}`;
     const res = await getData(path);
     dispatch(saloonservice(res.data));
-    if(res.status){
+    if (res.status) {
       navigate("/services");
     }
   };
@@ -215,20 +222,13 @@ function Hair_cut() {
                     </div>
 
                     {/* Search By Location */}
-                    
 
-                    <div
-                      className={`col-12`
-                       
-                      }
-                    >
+                    <div className={`col-12`}>
                       <div className="row g-sm-4 g-3 ">
                         {Data?.data?.map((el, i) => {
-                         
                           return (
                             <>
                               {el.map((items) => {
-                                 
                                 return (
                                   <div className="col-md-4 col-6">
                                     <p
@@ -257,15 +257,16 @@ function Hair_cut() {
                                               {items?.data?.ServiceName}
                                             </div>
                                             <div className="price">
-                                            {items?.data ?.type}
-                                          </div>
+                                              {items?.data?.type}
+                                            </div>
                                             <div className="price">
                                               ₹{items?.data?.ServicePrice}
                                             </div>
                                           </div>
                                           <div className="d-flex justify-content-between align-items-center address">
                                             <div className="add">
-                                              {items?.data?.storeLOcation?.aria} ,{" "}
+                                              {items?.data?.storeLOcation?.aria}{" "}
+                                              ,{" "}
                                               {items?.data?.storeLOcation?.city}
                                             </div>
                                             <div className="distance d-flex align-items-center gap-1">
@@ -321,12 +322,10 @@ function Hair_cut() {
                   <div className="col-12 px-0 flex-fill h-100 overflow-hidden">
                     <div className="filterBody">
                       <form>
-                        
                         <div className="row mx-0">
-
-                           
-
-                          <div className={`col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark`}>
+                          <div
+                            className={`col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark`}
+                          >
                             <div className="grouptitle text-white">Gender</div>
                             <div className="form-check d-flex justify-content-between align-items-center p-0">
                               <label
@@ -341,7 +340,7 @@ function Hair_cut() {
                                 name="typeMale"
                                 id="male"
                                 value="male"
-                               // checked={preferencesForm.typeMale}
+                                // checked={preferencesForm.typeMale}
                                 onChange={multiGenderHandler}
                               />
                             </div>
@@ -375,13 +374,11 @@ function Hair_cut() {
                                 name="typeUnisex"
                                 value="unisex"
                                 id="uniSex"
-                                
                                 onChange={multiGenderHandler}
                               />
                             </div>
                           </div>
-                           
-                          
+
                           <div className="col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark">
                             <div className="grouptitle text-white">
                               Price Range
@@ -488,7 +485,7 @@ function Hair_cut() {
                               <label htmlFor="star1" title="text" />
                             </div>
                           </div>
-                          <div className="col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark">
+                          {/* <div className="col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark">
                             <div className="grouptitle text-white">
                               Discount
                             </div>
@@ -534,10 +531,10 @@ function Hair_cut() {
                                 id="upTo50"
                               />
                             </div>
-                          </div>
+                          </div> */}
                           <div className="col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark">
                             <div className="grouptitle text-white">
-                              Discount
+                              {/* Discount */}
                             </div>
                             <div className="form-check d-flex justify-content-between align-items-center p-0">
                               <label
@@ -553,7 +550,6 @@ function Hair_cut() {
                                 id="upTo10"
                               />
                             </div>
-                           
                           </div>
                           {/* <div className="col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark">
                           <div className="grouptitle text-white">Discount</div>
@@ -578,12 +574,8 @@ function Hair_cut() {
           </div>
         </div>
       </div>
-      {/* Filter & Package Page End */}
-      {/* herewe we Section start */}
       <Footer2 />
-     
       <Footer />
-      {/* Footer End */}
       {/* Modal */}
       <div
         className="modal fade"
@@ -706,7 +698,7 @@ function Hair_cut() {
           </div>
         </div>
       </div>
-     {/* Modal */} 
+      {/* Modal */}
       <div
         className="modal fade"
         id="malePackages"
@@ -831,5 +823,4 @@ function Hair_cut() {
     </div>
   );
 }
-
 export default Hair_cut;

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Footer from "../../common/layout/footer/footer";
 import { getData } from "../../components/apiinstance/Api";
-
+import parse from "html-react-parser";
 
 function Blog() {
   const navigate=useNavigate()
@@ -39,7 +39,7 @@ function Blog() {
   const lastIndex=currentPage*recordPerPage;
   const firstIndex=lastIndex-recordPerPage
   const records=Blog?.slice(firstIndex,lastIndex)
-  const npage= Math.ceil(Blog?.length/recordPerPage)
+  const npage= Math.ceil(Blog?.length/recordPerPage) || 1
   const numbers=[...Array(npage + 1).keys()].slice(1)
 
    const prevPage = () =>{
@@ -206,8 +206,8 @@ function Blog() {
                                     {item.Title}
                                   </div>
                                   <div className="blogDecription col-12 px-0 overflow-hidden">
-                                    {item.Description?item.Description
-                                    ?.slice(0,100):'Valentine’s week is around! Are you excited? The main focus is the look we carry. When it comes to valentine’s day makeup look, women are not sure about how to become date-perfect.'}
+                                    {parse(item.Description?item.Description
+                                    ?.slice(0,100):'Valentine’s week is around! Are you excited? The main focus is the look we carry. When it comes to valentine’s day makeup look, women are not sure about how to become date-perfect.')}
                                   </div>
                                   <ul className="d-flex align-items-center gap-sm-3 gap-2 list-unstyled p-0 m-0 col-12 px-0">
                                     <li className="text-muted border-end border-2 border-gray pe-sm-3 pe-2">

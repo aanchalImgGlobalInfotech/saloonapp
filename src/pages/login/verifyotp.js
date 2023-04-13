@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import OtpInput from "react-otp-input";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { postData } from "../../components/apiinstance/Api";
 import { setUsers } from "../../components/redux/redux1/actions";
 import Footer from "../../common/layout/footer/footer";
@@ -176,12 +176,6 @@ function Verifyotp() {
                       <span>or</span>
                     </div>
                     <div className="my-3 text-center">
-                      <a
-                        className="text-theme1 recendtext text-decoration-none"
-                        href="login.html"
-                      >
-                        Log In using Password
-                      </a>
                     </div>
                   </div>
                 </form>

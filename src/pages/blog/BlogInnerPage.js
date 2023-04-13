@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useLocation, useParams } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { getData } from "../../components/apiinstance/Api";
-
+import parse from 'html-react-parser'
+import Footer from '../../common/layout/footer/footer'
 function BlogInnerPage() {
   const location=useLocation()
+  const navigate=useNavigate()
   const [InnerData, setInnerData] = useState();
   const[innerId,setInnerId]=useState(location.state.itemId)
+  const [categoryId,setCategoryId]=useState('')
+  const [category, setCategory] = useState();
+  const [searchValue,setSearchValue]=useState('')
+  const [Blog, setBlog] = useState([]);
   
   console.log(location, "idddddddddd");
 
@@ -14,12 +20,33 @@ function BlogInnerPage() {
     setInnerData(res.data[0][0]);
     //console.log(res)
   };
-  
+  const getBlog = async () => {
+    const res = await getData("get-blog");
+    const response = await getData("getCategoryListing");
+    setCategory(response.data);
+    setBlog(res.data[0]);
+    //console.log(res, "get blog");
+    //console.log(response.data,'categorylist' );
+  };
+
+  useEffect(() => {
+    getBlog();
+  }, []);
 
   useEffect(() => {
     BlogInnerData();
   }, [innerId]);
-    console.log(InnerData)
+  const selectHandler = (e) =>{
+    console.log(e.target.value)
+    navigate('/blog-search-result',{state:{
+      categoryId:e.target.value
+   }})
+  }
+    const startSearch = () =>{
+      navigate('/blog-search-result',{state:{
+        searchKey:searchValue
+     }})
+    }
   return (
     <div>
       <nav
@@ -99,9 +126,12 @@ function BlogInnerPage() {
                       </div>
                     </div>
                     <div className="col-lg-4 col-md-5 px-0 bg-black d-md-flex align-items-md-center">
-                      <div className="formOuter p-4 px-sm-5">
-                        <div className="title text-white">
-                          Valentine's Day Makeup Look 2023
+                      
+                    <div className="formOuter p-4 px-sm-5">
+                        <div className="title text-white">Quote of the Day</div>
+                        <div className="text text-white mt-3">
+                          " A woman whose smile is open and whose expression is
+                          glad has a kind of beauty no matter what she wears. "
                         </div>
                         <div className="category text-white fs-sm-5 fs-6 mt-4">
                           Category
@@ -110,14 +140,15 @@ function BlogInnerPage() {
                           <label htmlFor className="form-label text-white">
                             Select Category
                           </label>
-                          <select
+                          <select 
                             className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
                             aria-label="Default select example"
+                            onChange={selectHandler}
                           >
-                            <option selected>Select Category</option>
-                            <option value={1}>Beauty</option>
-                            <option value={2}>Hair</option>
-                            <option value={3}>Skin</option>
+                            <option selected  >Select Category</option>
+                            {category?.map((el, i) => (
+                              <option value={el._id}>{el.Name}</option>
+                            ))}
                           </select>
                         </div>
                         <div className="input-group d-block mt-3 position-relative">
@@ -130,13 +161,17 @@ function BlogInnerPage() {
                           <input
                             type="search"
                             className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none pe-5 z-2"
-                            id="search"
                             placeholder="Search..."
+                            value={searchValue}
+                            onChange={(e)=>setSearchValue(e.target.value)}
+
                           />
                           <button
                             type="button"
                             className="btn btn-transparent searchBtn border-0 shadow-none position-absolute z-3 bottom-0 end-0 border-start py-2"
-                          >
+                            onClick={startSearch}
+                            >
+
                             <img src="/assets/img/icon/search1.svg" alt />
                           </button>
                         </div>
@@ -159,8 +194,12 @@ function BlogInnerPage() {
             <div className="col-lg-8">
               <div className="row">
                 <div className="col-12">
-                  <div className="txt fs-14 text-white text-align-justify mb-4">
-                     {InnerData?.Description.slice(0,800)}
+                  <div className="blogsOuter text-white">
+                     {
+                    
+                     parse(InnerData?.Description?InnerData?.Description:'')
+                     
+                     }
                     
                   </div>
                   <a
@@ -171,139 +210,16 @@ function BlogInnerPage() {
                   </a>
                 </div>
                 <div className="col-12">
-                  <div className="title fs-20 text-white mb-3 mt-4">
-                    Natural Base
-                  </div>
-                  <div className="imgOuter w-100 rounded-4 overflow-hidden mb-4">
-                    <img
-                      className="w-100 h-100"
-                      src="/assets/img/blog/Natural-Base.jpg"
-                      alt
-                    />
-                  </div>
-                  <div className="txt fs-14 text-white text-align-justify mb-4">
-                    A minimal base will give you a natural finish and below is
-                    the process to get the perfect base for either afternoon or
-                    night date:
-                    <br />
-                    <br />
-                    <ul className>
-                      <li>
-                        Apply moisturizer, sunscreen, and primer respectively to
-                        get the base ready.
-                      </li>
-                      <li>Use drops of foundation to even out your skin.</li>
-                      <li>
-                        After that, you may or may not use concealer as per your
-                        makeup routine.{" "}
-                      </li>
-                      <li>Lastly, use setting powder to lock the makeup.</li>
-                    </ul>
-                  </div>
+                  
+                  {
+                    
+                  }
+                  
                 </div>
-                <div className="col-12">
-                  <div className="title fs-20 text-white mb-3 mt-4">
-                    Perfect Date Eye look
-                  </div>
-                  <div className="imgOuter w-100 rounded-4 overflow-hidden mb-4">
-                    <img
-                      className="w-100 h-100"
-                      src="/assets/img/blog/Perfect-Date-Eye-look.jpg"
-                      alt
-                    />
-                  </div>
-                  <div className="txt fs-14 text-white text-align-justify mb-4">
-                    If you are going for an afternoon date, the eye makeup
-                    should not be too loud. However, for an evening date, you
-                    can opt for bold smokey eyes with a little shimmery finish,
-                    with options being-
-                    <br />
-                    <br />
-                    <ul className>
-                      <li>Eyeliners or kajals</li>
-                      <li>Colors to add a pop. </li>
-                      <li>
-                        Also, never hesitate to play with eyeshadow shades.
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="title fs-20 text-white mb-3 mt-4">
-                    Mascara for Longer Lashes
-                  </div>
-                  <div className="imgOuter w-100 rounded-4 overflow-hidden mb-4">
-                    <img
-                      className="w-100 h-100"
-                      src="/assets/img/blog/Mascara-for-Longer-Lashes.jpg"
-                      alt
-                    />
-                  </div>
-                  <div className="txt fs-14 text-white text-align-justify mb-4">
-                    The must-do for your valentine’s makeup is mascara. It gives
-                    a perfect length to your lashes, making them the center of
-                    attraction on your face. No doubt, mascara has its own game
-                    to play with your eyes.
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="title fs-20 text-white mb-3 mt-4">
-                    Work on Lips
-                  </div>
-                  <div className="imgOuter w-100 rounded-4 overflow-hidden mb-4">
-                    <img
-                      className="w-100 h-100"
-                      src="/assets/img/blog/Work-on-Lips.jpg"
-                      alt
-                    />
-                  </div>
-                  <div className="txt fs-14 text-white text-align-justify mb-4">
-                    The major game changer is the lipstick you choose. Nude
-                    makeup is what makes you perfect for your afternoon date.
-                    For an evening, selecting elegant colors like red and wine
-                    will complete your look. Always use transfer-proof lipsticks
-                    to avoid lip stains on the glass of wine.
-                  </div>
-                  <div className="p-3 bg-theme1 text-white rounded-pill bigBtn fs-14 mb-3">
-                    <span>
-                      Also Read:{" "}
-                      <a className="text-decoration-none" href="javascript:;">
-                        15+ Attractive Valentines Day Nails 2023
-                      </a>
-                    </span>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="title fs-20 text-white mb-3 mt-4">
-                    Blushy Cheeks
-                  </div>
-                  <div className="imgOuter w-100 rounded-4 overflow-hidden mb-4">
-                    <img
-                      className="w-100 h-100"
-                      src="/assets/img/blog/Blushy-Cheeks.jpg"
-                      alt
-                    />
-                  </div>
-                  <div className="txt fs-14 text-white text-align-justify mb-4">
-                    To avoid a bland look, apply blush on your cheeks to give a
-                    touch-up to your flawless <b>valentine’s day makeup look</b>
-                    . Use the shades of peach, pink and orange.
-                  </div>
-                  <div className="p-3 bg-theme1 text-white rounded-pill fs-14 mb-3">
-                    <span>
-                      <b>Saloon Note:</b> You can even use the pigments or tints
-                      available to complete the valentine’s look.
-                    </span>
-                  </div>
-                  <div className="txt fs-14 text-white text-align-justify mb-4">
-                    Concludingly women are obsessed with makeup and the above
-                    steps can help them achieve a perfect date look. And don’t
-                    worry if your hectic schedules don’t allow you to visit a
-                    salon, as Saloon offers at-home salon services with quality
-                    artists.
-                  </div>
-                </div>
-                <div className="col-12">
+               
+                
+              
+                <div className="col-12 mt-3">
                   <div className="p-3 bg-white text-theme1 text-center faqHeading">
                     Frequently Asked Questions
                   </div>
@@ -593,7 +509,7 @@ function BlogInnerPage() {
                               </div>
                               <div className="blogDetail p-3 bg-white row gap-2 mx-0">
                                 <div className="blogTitle col-12 px-0">
-                                  {item?.Description?.slice(0,40)}
+                                  {parse(item?.Description?item?.Description.slice(0,50):'No Data')}
                                 </div>
                                 <ul className="d-flex align-items-center gap-sm-3 gap-2 list-unstyled p-0 m-0 col-12 px-0">
                                   <li className="text-muted border-end border-2 border-gray pe-sm-3 pe-2">
@@ -617,6 +533,7 @@ function BlogInnerPage() {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

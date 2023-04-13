@@ -33,7 +33,7 @@ const BlogSearchResult = () => {
   const lastIndex = currentPage * recordPerPage;
   const firstIndex = lastIndex - recordPerPage;
   const records =  Blog?.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(Blog?.length / recordPerPage);
+  const npage = Math.ceil(Blog?.length / recordPerPage) || 1;
    const numbers = [...Array(npage + 1)?.keys()]?.slice(1);
   
 
