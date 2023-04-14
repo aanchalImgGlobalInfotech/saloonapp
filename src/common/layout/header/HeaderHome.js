@@ -181,7 +181,7 @@ function HeaderHome() {
                 ></NavLink>
               </li>
               <li className="nav-item navitem">
-                <NavLink className="nav-link navlink" to="/blog">
+                <NavLink className="nav-link navlink active" to="/blog">
                   Blog
                 </NavLink>
               </li>

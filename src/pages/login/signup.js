@@ -18,6 +18,7 @@ function Signup() {
     email: "",
     password: "",
     confirmpassword: "",
+    referral : ""
   });
   const [isPwd, setIsPwd] = useState(false);
   const [isconfirmPwd, setisconfirmPwd] = useState(false);
@@ -46,6 +47,7 @@ function Signup() {
       [Yup.ref("password"), null],
       "Passwords must match"
     ),
+    
   });
   const handler = async (value) => {
     console.log("jjjjjjjj");
@@ -56,6 +58,7 @@ function Signup() {
       email: value.email,
       password: value.password,
       otp: "1234",
+      referral : value.referral
     };
     const res = await postData("register", data);
     if(res.status){
@@ -279,6 +282,17 @@ function Signup() {
                           ? props.errors.confirmpassword
                           : ""}
                       </p>
+                      <div className="mb-4">
+                        <input
+                          type="text"
+                          name="referral"
+                          value={props.values.referral}
+                          onChange={props.handleChange}
+                          className="form-control border-bottom shadow-none border-0"
+                          id="formGroupExampleInput1"
+                          placeholder="referral code (optional)"
+                        />
+                      </div>
                       <div className="mb-4 chekboxcol">
                         <div className="form-check">
                           <input
@@ -315,7 +329,7 @@ function Signup() {
                           Already have an account?{" "}
                           <NavLink
                             className="text-theme2 fw-md-bold text-decoration-none"
-                            to="/"
+                            to="/login"
                           >
                             <span type="">Log in</span>{" "}
                           </NavLink>

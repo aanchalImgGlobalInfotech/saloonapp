@@ -32,6 +32,10 @@ function UserProfile() {
   const [bookedbyhome, setBookedByHome] = useState([]);
   const [modaldata, setModalData] = useState([]);
   const [modalvalue, setmaodalvalue] = useState({ data: "" });
+  const [addmoney, setmoney] = useState([]);
+  const [pointId, setpointId] = useState("");
+  const [localid, setlocalid] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
 
   const [defaultvalues, setdefaultvalues] = useState({
     name: Data[0]?.name,
@@ -52,13 +56,13 @@ function UserProfile() {
     const res = await postformdata("user-Edit-Profile", formdata);
     const resimg = await postformdata("Edit-User-Profile", formdata);
     if (res.status) {
-      toast.success(res.message, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      // toast.success(res.message, {
+      //   position: toast.POSITION.TOP_RIGHT,
+      // });
     } else {
-      toast.error(res.message, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      // toast.error(res.message, {
+      //   position: toast.POSITION.TOP_RIGHT,
+      // });
     }
     console.log("ress", res);
 
@@ -148,6 +152,42 @@ function UserProfile() {
         "," +
         location.state
     );
+  };
+
+  const Addmoney = async () => {
+    const res = await getData("point-to-money-convert");
+    setmoney(res.data);
+  };
+
+  const selectPoint = (val) => {
+    localStorage.setItem("pointId", val);
+    setpointId(val);
+  };
+  useEffect(() => {
+    const val = localStorage.getItem("pointId");
+    setlocalid(val);
+  }, [pointId]);
+  console.log("localidlocalidlocalid", localid);
+  const confirmPoint = async () => {
+    // console.log('localidlocalidlocalid99999',localid)
+    const res = await getData(
+      `point-to-money-convert?id=${localid ? localid : ""}`
+    );
+    console.log("ressssdatattata", res.data);
+    if (res.status) {
+      handler();
+    }
+  };
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(Data[0]?.referCode);
+    setIsCopied((prev) => !prev);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1500);
+  };
+
+  const openingPage = (url) => {
+    window.open(`${url}`);
   };
   return (
     <div>
@@ -1059,26 +1099,84 @@ function UserProfile() {
                                   payment page during checkout
                                 </small>
                               </p>
-                              <div className="border-bottom bdbottom my-3" />
-                              <div className="sharetext">
+                              <div className="border-bottom bdbottom  my-3" />
+                              <div className="sharetext d-flex justify-content-between w-50 ">
                                 <small className="text-muted">
                                   Share your unique referral Code
                                 </small>
+                                <span className="text-theme1 ">
+                                  {" "}
+                                  {isCopied && Data[0]?.referCode
+                                    ? "copied!"
+                                    : ""}
+                                </span>
                               </div>
-                              <div className="copytext">
-                                <div className="copy-text">
+                              <div className="copytext ">
+                                <div className="copy-text w-50">
                                   <input
                                     type="text"
-                                    className="text"
-                                    defaultValue="Q06730U"
+                                    className="text w-100"
+                                    value={Data[0]?.referCode}
+                                    disabled
                                   />
-                                  <button className="position-absolute end-0 me-2">
+                                  <button
+                                    className="position-absolute end-0 me-0"
+                                    onClick={() => handleCopyClick()}
+                                  >
                                     <img
                                       src="assets/img/profile/copyicon.svg"
                                       alt
+                                      style={{ width: "20px" }}
                                     />
                                   </button>
                                 </div>
+                              </div>
+                              <div className="socialMedia mt-3">
+                                <div className="fs-14 fw-semibold">Share :</div>
+                                <ul class="list-unstyled d-flex iconlist align-items-center gap-sm-3 gap-2 mt-2">
+                                  <li>
+                                    <a
+                                      class="imagefb"
+                                      style={{
+                                        width: "30px",
+                                        height: "30px",
+                                        display: "block",
+                                      }}
+                                      onClick={() =>
+                                        openingPage(
+                                          `http://wa.me/?text= Hey, Im sharing a link to download saloon and earn 100 Points.Download the app from here: https://zoylee.onelink.me/GPJS and user my referral code ${Data[0]?.referCode} to get your bonus.Thanks.`
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        className="w-100"
+                                        src="/assets/img/icon/whatsapp.png"
+                                        alt="whatsapp"
+                                      />
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      class="imagefb"
+                                      style={{
+                                        width: "30px",
+                                        height: "30px",
+                                        display: "block",
+                                      }}
+                                      onClick={() =>
+                                        openingPage(
+                                          `http://facebook.com/?text= Hey, Im sharing a link to download saloon and earn 100 Points.Download the app from here: https://zoylee.onelink.me/GPJS and user my referral code ${Data[0]?.referCode} to get your bonus.Thanks.`
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        className="w-100"
+                                        src="/assets/img/icon/facebook.png"
+                                        alt="facebook"
+                                      />
+                                    </a>
+                                  </li>
+                                </ul>
                               </div>
                             </div>
                           </div>
@@ -1087,6 +1185,7 @@ function UserProfile() {
                     </div>
                   </div>
                 </div>
+
                 <div
                   className="tab-pane fade p-sm-4 p-3 tabForth"
                   id="wallet"
@@ -1131,11 +1230,12 @@ function UserProfile() {
                               </div>
                               <div className="copytext">
                                 <button
-                                  className="nav-link w-100 border-0 rounded-0 m-0"
+                                  className="nav-link w-50  border-0 btn btn-warning rounded m-0"
                                   data-bs-toggle="modal"
                                   data-bs-target="#saloonWallet"
+                                  onClick={() => Addmoney()}
                                 >
-                                  Add Money
+                                  Click here
                                 </button>
                                 {/* <div className="copy-text">
                                   <input
@@ -1571,7 +1671,7 @@ function UserProfile() {
                   className="modal-title fs-6 text-dark"
                   id="saloonAtHomeLabel"
                 >
-                  Saloon at Home
+                  Wallet Money
                 </div>
                 <button
                   type="button"
@@ -1580,24 +1680,15 @@ function UserProfile() {
                   aria-label="Close"
                 />
               </div>
-              {/* <div className="col-12 px-0">
+              <div className="col-12 px-0">
                 <ul className="nav w-100 nav-tabs border-0">
-                  <li className="nav-item w-50 border-end border-theme1">
+                  <li className="nav-item w-100 border-end border-theme1">
                     <button className="nav-link w-100 border-0 rounded-0 m-0 active">
-                      My Address
-                    </button>
-                  </li>
-                  <li className="nav-item w-50" role="presentation">
-                    <button
-                      className="nav-link w-100 border-0 rounded-0 m-0"
-                      data-bs-target="#addNewAddress"
-                      data-bs-toggle="modal"
-                    >
-                      New Address
+                      Choose one of the point
                     </button>
                   </li>
                 </ul>
-              </div> */}
+              </div>
             </div>
             <div className="modal-body p-3">
               <div className="row gap-3">
@@ -1611,59 +1702,49 @@ function UserProfile() {
                             {/* {el?.type} */}
                           </span>
                         </div>
-
-                        <div className="col-auto d-flex gap-2 align-items-center">
-                          <a
-                            role="button"
-                            className="editB"
-                            data-bs-target="#addNewAddress"
-                            data-bs-toggle="modal"
-                          >
-                            <img src="assets/img/icon/editIcon.svg" alt />
-                          </a>
-                          <div className="form-check p-0 m-0 align-items-center d-flex justify-content-center">
-                            <input
-                              className="form-check-input shadow-none m-0"
-                              type="radio"
-                              name="flexRadioDefault"
-
-                              // id="address1"
-                            />
-                          </div>
-                        </div>
                       </div>
                     </div>
-                    <div className="card-body pt-0">
-                      <div className="fs-14 text-muted">
-                        <span className="houseNo"></span>,
-                        <span className="area"></span>,
-                        <span className="pincode"></span>,
-                        <span className="city"></span>,
-                        <span className="state"></span>
-                      </div>
-                      <div className="d-flex justify-content-between align-items-center">
-                        <div className="fs-14 mobileNumber mt-2">
-                          {/* +91 {el?.phone} */}
-                        </div>
-                        <span
-                          className="text-danger fs-12"
-                          // onClick={() => deleteAddressApi(el?._id)}
-                        >
-                          remove
-                        </span>
-                      </div>
+                    <div className="card-body pt-0 row align-items-center">
+                      {addmoney[0]?.map((el) => {
+                        return (
+                          <div className=" d-flex justify-content-center align-items-center">
+                            <div className="fs-14 col">
+                              <span className="houseNo">point-{el.point}</span>
+                            </div>
+                            <div className="col-auto">
+                              <div className="fs-14 mobileNumber">
+                                rupees-{el.rupee} only
+                              </div>
+                            </div>
+                            <div className="col card-header bg-transparent border-0 h-auto text-end align-items-center d-flex justify-content-end">
+                              <div className="form-check p-0 m-0 align-items-center d-flex justify-content-end ">
+                                <input
+                                  className="form-check-input shadow-none m-0  border-theme1"
+                                  type="radio"
+                                  name="flexRadioDefault"
+                                  // id="address1"
+                                  onClick={() => selectPoint(el._id)}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
 
-                {/* <div className="col-12 text-end">
-                    <button
-                      type="button"
-                      className="btn btn-theme1 px-3 fs-14 text-white"
-                    >
-                      Submit
-                    </button>
-                  </div> */}
+                <div className="col-12 text-end">
+                  <button
+                    type="button"
+                    className="btn btn-theme1 px-3 fs-14 text-white"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    onClick={() => confirmPoint()}
+                  >
+                    confirm
+                  </button>
+                </div>
               </div>
             </div>
           </div>

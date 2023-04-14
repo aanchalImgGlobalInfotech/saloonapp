@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../common/layout/footer/footer";
 import Footer2 from "../../common/layout/footer/Footer2 ";
 import HeaderHome from "../../common/layout/header/HeaderHome";
@@ -102,6 +102,28 @@ function Hair_cut2() {
         localStorage.removeItem('category')
      }
 console.log(dataByLocation)
+const[currentPage,setCurrentPage]=useState(1)
+const recordPerPage=6;
+const lastIndex=currentPage*recordPerPage;
+const firstIndex=lastIndex-recordPerPage
+const records=dataByLocation?.slice(firstIndex,lastIndex)
+const npage = Math.ceil(dataByLocation?.length/recordPerPage) || 1
+const numbers=[...Array(npage + 1).keys()].slice(1)
+
+ const prevPage = () =>{
+    if(currentPage !== 1){
+      setCurrentPage(currentPage-1)
+    }
+ }
+
+const changePage = (id) =>{
+    setCurrentPage(id)
+}
+const nextPage = () =>{
+    if(currentPage !== lastIndex) {
+      setCurrentPage(currentPage+1)
+    }
+}
   return (
     <div>
       <HeaderHome />
@@ -371,7 +393,7 @@ console.log(dataByLocation)
                             tabIndex={0}
                           >
                             <div className="row g-sm-4 g-3 ">
-                               {dataByLocation?.map((items)=>{
+                               {records?.map((items)=>{
                                 return(
                                   <div className="col-md-4 col-6">
                                   <p
@@ -426,7 +448,45 @@ console.log(dataByLocation)
                             </div>
                           </div>
                         </div>
+                      </div><div className="col-12">
+                        <div
+                          className="pagination justify-content-center gap-2 gap-sm-3"
+                          data-pagination
+                        >
+                          <Link to="" onClick={prevPage} disabled={currentPage ==1}>
+                            <span className="arrowIcon d-flex align-items-center justify-content-center p-sm-2">
+                              <img
+                                className="w-100"
+                                src="/assets/img/icon/leftDubbleArrow.svg"
+                                alt
+                              />
+                            </span>
+                          </Link>
+                          <ul className="list-unstyled m-0 d-inline p-0">
+                            {
+                              numbers.map((n ,i)=>
+                               (
+                                  <li className={`rounded-1 d-inline-flex justify-content-center align-items-center ${currentPage ==n ?'current':''}`}>
+                                  <Link className="text-decoration-none" to="" onClick={(()=>changePage(n))}>
+                                    {n}
+                                  </Link>
+                                </li>
+                                )
+                              )
+                            }
+                         </ul>
+                          <Link to=""onClick={nextPage} disabled={currentPage == numbers.length} >
+                            <span className="arrowIcon d-flex align-items-center justify-content-center p-sm-2">
+                              <img
+                                className="w-100"
+                                src="/assets/img/icon/rightDubbleArrow.svg"
+                                alt
+                              />
+                            </span>
+                          </Link>
+                        </div>
                       </div>
+
                     </div>
                   </div>
                 </div>

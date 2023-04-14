@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../common/layout/footer/footer";
 import Footer2 from "../../common/layout/footer/Footer2 ";
 import HeaderHome from "../../common/layout/header/HeaderHome";
@@ -102,6 +102,31 @@ function Hair_cut() {
     //   dispatch(WhislistItem(res.data));
     //   navigate("/services")
     // }
+  };
+  const data1 = Data?.data?.find((item) => {
+    // console.log(item,'hhhh222222222222222222hhhhhhhhhhhhhhhhhhs')
+    if (item.length > 0) return item;
+  });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordPerPage = 6;
+  const lastIndex = currentPage * recordPerPage;
+  const firstIndex = lastIndex - recordPerPage;
+  const records = data1?.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(data1?.length / recordPerPage) || 1;
+  const numbers = [...Array(npage + 1).keys()].slice(1);
+  const prevPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const changePage = (id) => {
+    setCurrentPage(id);
+  };
+  const nextPage = () => {
+    if (currentPage !== lastIndex) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   return (
@@ -225,73 +250,112 @@ function Hair_cut() {
 
                     <div className={`col-12`}>
                       <div className="row g-sm-4 g-3 ">
-                        {Data?.data?.map((el, i) => {
+                        {records?.map((items) => {
                           return (
-                            <>
-                              {el.map((items) => {
-                                return (
-                                  <div className="col-md-4 col-6">
-                                    <p
-                                      onClick={() => {
-                                        handler(items.data.saloonStore, i);
-                                        // getWhislistapi(items.data.saloonStore);
-                                      }}
-                                    >
-                                      <div className="cardOuter rounded-sm-4 rounded-3 overflow-hidden position-relative bg-white">
-                                        <div className="imgOuter w-100 position-relative">
+                            <div className="col-md-4 col-6">
+                              <p
+                                onClick={() => {
+                                  handler(items.data.saloonStore);
+                                  // getWhislistapi(items.data.saloonStore);
+                                }}
+                              >
+                                <div className="cardOuter rounded-sm-4 rounded-3 overflow-hidden position-relative bg-white">
+                                  <div className="imgOuter w-100 position-relative">
+                                    <img
+                                      className="w-100 h-100"
+                                      src={items?.data?.image}
+                                      alt
+                                    />
+                                    <div className="showRating position-absolute text-white bottom-0 end-0">
+                                      ★ 4
+                                    </div>
+                                  </div>
+                                  <div className="saloonDetail p-sm-3 p-2 d-flex flex-column gap-sm-2 gap-1">
+                                    <p className="saloonName stretched-link text-decoration-none text-black">
+                                      {items?.data?.ServiceName}
+                                    </p>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                      <div className="serviceName">
+                                        {items?.data?.ServiceName}
+                                      </div>
+                                      <div className="price">
+                                        {items?.data?.type}
+                                      </div>
+                                      <div className="price">
+                                        ₹{items?.data?.ServicePrice}
+                                      </div>
+                                    </div>
+                                    <div className="d-flex justify-content-between align-items-center address">
+                                      <div className="add">
+                                        {items?.data?.storeLOcation?.aria} ,{" "}
+                                        {items?.data?.storeLOcation?.city}
+                                      </div>
+                                      <div className="distance d-flex align-items-center gap-1">
+                                        <span className="icon">
                                           <img
-                                            className="w-100 h-100"
-                                            src={items?.data?.image}
+                                            className="w-100"
+                                            src="assets/img/icon/locationGoldan.svg"
                                             alt
                                           />
-                                          <div className="showRating position-absolute text-white bottom-0 end-0">
-                                            ★ 4
-                                          </div>
-                                        </div>
-                                        <div className="saloonDetail p-sm-3 p-2 d-flex flex-column gap-sm-2 gap-1">
-                                          <p className="saloonName stretched-link text-decoration-none text-black">
-                                            {items?.data?.ServiceName}
-                                          </p>
-                                          <div className="d-flex justify-content-between align-items-center">
-                                            <div className="serviceName">
-                                              {items?.data?.ServiceName}
-                                            </div>
-                                            <div className="price">
-                                              {items?.data?.type}
-                                            </div>
-                                            <div className="price">
-                                              ₹{items?.data?.ServicePrice}
-                                            </div>
-                                          </div>
-                                          <div className="d-flex justify-content-between align-items-center address">
-                                            <div className="add">
-                                              {items?.data?.storeLOcation?.aria}{" "}
-                                              ,{" "}
-                                              {items?.data?.storeLOcation?.city}
-                                            </div>
-                                            <div className="distance d-flex align-items-center gap-1">
-                                              <span className="icon">
-                                                <img
-                                                  className="w-100"
-                                                  src="assets/img/icon/locationGoldan.svg"
-                                                  alt
-                                                />
-                                              </span>
-                                              <span>500m</span>
-                                            </div>
-                                          </div>
-                                        </div>
+                                        </span>
+                                        <span>500m</span>
                                       </div>
-                                    </p>
+                                    </div>
                                   </div>
-                                );
-                              })}
-                            </>
+                                </div>
+                              </p>
+                            </div>
                           );
                         })}
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div className="col-12">
+                <div
+                  className="pagination justify-content-center gap-2 gap-sm-3"
+                  data-pagination
+                >
+                  <Link to="" onClick={prevPage} disabled={currentPage == 1}>
+                    <span className="arrowIcon d-flex align-items-center justify-content-center p-sm-2">
+                      <img
+                        className="w-100"
+                        src="/assets/img/icon/leftDubbleArrow.svg"
+                        alt
+                      />
+                    </span>
+                  </Link>
+                  <ul className="list-unstyled m-0 d-inline p-0">
+                    {numbers.map((n, i) => (
+                      <li
+                        className={`rounded-1 d-inline-flex justify-content-center align-items-center ${
+                          currentPage == n ? "current" : ""
+                        }`}
+                      >
+                        <Link
+                          className="text-decoration-none"
+                          to=""
+                          onClick={() => changePage(n)}
+                        >
+                          {n}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    to=""
+                    onClick={nextPage}
+                    disabled={currentPage == numbers.length}
+                  >
+                    <span className="arrowIcon d-flex align-items-center justify-content-center p-sm-2">
+                      <img
+                        className="w-100"
+                        src="/assets/img/icon/rightDubbleArrow.svg"
+                        alt
+                      />
+                    </span>
+                  </Link>
                 </div>
               </div>
             </div>
