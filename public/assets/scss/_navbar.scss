@@ -316,7 +316,10 @@
         }
     }
 }
-
+.cartScroller {
+    max-height: 316px;
+    overflow: hidden auto;
+}
 .cart {
     & .card {
         background-color: rgb(47, 45, 45);

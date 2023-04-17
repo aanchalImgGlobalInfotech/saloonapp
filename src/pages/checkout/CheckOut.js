@@ -21,7 +21,7 @@ const CheckOut = ({ setCouponID }) => {
   const [couponamount, setCouponAmount] = useState("");
   const [PayId, setPayId] = useState("");
   const [PaymentId, setPaymentId] = useState("");
-
+  console.log('kkkkkkk',arr)
   const navigate = useNavigate();
   
   const cheoutpage = async (id) => {
@@ -105,6 +105,10 @@ const CheckOut = ({ setCouponID }) => {
     console.log("get-couponget-coupon", res.data);
     setCoupon(res.data);
   };
+  const ConfirmOrderid = () => {
+    navigate('/orderId')
+    
+  }
   return (
     <>
       <div>
@@ -525,7 +529,9 @@ const CheckOut = ({ setCouponID }) => {
                                 </button>
                               </div>
                               <div className="col-12">
-                                <button className="btn btn-theme1 shadow-none w-100 text-white fs-14 py-sm-2">
+                                <button className="btn btn-theme1 shadow-none w-100 text-white fs-14 py-sm-2"
+                                 onClick={()=>  ConfirmOrderid()}
+                                >
                                   Pay at Counter
                                 </button>
                               </div>

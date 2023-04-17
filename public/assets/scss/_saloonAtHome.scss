@@ -1,41 +1,47 @@
 @charset "UTF-8";
-
-.cardSection {
-    &.parlour{
-        padding: 100px 0 40px;
-        position: sticky;
-        top: 0;
-        z-index: -1;
-    }
-}
-.offersSlider{
-    & .owl-stage-outer{
-        padding: 0 !important;
-        & .owl-stage {
-            & .owl-item{
-                & .card {
-                    transition: ease-in-out .3s;
-                    &:hover {
-                        transform: scale(1.08);
-                    }
-                    & .card-image {
-                        transform: none !important;
-                    }
-                }
-            }
-        }
-    }
-}
-
-.parlourMainOuter {
+.saloonAtHomeMainOuter {
+    padding: 100px 0 40px;
     & .cardMainOuter {
         & .cardsOuter {
             & .sectionHeader {
+                & .filterBtnGroup{
+                    width: 130px;
+                    & .form-check {
+                        & .form-check-input {
+                            &:checked {
+                                & ~ .form-check-label {
+                                    background-color: $theme1;
+                                    width: 82px;
+                                    & .fullTxt {
+                                        font-size: 14px;
+                                        margin:0 0 0 6px;
+                                    }
+                                }
+                                & ~ .form-check-label[for=female] {
+                                    & .fullTxt {
+                                        margin:0 6px 0 0;
+                                    }
+                                }
+                            }
+                        }
+                        & .form-check-label {
+                            cursor: pointer;
+                            font-size: 14px;
+                            padding: 4px 8px;
+                            & .fullTxt {
+                                transition: ease-in-out .3s;
+                                font-size: 0;
+                            }
+                        }
+                    }
+                }
                 & .customTabs{
                     & .nav-item {
-                        width: calc(100% / 5);
+                        width: unset !important;
                         &:last-child{
                             border-right: none !important;
+                        }&:first-child{
+                            border-top: none !important;
                         }
                         & .nav-link {
                             transition: ease-in-out .3s;
@@ -52,8 +58,8 @@
                 & .saloonDetail {
                     & .saloonProfile{
                         & .imgOuter {
-                            width: 200px;
-                            height: 120px;
+                            width: 100px;
+                            height: 100px;
                             overflow: hidden;
                             border-radius: 10px;
                             & img {
@@ -66,6 +72,10 @@
                         }
                         & .address{
                             color: darken($white, 25);
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 3;
+                            overflow: hidden;
                         }
                         & .distance {
                             color: darken($white, 25);
@@ -81,8 +91,30 @@
                             &:nth-child(1) {
                                 border: none !important;
                             }
+                            & .imgOuter {
+                                width: 60px;
+                                height: 60px;
+                                & img {
+                                    object-fit: cover;
+                                    object-position: top center;
+                                }
+                            }
                             & .packageDetail {
                                 & .packageTitle {
+                                    cursor: pointer;
+                                    &.collapsed {
+                                        & .icon {
+                                            & img {
+                                                transform: none;
+                                            }
+                                        }
+                                    }
+                                    & .icon {
+                                        & img {
+                                            transform: rotate(180deg);
+                                            transition: ease-in-out .3s;
+                                        }
+                                    }
                                 }
                                 & .packageDec {
                                     font-size: 12px;
@@ -92,8 +124,8 @@
                             & .timing{
                                 color: darken($white, 25);
                                 & .icon {
-                                    width: 20px;
-                                    height: 20px;
+                                    width: 14px;
+                                    height: 14px;
                                 }
                             }
                             & .price {
@@ -133,10 +165,8 @@
                 flex-direction: row-reverse !important;
                 border-radius: 15px;
                 padding: 15px 0px;
-
                 & .navItem {
-                    width: 30%;
-
+                    width: calc(100% / 4);
                     &.active {
                         & .navLink {
                             color: $theme1 !important;
@@ -371,7 +401,37 @@
                     }
                 }
             }
+            & .address{
+                & .customScroll{
+                    height: 320px;
+                    overflow: hidden auto;
+                    & .customerDetail {
+                    }
+                    & .address {
+                        & .card {
+                            & .currentLocation {
+                                & .icon {
+                                    width: 18px;
+                                    height: 18px;
+                                }
+                            }
+                            & .addNewAddBtn{
+                                display: none;
+                                &.collapsed {
+                                    display: block;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+    }
+}
+.trandingMain{
+    & .heading {
+        font-size: 22px;
+        font-weight: 600;
     }
 }
 
@@ -389,108 +449,9 @@ nav {
         }
     }
 }
-.offcanvasFilter {
-    &.filterMain {
-        & .filterHeader{
-            & .filterTitle {
-                font-size: 16px;
-            }
-            & .filterIcon {
-            }
-        }
-        & .filterBody {
-            // height: 80vh;
-            // overflow: hidden auto;
-            & .filterGroup {
-                & .grouptitle{
-                    font-size: 14px;
-                }
-                & .form-check {
-                    & .form-check-label {
-                        cursor: pointer;
-                        font-size: 14px;
-                    }
-                    & .form-check-input {
-                        cursor: pointer;
-                        background-image: none;
-                        position: relative;
-                        overflow: hidden;
-                        &:before {
-                            content: "";
-                            width: 16px;
-                            height: 16px;
-                            display: block;
-                            opacity: 0;
-                            border-left: 2px solid $theme1;
-                            border-bottom: 2px solid $theme1;
-                            transition: ease-in-out .3s;
-                        }
-                        &:checked {
-                            border-color: $theme1;
-                            background-color: $white;
-                            &:before {
-                                width: 10px;
-                                height: 6px;
-                                opacity: 1;
-                                transform: rotate(-45deg);
-                                position: absolute;
-                                left: 2px;
-                                top: 3px;
-                            }
-                        }
-                        &:focus {
-                            border-color: $theme1;
-                        }
-                    }
-                }
-                & .form-control{
-                    font-size: 14px;
-                    font-weight: normal;
-                    &::placeholder {
-                        font-size: 14px;
-                        color: $gray-600;
-                    }
-                }
-                .rate {
-                    float: left;
-                    flex-direction: row-reverse;
-                    // height: 46px;
-                    &:not(:checked) > input {
-                        position:absolute;
-                        top:-9999px;
-                    }
-                    &:not(:checked) > label {
-                        float:right;
-                        width:1em;
-                        overflow:hidden;
-                        white-space:nowrap;
-                        cursor:pointer;
-                        font-size:24px;
-                        color:#ccc;
-                    }
-                    &:not(:checked) > label:before {
-                        content: '★';
-                    }
-                    & > input:checked ~ label {
-                        color: $theme1;    
-                    }
-                    &:not(:checked) > label:hover, &:not(:checked) > label:hover ~ label {
-                        color: $theme1;  
-                    }
-                    & > input:checked + label:hover, & > input:checked + label:hover ~ label,
-                    .rate > input:checked ~ label:hover,
-                    .rate > input:checked ~ label:hover ~ label,
-                    .rate > label:hover ~ input:checked ~ label {
-                        color: $theme1;
-                    }
-                }
-            }
-        }
-    }
-}
 // ********************Responsive****************
 @media only screen and (max-width: 1399.98px) { 
-    .parlourMainOuter {
+    .saloonAtHomeMainOuter {
         & .cardMainOuter {
             & .cardsOuter {
                 & .sectionHeader {
@@ -668,14 +629,180 @@ nav {
     }
 }
 @media only screen and (max-width: 1199.98px) {
-    .cardSection {
+    .saloonAtHomeMainOuter {
         padding: 80px 0 20px !important;
-        & .heading {}
+        & .cardMainOuter {
+            & .cardsOuter {
+                & .sectionHeader {
+                    & .customTabs{
+                        & .nav-item {
+                            &:last-child{
+                            }
+                            & .nav-link {
+                                &.active {
+                                }
+                            }
+                        }
+                    }
+                }
+                & .allSaloon {
+                    & .saloonDetail {
+                        & .saloonProfile{
+                            & .imgOuter {
+                                & img {
+                                }
+                            }
+                            & .saloonName {
+                            }
+                            & .address{
+                            }
+                            & .distance {
+                                & .icon {
+                                }
+                            }
+                        }
+                        & .packages{
+                            & .package {
+                                &:nth-child(1) {
+                                }
+                                & .packageDetail {
+                                    & .packageTitle {
+                                    }
+                                    & .packageDec {
+                                    }
+                                }
+                                & .timing{
+                                    & .icon {
+                                    }
+                                }
+                                & .price {
+                                    & .oldPrice{
+                                    }
+                                }
+                                & .addCart{
+                                    & .addToCartBtn {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        & .cartOuter{
+            & .innerrighttab {
+                & .navpill {
 
-        & .cardmain {
-            & .card-image {
+                    & .navItem {
 
-                &:hover {}
+                        &.active {
+                            & .navLink {}
+
+                            &~.navItem {
+                                & .navLink {
+                                    &::before {}
+                                }
+                            }
+                        }
+
+                        & .navLink {
+
+                            &.active {}
+
+                            &::before {}
+                        }
+                    }
+                }
+
+                & .cartside {
+                    & .addContentt {
+
+                        & .leftSideContent {
+                            & .carditemHeading {}
+
+                            & .imagetimegender {
+
+                                & .image {}
+
+                                & .time {}
+
+                                & .gender {}
+                            }
+
+                        }
+
+                        & .rightSideContent {
+                            & .discount {}
+
+                            & .payment {}
+
+                            & .removebtn {
+
+                                & img {}
+                            }
+                        }
+                    }
+
+                    & .footer {
+
+                        & .totalitems {}
+
+                        & .paymenttotal {}
+
+                        & .buttonfooter {
+                            & .Schedulebtn {}
+                        }
+                    }
+                }
+
+                & .Schedule {
+                    & .selectedtimedate {
+
+                        & .selectDate {}
+
+                        & .month {}
+
+                        & .datetimeContent {
+                            & .option {
+
+                                & input {}
+
+                                & span {
+
+                                    & .time {}
+                                }
+
+                                & input:checked+span {
+
+                                    &:hover,
+                                    &:focus,
+                                    &:active {}
+                                }
+
+                                & .btn-option {
+
+                                    &:hover,
+                                    &:focus,
+                                    &:active {}
+
+                                    &.opectiontime {}
+                                }
+                            }
+                        }
+                    }
+
+                    & .footer {
+
+                        & .totalitems {}
+
+                        & .paymenttotal {}
+
+                        & .buttonfooter {
+
+                            & .Schedulebtn {}
+                        }
+                    }
+                }
             }
         }
     }
@@ -710,16 +837,6 @@ nav {
     }
 }
 @media only screen and (max-width: 1100px) {
-    .cardSection {
-        & .heading {}
-
-        & .cardmain {
-            & .card-image {
-
-                &:hover {}
-            }
-        }
-    }
     .wherWeSection {
         & .heading {}
 
@@ -751,7 +868,7 @@ nav {
     }
 }
 @media only screen and (max-width: 991.98px) {
-    .parlourMainOuter {
+    .saloonAtHomeMainOuter {
         & .cardMainOuter {
             & .cardsOuter {
                 & .sectionHeader {
@@ -822,8 +939,6 @@ nav {
                             &~.navItem {
                                 & .navLink {
                                     &::before {
-                                        width: 10px;
-                                        height: 10px;
                                     }
                                 }
                             }
@@ -971,7 +1086,7 @@ nav {
     }
 }
 @media only screen and (max-width: 767.98px) {
-    .parlourMainOuter {
+    .saloonAtHomeMainOuter {
         & .cardMainOuter {
             & .cardsOuter {
                 & .sectionHeader {
@@ -981,6 +1096,22 @@ nav {
                             }
                             & .nav-link {
                                 &.active {
+                                }
+                            }
+                        }
+                    }
+                }
+                & .customTabContent{
+                    & .sectionHeader {
+                        & .customTabs{
+                            & .nav-item {
+                                border-top: none !important;
+                                border-right: 1px solid;
+                                &:last-child{
+                                }
+                                & .nav-link {
+                                    &.active {
+                                    }
                                 }
                             }
                         }
@@ -1031,7 +1162,7 @@ nav {
             }
         }
         & .cartOuter{
-            .parlourMainOuter {
+            .saloonAtHomeMainOuter {
                 & .cardMainOuter {
                     & .cardsOuter {
                         & .sectionHeader {
@@ -1253,16 +1384,7 @@ nav {
     }
 }
 @media only screen and (max-width: 575.98px) {
-    .mainOuter {
-        & .cardMainOuter {
-            & .cardsOuter {
-            }
-        }
-        & .offcanvasFilter{
-            padding: 0;
-        }
-    }
-    .parlourMainOuter {
+    .saloonAtHomeMainOuter {
         & .cardMainOuter {
             & .cardsOuter {
                 & .sectionHeader {
@@ -1270,6 +1392,32 @@ nav {
                     overflow: auto hidden;
                     &::-webkit-scrollbar {
                         display: none !important;
+                    }
+                    & .filterBtnGroup{
+                        width: 112px;
+                        & .form-check {
+                            & .form-check-input {
+                                &:checked {
+                                    & ~ .form-check-label {
+                                        width: 75px;
+                                        & .fullTxt {
+                                            // font-size: 14px;
+                                            margin:0 0 0 3px;
+                                        }
+                                    }
+                                    & ~ .form-check-label[for=female] {
+                                        & .fullTxt {
+                                            margin:0 3px 0 0;
+                                        }
+                                    }
+                                }
+                            }
+                            & .form-check-label {
+                                padding: 2px 6px;
+                                & .fullTxt {
+                                }
+                            }
+                        }
                     }
                     & .customTabs{
                         flex-wrap: nowrap;
@@ -1289,8 +1437,8 @@ nav {
                     & .saloonDetail {
                         & .saloonProfile{
                             & .imgOuter {
-                                width: 100px;
-                                height: 80px;
+                                width: 86px;
+                                height: 86px;
                                 & img {
                                 }
                             }
@@ -1309,7 +1457,7 @@ nav {
                                 }
                                 & .packageDetail {
                                     & .packageTitle {
-                                        font-size: 14px;
+                                        font-size: 13px;
                                     }
                                     & .packageDec {
                                         font-size: 12px;
@@ -1515,123 +1663,242 @@ nav {
             }
         }
     }
-    .offcanvasFilter{
-        &.filterMain {
-            & .filterHeader{
-                & .filterTitle {
-                }
-                & .filterIcon {
-                }
-                & .btn-close{
-                }
-            }
-            & .filterBody {
-                height: 100%;
-                & .filterGroup {
-                    & .grouptitle{
-                        font-size: 12px;
-                    }
-                    & .form-check {
-                        & .form-check-label {
-                            font-size: 12px;
-                        }
-                        & .form-check-input {
-                            &:before {
-                            }
-                            &:checked {
-                                &:before {
-                                }
-                            }
-                            &:focus {
-                            }
-                        }
-                    }
-                    & .form-control{
-                        &::placeholder {
-                        }
-                    }
-                    .rate {
-                        &:not(:checked) > input {
-                        }
-                        &:not(:checked) > label {
-                        }
-                        &:not(:checked) > label:before {
-                        }
-                        & > input:checked ~ label {
-                        }
-                        &:not(:checked) > label:hover, &:not(:checked) > label:hover ~ label {
-                        }
-                        & > input:checked + label:hover, & > input:checked + label:hover ~ label,
-                        .rate > input:checked ~ label:hover,
-                        .rate > input:checked ~ label:hover ~ label,
-                        .rate > label:hover ~ input:checked ~ label {
-                        }
-                    }
-                }
-            }
+    .trandingMain{
+        & .heading {
+            font-size: 18px;
         }
     }
 }
 @media (max-width: 360px) {
-    
-    .mainOuter {
+    .saloonAtHomeMainOuter {
         & .cardMainOuter {
             & .cardsOuter {
+                & .sectionHeader {
+                    &::-webkit-scrollbar {
+                    }
+                    & .searchBar {
+                        width: 100% !important;
+                    }
+                    & .filterBtnGroup{
+                        & .form-check {
+                            & .form-check-input {
+                                &:checked {
+                                    & ~ .form-check-label {
+                                        & .fullTxt {
+                                        }
+                                    }
+                                    & ~ .form-check-label[for=female] {
+                                        & .fullTxt {
+                                        }
+                                    }
+                                }
+                            }
+                            & .form-check-label {
+                                & .fullTxt {
+                                }
+                            }
+                        }
+                    }
+                    & .customTabs{
+                        & .nav-item {
+                            &:last-child{
+                            }
+                            & .nav-link {
+                                &.active {
+                                }
+                            }
+                        }
+                    }
+                }
+                & .allSaloon {
+                    & .saloonDetail {
+                        & .saloonProfile{
+                            & .imgOuter {
+                                & img {
+                                }
+                            }
+                            & .saloonName {
+                            }
+                            & .address{
+                            }
+                            & .distance {
+                                & .icon {
+                                }
+                            }
+                        }
+                        & .packages{
+                            & .package {
+                                &:nth-child(1) {
+                                }
+                                & .imgOuter {
+                                    width: 50px;
+                                    height: 50px;
+                                }
+                                & .packageDetail {
+                                    & .packageTitle {
+                                    }
+                                    & .packageDec {
+                                    }
+                                }
+                                & .timing{
+                                    & .icon {
+                                    }
+                                }
+                                & .price {
+                                    & .oldPrice{
+                                    }
+                                }
+                                & .addCart{
+                                    &.inc-dec-item{
+                                        & .itemValue {
+                                        }
+                                        & .addToCartBtn, & .removeToCartBtn {
+                                        }
+                                    }
+                                    & .addToCartBtn, & .removeToCartBtn {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        & .cartOuter{
+            & .innerrighttab {
+                & .navpill {
+
+                    & .navItem {
+
+                        &.active {
+                            & .navLink {}
+
+                            &~.navItem {
+                                & .navLink {
+                                    &::before {
+                                    }
+                                }
+                            }
+                        }
+
+                        & .navLink {
+                            &.active {}
+
+                            &::before {}
+                        }
+                    }
+                }
+
+                & .cartside {
+                    & .addContentt {
+
+                        & .leftSideContent {
+                            & .carditemHeading {
+                            }
+
+                            & .imagetimegender {
+
+                                & .image {}
+
+                                & .time {
+                                }
+
+                                & .gender {
+                                }
+                            }
+
+                        }
+
+                        & .rightSideContent {
+                            & .discount {
+                            }
+
+                            & .payment {
+                            }
+
+                            & .removebtn {
+
+                                & img {
+                                }
+                            }
+                        }
+                    }
+
+                    & .footer {
+
+                        & .totalitems {
+                        }
+
+                        & .paymenttotal {
+                        }
+
+                        & .buttonfooter {
+                            & .Schedulebtn {
+                            }
+                        }
+                    }
+                }
+
+                & .Schedule {
+                    & .selectedtimedate {
+
+                        & .selectDate {
+                        }
+
+                        & .month {
+                        }
+
+                        & .datetimeContent {
+                            & .option {
+
+                                & input {}
+
+                                & span {
+
+                                    & .time {}
+                                }
+
+                                & input:checked+span {
+
+                                    &:hover,
+                                    &:focus,
+                                    &:active {}
+                                }
+
+                                & .btn-option {
+
+                                    &:hover,
+                                    &:focus,
+                                    &:active {}
+
+                                    &.opectiontime {
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    & .footer {
+
+                        & .totalitems {
+                        }
+
+                        & .paymenttotal {
+                        }
+
+                        & .buttonfooter {
+
+                            & .Schedulebtn {
+                            }
+                        }
+                    }
+                }
             }
         }
     }
-    .offcanvasFilter {
-        &.filterMain {
-            & .filterHeader{
-                & .filterTitle {
-                }
-                & .filterIcon {
-                }
-                & .btn-close{
-                }
-            }
-            & .filterBody {
-                height: 100%;
-                & .filterGroup {
-                    & .grouptitle{
-                    }
-                    & .form-check {
-                        & .form-check-label {
-                        }
-                        & .form-check-input {
-                            &:before {
-                            }
-                            &:checked {
-                                &:before {
-                                }
-                            }
-                            &:focus {
-                            }
-                        }
-                    }
-                    & .form-control{
-                        &::placeholder {
-                        }
-                    }
-                    .rate {
-                        &:not(:checked) > input {
-                        }
-                        &:not(:checked) > label {
-                        }
-                        &:not(:checked) > label:before {
-                        }
-                        & > input:checked ~ label {
-                        }
-                        &:not(:checked) > label:hover, &:not(:checked) > label:hover ~ label {
-                        }
-                        & > input:checked + label:hover, & > input:checked + label:hover ~ label,
-                        .rate > input:checked ~ label:hover,
-                        .rate > input:checked ~ label:hover ~ label,
-                        .rate > label:hover ~ input:checked ~ label {
-                        }
-                    }
-                }
-            }
+    .trandingMain{
+        & .heading {
+            font-size: 16px;
         }
     }
 }

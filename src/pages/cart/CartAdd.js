@@ -89,7 +89,7 @@ function CartAdd({
       }
     });
   }
-
+console.log('valuevaluevaluevaluevaluevalue', value)
   // var startTime = moment().startOf("hour");
   // var endTime = moment("22:50").utc().set({ hour: 20 });
   // console.log("momentmoment", moment("07:40").format());
@@ -118,7 +118,7 @@ function CartAdd({
       value[0]?._id ? value[0]?._id : ""
     }&addressId=${homecheckoutId ? homecheckoutId : ""}`;
     const res = await getData(path);
-
+    console.log('mjmnbnbb',res.data)
     settoatal(...total, res.data[0]?.totalamount);
     dispatch(checkoutvalues(res.data));
     if (res.status) {

@@ -5,49 +5,43 @@ import Footer from "../../common/layout/footer/footer";
 import Footer2 from "../../common/layout/footer/Footer2 ";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData } from "../../components/apiinstance/Api";
-import { saloonservice, WhislistItem } from "../../components/redux/redux1/actions";
+import {
+  saloonservice,
+  WhislistItem,
+} from "../../components/redux/redux1/actions";
 
 function Hair_cut2() {
-  const location=useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [dataByLocation , setDataByLocation]=useState()
-  const[type,setType]=useState('saloon')
-  const cityName=useSelector((state)=>state.cityName)
-  const[category,setCategory]=useState('')
-  const categories=localStorage.getItem('category')
-  const[multiGender,setMultiGender]=useState([])
+  const [dataByLocation, setDataByLocation] = useState();
+  const [type, setType] = useState("saloon");
+  const cityName = useSelector((state) => state.cityName);
+  const [category, setCategory] = useState("");
+  const categories = localStorage.getItem("category");
+  const [multiGender, setMultiGender] = useState([]);
   const [preferencesForm, setPreferencesForm] = useState({
     minPrice: "",
     maxPrice: "",
     sortPrice: "",
   });
 
-  
-   const multiGenderHandler= (e)=>{
-    const value=e.target.value;
-    const checked=e.target.checked
-    if(checked){
-           setMultiGender(
-            [
-              ...multiGender,value
-            ]
-           )
-    }else{
-           setMultiGender(multiGender.filter((e)=>(e !== value)))
+  const multiGenderHandler = (e) => {
+    const value = e.target.value;
+    const checked = e.target.checked;
+    if (checked) {
+      setMultiGender([...multiGender, value]);
+    } else {
+      setMultiGender(multiGender.filter((e) => e !== value));
     }
- }
- const handleChange = (evt)=>{
-  const value =evt.target.value;
-     setPreferencesForm({
-       ...preferencesForm,
-       [evt.target.name]:value
-     })
-   }
-
-
-  
-
+  };
+  const handleChange = (evt) => {
+    const value = evt.target.value;
+    setPreferencesForm({
+      ...preferencesForm,
+      [evt.target.name]: value,
+    });
+  };
 
   const handler = async (value) => {
     const path = `saloon-store?id=${value ? value : ""}`;
@@ -58,72 +52,78 @@ function Hair_cut2() {
   const getWhislistapi = async (value) => {
     const path = `get-wishlist?id=${value ? value : ""}`;
     const res = await getData(path);
-    
+
     if (res.status == true) {
       dispatch(WhislistItem(res.data));
       navigate("/services");
-    }else{
+    } else {
       dispatch(WhislistItem(res.data));
-      navigate("/services")
+      navigate("/services");
     }
   };
 
-  
-//  Filter according saloon ,parlour and spa
-     const filterAllData = async(typ) =>{
-      console.log('ghghhnghnhg', typ ,'ll',categories)
-      let types =typ || categories || type
-      let typeMale = `&type=${multiGender[0]}`;
-      let typeFemale =    `&type=${multiGender[1]}`;
-      let typeUnisex = `&type=${multiGender[2]}`;
-      let max = `&ServicePrice_lt=${preferencesForm.maxPrice}`;
-      let min = `&ServicePrice_gt=${preferencesForm.minPrice}`;
-      let sort = `&sort=${preferencesForm.sortPrice}`;
-      const res = await getData(`get-saloon-by-location?city=${cityName}${preferencesForm.maxPrice ? max : ""}${preferencesForm.minPrice ? min: ""}${preferencesForm.sortPrice ? sort : ""}${multiGender[1] !==undefined ? typeFemale : ""}${multiGender[2] !==undefined ?typeUnisex : ""}${multiGender[0] !==undefined ? typeMale : ""}`)
-        //  console.log('jdfjfgjjfjjfj', res.data)
-          const FilterData =res.data.filter((item)=>{
-            return item.category.includes(types?types:typ)
-        })
-       setDataByLocation(FilterData)  
-     }
-  useEffect(()=>{
+  //  Filter according saloon ,parlour and spa
+  const filterAllData = async (typ) => {
+    console.log("ghghhnghnhg", typ, "ll", categories);
+    let types = typ || categories || type;
+    let typeMale = `&type=${multiGender[0]}`;
+    let typeFemale = `&type=${multiGender[1]}`;
+    let typeUnisex = `&type=${multiGender[2]}`;
+    let max = `&ServicePrice_lt=${preferencesForm.maxPrice}`;
+    let min = `&ServicePrice_gt=${preferencesForm.minPrice}`;
+    let sort = `&sort=${preferencesForm.sortPrice}`;
+    const res = await getData(
+      `get-saloon-by-location?city=${cityName}${
+        preferencesForm.maxPrice ? max : ""
+      }${preferencesForm.minPrice ? min : ""}${
+        preferencesForm.sortPrice ? sort : ""
+      }${multiGender[1] !== undefined ? typeFemale : ""}${
+        multiGender[2] !== undefined ? typeUnisex : ""
+      }${multiGender[0] !== undefined ? typeMale : ""}`
+    );
+    //  console.log('jdfjfgjjfjjfj', res.data)
+    const FilterData = res.data.filter((item) => {
+      return item.category.includes(types ? types : typ);
+    });
+    setDataByLocation(FilterData);
+  };
+  useEffect(() => {
     filterAllData();
-  },[cityName,])
-    useEffect(()=>{
-      filterAllData();
-    },[preferencesForm,multiGender])
+  }, [cityName]);
+  useEffect(() => {
+    filterAllData();
+  }, [preferencesForm, multiGender]);
 
-      useEffect(()=>{
-        filterAllData();
-      
-      },[type,categories])
-   
-      const clearLocalStorage = ()=>{
-        localStorage.removeItem('category')
-     }
-console.log(dataByLocation)
-const[currentPage,setCurrentPage]=useState(1)
-const recordPerPage=6;
-const lastIndex=currentPage*recordPerPage;
-const firstIndex=lastIndex-recordPerPage
-const records=dataByLocation?.slice(firstIndex,lastIndex)
-const npage = Math.ceil(dataByLocation?.length/recordPerPage) || 1
-const numbers=[...Array(npage + 1).keys()].slice(1)
+  useEffect(() => {
+    filterAllData();
+  }, [type, categories]);
 
- const prevPage = () =>{
-    if(currentPage !== 1){
-      setCurrentPage(currentPage-1)
+  const clearLocalStorage = () => {
+    localStorage.removeItem("category");
+  };
+  console.log(dataByLocation);
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordPerPage = 6;
+  const lastIndex = currentPage * recordPerPage;
+  const firstIndex = lastIndex - recordPerPage;
+  const records = dataByLocation?.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(dataByLocation?.length / recordPerPage) || 1;
+  const numbers = [...Array(npage + 1).keys()].slice(1);
+
+  const prevPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
     }
- }
+  };
 
-const changePage = (id) =>{
-    setCurrentPage(id)
-}
-const nextPage = () =>{
-    if(currentPage !== lastIndex) {
-      setCurrentPage(currentPage+1)
+  const changePage = (id) => {
+    setCurrentPage(id);
+  };
+  const nextPage = () => {
+    if (currentPage !== lastIndex) {
+      setCurrentPage(currentPage + 1);
     }
-}
+  };
   return (
     <div>
       <HeaderHome />
@@ -242,10 +242,12 @@ const nextPage = () =>{
                     </div>
 
                     {/* Search By Location */}
-                    <div
-                      className={``}
-                    >
-                      <div className={`col-sm order-3 order-sm-2 mt-3 mt-sm-0 ${location.state == null ? 'd-none':''}`}>
+                    <div className={``}>
+                      <div
+                        className={`col-sm order-3 order-sm-2 mt-3 mt-sm-0 ${
+                          location.state == null ? "d-none" : ""
+                        }`}
+                      >
                         <ul
                           className="nav nav-tabs customTabs border-0 bg-black"
                           id="myTab"
@@ -256,7 +258,9 @@ const nextPage = () =>{
                             role="presentation"
                           >
                             <button
-                              className={`nav-link border-0  px-0 text-white rounded-0 text-center fs-14 w-100 bg-black ${location.state =='saloon' ? 'active':''}`}
+                              className={`nav-link border-0  px-0 text-white rounded-0 text-center fs-14 w-100 bg-black ${
+                                location.state == "saloon" ? "active" : ""
+                              }`}
                               id="salons-tab"
                               data-bs-toggle="tab"
                               data-bs-target="#salons-tab-pane"
@@ -264,7 +268,11 @@ const nextPage = () =>{
                               role="tab"
                               aria-controls="salons-tab-pane"
                               aria-selected="true"
-                              onClick={()=>{filterAllData('saloon');setType('saloon');clearLocalStorage()}}
+                              onClick={() => {
+                                filterAllData("saloon");
+                                setType("saloon");
+                                clearLocalStorage();
+                              }}
                             >
                               Salons
                             </button>
@@ -274,7 +282,9 @@ const nextPage = () =>{
                             role="presentation"
                           >
                             <button
-                              className={`nav-link border-0  px-0 text-white rounded-0 text-center fs-14 w-100 bg-black ${location.state =='parlour' ? 'active':''}`}
+                              className={`nav-link border-0  px-0 text-white rounded-0 text-center fs-14 w-100 bg-black ${
+                                location.state == "parlour" ? "active" : ""
+                              }`}
                               id="parlours-tab"
                               data-bs-toggle="tab"
                               data-bs-target="#salons-tab-pane"
@@ -282,7 +292,11 @@ const nextPage = () =>{
                               role="tab"
                               aria-controls="parlours-tab-pane"
                               aria-selected="false"
-                              onClick={()=>{filterAllData('parlour');setType('parlour');clearLocalStorage()}}
+                              onClick={() => {
+                                filterAllData("parlour");
+                                setType("parlour");
+                                clearLocalStorage();
+                              }}
                             >
                               Parlours
                             </button>
@@ -292,7 +306,9 @@ const nextPage = () =>{
                             role="presentation"
                           >
                             <button
-                              className={`nav-link border-0  px-0 text-white rounded-0 text-center fs-14 w-100 bg-black ${location.state =='spa' ? 'active' :''}`}
+                              className={`nav-link border-0  px-0 text-white rounded-0 text-center fs-14 w-100 bg-black ${
+                                location.state == "spa" ? "active" : ""
+                              }`}
                               id="spas-tab"
                               data-bs-toggle="tab"
                               data-bs-target="#salons-tab-pane"
@@ -300,14 +316,22 @@ const nextPage = () =>{
                               role="tab"
                               aria-controls="spas-tab-pane"
                               aria-selected="false"
-                              onClick={()=>{filterAllData('spa');setType('spa');clearLocalStorage()}}
+                              onClick={() => {
+                                filterAllData("spa");
+                                setType("spa");
+                                clearLocalStorage();
+                              }}
                             >
                               Spa
                             </button>
                           </li>
                         </ul>
                       </div>
-                      <div className={`col-sm order-3 order-sm-2 mt-3 mt-sm-0 ${location.state == null? '':'d-none'}`}>
+                      <div
+                        className={`col-sm order-3 order-sm-2 mt-3 mt-sm-0 ${
+                          location.state == null ? "" : "d-none"
+                        }`}
+                      >
                         <ul
                           className="nav nav-tabs customTabs border-0 bg-black"
                           id="myTab"
@@ -326,7 +350,10 @@ const nextPage = () =>{
                               role="tab"
                               aria-controls="salons-tab-pane"
                               aria-selected="true"
-                              onClick={()=>{filterAllData('saloon');setType('saloon')}}
+                              onClick={() => {
+                                filterAllData("saloon");
+                                setType("saloon");
+                              }}
                             >
                               Salons
                             </button>
@@ -344,7 +371,10 @@ const nextPage = () =>{
                               role="tab"
                               aria-controls="parlours-tab-pane"
                               aria-selected="false"
-                              onClick={()=>{filterAllData('parlour');setType('parlour')}}
+                              onClick={() => {
+                                filterAllData("parlour");
+                                setType("parlour");
+                              }}
                             >
                               Parlours
                             </button>
@@ -362,7 +392,10 @@ const nextPage = () =>{
                               role="tab"
                               aria-controls="spas-tab-pane"
                               aria-selected="false"
-                              onClick={()=>{filterAllData('spa');setType('spa')}}
+                              onClick={() => {
+                                filterAllData("spa");
+                                setType("spa");
+                              }}
                             >
                               Spa
                             </button>
@@ -393,67 +426,79 @@ const nextPage = () =>{
                             tabIndex={0}
                           >
                             <div className="row g-sm-4 g-3 ">
-                               {records?.map((items)=>{
-                                return(
+                              {records?.map((items) => {
+                                return (
                                   <div className="col-md-4 col-6">
-                                  <p
-                                    onClick={() => {handler(items._id);getWhislistapi(items._id)}}
-                                  >
-                                    <div className="cardOuter rounded-sm-4 rounded-3 overflow-hidden position-relative bg-white">
-                                      <div className="imgOuter w-100 position-relative">
-                                        <img
-                                          className="w-100 h-100"
-                                          src={items?.image? items?.image :'/images/mahi hairstyle.jpg'}
-                                          alt
-                                        />
-                                        <div className="showRating position-absolute text-white bottom-0 end-0">
-                                          ★ 4
+                                    <p
+                                      onClick={() => {
+                                        handler(items._id);
+                                        getWhislistapi(items._id);
+                                      }}
+                                    >
+                                      <div className="cardOuter rounded-sm-4 rounded-3 overflow-hidden position-relative bg-white">
+                                        <div className="imgOuter w-100 position-relative">
+                                          <img
+                                            className="w-100 h-100"
+                                            src={
+                                              items?.image
+                                                ? items?.image
+                                                : "/images/mahi hairstyle.jpg"
+                                            }
+                                            alt
+                                          />
+                                          <div className="showRating position-absolute text-white bottom-0 end-0">
+                                            ★ 4
+                                          </div>
+                                        </div>
+                                        <div className="saloonDetail p-sm-3 p-2 d-flex flex-column gap-sm-2 gap-1">
+                                          <p className="saloonName stretched-link text-decoration-none text-black">
+                                            {items?.storeName}
+                                          </p>
+                                          <div className="d-flex justify-content-between align-items-center">
+                                            <div className="serviceName">
+                                              {items?.description?.slice(0, 10)}
+                                            </div>
+                                            <div className="price">
+                                              {items?.type}
+                                            </div>
+                                          </div>
+                                          <div className="d-flex justify-content-between align-items-center address">
+                                            <div className="add">
+                                              {items.location?.aria} ,{" "}
+                                              {items.location?.city},{" "}
+                                              {items.location?.state}
+                                            </div>
+                                            <div className="distance d-flex align-items-center gap-1">
+                                              <span className="icon">
+                                                <img
+                                                  className="w-100"
+                                                  src="/assets/img/icon/locationGoldan.svg"
+                                                  alt
+                                                />
+                                              </span>
+                                              <span>500m</span>
+                                            </div>
+                                          </div>
                                         </div>
                                       </div>
-                                      <div className="saloonDetail p-sm-3 p-2 d-flex flex-column gap-sm-2 gap-1">
-                                        <p className="saloonName stretched-link text-decoration-none text-black">
-                                        {items?.storeName}
-                                        </p>
-                                        <div className="d-flex justify-content-between align-items-center">
-                                          <div className="serviceName">
-                                            {items?.description?.slice(0,10)}
-                                          </div>
-                                          <div className="price">
-                                            {items?.type}
-                                          </div>
-                                        </div>
-                                        <div className="d-flex justify-content-between align-items-center address">
-                                          <div className="add">
-                                            {items.location?.aria} ,{" "}
-                                            {items.location?.city},{" "}
-                                            {items.location?.state}
-                                          </div>
-                                          <div className="distance d-flex align-items-center gap-1">
-                                            <span className="icon">
-                                              <img
-                                                className="w-100"
-                                                src="/assets/img/icon/locationGoldan.svg"
-                                                alt
-                                              />
-                                            </span>
-                                            <span>500m</span>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </p>
-                                </div>
-                                )
-                                })}
+                                    </p>
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
                         </div>
-                      </div><div className="col-12">
+                      </div>
+                      <div className="col-12">
                         <div
                           className="pagination justify-content-center gap-2 gap-sm-3"
                           data-pagination
                         >
-                          <Link to="" onClick={prevPage} disabled={currentPage ==1}>
+                          <Link
+                            to=""
+                            onClick={prevPage}
+                            disabled={currentPage == 1}
+                          >
                             <span className="arrowIcon d-flex align-items-center justify-content-center p-sm-2">
                               <img
                                 className="w-100"
@@ -463,19 +508,27 @@ const nextPage = () =>{
                             </span>
                           </Link>
                           <ul className="list-unstyled m-0 d-inline p-0">
-                            {
-                              numbers.map((n ,i)=>
-                               (
-                                  <li className={`rounded-1 d-inline-flex justify-content-center align-items-center ${currentPage ==n ?'current':''}`}>
-                                  <Link className="text-decoration-none" to="" onClick={(()=>changePage(n))}>
-                                    {n}
-                                  </Link>
-                                </li>
-                                )
-                              )
-                            }
-                         </ul>
-                          <Link to=""onClick={nextPage} disabled={currentPage == numbers.length} >
+                            {numbers.map((n, i) => (
+                              <li
+                                className={`rounded-1 d-inline-flex justify-content-center align-items-center ${
+                                  currentPage == n ? "current" : ""
+                                }`}
+                              >
+                                <Link
+                                  className="text-decoration-none"
+                                  to=""
+                                  onClick={() => changePage(n)}
+                                >
+                                  {n}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                          <Link
+                            to=""
+                            onClick={nextPage}
+                            disabled={currentPage == numbers.length}
+                          >
                             <span className="arrowIcon d-flex align-items-center justify-content-center p-sm-2">
                               <img
                                 className="w-100"
@@ -486,7 +539,6 @@ const nextPage = () =>{
                           </Link>
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -519,12 +571,10 @@ const nextPage = () =>{
                   <div className="col-12 px-0 flex-fill h-100 overflow-hidden">
                     <div className="filterBody">
                       <form>
-                        
                         <div className="row mx-0">
-
-                           
-
-                          <div className={`col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark`}>
+                          <div
+                            className={`col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark`}
+                          >
                             <div className="grouptitle text-white">Gender</div>
                             <div className="form-check d-flex justify-content-between align-items-center p-0">
                               <label
@@ -539,7 +589,7 @@ const nextPage = () =>{
                                 name="typeMale"
                                 id="male"
                                 value="male"
-                               // checked={preferencesForm.typeMale}
+                                // checked={preferencesForm.typeMale}
                                 onChange={multiGenderHandler}
                               />
                             </div>
@@ -573,13 +623,11 @@ const nextPage = () =>{
                                 name="typeUnisex"
                                 value="unisex"
                                 id="uniSex"
-                                
                                 onChange={multiGenderHandler}
                               />
                             </div>
                           </div>
-                           
-                          
+
                           <div className="col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark">
                             <div className="grouptitle text-white">
                               Price Range
@@ -751,7 +799,6 @@ const nextPage = () =>{
                                 id="upTo10"
                               />
                             </div>
-                           
                           </div>
                           {/* <div className="col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark">
                           <div className="grouptitle text-white">Discount</div>
@@ -903,7 +950,7 @@ const nextPage = () =>{
           </div>
         </div>
       </div>
-      {/* Modal */} 
+      {/* Modal */}
       <div
         className="modal fade"
         id="malePackages"

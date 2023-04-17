@@ -15,13 +15,13 @@ import Home from "./pages/home/Home";
 import Authentication from "./Authentication/authentication";
 import Dasbord from "./pages/home/Dasbord";
 import UserProfile from "./pages/profile/UserProfile";
-import EditProfile from "./pages/profile/EditProfile";
 import { useDispatch } from "react-redux";
 import { setUsers } from "./components/redux/redux1/actions";
 import { useEffect } from "react";
 import { getData } from "./components/apiinstance/Api";
 import Hair_cut2 from "./pages/cart/Hair_cut2";
 import Hair_cut from "./pages/cart/Hair_cut";
+import Packeges from "./pages/Packeges/Packeges";
 import Services from "./pages/cart/Services";
 import Blog from "./pages/blog/Blog";
 import BlogInnerPage from "./pages/blog/BlogInnerPage";
@@ -44,6 +44,7 @@ import FAQ from "./pages/FAQs/FAQs";
 import FAQs from "./pages/FAQs/FAQs";
 import BlogSearchResult from "./pages/blog/BlogSearchResult";
 import LoginWithPassword from "./pages/login/LoginWithPassword";
+import ConfirmOrderid from "./pages/checkout/ConfirmOrderid";
 // import ArtistRegistration from "./pages/ArtistSignUp/ArtistRegistration";
 function App() {
   const dispatch = useDispatch();
@@ -93,15 +94,21 @@ function App() {
           <Route exact path="/nextblog/:id" element={<BlogInnerPage />} />
           <Route exact path="/userprofile" element={<UserProfile />} />
           <Route exact path="/hair" element={<Hair_cut />} />
+          <Route exact path="/packages" element={<Packeges />} />
           <Route exact path="/:category" element={<Hair_cut2 />} />
           <Route exact path="/services" element={<Services />} />
           <Route exact path="/checkout" element={<CheckOut />} />
+          <Route exact path="/orderId" element={<ConfirmOrderid />} />
         </Route>
         <Route exact path="/home" element={<Dasbord />} />
         <Route exact path="/verifyotp" element={<Verifyotp />} />
         <Route exact path="/signup" element={<Signup />} />
         <Route exact path="/login" element={<Login />} />
-        <Route exact path="/login-with-password" element={<LoginWithPassword/>}/>
+        <Route
+          exact
+          path="/login-with-password"
+          element={<LoginWithPassword />}
+        />
         <Route exact path="/partnerlogin" element={<PartnerLogin />} />
         <Route exact path="/signup-partner" element={<SignUpPartner />} />
         <Route

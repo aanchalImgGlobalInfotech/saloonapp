@@ -80,7 +80,6 @@ function UserProfile() {
 
     setWhishlist(res.data);
   };
-  console.log("whishlistwhishlistwhishlistwhishlistwhishlist", whishlist);
   useEffect(() => {
     Getwhishlist();
   }, []);
@@ -167,12 +166,8 @@ function UserProfile() {
     const val = localStorage.getItem("pointId");
     setlocalid(val);
   }, [pointId]);
-  console.log("localidlocalidlocalid", localid);
   const confirmPoint = async () => {
-    // console.log('localidlocalidlocalid99999',localid)
-    const res = await getData(
-      `point-to-money-convert?id=${localid ? localid : ""}`
-    );
+    const res = await getData(`point-to-money-convert?id=${localid ? localid : ""}`);
     console.log("ressssdatattata", res.data);
     if (res.status) {
       handler();
@@ -1131,9 +1126,11 @@ function UserProfile() {
                                   </button>
                                 </div>
                               </div>
-                              <div className="socialMedia mt-3">
-                                <div className="fs-14 fw-semibold">Share :</div>
-                                <ul class="list-unstyled d-flex iconlist align-items-center gap-sm-3 gap-2 mt-2">
+                              <div className="socialMedia mt-3 d-flex iconlist align-items-center gap-sm-3 gap-2 mt-2">
+                                <div className="fs-14 fw-semibold ">
+                                  Share :
+                                </div>
+                                <ul class="list-unstyled d-flex iconlist align-items-center gap-sm-3 gap-2 mt-2 ">
                                   <li>
                                     <a
                                       class="imagefb"
@@ -1185,7 +1182,6 @@ function UserProfile() {
                     </div>
                   </div>
                 </div>
-
                 <div
                   className="tab-pane fade p-sm-4 p-3 tabForth"
                   id="wallet"
