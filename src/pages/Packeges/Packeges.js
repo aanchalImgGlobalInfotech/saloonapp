@@ -164,7 +164,13 @@ const Packeges = () => {
                                             <div className="imgOuter">
                                               <img
                                                 className="w-100"
-                                                src={item?.saloon[0]?.image[0]}
+                                                src={
+                                                  item.saloon
+                                                    ? item.saloon[0]?.image
+                                                      ? item.saloon[0]?.image[0]
+                                                      : ""
+                                                    : ""
+                                                }
                                                 alt
                                               />
                                             </div>

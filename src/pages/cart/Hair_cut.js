@@ -113,8 +113,8 @@ function Hair_cut() {
     // }
   };
   const data1 = Data?.data?.find((item) => {
-    // console.log(item,'hhhh222222222222222222hhhhhhhhhhhhhhhhhhs')
-    if (item.length > 0) return item;
+    if (item.length > 0)
+     return item;
   });
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -651,7 +651,7 @@ function Hair_cut() {
       <Footer />
       {/* Modal */}
       <div
-        className="modal fade"
+        className="modal customModal fade"
         id="feMale"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
@@ -673,13 +673,13 @@ function Hair_cut() {
               />
             </div>
             <div className="modal-body">
-            <div className="row gap-3">
+              <div className="row gap-3">
                 {packages?.map((item) => {
                   return (
                     <div className="col-12">
                       <div className="outer p-sm-3 p-2 border rounded-4 overflow-hidden position-relative">
                         <div
-                          className="row mx-0 gap-3 align-items-center"
+                          className="row mx-0 gap-3 align-items-center" role='button'
                           onClick={() =>
                             navigate("/packages", { state: { id: item?._id } })
                           }
@@ -687,9 +687,10 @@ function Hair_cut() {
                           aria-label="Close"
                         >
                           <div className="col-auto px-0">
-                            <div className="imgOuter rounded-4 overflow-hidden">
+                            <div className="imgOuter  rounded-4 overflow-hidden">
                               <img
-                                className="w-100 h-100"
+                                //style={{height:'60px',width:'60px'}}
+                                 className="w-100 h-100 "
                                 src={item?.image}
                                 alt
                               />
@@ -707,7 +708,7 @@ function Hair_cut() {
                     </div>
                   );
                 })}
-              </div>>
+              </div>
             </div>
           </div>
         </div>

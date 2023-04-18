@@ -3,8 +3,11 @@ import HeaderHome from "../../common/layout/header/HeaderHome";
 import Footer2 from "../../common/layout/footer/Footer2 ";
 import Footer from "../../common/layout/footer/footer";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function ConfirmOrderid() {
+  const checkstate = useSelector((state) => state.checkstate);
+  console.log('checkkdadate', checkstate)
   return (
     <div>
       <HeaderHome />
@@ -33,8 +36,8 @@ function ConfirmOrderid() {
                       <div className="orderDec px-md-5 mx-md-5 mx-lg-0 mx-xl-5">
                         <div className="text fs-14">
                           Thank you for booking with Saloon. Your appointment
-                          has been confirmed at <b>24-03-2023</b> and{" "}
-                          <b>09:15 AM.</b>
+                          has been confirmed at <b>{checkstate[0]?.Date.split("-").reverse().join("-")}</b> and{" "}
+                          <b>{checkstate[0]?.Time}.</b>
                         </div>
                         <div className="text fs-14 mt-3">
                           Please check your registered email for booking

@@ -45,11 +45,10 @@ function Services({ couponid }) {
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
   const [getwishdata, setWishData] = useState("");
+  const [localid, setlocalid] = useState('')
   const Data = useSelector((state) => state.saloonData);
   const whishlistarray = useSelector((state) => state.whishlistItem);
-  // console.log("oooohdfhfxdhdfh", Data);
   const [selectwishlist, setselectWhishList] = useState([]);
-  // console.log("getwishdatagetwishdata", getwishdata);
   const userprofile = useSelector((state) => state.userData);
   const search = useSelector((state) => state.search);
   const [Filterdata, setFilterData] = useState([]);
@@ -57,8 +56,22 @@ function Services({ couponid }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const whishdata = localStorage.getItem("whishlistId");
-  console.log("jjbbbb", whishdata);
+//   const addressradioId = localStorage.getItem('addressradioId')
+//   console.log("addressradioId", addressradioId);
 
+//   async function myFunction() {
+//     const myPromise = new Promise((resolve, reject) => {
+//       resolve(addressradioId);
+//     });
+  
+//     const result = await myPromise;
+//     setlocalid(result)
+//   }
+//   console.log('mmmmmmmmmmmm',localid);
+
+// useEffect(()=>{
+//  myFunction()
+// },[localid])
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const validationschema = yup.object().shape({
@@ -378,9 +391,12 @@ function Services({ couponid }) {
         Cartid ? Cartid : ""
       }`
     );
+    localStorage.setItem('addressradioId',id)
     //  localStorage.setItem('value',res.data[0]?.addressId)
     setHomeCheckout(res.data[0]?.addressId);
   };
+
+ 
   return (
     <div>
       <HeaderHome />
@@ -1459,6 +1475,7 @@ function Services({ couponid }) {
                                     onClick={(e) => {
                                       setAddressRadio(el?._id);
                                       handleRadioApi(el?._id);
+                                      
                                     }}
                                   >
                                     <input
@@ -1467,9 +1484,8 @@ function Services({ couponid }) {
                                       name="flexRadioDefault"
                                       value={addressradio}
                                       checked={
-                                        addressradio == el._id ? true : false
+                                        addressradio  == el._id ? true : false
                                       }
-
                                       // id="address1"
                                     />
                                   </div>

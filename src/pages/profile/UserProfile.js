@@ -45,7 +45,6 @@ function UserProfile() {
     gender: Data[0]?.gender,
     file: Data?.image,
   });
-  console.log("DataDataDataData", Data);
   const handler = async (value) => {
     var formdata = new FormData();
 
@@ -64,12 +63,18 @@ function UserProfile() {
       //   position: toast.POSITION.TOP_RIGHT,
       // });
     }
-    console.log("ress", res);
-
-    const profile = await getData("user-Profile");
-    dispatch(setUsers(profile.data));
   };
 
+  const profileApi = async () => {
+    const profile = await getData(`user-Profile?Transaction=${true}`);
+    console.log("?Transactionnnnnnnnnnn", profile.data[0]._id);
+    localStorage.setItem(
+      "refertransaction",
+      JSON.stringify(profile.data[0].referTransactions)
+    );
+    dispatch(setUsers(profile.data));
+  };
+  const refertransaction = localStorage.getItem("refertransaction");
   function logout() {
     localStorage.removeItem("token");
     navigate("/login");
@@ -82,6 +87,7 @@ function UserProfile() {
   };
   useEffect(() => {
     Getwhishlist();
+    profileApi();
   }, []);
 
   useEffect(() => {
@@ -167,10 +173,11 @@ function UserProfile() {
     setlocalid(val);
   }, [pointId]);
   const confirmPoint = async () => {
-    const res = await getData(`point-to-money-convert?id=${localid ? localid : ""}`);
-    console.log("ressssdatattata", res.data);
+    const res = await getData(
+      `point-to-money-convert?id=${localid ? localid : ""}`
+    );
     if (res.status) {
-      handler();
+      profileApi();
     }
   };
   const handleCopyClick = () => {
@@ -1736,7 +1743,9 @@ function UserProfile() {
                     className="btn btn-theme1 px-3 fs-14 text-white"
                     data-bs-dismiss="modal"
                     aria-label="Close"
-                    onClick={() => confirmPoint()}
+                    onClick={() => {
+                      confirmPoint();
+                    }}
                   >
                     confirm
                   </button>

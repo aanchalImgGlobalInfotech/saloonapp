@@ -123,9 +123,10 @@ const CheckOut = ({ setCouponID }) => {
                   <div className="col">
                     <div className="pageHeading text-white">Checkout</div>
                   </div>
-                  <div className="col-auto">
+                  {arr[0]?.userAddress ?
+                  (<div className="col-auto">
                     <div className="miniheading text-white">Saloon at Home</div>
-                  </div>
+                  </div>) : ""}
                 </div>
               </div>
               <div className="col-12">

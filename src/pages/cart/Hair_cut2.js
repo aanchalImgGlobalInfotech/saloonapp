@@ -15,6 +15,7 @@ function Hair_cut2() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [dataByLocation, setDataByLocation] = useState();
+  const [packages, setPackages] = useState([]);
   const [type, setType] = useState("saloon");
   const cityName = useSelector((state) => state.cityName);
   const [category, setCategory] = useState("");
@@ -101,6 +102,15 @@ function Hair_cut2() {
   const clearLocalStorage = () => {
     localStorage.removeItem("category");
   };
+
+  const getPackages = async () => {
+    const res = await getData("getCategoryListing?type=pakeges");
+    setPackages(res.data);
+  };
+
+  useEffect(() => {
+    getPackages();
+  }, []);
   console.log(dataByLocation);
   const [currentPage, setCurrentPage] = useState(1);
   const recordPerPage = 6;
@@ -830,7 +840,7 @@ function Hair_cut2() {
       {/* Footer End */}
       {/* Modal */}
       <div
-        className="modal fade"
+        className="modal customModal fade"
         id="feMale"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
@@ -853,98 +863,41 @@ function Hair_cut2() {
             </div>
             <div className="modal-body">
               <div className="row gap-3">
-                <div className="col-12">
-                  <div className="outer p-sm-3 p-2 border rounded-4 overflow-hidden position-relative">
-                    <div className="row mx-0 gap-3 align-items-center">
-                      <div className="col-auto px-0">
-                        <div className="imgOuter rounded-4 overflow-hidden">
-                          <img
-                            className="w-100 h-100"
-                            src="/assets/img/img-1.png"
-                            alt
-                          />
+                {packages?.map((item) => {
+                  return (
+                    <div className="col-12">
+                      <div className="outer p-sm-3 p-2 border rounded-4 overflow-hidden position-relative">
+                        <div
+                          className="row mx-0 gap-3 align-items-center"
+                          role="button"
+                          onClick={() =>
+                            navigate("/packages", { state: { id: item?._id } })
+                          }
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <div className="col-auto px-0">
+                            <div className="imgOuter  rounded-4 overflow-hidden">
+                              <img
+                                //style={{height:'60px',width:'60px'}}
+                                className="w-100 h-100 "
+                                src={item?.image}
+                                alt
+                              />
+                            </div>
+                          </div>
+                          <div className="col px-0">
+                            <div className="packagename">{item?.Name}</div>
+                            <div className="packageDec">
+                              A variety of pampering bridal packages for all
+                              wedding and pre-wedding functions.
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="col px-0">
-                        <div className="packagename">Bridal</div>
-                        <div className="packageDec">
-                          A variety of pampering bridal packages for all wedding
-                          and pre-wedding functions.
-                        </div>
-                        <a href="#" className="stretched-link" />
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="outer p-sm-3 p-2 border rounded-4 overflow-hidden position-relative">
-                    <div className="row mx-0 gap-3 align-items-center">
-                      <div className="col-auto px-0">
-                        <div className="imgOuter rounded-4 overflow-hidden">
-                          <img
-                            className="w-100 h-100"
-                            src="/assets/img/img-1.png"
-                            alt
-                          />
-                        </div>
-                      </div>
-                      <div className="col px-0">
-                        <div className="packagename">Trending</div>
-                        <div className="packageDec">
-                          Choose from the wide assortment of trending packages
-                          for your new look.
-                        </div>
-                        <a href="#" className="stretched-link" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="outer p-sm-3 p-2 border rounded-4 overflow-hidden position-relative">
-                    <div className="row mx-0 gap-3 align-items-center">
-                      <div className="col-auto px-0">
-                        <div className="imgOuter rounded-4 overflow-hidden">
-                          <img
-                            className="w-100 h-100"
-                            src="/assets/img/img-1.png"
-                            alt
-                          />
-                        </div>
-                      </div>
-                      <div className="col px-0">
-                        <div className="packagename">Traditional</div>
-                        <div className="packageDec">
-                          Garba Night or Friend’s Wedding, no matter the event,
-                          turn up sassy and classy.
-                        </div>
-                        <a href="#" className="stretched-link" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="outer p-sm-3 p-2 border rounded-4 overflow-hidden position-relative">
-                    <div className="row mx-0 gap-3 align-items-center">
-                      <div className="col-auto px-0">
-                        <div className="imgOuter rounded-4 overflow-hidden">
-                          <img
-                            className="w-100 h-100"
-                            src="/assets/img/img-1.png"
-                            alt
-                          />
-                        </div>
-                      </div>
-                      <div className="col px-0">
-                        <div className="packagename">Formal</div>
-                        <div className="packageDec">
-                          Everything you need to get that elegant look for your
-                          next business meeting.
-                        </div>
-                        <a href="#" className="stretched-link" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
             </div>
           </div>
