@@ -46,11 +46,7 @@ function HeaderHome() {
   };
 
   const Data = useSelector((state) => state.userData);
-  console.log(
-    "recentSearches",
-    recentSearches.slice(recentSearches.length - 2),
-    recentSearches.length
-  );
+ 
   const hanlder = async () => {
     const res = await getData("user-Profile");
     if (res.status) {
@@ -246,17 +242,17 @@ function HeaderHome() {
                       tabIndex={0}
                     >
                       <div className="cart">
-                        {cartShop?.map((el) => {
+                        {cartShop?.map((el,i) => {
                           return (
-                            <>
-                              <div className="card mb-3 h-100 border-0">
+                            
+                              <div className="card mb-3 h-100 border-0" key={i}>
                                 <div className="row g-0 align-items-center">
                                   <div className="col-auto p-2">
                                     <div className="cardimage">
                                       <img
                                         src="/assets/img/about/img-2.png"
                                         className="img-fluid rounded-start w-100 h-100"
-                                        alt="..."
+                                        alt="image"
                                       />
                                     </div>
                                   </div>
@@ -296,14 +292,14 @@ function HeaderHome() {
                                         <img
                                           className="w-100 h-100"
                                           src="/assets/img/header/times.svg"
-                                          alt
+                                          alt="image"
                                         />
                                       </button>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                            </>
+                            
                           );
                         })}
                       </div>
@@ -316,17 +312,17 @@ function HeaderHome() {
                       tabIndex={0}
                     >
                       <div className="cart">
-                        {cartHome?.map((el) => {
+                        {cartHome?.map((el,i) => {
                           return (
-                            <>
-                              <div className="card mb-3 h-100 border-0">
+                         
+                              <div className="card mb-3 h-100 border-0" key={i}>
                                 <div className="row g-0 align-items-center">
                                   <div className="col-auto p-2">
                                     <div className="cardimage">
                                       <img
                                         src="/assets/img/about/img-2.png"
                                         className="img-fluid rounded-start w-100 h-100"
-                                        alt="..."
+                                        alt="image"
                                       />
                                     </div>
                                   </div>
@@ -366,14 +362,14 @@ function HeaderHome() {
                                         <img
                                           className="w-100 h-100"
                                           src="/assets/img/header/times.svg"
-                                          alt
+                                          alt="image"
                                         />
                                       </button>
                                     </div>
                                   </div>
                                 </div>
                               </div>
-                            </>
+                          
                           );
                         })}
                       </div>
@@ -406,7 +402,7 @@ function HeaderHome() {
                     className="btn btn-dark shadow-none border-none rounded-pill d-flex gap-1 align-items-center fs-10 mt-2"
                     onClick={() => locationSearchHandler("jaipur")}
                   >
-                    <img src="/assets/img/icon/nearmeIcon.svg" alt />{" "}
+                    <img src="/assets/img/icon/nearmeIcon.svg" alt="image" />{" "}
                     <span>Near Me</span>
                   </button>
                 </div>
@@ -429,7 +425,7 @@ function HeaderHome() {
               />
 
               <div className="loginIcon d-none">
-                <a className="btn btnlogin" href="login.html">
+                <a className="btn btnlogin" href='#'>
                   <img src="/assets/img/header/person-fill.svg" alt="icon" />
                 </a>
               </div>
@@ -480,11 +476,11 @@ function HeaderHome() {
                             id="pills-saloonH"
                             role="tabpanel"
                             aria-labelledby="pills-saloonH-tab"
-                            tabindex="0"
+                            tabIndex="0"
                           >
                             <div className="row row-cols-3 innertabs g-3">
-                              {category?.map((item) => (
-                                <div className="col">
+                              {category?.map((item,i) => (
+                                <div className="col" key={i}>
                                   <p
                                     className="buttoncontent m-0 rounded-pill w-100 d-flex justify-content-center align-items-center text-decoration-none text-black"
                                     to=""
@@ -501,11 +497,11 @@ function HeaderHome() {
                             id="pills-atHome"
                             role="tabpanel"
                             aria-labelledby="pills-atHome-tab"
-                            tabindex="0"
+                            tabIndex="0"
                           >
                             <div className="row row-cols-3 innertabs g-3">
-                              {category?.map((item) => (
-                                <div className="col">
+                              {category?.map((item,i) => (
+                                <div className="col"key={i}>
                                   <NavLink
                                     className="buttoncontent m-0 rounded-pill w-100 d-flex justify-content-center align-items-center text-decoration-none text-black"
                                     to="/hair"
@@ -525,17 +521,18 @@ function HeaderHome() {
                             <div className="col-12">
                               <div className="relatedSearch">
                                 <ul className="m-0 p-0 list-unstyled d-flex flex-column gap-3">
-                                  {filterdata?.map((el) =>
+                                  {filterdata?.map((el,i) =>
                                     el?.map((item) => {
                                       return (
                                         <li
                                           onClick={() => {
                                             handleSearch(item);
                                           }}
+                                          key={i}
                                         >
                                           <a
                                             className="text-decoration-none text-dark d-flex align-items-center gap-2 position-relative"
-                                            href="javascript:;"
+                                            href='#'
                                           >
                                             {item.Name}
                                           </a>
@@ -553,16 +550,16 @@ function HeaderHome() {
                                 </div>
                                 {parseValues1
                                   ?.slice(parseValues1.length - 2)
-                                  ?.map((el) => {
-                                    console.log("elelelle", el);
+                                  ?.map((el,i) => {
+                                    
                                     {
                                       if (el) {
                                         return (
                                           <a
                                             className="text-decoration-none text-dark d-flex align-items-center "
-                                            href="javascript:;"
+                                            href='#'
                                           >
-                                            <li>{el}</li>
+                                            <li key={i}>{el}</li>
                                           </a>
                                         );
                                       }
@@ -583,14 +580,14 @@ function HeaderHome() {
                                           <img
                                             className="w-100 h-100"
                                             src="assets/img/img-1.png"
-                                            alt
+                                            alt="image"
                                           />
                                         </div>
                                       </div>
                                       <div className="col px-2">
                                         <div className="venueDetai">
                                           <a
-                                            href="javascript:;"
+                                            href='#'
                                             className="stretched-link text-decoration-none text-dark fs-12"
                                           >
                                             Hair Sage Luxury Salon
@@ -609,14 +606,14 @@ function HeaderHome() {
                                           <img
                                             className="w-100 h-100"
                                             src="assets/img/img-1.png"
-                                            alt
+                                            alt="image"
                                           />
                                         </div>
                                       </div>
                                       <div className="col px-2">
                                         <div className="venueDetai">
                                           <a
-                                            href="javascript:;"
+                                            href='#'
                                             className="stretched-link text-decoration-none text-dark fs-12"
                                           >
                                             Hair Sage Luxury Salon
@@ -635,14 +632,14 @@ function HeaderHome() {
                                           <img
                                             className="w-100 h-100"
                                             src="assets/img/img-1.png"
-                                            alt
+                                            alt="image"
                                           />
                                         </div>
                                       </div>
                                       <div className="col px-2">
                                         <div className="venueDetai">
                                           <a
-                                            href="javascript:;"
+                                            href='#'
                                             className="stretched-link text-decoration-none text-dark fs-12"
                                           >
                                             Hair Sage Luxury Salon

@@ -13,7 +13,7 @@ const CookieAndPolicy = () => {
   useEffect(() => {
     getDataForCookieAndPolicy();
   }, []);
-  console.log(data);
+
   return (
     <div>
       <Header2 />

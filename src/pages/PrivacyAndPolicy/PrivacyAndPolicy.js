@@ -16,7 +16,7 @@ const PrivacyAndPolicy = () => {
     useEffect(()=>{
       getDataForPrivacyAndPolicy();
     },[])
-    console.log(data[0])
+ 
   return (
     <div>
       <Header2 />

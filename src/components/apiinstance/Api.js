@@ -50,7 +50,7 @@ const postformdata = async (url, body) => {
       return res.data;
     })
     .catch((error) => {
-      console.error(error);
+      //console.error(error);
     });
     return res
 };

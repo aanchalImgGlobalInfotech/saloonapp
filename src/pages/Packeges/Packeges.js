@@ -44,7 +44,7 @@ const Packeges = () => {
                   <img
                     className="rounded-3 w-100"
                     src="/assets/img/index/image1card.jpg"
-                    alt
+                    
                   />
                 </div>
               </div>
@@ -55,7 +55,7 @@ const Packeges = () => {
                   <img
                     className="rounded-3 w-100"
                     src="/assets/img/index/image2card.jpeg"
-                    alt
+                    
                   />
                 </div>
               </div>
@@ -66,7 +66,7 @@ const Packeges = () => {
                   <img
                     className="rounded-3 w-100"
                     src="/assets/img/index/image3card.jpg"
-                    alt
+                    
                   />
                 </div>
               </div>
@@ -77,7 +77,7 @@ const Packeges = () => {
                   <img
                     className=" rounded-3 w-100"
                     src="/assets/img/index/image4card.jpg"
-                    alt
+                    
                   />
                 </div>
               </div>
@@ -103,7 +103,7 @@ const Packeges = () => {
                             data-bs-target="#offcanvasFilter"
                             aria-controls="offcanvasFilter"
                           >
-                            <img src="assets/img/icon/filter.svg" alt />
+                            <img src="assets/img/icon/filter.svg"  />
                           </button>
                         </div>
                         <div className="col-10 col-sm">
@@ -112,11 +112,12 @@ const Packeges = () => {
                             id="myTab"
                             role="tablist"
                           >
-                            {PackagesTab?.map((item) => {
+                            {PackagesTab?.map((item,i) => {
                               return (
                                 <li
                                   className="nav-item border-end border-theme1 m-0"
                                   role="presentation"
+                                  key={i}
                                 >
                                   <button
                                     className={`nav-link border-0  px-sm-0 px-4 text-white rounded-0 text-center fs-14 w-100 bg-black ${
@@ -153,9 +154,9 @@ const Packeges = () => {
                           tabIndex={0}
                         >
                           <div className="row allSaloon gap-3">
-                            {packages?.map((item) => {
+                            {packages?.map((item,i) => {
                               return (
-                                <div className="col-12">
+                                <div className="col-12" key={i}>
                                   <div className="saloonDetail">
                                     <div className="row gap-3">
                                       <div className="col-12">
@@ -171,7 +172,7 @@ const Packeges = () => {
                                                       : ""
                                                     : ""
                                                 }
-                                                alt
+                                                
                                               />
                                             </div>
                                           </div>
@@ -188,7 +189,7 @@ const Packeges = () => {
                                                 <img
                                                   className="w-100"
                                                   src="assets/img/icon/distanceIcon.svg"
-                                                  alt
+                                                  
                                                 />
                                               </span>
                                               <span>458 m</span>
@@ -200,9 +201,9 @@ const Packeges = () => {
                                         <div className="packages px-3 bg-black rounded-4">
                                           <div className="row mx-0">
                                             {item?.ServicesDitail.map(
-                                              (innerItem) => {
+                                              (innerItem,i) => {
                                                 return (
-                                                  <div className="col-12 package py-sm-3 py-2 px-0">
+                                                  <div className="col-12 package py-sm-3 py-2 px-0" key={i}>
                                                     <div className="row gap-2 gap-sm-0 align-items-center">
                                                       <div className="col-sm-5 packageDetail">
                                                         <div className="packageTitle fs-14 text-white">
@@ -212,9 +213,9 @@ const Packeges = () => {
                                                         </div>
                                                         <div className="packageDec">
                                                           {innerItem?.Services?.map(
-                                                            (services) => {
+                                                            (services,i) => {
                                                               return (
-                                                                <span>
+                                                                <span key={i}>
                                                                   {
                                                                     services?.ServiceName
                                                                   }
@@ -232,7 +233,7 @@ const Packeges = () => {
                                                                 <img
                                                                   className="w-100"
                                                                   src="assets/img/icon/clockBorderd.svg"
-                                                                  alt
+                                                                  
                                                                 />
                                                               </div>
                                                               <span>
@@ -418,7 +419,7 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  alt
+                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -450,7 +451,7 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  alt
+                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -482,7 +483,7 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  alt
+                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -514,7 +515,7 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  alt
+                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -546,7 +547,7 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  alt
+                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -578,7 +579,7 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  alt
+                                 
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -610,7 +611,7 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  alt
+                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -642,7 +643,7 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  alt
+                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |

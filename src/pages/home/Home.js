@@ -118,7 +118,7 @@ function Home() {
                               <img
                                 className="w-100 h-100 rounded-2"
                                 src="assets/img/index/home-based.webp"
-                                alt="..."
+                                alt="image"
                               />
                             </div>
                           </div>
@@ -148,7 +148,7 @@ function Home() {
                               <img
                                 className="w-100 h-100 rounded-2"
                                 src="assets/img/index/salon.webp"
-                                alt="..."
+                                alt="image"
                               />
                             </div>
                           </div>
@@ -258,7 +258,7 @@ function Home() {
                     <img
                       className="rounded-3 w-100"
                       src="assets/img/index/image1card.jpg"
-                      alt
+                      alt="image"
                     />
                   </div>
                 </div>
@@ -269,7 +269,7 @@ function Home() {
                     <img
                       className="rounded-3 w-100"
                       src="assets/img/index/image2card.jpeg"
-                      alt
+                      alt="image"
                     />
                   </div>
                 </div>
@@ -280,7 +280,7 @@ function Home() {
                     <img
                       className="rounded-3 w-100"
                       src="assets/img/index/image3card.jpg"
-                      alt
+                      alt="image"
                     />
                   </div>
                 </div>
@@ -291,7 +291,7 @@ function Home() {
                     <img
                       className=" rounded-3 w-100"
                       src="assets/img/index/image4card.jpg"
-                      alt
+                      alt="image"
                     />
                   </div>
                 </div>
@@ -360,7 +360,7 @@ function Home() {
                             <img
                               className="w-100 h-100 rounded-3"
                               src="assets/img/index/bussine1.png"
-                              alt="..."
+                              alt="image"
                             />
                           </div>
                           <div className="col-lg-6 col-md-6 col-12 col-sm-12 d-flex align-items-center colRight">
@@ -394,7 +394,7 @@ function Home() {
                             <img
                               className="w-100 h-100 rounded-3"
                               src="/assets/img/index/bussine2.png"
-                              alt="..."
+                              alt="image"
                             />
                           </div>
                           <div className="col-lg-5 col-md-6 col-sm-12 col-12 d-flex align-items-cente colRight">
@@ -676,7 +676,7 @@ function Home() {
                         </div>
                       </div>
                       <div className="buttonreating py-3 px-3">
-                        <a href className="btn buttoncustom px-3">
+                        <a href='#' className="btn buttoncustom px-3">
                           View All Reviews
                         </a>
                       </div>
@@ -696,42 +696,42 @@ function Home() {
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-1.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-2.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-3.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-4.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-5.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-1.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
               </div>
@@ -740,42 +740,42 @@ function Home() {
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-1.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-2.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-3.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-4.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-5.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-1.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
               </div>
@@ -813,11 +813,11 @@ function Home() {
                           <img
                             className="w-100 h-100"
                             src="assets/img/index/bussine2.png"
-                            alt
+                            alt="image"
                           />
                         </div>
                         <a
-                          href="javascript:;"
+                          href='#'
                           className="stretched-link title text-center text-white text-decoration-none"
                         >
                           <span className="position-absolute">
@@ -832,11 +832,11 @@ function Home() {
                           <img
                             className="w-100 h-100"
                             src="assets/img/index/bussine1.png"
-                            alt
+                            alt="image"
                           />
                         </div>
                         <a
-                          href="javascript:;"
+                          href='#'
                           className="stretched-link title text-center text-white text-decoration-none"
                         >
                           <span className="position-absolute">Men's Salon</span>
@@ -849,11 +849,11 @@ function Home() {
                           <img
                             className="w-100 h-100"
                             src="assets/img/index/bussine1.png"
-                            alt
+                            alt="image"
                           />
                         </div>
                         <a
-                          href="javascript:;"
+                          href='#'
                           className="stretched-link title text-center text-white text-decoration-none"
                         >
                           <span className="position-absolute">
@@ -868,11 +868,11 @@ function Home() {
                           <img
                             className="w-100 h-100"
                             src="assets/img/index/bussine1.png"
-                            alt
+                            alt="image"
                           />
                         </div>
                         <a
-                          href="javascript:;"
+                          href='#'
                           className="stretched-link title text-center text-white text-decoration-none"
                         >
                           <span className="position-absolute">Men Therapy</span>
@@ -891,7 +891,7 @@ function Home() {
                   <div className="row g-3">
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Haircut
@@ -899,7 +899,7 @@ function Home() {
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Hair Color
@@ -907,7 +907,7 @@ function Home() {
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Beard
@@ -915,7 +915,7 @@ function Home() {
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Head Massage
@@ -923,7 +923,7 @@ function Home() {
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Waxing
@@ -931,7 +931,7 @@ function Home() {
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Facial
@@ -939,7 +939,7 @@ function Home() {
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Pedicure
@@ -947,7 +947,7 @@ function Home() {
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Manicure
@@ -955,7 +955,7 @@ function Home() {
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Cut &amp; Style
@@ -963,7 +963,7 @@ function Home() {
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Party Makeover

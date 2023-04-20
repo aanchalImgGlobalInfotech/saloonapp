@@ -13,7 +13,7 @@ const Footer2 = () => {
   const navigate=useNavigate()
        const getAllSaloonCity = async() =>{
           const res = await getData(`get-all-saloon-city`)
-          console.log(res)
+        
           setAllCity(res.data)
        }
    
@@ -35,7 +35,7 @@ const Footer2 = () => {
     const cityHandlerByTypes = (data,cate) =>{
            dispatch(cityName(data))
            navigate('/salon-in',{state:cate})
-              console.log('Hello this is console from footer2' )
+             
               localStorage.setItem('category',cate)
     }
    useEffect(()=>{
@@ -54,9 +54,9 @@ const Footer2 = () => {
             <div className="col-12">
               <ul className="where-we-list">
                 {
-                  allCity?.map((name)=>{
+                  allCity?.map((name ,i)=>{
                     return(
-                           <li>
+                           <li key={i}>
                   <a  onClick={()=>cityHandler(name)}>{name}</a>
                 </li>
                     )
@@ -129,9 +129,9 @@ const Footer2 = () => {
                     <div>
                       <ul className="where-we-list category_list">
                         {
-                          allCityCategory?.map((data)=>{
+                          allCityCategory?.map((data,i)=>{
                              return(
-                              <li>
+                              <li key={i}>
                               <a onClick={()=>cityHandlerByTypes(data,cate)}>{data}</a>
                             </li>
                              )

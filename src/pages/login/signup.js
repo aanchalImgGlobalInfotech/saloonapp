@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 import Header from "../../common/layout/header/header";
 import Footer from "../../common/layout/footer/footer";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 function Signup() {
   const [defaultvalues, setdefaultvalues] = useState({
@@ -18,13 +18,13 @@ function Signup() {
     email: "",
     password: "",
     confirmpassword: "",
-    referral : ""
+    referral: "",
   });
   const [isPwd, setIsPwd] = useState(false);
   const [isconfirmPwd, setisconfirmPwd] = useState(false);
   const [phone, setphone] = useState("");
   const [openpop, setopen] = useState(false);
-  // const [verifyy , setverify] = useState(false)
+  const [otp, setotp] = useState("");
   console.log(phone);
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -47,73 +47,91 @@ function Signup() {
       [Yup.ref("password"), null],
       "Passwords must match"
     ),
-    
   });
   const handler = async (value) => {
-    console.log("jjjjjjjj");
-    console.log(value);
     var data = {
       name: value.name,
       phone: value.phone,
       email: value.email,
       password: value.password,
-      otp: "1234",
-      referral : value.referral
+      otp: otp,
+      referral: value.referral,
     };
     const res = await postData("register", data);
-    if(res.status){
+    if (res.status) {
       toast.success(res.message, {
         position: toast.POSITION.TOP_RIGHT,
-    })}else {
+      });
+    } else {
       toast.error(res.message, {
         position: toast.POSITION.TOP_RIGHT,
-    });
+      });
     }
   };
 
   const sendotp = async (value) => {
-    // console.log(value);
     if (value) {
       var body = {
         phone: value,
       };
       const res = await postData("otp-sent", body);
       setopen((prev) => !prev);
-      if(res.status){
+      if (res.status) {
         toast.success(res.message, {
           position: toast.POSITION.TOP_RIGHT,
-      })}else {
+        });
+      } else {
         toast.error(res.message, {
           position: toast.POSITION.TOP_RIGHT,
-      });
+        });
       }
-    } else {
-      alert("please enter valid number!");
     }
-  
   };
-  const verify = async (value) => {
+
+  const resendOTP = async (value) => {
     var body = {
       phone: value,
-      otp: "1234",
+      otp: otp,
     };
-    const res = await postData("otp-verify", body);
-    setopen((prev) => !prev);
-    if(res.status){
+    const res = await postData("otp-sent", body);
+    setopen((prev) => prev);
+    if (res.status) {
       toast.success(res.message, {
         position: toast.POSITION.TOP_RIGHT,
-    })}else {
+      });
+    } else {
       toast.error(res.message, {
         position: toast.POSITION.TOP_RIGHT,
-    });
+      });
+    }
+  };
+  const verify = async (value) => {
+    if (otp) {
+      var body = {
+        phone: value,
+        otp: otp,
+      };
+      const res = await postData("otp-verify", body);
+      if (res.status) {
+        setopen((prev) => !prev);
+        toast.success(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      } else {
+        setopen((prev) => prev);
+        toast.error(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+    } else {
+      alert("please enter otp!");
     }
   };
 
   return (
     <>
       <div className="container-fluid login px-5 ">
-      <ToastContainer
-      autoClose ='2000'/>
+        <ToastContainer autoClose="2000" />
         <div className="login2 h-100">
           <div className="row h-100 align-items-center">
             <div className="col-md-5 col-12  order-md-1 order-2 h-100 d-flex flex-column justify-content-center mt-5 px-5">
@@ -137,7 +155,7 @@ function Signup() {
                 {(props) => {
                   return (
                     <Form onSubmit={props.handleSubmit}>
-                      <div className="mb-4">
+                      <div className="mb-2">
                         <input
                           type="text"
                           name="name"
@@ -151,7 +169,7 @@ function Signup() {
                       <p className="text-danger text-start">
                         {props.errors.name ? props.errors.name : ""}
                       </p>
-                      <div class="mb-4 d-flex justify-content-around position-relative">
+                      <div class="mb-2 d-flex justify-content-around position-relative">
                         <input
                           type="tel"
                           name="phone"
@@ -179,30 +197,35 @@ function Signup() {
                         </div>
                       </div>
                       {openpop ? (
-                        <div class="input-group signup-OTPSection justify-content-center py-3">
-                          <div class="">
-                            <div id="divOuter" class="outerdiv">
-                              <div class="divinner" id="divInner">
+                        <div className="input-group signup-OTPSection justify-content-center py-3">
+                          <div className="">
+                            <div id="divOuter" className="outerdiv">
+                              <div className="divinner" id="divInner">
                                 <input
                                   id="signup-partitioned"
                                   type="text"
-                                  class="number outline-none signuo-partitioned"
+                                  className="number outline-none signuo-partitioned"
                                   maxlength="4"
+                                  value={otp}
+                                  onChange={(e) => setotp(e.target.value)}
                                 />
                               </div>
                             </div>
-                            <div class="input-group-prepend form-control-test mt-3">
-                              <div class="input-group-text bg-transparent border-0  p-0">
+                            <div className="input-group-prepend form-control-test mt-3">
+                              <div className="input-group-text bg-transparent border-0  p-0">
                                 <button
-                                  class="btn btn-link signup-partitioned-btn font-12 text-decoration-none px-0 text-theme1"
+                                  className="btn btn-link signup-partitioned-btn font-12 text-decoration-none px-0 text-theme1"
                                   type="button"
                                   onClick={() => verify(props.values.phone)}
                                 >
                                   Verify OTP
                                 </button>
                                 <button
-                                  class="btn btn-link signup-phone-btn signup-resendOTP font-12 text-decoration-none text-theme1"
+                                  className="btn btn-link signup-phone-btn signup-resendOTP font-12 text-decoration-none text-theme1"
                                   type="button"
+                                  onClick={() => {
+                                    resendOTP(props.values.phone);
+                                  }}
                                 >
                                   Resend OTP
                                 </button>
@@ -217,7 +240,7 @@ function Signup() {
                       <p className="text-danger text-start">
                         {props.errors.phone ? props.errors.phone : ""}
                       </p>
-                      <div className="mb-4">
+                      <div className="mb-2">
                         <input
                           type="email"
                           name="email"
@@ -231,7 +254,7 @@ function Signup() {
                       <p className="text-danger text-start">
                         {props.errors.email ? props.errors.email : ""}
                       </p>
-                      <div className="mb-4 d-flex align-items-center position-relative">
+                      <div className="mb-2 d-flex align-items-center position-relative">
                         <input
                           className="form-control border-bottom shadow-none border-0"
                           type={isPwd ? "text" : "password"}
@@ -255,7 +278,7 @@ function Signup() {
                       <p className="text-danger text-start">
                         {props.errors.password ? props.errors.password : ""}
                       </p>
-                      <div className="mb-4 d-flex align-items-center position-relative">
+                      <div className="mb-2 d-flex align-items-center position-relative">
                         <input
                           className="form-control border-bottom shadow-none border-0"
                           type={isconfirmPwd ? "text" : "password"}
@@ -282,7 +305,7 @@ function Signup() {
                           ? props.errors.confirmpassword
                           : ""}
                       </p>
-                      <div className="mb-4">
+                      <div className="mb-2">
                         <input
                           type="text"
                           name="referral"
@@ -293,7 +316,7 @@ function Signup() {
                           placeholder="referral code (optional)"
                         />
                       </div>
-                      <div className="mb-4 chekboxcol">
+                      <div className="mb-2 chekboxcol">
                         <div className="form-check">
                           <input
                             className="form-check-input shadow-none"
@@ -316,7 +339,7 @@ function Signup() {
                           </label>
                         </div>
                       </div>
-                      <div className="mb-4 text-center">
+                      <div className="mb-2 text-center">
                         <button
                           className="btn text-white signinbtn"
                           type="submit"
@@ -328,7 +351,7 @@ function Signup() {
                         <div className="textfooter">
                           Already have an account?{" "}
                           <NavLink
-                            className="text-theme2 fw-md-bold text-decoration-none"
+                            className="text-theme1 fw-md-bold text-decoration-none"
                             to="/login"
                           >
                             <span type="">Log in</span>{" "}

@@ -110,7 +110,7 @@ const validationschema = yup.object().shape({
                       <img
                         className="w-100"
                         src="assets/img/icon/stepUser.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Profile</div>
@@ -120,7 +120,7 @@ const validationschema = yup.object().shape({
                       <img
                         className="w-100"
                         src="/assets/img/icon/stepBank.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Bank</div>
@@ -130,7 +130,7 @@ const validationschema = yup.object().shape({
                       <img
                         className="w-100"
                         src="assets/img/icon/stepIdCard.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Documents</div>
@@ -140,7 +140,7 @@ const validationschema = yup.object().shape({
                       <img
                         className="w-100"
                         src="assets/img/icon/stepConfirmation.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Confirmation</div>
@@ -208,7 +208,7 @@ const validationschema = yup.object().shape({
                               </div>
                               <div className="col-sm-6">
                                 <div className="input-group d-block">
-                                  <label htmlFor className="form-label">
+                                  <label  className="form-label">
                                     Opening Time
                                   </label>
                                   <Field
@@ -231,7 +231,7 @@ const validationschema = yup.object().shape({
                               </div>
                               <div className="col-sm-6">
                                 <div className="input-group d-block">
-                                  <label htmlFor className="form-label">
+                                  <label  className="form-label">
                                     Closing Time
                                   </label>
                                   <Field

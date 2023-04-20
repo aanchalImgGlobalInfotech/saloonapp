@@ -38,18 +38,18 @@ function Footer() {
   };
   return (
     <>
-      <footer class="container-fluid footer py-5 bg-dark">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-3 columnfirst">
-              <ul class="list-unstyled list1 d-flex align-items-cente justify-content-center gap-3 flex-column">
+      <footer className="container-fluid footer py-5 bg-dark">
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-6 col-md-6 col-lg-3 columnfirst">
+              <ul className="list-unstyled list1 d-flex align-items-cente justify-content-center gap-3 flex-column">
                 <li>
-                  <Link class="text-decoration-none text-white" to="/aboutus">
+                  <Link className="text-decoration-none text-white" to="/aboutus">
                     About Us
                   </Link>
                 </li>
                 <li>
-                  <Link class="text-decoration-none text-white" to="/contact">
+                  <Link className="text-decoration-none text-white" to="/contact">
                     Contact Us
                   </Link>
                 </li>
@@ -60,7 +60,7 @@ function Footer() {
                 </li>
                 <li>
                   <Link
-                    class="text-decoration-none text-white"
+                    className="text-decoration-none text-white"
                     to="/saloonsafetyprogram"
                   >
                     Saloon Safety Program
@@ -68,7 +68,7 @@ function Footer() {
                 </li>
                 <li>
                   <Link
-                    class="text-decoration-none text-white"
+                    className="text-decoration-none text-white"
                     to="/artist-registration"
                   >
                     Artist Signup
@@ -76,7 +76,7 @@ function Footer() {
                 </li>
                 <li>
                   <Link
-                    class="text-decoration-none text-white"
+                    className="text-decoration-none text-white"
                     to="/partnerlogin"
                   >
                     Partner With Us
@@ -84,11 +84,11 @@ function Footer() {
                 </li>
               </ul>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-3 columnfirst">
-              <ul class="list-unstyled list1 d-flex align-items-cente justify-content-center gap-3 flex-column">
+            <div className="col-sm-6 col-md-6 col-lg-3 columnfirst">
+              <ul className="list-unstyled list1 d-flex align-items-cente justify-content-center gap-3 flex-column">
                 <li>
                   <Link
-                    class="text-decoration-none text-white"
+                    className="text-decoration-none text-white"
                     to="/termsandconditions"
                   >
                     Terms and Conditions
@@ -96,7 +96,7 @@ function Footer() {
                 </li>
                 <li>
                   <Link
-                    class="text-decoration-none text-white"
+                    className="text-decoration-none text-white"
                     to="/cancellationandrefund"
                   >
                     Cancellation and Refund
@@ -104,7 +104,7 @@ function Footer() {
                 </li>
                 <li>
                   <Link
-                    class="text-decoration-none text-white"
+                    className="text-decoration-none text-white"
                     to="/privacyandpolicy"
                   >
                     Privacy Policy
@@ -112,22 +112,22 @@ function Footer() {
                 </li>
                 <li>
                   <Link
-                    class="text-decoration-none text-white"
+                    className="text-decoration-none text-white"
                     to="/cookieandpolicy"
                   >
                     Cookie Policy
                   </Link>
                 </li>
                 <li>
-                  <Link class="text-decoration-none text-white" to="/FAQs">
+                  <Link className="text-decoration-none text-white" to="/FAQs">
                     FAQs
                   </Link>
                 </li>
               </ul>
-              <ul class="list-unstyled d-flex iconlist">
+              <ul className="list-unstyled d-flex iconlist">
                 <li>
                   <a
-                    class="imagefb"
+                    className="imagefb"
                     onClick={() =>
                       openingPage("http://facebook.com/prashanttiwari")
                     }
@@ -137,7 +137,7 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    class="imageinsta"
+                    className="imageinsta"
                     onClick={() =>
                       openingPage("http://instagram.com/prashanttiwari6354")
                     }
@@ -147,7 +147,7 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    class="imagetwit"
+                    className="imagetwit"
                     onClick={() =>
                       openingPage("http://twitter.com/ShibuDubey01")
                     }
@@ -157,7 +157,7 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    class="imageyt"
+                    className="imageyt"
                     onClick={() =>
                       openingPage(
                         "https://www.youtube.com/channel/UCLIybPUSufqpW5ezbdBQ9OA"
@@ -169,7 +169,7 @@ function Footer() {
                 </li>
                 <li>
                   <a
-                    class="imagelink"
+                    className="imagelink"
                     onClick={() =>
                       openingPage(
                         "https://www.linkedin.com/in/shibu-dubey-3a429421b/"
@@ -181,8 +181,8 @@ function Footer() {
                 </li>
               </ul>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-3 columnfirst">
-              <p class="text-white mb-0">Newsletter</p>
+            <div className="col-sm-6 col-md-6 col-lg-3 columnfirst">
+              <p className="text-white mb-0">Newsletter</p>
               <Formik
                 initialValues={initialValue}
                 validationschema={validationschema}
@@ -192,15 +192,15 @@ function Footer() {
                 {(formik) => {
                   return (
                     <Form className="emailform">
-                      <div class="d-flex align-items-cente">
+                      <div className="d-flex align-items-cente">
                         <Field
-                          class="inputemail"
+                          className="inputemail"
                           type="email"
                           required
                           placeholder="Enter Your Email ID"
                           name="email"
                         />
-                        <button class="inputbtn" type="submit">
+                        <button className="inputbtn" type="submit">
                           Subscribe
                         </button>
                       </div>
@@ -213,8 +213,8 @@ function Footer() {
                   );
                 }}
               </Formik>
-              <div class="d-flex appiconsection mt-3">
-                <ul class="list-unstyled d-flex flex-column gap-3">
+              <div className="d-flex appiconsection mt-3">
+                <ul className="list-unstyled d-flex flex-column gap-3">
                   <li>
                     <a
                       onClick={() =>
@@ -224,7 +224,7 @@ function Footer() {
                       }
                     >
                       <img
-                        class="w-100 h-100"
+                        className="w-100 h-100"
                         src="/assets/img/footer/gplay.svg"
                         alt=""
                       />
@@ -239,7 +239,7 @@ function Footer() {
                       }
                     >
                       <img
-                        class="w-100 h-100"
+                        className="w-100 h-100"
                         src="/assets/img/footer/Appstore.svg"
                         alt=""
                       />

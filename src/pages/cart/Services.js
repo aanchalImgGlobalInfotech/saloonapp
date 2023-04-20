@@ -5,6 +5,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../common/layout/footer/footer";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData, postData } from "../../components/apiinstance/Api";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 import {
   WhislistItem,
   cart,
@@ -45,7 +47,7 @@ function Services({ couponid }) {
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
   const [getwishdata, setWishData] = useState("");
-  const [localid, setlocalid] = useState('')
+  const [localid, setlocalid] = useState("");
   const Data = useSelector((state) => state.saloonData);
   const whishlistarray = useSelector((state) => state.whishlistItem);
   const [selectwishlist, setselectWhishList] = useState([]);
@@ -56,22 +58,22 @@ function Services({ couponid }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const whishdata = localStorage.getItem("whishlistId");
-//   const addressradioId = localStorage.getItem('addressradioId')
-//   console.log("addressradioId", addressradioId);
+  //   const addressradioId = localStorage.getItem('addressradioId')
+  //   console.log("addressradioId", addressradioId);
 
-//   async function myFunction() {
-//     const myPromise = new Promise((resolve, reject) => {
-//       resolve(addressradioId);
-//     });
-  
-//     const result = await myPromise;
-//     setlocalid(result)
-//   }
-//   console.log('mmmmmmmmmmmm',localid);
+  //   async function myFunction() {
+  //     const myPromise = new Promise((resolve, reject) => {
+  //       resolve(addressradioId);
+  //     });
 
-// useEffect(()=>{
-//  myFunction()
-// },[localid])
+  //     const result = await myPromise;
+  //     setlocalid(result)
+  //   }
+  //   console.log('mmmmmmmmmmmm',localid);
+
+  // useEffect(()=>{
+  //  myFunction()
+  // },[localid])
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const validationschema = yup.object().shape({
@@ -152,8 +154,8 @@ function Services({ couponid }) {
 
     // setsubdata(res.data[0].sub);
 
-    setFilterData(res.data[0].sub);
-    dispatch(cart(res.data));
+    setFilterData(res.data[0] ? res.data[0]?.sub : "");
+    dispatch(cart(res?.data));
   };
   const getcartApi = async () => {
     let saloonid = Data[0]?._id;
@@ -391,12 +393,11 @@ function Services({ couponid }) {
         Cartid ? Cartid : ""
       }`
     );
-    localStorage.setItem('addressradioId',id)
+    localStorage.setItem("addressradioId", id);
     //  localStorage.setItem('value',res.data[0]?.addressId)
-    setHomeCheckout(res.data[0]?.addressId);
+    setHomeCheckout(res.data[0] ? res.data[0]?.addressId : "");
   };
 
- 
   return (
     <div>
       <HeaderHome />
@@ -406,67 +407,45 @@ function Services({ couponid }) {
             <div className="col-12 py-5 section1 position-sticky top-100px">
               <div className="bg-white shadow p-4 rounded-4 my-2">
                 <div className="row">
-                  {Data?.map((el) => {
+                  {Data?.map((el, i) => {
                     return (
-                      <>
-                        <div className="col-lg-8 col-12">
-                          <div className="imageleftSide">
-                            <div
-                              id="carouselExampleFade"
-                              className="carousel slide carousel-fade position-relative"
-                            >
-                              <div className="carousel-inner carousalInner">
-                                <div className="carousel-item rounded-2 carousalInneritem active">
-                                  <div className="imgOuter">
-                                    <img
-                                      src={
-                                        el?.image[0] ? el?.image[0] : el?.image
-                                      }
-                                      className="d-block w-100 h-100 rounded-3"
-                                      alt
-                                    />
-                                  </div>
-                                </div>
+                      <div className="col-lg-8 col-12" key={i}>
+                        <div className="imageleftSide">
+                          <div
+                            id="carouselExampleFade"
+                            className="carousel slide carousel-fade position-relative"
+                          >
+                            <div className="carousel-inner carousalInner">
+                              <div className="carousel-item rounded-2 carousalInneritem active">
+                                <Carousel>
+                                  {el?.image?.map((image) => {
+                                    console.log(image, "image");
+                                    return (
+                                      <div className="imgOuter">
+                                        <img
+                                          src={image ? image : ""}
+                                          className="d-block w-100 h-100 rounded-3"
+                                          alt="image"
+                                        />
+                                      </div>
+                                    );
+                                  })}
+                                </Carousel>
                               </div>
-                              <button
-                                className="carousel-control-prev prevbtn"
-                                type="button"
-                                data-bs-target="#carouselExampleFade"
-                                data-bs-slide="prev"
-                              >
-                                <span
-                                  className="carousel-control-prev-icon iconcontrol"
-                                  aria-hidden="true"
-                                />
-                                <span className="visually-hidden previewtext">
-                                  Previous
-                                </span>
-                              </button>
-                              <button
-                                className="carousel-control-next nextbtn"
-                                type="button"
-                                data-bs-target="#carouselExampleFade"
-                                data-bs-slide="next"
-                              >
-                                <span
-                                  className="carousel-control-next-icon iconcontrol"
-                                  aria-hidden="true"
-                                />
-                                <span className="visually-hidden nexttext">
-                                  Next
-                                </span>
-                              </button>
                             </div>
                           </div>
                         </div>
-                      </>
+                      </div>
                     );
                   })}
 
                   <div className="col-lg-4 col-12 border-start">
-                    {Data?.map((el) => {
+                    {Data?.map((el, i) => {
                       return (
-                        <div className="contentRightSide row mx-0 position-relative">
+                        <div
+                          className="contentRightSide row mx-0 position-relative"
+                          key={i}
+                        >
                           <div className="col-12 mb-3">
                             <div className="namesaloon">{el?.storeName}</div>
                           </div>
@@ -474,9 +453,9 @@ function Services({ couponid }) {
                             className="col-12  position-absolute d-flex align-items-center justify-content-end heart"
                             style={{}}
                           >
-                            <div class="form-check p-0 myFavouriteBtn">
+                            <div className="form-check p-0 myFavouriteBtn">
                               {/* <input
-                                class="form-check-input"
+                                className="form-check-input"
                                 type="checkbox"
                                 value=""
                                 id="favourite"
@@ -484,7 +463,7 @@ function Services({ couponid }) {
                              
                               /> */}
                               <label
-                                class="form-check-label"
+                                className="form-check-label"
                                 onClick={() => {
                                   whishlistApi(el._id);
                                 }}
@@ -532,7 +511,7 @@ function Services({ couponid }) {
                                   <img
                                     className="w-100 h-100"
                                     src="assets/img/vandorProfile/direction.svg"
-                                    alt
+                                    alt="image"
                                   />
                                 </div>
                                 <span className="text-decoration-none">
@@ -548,7 +527,7 @@ function Services({ couponid }) {
                                   <img
                                     className="w-100 h-100"
                                     src="assets/img/vandorProfile/gendar.svg"
-                                    alt
+                                    alt="image"
                                   />
                                 </div>
                                 <div className="unisextext">{el?.type}</div>
@@ -556,13 +535,13 @@ function Services({ couponid }) {
                             </div>
                           </div>
                           <div className="col-12 mb-3 border-bottom pb-3">
-                            <div className="shadualtime">
+                            <div className="shadualt='image'ime">
                               <span className="d-flex align-items-center">
                                 <div className="pe-3 image">
                                   <img
                                     className="w-100 h-100"
                                     src="assets/img/vandorProfile/clock.svg"
-                                    alt
+                                    alt="image"
                                   />
                                 </div>
                                 <div>Mon-Sun | 9:00 am - 9:00 pm</div>
@@ -583,7 +562,7 @@ function Services({ couponid }) {
                               >
                                 <img
                                   src="assets/img/vandorProfile/phone.svg"
-                                  alt
+                                  alt="image"
                                 />{" "}
                                 Call
                               </button>
@@ -720,48 +699,45 @@ function Services({ couponid }) {
                               id="pills-tab"
                               role="tablist"
                             >
-                              {values.map((items) => {
+                              {values.map((items, i) => {
                                 return (
-                                  <>
-                                    <li
-                                      className="nav-item navItem"
-                                      role="presentation"
+                                  <li
+                                    className="nav-item navItem"
+                                    role="presentation"
+                                    key={i}
+                                  >
+                                    <button
+                                      className={`nav-link navLink ${
+                                        valueId == items?._id
+                                          ? "active"
+                                          : items?._id ==
+                                            "63f485b71822bbd9adee742a"
+                                          ? "active"
+                                          : ""
+                                      }`}
+                                      // id="pills-body-tab"
+                                      id={valueId}
+                                      data-bs-toggle="pill"
+                                      data-bs-target="#pills-body"
+                                      type="button"
+                                      role="tab"
+                                      aria-controls="pills-body"
+                                      // aria-selected="true"
+                                      aria-selected={
+                                        valueId == items?._id ? "true" : "false"
+                                      }
+                                      tabIndex={
+                                        valueId == items?._id ? "-1" : ""
+                                      }
+                                      onClick={() => {
+                                        subcategory(items?._id);
+                                        popup(items?._id);
+                                        setCategoryId(items?._id);
+                                      }}
                                     >
-                                      <button
-                                        className={`nav-link navLink ${
-                                          valueId == items?._id
-                                            ? "active"
-                                            : items?._id ==
-                                              "63f485b71822bbd9adee742a"
-                                            ? "active"
-                                            : ""
-                                        }`}
-                                        // id="pills-body-tab"
-                                        id={valueId}
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#pills-body"
-                                        type="button"
-                                        role="tab"
-                                        aria-controls="pills-body"
-                                        // aria-selected="true"
-                                        aria-selected={
-                                          valueId == items?._id
-                                            ? "true"
-                                            : "false"
-                                        }
-                                        tabIndex={
-                                          valueId == items?._id ? "-1" : ""
-                                        }
-                                        onClick={() => {
-                                          subcategory(items?._id);
-                                          popup(items?._id);
-                                          setCategoryId(items?._id);
-                                        }}
-                                      >
-                                        {items?.Name}
-                                      </button>
-                                    </li>
-                                  </>
+                                      {items?.Name}
+                                    </button>
+                                  </li>
                                 );
                               })}
                             </ul>
@@ -788,11 +764,12 @@ function Services({ couponid }) {
                                       className="accordion accordionsection"
                                       id="accordionExample"
                                     >
-                                      {Filterdata?.map((items) => {
+                                      {Filterdata?.map((items, i) => {
                                         return (
                                           <div
                                             className="accordion-item"
                                             // data-bs-target="#pills-body"
+                                            key={i}
                                           >
                                             <h2
                                               className="accordion-header"
@@ -832,10 +809,13 @@ function Services({ couponid }) {
                                             >
                                               <div className="accordion-body">
                                                 <div className="row mx0 px0 gap-3">
-                                                  {items.Service.map((el) => {
-                                                    return (
-                                                      <>
-                                                        <div className="col-12">
+                                                  {items.Service.map(
+                                                    (el, i) => {
+                                                      return (
+                                                        <div
+                                                          className="col-12"
+                                                          key={i}
+                                                        >
                                                           <div className="row align-items-center">
                                                             <div className="col-6">
                                                               <div className="heading">
@@ -847,7 +827,7 @@ function Services({ couponid }) {
                                                                 <img
                                                                   className="w-100 h-100"
                                                                   src="assets/img/vandorProfile/union-pink.svg"
-                                                                  alt
+                                                                  alt="image"
                                                                 />
                                                               </div>
                                                               <div className="paymentsection">
@@ -926,9 +906,9 @@ function Services({ couponid }) {
                                                             </div>
                                                           </div>
                                                         </div>
-                                                      </>
-                                                    );
-                                                  })}
+                                                      );
+                                                    }
+                                                  )}
                                                 </div>
                                               </div>
                                             </div>
@@ -992,7 +972,7 @@ function Services({ couponid }) {
                                     <img
                                       className="me-1"
                                       src="assets/img/icon/PlusCircleIcon.svg"
-                                      alt
+                                      alt="image"
                                     />{" "}
                                     Add Review
                                   </button>
@@ -1001,15 +981,18 @@ function Services({ couponid }) {
                             </div>
                           </div>
                           <div className="col-12 reviewcol">
-                            {reviewdata.map((el) => {
+                            {reviewdata.map((el, i) => {
                               return (
-                                <div className="row mx-0 reviewInnerRow border-bottom py-3 ">
+                                <div
+                                  className="row mx-0 reviewInnerRow border-bottom py-3 "
+                                  key={i}
+                                >
                                   <div className="col-auto">
                                     <div className="userImage">
                                       <img
                                         className="w-100 h-100"
                                         src={el?.user?.image}
-                                        alt="User"
+                                        alt="image"
                                       />
                                     </div>
                                   </div>
@@ -1029,31 +1012,31 @@ function Services({ couponid }) {
                                         }`}
                                       >
                                         <label
-                                          for=""
+                                          htmlFor="a"
                                           className="reviewStar d-flex align-items-center"
                                         >
                                           &#9733;
                                         </label>
                                         <label
-                                          for=""
+                                          htmlFor="a"
                                           className="reviewStar d-flex align-items-center"
                                         >
                                           &#9733;
                                         </label>
                                         <label
-                                          for=""
+                                          htmlFor="a"
                                           className="reviewStar d-flex align-items-center"
                                         >
                                           &#9733;
                                         </label>
                                         <label
-                                          for=""
+                                          htmlFor="a"
                                           className="reviewStar d-flex align-items-center"
                                         >
                                           &#9733;
                                         </label>
                                         <label
-                                          for=""
+                                          htmlFor="a"
                                           className="reviewStar d-flex align-items-center"
                                         >
                                           &#9733;
@@ -1073,7 +1056,7 @@ function Services({ couponid }) {
                                       >
                                         <img
                                           src="assets/img/icon/editIcon.svg"
-                                          alt
+                                          alt="image"
                                         />
                                       </button>
                                     </div>
@@ -1217,7 +1200,7 @@ function Services({ couponid }) {
                       <img
                         className="w-100 h-100"
                         src={userprofile[0]?.image}
-                        alt
+                        alt="image"
                       />
                     </div>
                   </div>
@@ -1242,7 +1225,7 @@ function Services({ couponid }) {
             </div>
 
             <div className="modal-body">
-              <form action method="post" className="form">
+              <form action="" method="post" className="form">
                 <div className="row gap-3">
                   <div className="col-12">
                     <div className="star-rating fs-18 fs-sm-22 gap-sm-1">
@@ -1260,7 +1243,6 @@ function Services({ couponid }) {
                         checked={rating >= 5 ? true : false}
                         value={5}
                         onChange={(e) => setrating(e.target.value)}
-                        // defaultValue={5}
                         required
                       />
                       <label
@@ -1278,7 +1260,6 @@ function Services({ couponid }) {
                         checked={rating >= 4 ? true : false}
                         value={4}
                         onChange={(e) => setrating(e.target.value)}
-                        // defaultValue={4}
                         required
                       />
                       <label
@@ -1296,7 +1277,6 @@ function Services({ couponid }) {
                         checked={rating >= 3 ? true : false}
                         value={3}
                         onChange={(e) => setrating(e.target.value)}
-                        // defaultValue={3}
                         required
                       />
                       <label
@@ -1311,7 +1291,7 @@ function Services({ couponid }) {
                         // type="radio"
                         id="job-stars-2"
                         // name="Salary_benefits"
-                        // defaultValue={2}
+
                         checked={rating >= 2 ? true : false}
                         value={2}
                         onChange={(e) => setrating(e.target.value)}
@@ -1329,7 +1309,7 @@ function Services({ couponid }) {
                         // type="radio"
                         id="job-stars-1"
                         // name="Salary_benefits"
-                        // defaultValue={1}
+
                         checked={rating >= 1 ? true : false}
                         value={1}
                         onChange={(e) => setrating(e.target.value)}
@@ -1353,7 +1333,6 @@ function Services({ couponid }) {
                       onChange={(e) => setSubmitreview(e.target.value)}
                       placeholder="Message..."
                       required
-                      defaultValue={""}
                     />
                   </div>
                   <div className="col-12 text-end">
@@ -1440,95 +1419,88 @@ function Services({ couponid }) {
               </div>
               <div className="modal-body p-3">
                 <div className="row gap-3">
-                  {address.map((el) => {
+                  {address.map((el, i) => {
                     return (
-                      <>
-                        <div className="col-12">
-                          <div className="card bg-white border-0 shadow">
-                            <div className="card-header border-0 bg-white">
-                              <div className="row">
-                                <div className="col fs-16 text-dark d-flex gap-2 align-items-center">
-                                  <span>{el?.name}</span>{" "}
-                                  <span className="px-2 bg-theme1 bg-opacity-25 fs-12 fw-normal text-dark rounded-1">
-                                    {el?.type}
-                                  </span>
-                                </div>
+                      <div className="col-12" key={i}>
+                        <div className="card bg-white border-0 shadow">
+                          <div className="card-header border-0 bg-white">
+                            <div className="row">
+                              <div className="col fs-16 text-dark d-flex gap-2 align-items-center">
+                                <span>{el?.name}</span>{" "}
+                                <span className="px-2 bg-theme1 bg-opacity-25 fs-12 fw-normal text-dark rounded-1">
+                                  {el?.type}
+                                </span>
+                              </div>
 
-                                <div className="col-auto d-flex gap-2 align-items-center">
-                                  <a
-                                    role="button"
-                                    className="editB"
-                                    data-bs-target="#addNewAddress"
-                                    data-bs-toggle="modal"
-                                    onClick={() => {
-                                      EditAddres(el);
-                                      setEditId(el._id);
-                                    }}
-                                  >
-                                    <img
-                                      src="assets/img/icon/editIcon.svg"
-                                      alt
-                                    />
-                                  </a>
-                                  <div
-                                    className="form-check p-0 m-0 align-items-center d-flex justify-content-center"
-                                    onClick={(e) => {
-                                      setAddressRadio(el?._id);
-                                      handleRadioApi(el?._id);
-                                      
-                                    }}
-                                  >
-                                    <input
-                                      className="form-check-input shadow-none m-0"
-                                      type="radio"
-                                      name="flexRadioDefault"
-                                      value={addressradio}
-                                      checked={
-                                        addressradio  == el._id ? true : false
-                                      }
-                                      // id="address1"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="card-body pt-0">
-                              <div className="fs-14 text-muted">
-                                <span className="houseNo">
-                                  {el?.location?.houseNumber}
-                                </span>
-                                ,
-                                <span className="area">
-                                  {el?.location?.aria}
-                                </span>
-                                ,
-                                <span className="pincode">
-                                  {el?.location?.pincode}
-                                </span>
-                                ,
-                                <span className="city">
-                                  {el?.location?.city}
-                                </span>
-                                ,
-                                <span className="state">
-                                  {el?.location?.state}
-                                </span>
-                              </div>
-                              <div className="d-flex justify-content-between align-items-center">
-                                <div className="fs-14 mobileNumber mt-2">
-                                  +91 {el?.phone}
-                                </div>
-                                <span
-                                  className="text-danger fs-12"
-                                  onClick={() => deleteAddressApi(el?._id)}
+                              <div className="col-auto d-flex gap-2 align-items-center">
+                                <a
+                                  role="button"
+                                  className="editB"
+                                  data-bs-target="#addNewAddress"
+                                  data-bs-toggle="modal"
+                                  onClick={() => {
+                                    EditAddres(el);
+                                    setEditId(el._id);
+                                  }}
                                 >
-                                  remove
-                                </span>
+                                  <img
+                                    src="assets/img/icon/editIcon.svg"
+                                    alt="image"
+                                  />
+                                </a>
+                                <div
+                                  className="form-check p-0 m-0 align-items-center d-flex justify-content-center"
+                                  onClick={(e) => {
+                                    setAddressRadio(el?._id);
+                                    handleRadioApi(el?._id);
+                                  }}
+                                >
+                                  <input
+                                    className="form-check-input shadow-none m-0"
+                                    type="radio"
+                                    name="flexRadioDefault"
+                                    value={addressradio}
+                                    checked={
+                                      addressradio == el._id ? true : false
+                                    }
+                                    // id="address1"
+                                  />
+                                </div>
                               </div>
                             </div>
                           </div>
+                          <div className="card-body pt-0">
+                            <div className="fs-14 text-muted">
+                              <span className="houseNo">
+                                {el?.location?.houseNumber}
+                              </span>
+                              ,
+                              <span className="area">{el?.location?.aria}</span>
+                              ,
+                              <span className="pincode">
+                                {el?.location?.pincode}
+                              </span>
+                              ,
+                              <span className="city">{el?.location?.city}</span>
+                              ,
+                              <span className="state">
+                                {el?.location?.state}
+                              </span>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="fs-14 mobileNumber mt-2">
+                                +91 {el?.phone}
+                              </div>
+                              <span
+                                className="text-danger fs-12"
+                                onClick={() => deleteAddressApi(el?._id)}
+                              >
+                                remove
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                      </>
+                      </div>
                     );
                   })}
 
@@ -1628,10 +1600,10 @@ function Services({ couponid }) {
                         <div className="modal-body p-3">
                           <div className=" form formOuter">
                             <div className="row g-3">
-                              <div class="col-12">
+                              <div className="col-12">
                                 <div className="input-group">
                                   <label
-                                    for="yourName"
+                                    htmlFor="yourName"
                                     className="form-label text-dark"
                                   >
                                     Name
@@ -1752,7 +1724,7 @@ function Services({ couponid }) {
                               <div className="col-12">
                                 <div className="input-group">
                                   <label
-                                    htmlFor
+                                    htmlFor="a"
                                     className="form-label text-dark"
                                   >
                                     Select City
@@ -1799,7 +1771,7 @@ function Services({ couponid }) {
                               <div className="col-12">
                                 <div className="input-group">
                                   <label
-                                    htmlFor
+                                    htmlFor="a"
                                     className="form-label text-dark"
                                   >
                                     Select State

@@ -17,10 +17,10 @@ function Hair_cut() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [Data, setData] = useState();
-  const id = useSelector((state) => state.categoryItem);
-  const cityName = useSelector((state) => state.cityName);
-  const cityF = useSelector((state) => state.cityFooter);
-  const value = useSelector((state) => state.saloonData);
+  const id = useSelector((state) => state?.categoryItem);
+  const cityName = useSelector((state) => state?.cityName);
+  const cityF = useSelector((state) => state?.cityFooter);
+  const value = useSelector((state) => state?.saloonData);
   const [packages, setPackages] = useState([]);
   const [multiGender, setMultiGender] = useState([]);
   const [preferencesForm, setPreferencesForm] = useState({
@@ -30,7 +30,7 @@ function Hair_cut() {
   });
 
   const dataFilter = async () => {
-    if (Data.status == true) {
+    if (Data?.status == true) {
       let typeMale = `&type=${multiGender[0]}`;
       let typeFemale = `&type=${multiGender[1]}`;
       let typeUnisex = `&type=${multiGender[2]}`;
@@ -74,7 +74,7 @@ function Hair_cut() {
   const categoryData = async () => {
     const path = `get-Service-By-Category?id=${id ? id : ""}`;
     const res = await getData(path);
-    console.log("get-Service-By-Category?id=", res.data);
+    
     dispatch(searchdata(res.data));
     setData(res);
   };
@@ -156,7 +156,7 @@ function Hair_cut() {
                   <img
                     className="rounded-3 w-100"
                     src="assets/img/index/image1card.jpg"
-                    alt
+                    alt='image'
                   />
                 </div>
               </div>
@@ -167,7 +167,7 @@ function Hair_cut() {
                   <img
                     className="rounded-3 w-100"
                     src="assets/img/index/image2card.jpeg"
-                    alt
+                    alt='image'
                   />
                 </div>
               </div>
@@ -178,7 +178,7 @@ function Hair_cut() {
                   <img
                     className="rounded-3 w-100"
                     src="assets/img/index/image3card.jpg"
-                    alt
+                    alt='image'
                   />
                 </div>
               </div>
@@ -189,7 +189,7 @@ function Hair_cut() {
                   <img
                     className=" rounded-3 w-100"
                     src="assets/img/index/image4card.jpg"
-                    alt
+                    alt='image'
                   />
                 </div>
               </div>
@@ -218,7 +218,7 @@ function Hair_cut() {
                           <img
                             className="ms-2"
                             src="assets/img/icon/downArrowIcon.svg"
-                            alt
+                            alt='image'
                           />
                         </button>
                         <ul className="dropdown-menu bg-light p-0 overflow-hidden">
@@ -251,7 +251,7 @@ function Hair_cut() {
                         data-bs-target="#offcanvasFilter"
                         aria-controls="offcanvasFilter"
                       >
-                        <img src="assets/img/icon/filter.svg" alt />
+                        <img src="assets/img/icon/filter.svg" alt='image' />
                       </button>
                     </div>
 
@@ -259,10 +259,10 @@ function Hair_cut() {
 
                     <div className={`col-12`}>
                       <div className="row g-sm-4 g-3 ">
-                        {records?.map((items) => {
+                        {records?.map((items ,i) => {
                           return (
-                            <div className="col-md-4 col-6">
-                              <p
+                            <div className="col-md-4 col-6" key={i}>
+                              <a
                                 onClick={() => {
                                   handler(items.data.saloonStore);
                                   // getWhislistapi(items.data.saloonStore);
@@ -272,8 +272,8 @@ function Hair_cut() {
                                   <div className="imgOuter w-100 position-relative">
                                     <img
                                       className="w-100 h-100"
-                                      src={items?.data?.image}
-                                      alt
+                                      src={items.data?.image ?items.data?.image[0] :''}
+                                      alt='image'
                                     />
                                     <div className="showRating position-absolute text-white bottom-0 end-0">
                                       ★ 4
@@ -304,7 +304,7 @@ function Hair_cut() {
                                           <img
                                             className="w-100"
                                             src="assets/img/icon/locationGoldan.svg"
-                                            alt
+                                            alt='image'
                                           />
                                         </span>
                                         <span>500m</span>
@@ -312,7 +312,7 @@ function Hair_cut() {
                                     </div>
                                   </div>
                                 </div>
-                              </p>
+                              </a>
                             </div>
                           );
                         })}
@@ -331,13 +331,14 @@ function Hair_cut() {
                       <img
                         className="w-100"
                         src="/assets/img/icon/leftDubbleArrow.svg"
-                        alt
+                        alt='image'
                       />
                     </span>
                   </Link>
                   <ul className="list-unstyled m-0 d-inline p-0">
                     {numbers.map((n, i) => (
                       <li
+                      key={i}
                         className={`rounded-1 d-inline-flex justify-content-center align-items-center ${
                           currentPage == n ? "current" : ""
                         }`}
@@ -361,7 +362,7 @@ function Hair_cut() {
                       <img
                         className="w-100"
                         src="/assets/img/icon/rightDubbleArrow.svg"
-                        alt
+                        alt='image'
                       />
                     </span>
                   </Link>
@@ -381,7 +382,7 @@ function Hair_cut() {
                     <div className="filterHeader d-flex align-items-center justify-content-between">
                       <div className="filterTitle text-white">Preferences</div>
                       <div className="filterIcon d-none d-lg-block">
-                        <img src="assets/img/icon/filter.svg" alt />
+                        <img src="assets/img/icon/filter.svg" alt='image'/>
                       </div>
                       <button
                         type="button"
@@ -674,9 +675,9 @@ function Hair_cut() {
             </div>
             <div className="modal-body">
               <div className="row gap-3">
-                {packages?.map((item) => {
+                {packages?.map((item,i) => {
                   return (
-                    <div className="col-12">
+                    <div className="col-12" key={i}>
                       <div className="outer p-sm-3 p-2 border rounded-4 overflow-hidden position-relative">
                         <div
                           className="row mx-0 gap-3 align-items-center" role='button'
@@ -692,7 +693,7 @@ function Hair_cut() {
                                 //style={{height:'60px',width:'60px'}}
                                  className="w-100 h-100 "
                                 src={item?.image}
-                                alt
+                                alt='image'
                               />
                             </div>
                           </div>
@@ -746,7 +747,7 @@ function Hair_cut() {
                           <img
                             className="w-100 h-100"
                             src="assets/img/img-2.png"
-                            alt
+                            alt='image'
                           />
                         </div>
                       </div>
@@ -769,7 +770,7 @@ function Hair_cut() {
                           <img
                             className="w-100 h-100"
                             src="assets/img/img-2.png"
-                            alt
+                            alt='image'
                           />
                         </div>
                       </div>
@@ -792,7 +793,7 @@ function Hair_cut() {
                           <img
                             className="w-100 h-100"
                             src="assets/img/img-2.png"
-                            alt
+                            alt='image'
                           />
                         </div>
                       </div>
@@ -815,7 +816,7 @@ function Hair_cut() {
                           <img
                             className="w-100 h-100"
                             src="assets/img/img-2.png"
-                            alt
+                            alt='image'
                           />
                         </div>
                       </div>

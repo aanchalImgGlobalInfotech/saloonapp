@@ -138,7 +138,7 @@ const PartnerLogin = () => {
                           Login to Manage Your Business
                         </div>
                         <form
-                          action
+                     
                           className="form p-3 d-flex flex-column gap-3"
                         >
                           <div className="input-group d-block">

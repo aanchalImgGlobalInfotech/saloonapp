@@ -105,7 +105,7 @@ function BlogInnerPage() {
           </li>
           <li className="crumb position-relative d-inline-block fs-12 float-start text-white">
             <span>
-              <a className="text-decoration-none text-white" href="Beauty.html">
+              <a className="text-decoration-none text-white" >
                 Beauty
               </a>
             </span>
@@ -127,13 +127,13 @@ function BlogInnerPage() {
                         <img
                           className="w-100 h-100"
                           src={InnerData?.image[0]}
-                          alt
+                          alt='image'
                         />
                         <ul className="importantDate position-absolute bottom-0 end-0 p-2 list-unstyled m-0 d-flex fs-12 gap-2 text-white">
                           <li className="pe-2 border-end">
                             {InnerData?.WriteDate.slice(0, 10)}
                           </li>
-                          <li className>By {InnerData?.WriterName}</li>
+                          <li >By {InnerData?.WriterName}</li>
                         </ul>
                       </div>
                     </div>
@@ -148,7 +148,7 @@ function BlogInnerPage() {
                           Category
                         </div>
                         <div className="input-group d-block mt-3">
-                          <label htmlFor className="form-label text-white">
+                          <label htmlFor='' className="form-label text-white">
                             Select Category
                           </label>
                           <select
@@ -158,7 +158,7 @@ function BlogInnerPage() {
                           >
                             <option selected>Select Category</option>
                             {category?.map((el, i) => (
-                              <option value={el._id}>{el.Name}</option>
+                              <option value={el._id} key={i}>{el.Name}</option>
                             ))}
                           </select>
                         </div>
@@ -181,7 +181,7 @@ function BlogInnerPage() {
                             className="btn btn-transparent searchBtn border-0 shadow-none position-absolute z-3 bottom-0 end-0 border-start py-2"
                             onClick={startSearch}
                           >
-                            <img src="/assets/img/icon/search1.svg" alt />
+                            <img src="/assets/img/icon/search1.svg" alt='image' />
                           </button>
                         </div>
                       </div>
@@ -209,7 +209,7 @@ function BlogInnerPage() {
                     )}
                   </div>
                   <a
-                    href="javascript:;"
+                    href="#"
                     className="text-decoration-none text-white bg-theme1 p-3 rounded-pill fs-14 w-100 d-block text-center bgiBtn1 position-relative"
                   >
                     BOOK YOUR SERVICES NOW WITH SALOON!
@@ -222,11 +222,12 @@ function BlogInnerPage() {
                     Frequently Asked Questions
                   </div>
 
-                  {InnerData?.faq?.map((faq) => {
+                  {InnerData?.faq?.map((faq,i) => {
                     return (
                       <div
                         className="accordion mt-4 customAccordion"
                         id="accordionExample"
+                        key={i}
                       >
                         <div className="accordion-item rounded-0  border-0">
                           <h2 className="accordion-header" id="headingOne">
@@ -266,7 +267,7 @@ function BlogInnerPage() {
                     <span>
                       <a
                         className="text-decoration-none text-white fs-14"
-                        href="javascript:;"
+                        href="#"
                       >
                         valentine’s day makeup look
                       </a>
@@ -277,36 +278,36 @@ function BlogInnerPage() {
                   <div className="socialIcon d-flex align-items-center gap-sm-3 gap-2">
                     <span className="share fs-14 text-white">Share :</span>
                     <ul className="p-0 m-0 list-unstyled d-flex align-items-center gap-sm-3 gap-2">
-                      <li className>
+                      <li >
                         <a
                           className="text-decoration-none socialLink d-flex p-2 bg-black fsacebook"
-                          href
+                          
                         >
-                          <img src="/assets/img/icon/facebookNew.svg" alt />
+                          <img src="/assets/img/icon/facebookNew.svg" alt='image' />
                         </a>
                       </li>
-                      <li className>
+                      <li>
                         <a
                           className="text-decoration-none socialLink d-flex p-2 bg-black instagram"
-                          href
+                          
                         >
-                          <img src="/assets/img/icon/instagramNew.svg" alt />
+                          <img src="/assets/img/icon/instagramNew.svg" alt='image' />
                         </a>
                       </li>
-                      <li className>
+                      <li >
                         <a
                           className="text-decoration-none socialLink d-flex p-2 bg-black linkedin"
-                          href
+                        
                         >
-                          <img src="/assets/img/icon/linkedinNew.svg" alt />
+                          <img src="/assets/img/icon/linkedinNew.svg" alt='image' />
                         </a>
                       </li>
-                      <li className>
+                      <li >
                         <a
                           className="text-decoration-none socialLink d-flex p-2 bg-black tiwtter"
-                          href
+                         
                         >
-                          <img src="/assets/img/icon/twitterNew.svg" alt />
+                          <img src="/assets/img/icon/twitterNew.svg" alt='image' />
                         </a>
                       </li>
                     </ul>
@@ -324,19 +325,20 @@ function BlogInnerPage() {
                   </div>
                   <div className="col-12">
                     <div className="row g-4">
-                      {InnerData?.RelatedPosts?.map((item) => {
+                      {InnerData?.RelatedPosts?.map((item,i) => {
                         return (
                           <div
                             className="col-lg-12 col-sm-6"
                             style={{ cursor: "pointer" }}
                             onClick={() => setInnerId(item._id)}
+                            key={i}
                           >
                             <div className="blogOuter rounded-4 overflow-hidden position-relative">
                               <div className="imgOuter overflow-hidden">
                                 <img
                                   className="w-100 h-100"
                                   src="/assets/img/blog/blogImg1.jpg"
-                                  alt
+                                  alt='image'
                                 />
                               </div>
                               <div className="blogDetail p-3 bg-white row gap-2 mx-0">

@@ -2,14 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 const Header2 = () => {
   return (
-  <div classname="overflow-hideen ">
+  <div className="overflow-hideen ">
     <nav className="navbar navbar-expand-md navbar-dark bg-theme2 navbarhed position-fixed w-100" aria-label="Fourth navbar example">
     <div className="container">
       <Link className="navbar-brand logonav d-block" to="/Dashboard"><img src="assets/img/header/logo.svg" alt="logo" /></Link>
       <div className="searchOuter d-flex align-items-center bg-white rounded-1">
         <input type="button" className="bg-transparent border-0 shadow-none fs-12 pe-sm-2 text-muted" defaultValue="Search your favourite salon, haircut or beauty services" data-bs-toggle="offcanvas" data-bs-target="#favroutsaloon" aria-controls="favroutsaloon" />
-        <span className="cityName ps-2 b border-start  d-none d-sm-block"><a href="javascript:;" className="text-decoration-none text-dark fs-12">Jaipur</a></span>
-        <span className="currentLocation ps-3 d-none d-sm-block"><a href="javascript:;" className="text-decoration-none rounded-circle d-block position-relative" /></span>
+        <span className="cityName ps-2 b border-start  d-none d-sm-block"><a href='#' className="text-decoration-none text-dark fs-12">Jaipur</a></span>
+        <span className="currentLocation ps-3 d-none d-sm-block"><a href='#' className="text-decoration-none rounded-circle d-block position-relative" /></span>
       </div>
       <button className="navbar-toggler togglrbtn shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon" />
@@ -32,36 +32,36 @@ const Header2 = () => {
     <button type="button" className="btn-close shadow-none" data-bs-dismiss="offcanvas" aria-label="Close" />
   </div>
   <div className="offcanvas-body overflow-visible">
-    <form action className="form">
+    <form  className="form">
       <div className="row justify-content-center gap-3 gap-sm-0">
         <div className="col-lg-4 col-sm-6">
           <div className="input-group">
-            <input type="text" className="form-control shadow-none fs-13 py-2" id placeholder="Enter Your City Name" />
+            <input type="text" className="form-control shadow-none fs-13 py-2"  placeholder="Enter Your City Name" />
           </div>
         </div>
         <div className="col-lg-4 col-sm-6 position-relative">
           <div className="input-group">
-            <input type="text" className="form-control shadow-none fs-13 py-2" id placeholder="Search Salon, Style or Brand..." />
+            <input type="text" className="form-control shadow-none fs-13 py-2"  placeholder="Search Salon, Style or Brand..." />
           </div>
           <div className="searchResult position-absolute bg-light p-3 py-2 rounded-4 ">
             <ul className="p-0 m-0 list-unstyled">
               <li className="searchItem py-1">
-                <a className="searchLink fs-14 text-decoration-none text-dark" href="javascript:;"><span className="text-dark fw-bold">Hair</span> Wash</a>
+                <a className="searchLink fs-14 text-decoration-none text-dark" href='#'><span className="text-dark fw-bold">Hair</span> Wash</a>
               </li>
               <li className="searchItem py-1">
-                <a className="searchLink fs-14 text-decoration-none text-dark" href="javascript:;"><span className="text-dark fw-bold">Hair</span> Wash</a>
+                <a className="searchLink fs-14 text-decoration-none text-dark" href='#'><span className="text-dark fw-bold">Hair</span> Wash</a>
               </li>
               <li className="searchItem py-1">
-                <a className="searchLink fs-14 text-decoration-none text-dark" href="javascript:;"><span className="text-dark fw-bold">Hair</span> Wash</a>
+                <a className="searchLink fs-14 text-decoration-none text-dark" href='#'><span className="text-dark fw-bold">Hair</span> Wash</a>
               </li>
               <li className="searchItem py-1">
-                <a className="searchLink fs-14 text-decoration-none text-dark" href="javascript:;"><span className="text-dark fw-bold">Hair Sage Luxury Salon</span> in Sector 104, Noida</a>
+                <a className="searchLink fs-14 text-decoration-none text-dark" href='#'><span className="text-dark fw-bold">Hair Sage Luxury Salon</span> in Sector 104, Noida</a>
               </li>
               <li className="searchItem py-1">
-                <a className="searchLink fs-14 text-decoration-none text-dark" href="javascript:;"><span className="text-dark fw-bold">Hair Sage Luxury Salon</span> in Sector 104, Noida</a>
+                <a className="searchLink fs-14 text-decoration-none text-dark" href='#'><span className="text-dark fw-bold">Hair Sage Luxury Salon</span> in Sector 104, Noida</a>
               </li>
               <li className="searchItem py-1">
-                <a className="searchLink fs-14 text-decoration-none text-dark" href="javascript:;"><span className="text-dark fw-bold">Hair Sage Luxury Salon</span> in Sector 104, Noida</a>
+                <a className="searchLink fs-14 text-decoration-none text-dark" href='#'><span className="text-dark fw-bold">Hair Sage Luxury Salon</span> in Sector 104, Noida</a>
               </li>
             </ul>
           </div>

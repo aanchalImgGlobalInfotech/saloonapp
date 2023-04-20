@@ -309,7 +309,7 @@ const CheckOut = ({ setCouponID }) => {
                           <img
                             className="me-2"
                             src="assets/img/icon/PlusCircleIcon.svg"
-                            alt
+                            
                           />{" "}
                           Add More
                         </NavLink>
@@ -334,9 +334,9 @@ const CheckOut = ({ setCouponID }) => {
                           </div>
 
                           {couponData.length
-                            ? couponData[0]?.cart?.map((el) => {
+                            ? couponData[0]?.cart?.map((el,i) => {
                                 return (
-                                  <div className="row p-3 mx-0 px-4 border-bottom">
+                                  <div className="row p-3 mx-0 px-4 border-bottom" key={i}>
                                     <div className="col px-0">
                                       <div className="services text-white text-opacity-75">
                                         {el.ServiceName}
@@ -350,10 +350,10 @@ const CheckOut = ({ setCouponID }) => {
                                   </div>
                                 );
                               })
-                            : arr[0]?.cart?.map((el) => {
+                            : arr[0]?.cart?.map((el,i) => {
                                 console.log("elelelle1111118", el);
                                 return (
-                                  <div className="row p-3 mx-0 px-4 border-bottom">
+                                  <div className="row p-3 mx-0 px-4 border-bottom" key={i}>
                                     <div className="col px-0">
                                       <div className="services text-white text-opacity-75">
                                         {el.ServiceName}
@@ -487,14 +487,14 @@ const CheckOut = ({ setCouponID }) => {
                                 </div>
                               </div>
                               <div className="col-12 mb-4">
-                                <form action className="form">
+                                <form  className="form">
                                   <div className="input-group">
                                     <input
                                       type="text"
                                       value={check}
                                       className="form-control shadow-none fs-12"
                                       onChange={(e) => setcheck(e.target.value)}
-                                      id
+                                      
                                       placeholder="Apply Promocode"
                                     />
                                     <button
@@ -584,12 +584,12 @@ const CheckOut = ({ setCouponID }) => {
               <div className="modal-body">
                 <div className="row gap-4">
                   <div className="col-12">
-                    <form action className="form">
+                    <form  className="form">
                       <div className="input-group">
                         <input
                           type="text"
                           className="form-control shadow-none fs-12"
-                          id
+                          
                           value={check}
                           onChange={(e) => setcheck(e.target.value)}
                           placeholder="Enter Coupon Code"
@@ -611,10 +611,10 @@ const CheckOut = ({ setCouponID }) => {
                       </div>
                     </form>
                   </div>
-                  {coupon.map((el) => {
+                  {coupon.map((el,i) => {
                     // console.log('elelele',el)
                     return (
-                      <div className="col-12">
+                      <div className="col-12" key={i}>
                         <div className="form-check p-0">
                           <input
                             className="form-check-input"

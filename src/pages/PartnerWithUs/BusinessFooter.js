@@ -32,8 +32,8 @@ const BusinessFooter = () => {
         <div className="col-sm-6 col-md-6 col-lg-3 columnfirst">
           <div className="d-flex appiconsection">
             <ul className="list-unstyled gap-3 d-flex flex-column">
-              <li><Link to=''><img className="w-100 h-100" src="assets/img/footer/gplayLight.png" alt /></Link></li>
-              <li><Link to=''><img className="w-100 h-100" src="assets/img/footer/AppstoreLight.png" alt /></Link></li>
+              <li><Link to=''><img className="w-100 h-100" src="assets/img/footer/gplayLight.png" alt='image' /></Link></li>
+              <li><Link to=''><img className="w-100 h-100" src="assets/img/footer/AppstoreLight.png" alt='image' /></Link></li>
             </ul>
           </div>
         </div>

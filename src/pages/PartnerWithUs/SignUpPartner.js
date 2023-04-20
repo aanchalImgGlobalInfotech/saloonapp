@@ -237,7 +237,7 @@ const SignUpPartner = () => {
                               </div>
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
-                                  <label htmlFor className="form-label">
+                                  <label  className="form-label">
                                     Select Gender
                                   </label>
                                   <Field
@@ -408,7 +408,7 @@ const SignUpPartner = () => {
 
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
-                                  <label htmlFor className="form-label">
+                                  <label  className="form-label">
                                     Select Partner Size
                                   </label>
                                   <Field
@@ -433,7 +433,7 @@ const SignUpPartner = () => {
                               </div>
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
-                                  <label htmlFor className="form-label">
+                                  <label  className="form-label">
                                     Select Category Type
                                   </label>
                                   <Field
@@ -488,7 +488,7 @@ const SignUpPartner = () => {
                               </div>
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
-                                  <label htmlFor className="form-label">
+                                  <label  className="form-label">
                                     City
                                   </label>
                                   <Field

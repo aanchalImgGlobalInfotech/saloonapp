@@ -10,7 +10,7 @@ const FAQs = () => {
   const [questions, setQuestions] = useState("");
   const getFaq = async () => {
     const res = await getData("get-faq");
-    console.log(res.data[0]);
+  
     setData(res.data[0]);
   };
 
@@ -20,7 +20,7 @@ const FAQs = () => {
 
   const askQuestion = async () => {
     const res = await postData(`Ask-qustion?qustion=${questions}`);
-    console.log(res);
+    
   };
   return (
     <div>
@@ -38,9 +38,9 @@ const FAQs = () => {
                     <div className="row gap-3">
                       {data
                         .slice(0, Math.floor(data.length / 2 + 1))
-                        .map((item) => {
+                        .map((item,i) => {
                           return (
-                            <div className="col-12">
+                            <div className="col-12" key={i}>
                               <div className="accordion-item bg-black border-theme1">
                                 <h2
                                   className="accordion-header"
@@ -88,9 +88,9 @@ const FAQs = () => {
                     <div className="row gap-3">
                       {data
                         .slice(Math.floor(data.length / 2) + 1, data.length)
-                        .map((item) => {
+                        .map((item,i) => {
                           return (
-                            <div className="col-12">
+                            <div className="col-12" key={i}>
                               <div className="accordion-item bg-black border-theme1">
                                 <h2
                                   className="accordion-header"

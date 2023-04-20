@@ -44,9 +44,9 @@ function ContactUs() {
       });
     }
 
-    console.log(res, "ressssssssssssssssssssss");
+    
   };
-  // console.log(value,'vvvvvvvvvvvvvvvvvvvvvvvv')
+ 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const validationschema = yup.object().shape({
@@ -63,10 +63,10 @@ function ContactUs() {
     massage: Yup.string().required("massage is required"),
   });
   const onChange = (value) => {
-    console.log("Captcha value:", value);
+  
     setIamRobot(true);
   };
-  console.log("this is id of modal", modalId);
+  
   return (
     <div>
       <HeaderHome />
@@ -97,7 +97,7 @@ function ContactUs() {
                       <img
                         className="w-100"
                         src="assets/img/contact/cardIcon1.svg"
-                        alt
+                        alt="image"
                       />
                     </div>
                     <div className="detail d-flex flex-column gap-2">
@@ -134,7 +134,7 @@ function ContactUs() {
                       <img
                         className="w-100"
                         src="assets/img/contact/cardIcon2.png"
-                        alt
+                        alt="image"
                       />
                     </div>
                     <div className="detail d-flex flex-column gap-2">
@@ -173,7 +173,7 @@ function ContactUs() {
                       <img
                         className="w-100"
                         src="assets/img/contact/cardIcon3.svg"
-                        alt
+                        alt="image"
                       />
                     </div>
                     <div className="detail d-flex flex-column gap-2">
@@ -252,7 +252,7 @@ function ContactUs() {
                         <img
                           className="w-100"
                           src="assets/img/icon/callingWhite.svg"
-                          alt
+                          alt="image"
                         />
                       </span>{" "}
                       <a
@@ -276,11 +276,11 @@ function ContactUs() {
                     onSubmit={(value) => continu(value)}
                   >
                     {(props) => {
-                      console.log("ppppttttt", props);
+                     
                       return (
                         <Form
                           onSubmit={props.handleSubmit}
-                          action
+                        
                           className="form mt-4"
                         >
                           <div className="row g-4">
@@ -309,7 +309,7 @@ function ContactUs() {
                             <div className="col-sm-6">
                               <div className="input-group d-block">
                                 <label
-                                  htmlFor
+                                 
                                   className="form-label text-white"
                                 >
                                   Type of Query
@@ -386,7 +386,7 @@ function ContactUs() {
                                   className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none bg-dark border-dark"
                                   id="Message"
                                   placeholder="Note: Explicit/spammy words and unverified URLs are restricted."
-                                  defaultValue={""}
+                                  
                                 />
                               </div>
                               <p className="text-danger text-start">

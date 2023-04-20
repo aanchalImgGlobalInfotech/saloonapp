@@ -116,7 +116,7 @@ function Blog() {
                         <img
                           className="w-100 h-100"
                           src="/assets/img/blog/blogMain.jpg"
-                          alt
+                          alt='image'
                         />
                       </div>
                     </div>
@@ -131,7 +131,7 @@ function Blog() {
                           Category
                         </div>
                         <div className="input-group d-block mt-3">
-                          <label htmlFor className="form-label text-white">
+                          <label htmlFor='' className="form-label text-white">
                             Select Category
                           </label>
                           <select
@@ -141,7 +141,7 @@ function Blog() {
                           >
                             <option selected  >Select Category</option>
                             {category?.map((el, i) => (
-                              <option value={el._id}>{el.Name}</option>
+                              <option value={el._id} key={i}>{el.Name}</option>
                             ))}
                           </select>
                         </div>
@@ -166,7 +166,7 @@ function Blog() {
                             onClick={startSearch}
                             >
 
-                            <img src="/assets/img/icon/search1.svg" alt />
+                            <img src="/assets/img/icon/search1.svg" alt='image' />
                           </button>
                         </div>
                       </div>
@@ -186,8 +186,9 @@ function Blog() {
                       </div>
                       <div className="col-12">
                         <div className="row g-4">
-                          {records?.map((item) => (
+                          {records?.map((item,i) => (
                             <NavLink
+                            key={i}
                               to='/blog-details'
                               state={{itemId:item._id}}
                               className="col-lg-3 col-sm-6"
@@ -198,7 +199,7 @@ function Blog() {
                                   <img
                                     className="w-100 h-100"
                                     src="assets/img/blog/blogImg1.jpg"
-                                    alt
+                                    alt='image'
                                   />
                                 </div>
                                 <div className="blogDetail p-3 bg-white row gap-2 mx-0">
@@ -233,7 +234,7 @@ function Blog() {
                               <img
                                 className="w-100"
                                 src="/assets/img/icon/leftDubbleArrow.svg"
-                                alt
+                                alt='image'
                               />
                             </span>
                           </Link>
@@ -241,7 +242,7 @@ function Blog() {
                             {
                               numbers.map((n ,i)=>
                                (
-                                  <li className={`rounded-1 d-inline-flex justify-content-center align-items-center ${currentPage ==n ?'current':''}`}>
+                                  <li key={i} className={`rounded-1 d-inline-flex justify-content-center align-items-center ${currentPage ==n ?'current':''}`}>
                                   <Link className="text-decoration-none" to="" onClick={(()=>changePage(n))}>
                                     {n}
                                   </Link>
@@ -255,7 +256,7 @@ function Blog() {
                               <img
                                 className="w-100"
                                 src="/assets/img/icon/rightDubbleArrow.svg"
-                                alt
+                                alt='image'
                               />
                             </span>
                           </Link>

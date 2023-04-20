@@ -13,7 +13,7 @@ const AboutUs = () => {
     getDataForAboutUs();
   }, []);
   return (
-    <div classname="overflow-hideen ">
+    <div className="overflow-hideen ">
       <HeaderHome />
       <div className="aboutMain bg-dark">
         <div className="row mx-0">
@@ -30,7 +30,7 @@ const AboutUs = () => {
                     <img
                       className="w-100 h-100"
                       src="assets/img/about/img-1.webp"
-                      alt
+                      alt="image"
                     />
                   </div>
                 </div>
@@ -64,7 +64,7 @@ const AboutUs = () => {
                     <img
                       className="w-100 h-100"
                       src="assets/img/about/img-2.png"
-                      alt
+                      alt="image"
                     />
                   </div>
                 </div>
@@ -95,7 +95,7 @@ const AboutUs = () => {
                     <img
                       className="w-100 h-100"
                       src="assets/img/about/img-3.webp"
-                      alt
+                      alt="image"
                     />
                   </div>
                 </div>
@@ -132,7 +132,7 @@ const AboutUs = () => {
                     <img
                       className="w-100 h-100"
                       src="assets/img/about/img-4.webp"
-                      alt
+                      alt="image"
                     />
                   </div>
                 </div>

@@ -21,7 +21,7 @@ const TermsAndConditions = () => {
     getDataForTermsAndCondition();
   }, []);
   return (
-    <div classname="overflow-hideen ">
+    <div className="overflow-hideen ">
       <Header2 />
       <div className="treamConditionMain bg-dark">
         <div className="container">

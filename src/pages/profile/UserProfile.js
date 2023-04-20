@@ -51,7 +51,7 @@ function UserProfile() {
     for (var key in value) {
       formdata.append(key, value[key]);
     }
-    console.log(formdata, "formdataaaaaa");
+    //console.log(formdata, "formdataaaaaa");
     const res = await postformdata("user-Edit-Profile", formdata);
     const resimg = await postformdata("Edit-User-Profile", formdata);
     if (res.status) {
@@ -67,7 +67,7 @@ function UserProfile() {
 
   const profileApi = async () => {
     const profile = await getData(`user-Profile?Transaction=${true}`);
-    console.log("?Transactionnnnnnnnnnn", profile.data[0]._id);
+    //console.log("?Transactionnnnnnnnnnn", profile.data[0]._id);
     localStorage.setItem(
       "refertransaction",
       JSON.stringify(profile.data[0].referTransactions)
@@ -131,7 +131,7 @@ function UserProfile() {
     });
     setBookedByHome(filter);
   };
-  console.log("orderIdorderId", bookedbyhome);
+  //console.log("orderIdorderId", bookedbyhome);
   const Itemhandle = (el) => {
     setmaodalvalue({ data: el });
   };
@@ -273,9 +273,9 @@ function UserProfile() {
                           disabled
                         >
                           <span>
-                            {" "}
+                        
                             <span className="pe-3">
-                              <img src="assets/img/profile/at.svg" alt />
+                              <img src="assets/img/profile/at.svg" alt='image' />
                             </span>
                             {Data[0]?.email}
                           </span>
@@ -292,9 +292,9 @@ function UserProfile() {
                           disabled
                         >
                           <span>
-                            {" "}
+                      
                             <span className="pe-3">
-                              <img src="assets/img/profile/telephone.svg" alt />
+                              <img src="assets/img/profile/telephone.svg" alt='image' />
                             </span>
                             {Data[0]?.phone}
                           </span>
@@ -313,7 +313,7 @@ function UserProfile() {
                           <span onClick={() => BookingApi()}>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/heart.svg" alt />
+                              <img src="assets/img/profile/heart.svg" alt='image' />
                             </span>
                             My Booking
                           </span>
@@ -332,7 +332,7 @@ function UserProfile() {
                           <span>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/heart.svg" alt />
+                              <img src="assets/img/profile/heart.svg" alt='image' />
                             </span>{" "}
                             My Wishlist
                           </span>
@@ -351,7 +351,7 @@ function UserProfile() {
                           <span>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/alarm.svg" alt />
+                              <img src="assets/img/profile/alarm.svg" alt='image' />
                             </span>{" "}
                             Saloon Points
                           </span>
@@ -370,7 +370,7 @@ function UserProfile() {
                           <span>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/user.svg" alt />
+                              <img src="assets/img/profile/user.svg" alt='image' />
                             </span>{" "}
                             Refer &amp; Earn
                           </span>
@@ -389,7 +389,7 @@ function UserProfile() {
                           <span>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/user.svg" alt />
+                              <img src="assets/img/profile/user.svg" alt='image' />
                             </span>{" "}
                             Wallet
                           </span>
@@ -503,7 +503,7 @@ function UserProfile() {
                                                 <img
                                                   className="w100 h100 me-2"
                                                   src="assets/img/profile/calendar.svg"
-                                                  alt
+                                                  alt='image'
                                                 />
                                                 {""}
                                                 <span>
@@ -602,7 +602,7 @@ function UserProfile() {
                                             <img
                                               className="w100 h100 me-2"
                                               src="assets/img/profile/calendar.svg"
-                                              alt
+                                              alt='image'
                                             />
                                             {""}
                                             <span>
@@ -683,9 +683,9 @@ function UserProfile() {
                                       alt="..."
                                     />
                                     <div className="position-absolute top-0 end-0 me-1 imagesvg align-items-center">
-                                      <div class="form-check p-0 myFavouriteBtn">
+                                      <div className="form-check p-0 myFavouriteBtn">
                                         {/* <span
-                                          class="form-check-input"
+                                          className="form-check-input"
                                           type="checkbox"
                                           value=""
                                           id="favourite"
@@ -698,7 +698,7 @@ function UserProfile() {
                                           }}
                                         /> */}
                                         <label
-                                          class="form-check-label"
+                                          className="form-check-label"
                                           onClick={() => {
                                             whishlistApi(el?.result?._id);
                                           }}
@@ -752,7 +752,7 @@ function UserProfile() {
                                                   <img
                                                     className="w-100 h-100"
                                                     src="assets/img/profile/wifi.png"
-                                                    alt={1}
+                                                    alt='image'
                                                     data-bs-toggle="tooltip"
                                                     data-bs-placement="top"
                                                     data-bs-title="Beverage"
@@ -770,7 +770,7 @@ function UserProfile() {
                                                   <img
                                                     className="w-100 h-100"
                                                     src="assets/img/profile/TV-old.png"
-                                                    alt={1}
+                                                    alt='image'
                                                     data-bs-toggle="tooltip"
                                                     data-bs-placement="top"
                                                     data-bs-title="Beverage"
@@ -1127,7 +1127,7 @@ function UserProfile() {
                                   >
                                     <img
                                       src="assets/img/profile/copyicon.svg"
-                                      alt
+                                      alt='image'
                                       style={{ width: "20px" }}
                                     />
                                   </button>
@@ -1137,10 +1137,10 @@ function UserProfile() {
                                 <div className="fs-14 fw-semibold ">
                                   Share :
                                 </div>
-                                <ul class="list-unstyled d-flex iconlist align-items-center gap-sm-3 gap-2 mt-2 ">
+                                <ul className="list-unstyled d-flex iconlist align-items-center gap-sm-3 gap-2 mt-2 ">
                                   <li>
                                     <a
-                                      class="imagefb"
+                                      className="imagefb"
                                       style={{
                                         width: "30px",
                                         height: "30px",
@@ -1161,7 +1161,7 @@ function UserProfile() {
                                   </li>
                                   <li>
                                     <a
-                                      class="imagefb"
+                                      className="imagefb"
                                       style={{
                                         width: "30px",
                                         height: "30px",
@@ -1428,7 +1428,7 @@ function UserProfile() {
                         <div className="col-md-6 mb-3">
                           <div className="inputIconGroup d-flex align-items-center">
                             <div className="icon me-2">
-                              <img src="assets/img/profile/gander.svg" alt />
+                              <img src="assets/img/profile/gander.svg" alt='image' />
                             </div>
                             <div className="d-flex align-items-cente">
                               <div className="form-check px-4">
@@ -1515,14 +1515,14 @@ function UserProfile() {
         aria-hidden="true"
       >
         <div className="modal-dialog  modal-dialog-scrollable">
-          <div div className="modal-content">
+          <div  className="modal-content">
             <div className="modal-header d-flex align-items-center justify-content-between">
               <h1
                 className="modal-title d-flex align-items-center"
                 id="exampleModalLabel"
               >
                 Order Id : {modalvalue.data?.item?.data[0]?.orderId}{" "}
-                <span className>
+                <span >
                   <img
                     className="w-100 h-100 ms-1"
                     src="assets/img/profile/modalcopy.svg"
@@ -1541,7 +1541,7 @@ function UserProfile() {
                   <img
                     className="w-100 h-100 ms-1"
                     src="assets/img/profile/arrow.svg"
-                    alt
+                    alt='image'
                   />
                 </span>
               </div>
@@ -1554,7 +1554,7 @@ function UserProfile() {
                       <img
                         className="w-100 h-100 rounded-3"
                         src={modalvalue.data?.image}
-                        alt
+                        alt='image'
                       />
                       <div className="saloontext">Kalon Unisex saloon</div>
                     </div>
@@ -1564,7 +1564,7 @@ function UserProfile() {
                           <img
                             className="w-100 h-100 me-3"
                             src="assets/img/profile/calendar.svg"
-                            alt
+                            alt='image'
                           />
                         </span>
                         {new Date(modalvalue.data?.updatedAt)
@@ -1596,7 +1596,7 @@ function UserProfile() {
                             <img
                               className="w-100 h-100 me-3"
                               src="assets/img/profile/cursor.svg"
-                              alt
+                              alt='image'
                             />
                           </span>
                           See direction

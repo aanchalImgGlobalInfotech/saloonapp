@@ -134,7 +134,7 @@ function Verifyotp() {
               <div className="text-center text-md-start leftsidesection px-0 px-xl-5 mx-xl-5 mx-0">
                 <div className="d-flex align-items-center justify-content-center justify-content-md-start hedtext mb-4">
                   <span className="pe-2">
-                    <img src="assets/img/signin/iconimage.png" alt />
+                    <img src="assets/img/signin/iconimage.png"  />
                   </span>
                   Saloon
                 </div>
@@ -144,7 +144,7 @@ function Verifyotp() {
                 <div className=" text-theme2 mb-4 textp">
                   Sent to {location.state}
                 </div>
-                <form action>
+                <form >
                   <div className="my-4 optsection">
                     <div
                       id="otp"
@@ -250,7 +250,7 @@ function Verifyotp() {
                 <img
                   className="w-100 h-100"
                   src="assets/img/signin/login.jpg"
-                  alt
+                  
                 />
               </div>
             </div>

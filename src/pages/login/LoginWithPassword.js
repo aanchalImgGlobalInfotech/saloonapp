@@ -48,7 +48,7 @@ const LoginWithPassword = () => {
               <div className="text-center text-md-start leftsidesection px-0 px-xl-5 mx-xl5 mx-0">
                 <div className="d-flex align-items-center justify-content-center justify-content-md-start hedtext mb-4">
                   <span className="pe-2">
-                    <img src="assets/img/signin/iconimage.png" alt />
+                    <img src="assets/img/signin/iconimage.png"  />
                   </span>
                   Saloon
                 </div>
@@ -124,7 +124,7 @@ const LoginWithPassword = () => {
                 <img
                   className="w-100 h-100"
                   src="assets/img/signin/login.jpg"
-                  alt
+                  
                 />
               </div>
             </div>
