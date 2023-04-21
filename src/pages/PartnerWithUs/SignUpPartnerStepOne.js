@@ -11,7 +11,7 @@ import * as Yup from "yup";
 
 const SignUpPartnerStepOne = () => {
   let location=useLocation()
-  const[userData,setUserData]=useState(location?.state[0])
+  const[userData,setUserData]=useState(location?.state?location.state[0]:'')
   let navigate = useNavigate();
   const[initialValues,setInitialValues]=useState({
     yourService:'',

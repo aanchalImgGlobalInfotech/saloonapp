@@ -55,6 +55,8 @@ function Services({ couponid }) {
   const search = useSelector((state) => state.search);
   const [Filterdata, setFilterData] = useState([]);
   const [searchdata, setsearchData] = useState("");
+  const [servicepackageid, setsevicepackageid] = useState("");
+  const [saloonpackageid, setsaloonpackageid] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const whishdata = localStorage.getItem("whishlistId");
@@ -120,9 +122,12 @@ function Services({ couponid }) {
     addressType: "",
     dataCheck: false,
   });
+
   const EditId = async (id, parentId) => {
     let saloonId = Data[0]?._id;
-    const res = await getData(`add-cart?saloonId=${saloonId}&serviceId=${id}`);
+    const res = await getData(
+      `add-cart?saloonId=${saloonId ? saloonId : ""}&serviceId=${id ? id : ""}`
+    );
     if (res.status) {
       getcartApi();
       const cat = parentId?.parent_Name || categoryId;
@@ -1165,7 +1170,6 @@ function Services({ couponid }) {
                   </div>
 
                   <CartAdd
-                    subdata={ser}
                     Cartdata={Cartdata}
                     serviceId={serviceId}
                     Cartfun={Cartfun}

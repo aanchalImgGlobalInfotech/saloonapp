@@ -44,7 +44,6 @@ const Packeges = () => {
                   <img
                     className="rounded-3 w-100"
                     src="/assets/img/index/image1card.jpg"
-                    
                   />
                 </div>
               </div>
@@ -55,7 +54,6 @@ const Packeges = () => {
                   <img
                     className="rounded-3 w-100"
                     src="/assets/img/index/image2card.jpeg"
-                    
                   />
                 </div>
               </div>
@@ -66,7 +64,6 @@ const Packeges = () => {
                   <img
                     className="rounded-3 w-100"
                     src="/assets/img/index/image3card.jpg"
-                    
                   />
                 </div>
               </div>
@@ -77,7 +74,6 @@ const Packeges = () => {
                   <img
                     className=" rounded-3 w-100"
                     src="/assets/img/index/image4card.jpg"
-                    
                   />
                 </div>
               </div>
@@ -103,7 +99,7 @@ const Packeges = () => {
                             data-bs-target="#offcanvasFilter"
                             aria-controls="offcanvasFilter"
                           >
-                            <img src="assets/img/icon/filter.svg"  />
+                            <img src="assets/img/icon/filter.svg" />
                           </button>
                         </div>
                         <div className="col-10 col-sm">
@@ -112,7 +108,7 @@ const Packeges = () => {
                             id="myTab"
                             role="tablist"
                           >
-                            {PackagesTab?.map((item,i) => {
+                            {PackagesTab?.map((item, i) => {
                               return (
                                 <li
                                   className="nav-item border-end border-theme1 m-0"
@@ -154,7 +150,7 @@ const Packeges = () => {
                           tabIndex={0}
                         >
                           <div className="row allSaloon gap-3">
-                            {packages?.map((item,i) => {
+                            {packages?.map((item, i) => {
                               return (
                                 <div className="col-12" key={i}>
                                   <div className="saloonDetail">
@@ -172,7 +168,6 @@ const Packeges = () => {
                                                       : ""
                                                     : ""
                                                 }
-                                                
                                               />
                                             </div>
                                           </div>
@@ -189,7 +184,6 @@ const Packeges = () => {
                                                 <img
                                                   className="w-100"
                                                   src="assets/img/icon/distanceIcon.svg"
-                                                  
                                                 />
                                               </span>
                                               <span>458 m</span>
@@ -200,26 +194,34 @@ const Packeges = () => {
                                       <div className="col-12">
                                         <div className="packages px-3 bg-black rounded-4">
                                           <div className="row mx-0">
-                                            {item?.ServicesDitail.map(
-                                              (innerItem,i) => {
+                                            {item?.service?.map(
+                                              (innerItem, i) => {
                                                 return (
-                                                  <div className="col-12 package py-sm-3 py-2 px-0" key={i}>
+                                                  <div
+                                                    className="col-12 package py-sm-3 py-2 px-0"
+                                                    key={i}
+                                                  >
                                                     <div className="row gap-2 gap-sm-0 align-items-center">
                                                       <div className="col-sm-5 packageDetail">
                                                         <div className="packageTitle fs-14 text-white">
                                                           {
-                                                            innerItem?.PackageName
+                                                            innerItem?.packageName
                                                           }
                                                         </div>
-                                                        <div className="packageDec">
-                                                          {innerItem?.Services?.map(
-                                                            (services,i) => {
+                                                        <div className="packageDec mt-3">
+                                                          {innerItem?.ServicesName?.map(
+                                                            (services, i) => {
                                                               return (
-                                                                <span key={i}>
-                                                                  {
-                                                                    services?.ServiceName
-                                                                  }
-                                                                </span>
+                                                                <React.Fragment
+                                                                  key={i}
+                                                                >
+                                                                  <span>
+                                                                    {
+                                                                      services?.ServiceName
+                                                                    }
+                                                                  </span>
+                                                                  <span>,</span>
+                                                                </React.Fragment>
                                                               );
                                                             }
                                                           )}
@@ -233,12 +235,14 @@ const Packeges = () => {
                                                                 <img
                                                                   className="w-100"
                                                                   src="assets/img/icon/clockBorderd.svg"
-                                                                  
                                                                 />
                                                               </div>
                                                               <span>
-                                                                120 min
+                                                                {
+                                                                  innerItem?.packageServiceTime
+                                                                }
                                                               </span>
+                                                              <span> Min</span>
                                                             </div>
                                                           </div>
                                                           <div className="col d-flex justify-content-sm-center">
@@ -246,29 +250,34 @@ const Packeges = () => {
                                                               <div className="oldPrice fs-12 text-white">
                                                                 ₹{" "}
                                                                 {
-                                                                  innerItem?.Amount
+                                                                  innerItem?.packagePrice
                                                                 }
                                                               </div>
                                                               <div className="newPrice fs-16 text-white">
                                                                 ₹{" "}
                                                                 {
-                                                                  innerItem?.finalPrice
+                                                                  innerItem?.packageFinalPrice
                                                                 }
                                                               </div>
                                                             </div>
                                                           </div>
                                                           <div className="col-auto">
                                                             <div className="addCart inc-dec-item bg-theme1 rounded-1 overflow-hidden d-flex flex-sm-column align-items-center justify-content-center">
-                                                              <button className="btn btn-theme1 rounded-0 p-0 removeToCartBtn text-white border-0 d-none">
-                                                                -
+                                                              <button
+                                                                className="btn btn-theme1 rounded-0 p-0 removeToCartBtn text-white border-0 d-none"
+                                                              
+                                                              >
+                                                                +
                                                               </button>
                                                               <input
                                                                 type="text"
                                                                 className="form-control border-theme1 rounded-0 fs-12 p-0 text-center py-1 d-none itemValue"
                                                                 defaultValue={1}
                                                               />
-                                                              <button className="btn btn-theme1 rounded-0 p-0 addToCartBtn text-white border-0">
-                                                                +
+                                                              <button
+                                                                className="btn btn-theme1 rounded-0 p-0 addToCartBtn text-white border-0"
+                                                              >
+                                                                -
                                                               </button>
                                                             </div>
                                                           </div>
@@ -419,7 +428,6 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -451,7 +459,6 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -483,7 +490,6 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -515,7 +521,6 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -547,7 +552,6 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -579,7 +583,6 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                 
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -611,7 +614,6 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |
@@ -643,7 +645,6 @@ const Packeges = () => {
                                 <img
                                   className="w-100 h-100"
                                   src="assets/img/vandorProfile/clock.svg"
-                                  
                                 />
                               </span>
                               <span className="time">30 min </span> |

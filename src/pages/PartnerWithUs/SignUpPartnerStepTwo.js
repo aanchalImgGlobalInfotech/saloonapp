@@ -26,9 +26,10 @@ const SignUpPartnerStepTwo = () => {
   });
   
 
-   let PanNumber= /^([a-zA-Z])([0-9])([a-zA-Z])?$/
-   let GstNumber=/^([0][1-9]|[1-2][0-9]|[3][0-8])[A-Z]{3}[ABCFGHLJPTF]{1}[A-Z]{1}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}/
-   let AccountNumber='[0-9]{9,18}'
+   let PanNumber= /^([a-zA-Z]{5})(\d{4})([a-zA-Z]{1})$/
+   let GstNumber=/\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}/
+   let AccountNumber=/^[0-9]{9,18}$/
+   let ifscCode="^[A-Z]{4}[0][A-Z0-9]{6}$"
 
    const validationschema = yup.object().shape({
     // contactNumber: yup
@@ -39,15 +40,15 @@ const SignUpPartnerStepTwo = () => {
 
     panNumber: yup
         .string()
-        .required("Enter your PAN "),
+        .required("Enter your PAN ").matches(PanNumber, "Please enter a valid PAN Number"),
         
         gstNumber: yup
         .string()
-        .required("Enter your GST number"),
+        .required("Enter your GST number").matches(GstNumber, "Please enter a valid GST Number"),
         
         accountNumber: yup
         .string()
-        .required("Enter your account number"),
+        .required("Enter your account number").matches(AccountNumber, "Please enter a valid Account Number"),
       
         bankName: Yup.string()
       .min(2, "Too Short!")
@@ -58,7 +59,7 @@ const SignUpPartnerStepTwo = () => {
       .max(20, "Too Long!")
       .required("Please Enter Account Holder Name"),
       branchName: Yup.string().required("Please Enter branchName"),
-      ifscCode: Yup.string().required("Please Enter ifscCode"),
+      ifscCode: Yup.string().required("Please Enter ifscCode").matches(ifscCode, "Please enter a correct IFSC."),
       kyc: Yup.string().required("Please Enter kyc "),
   
       
@@ -226,6 +227,13 @@ const SignUpPartnerStepTwo = () => {
                                     Bank Name
                                   </label>
                                   <Field
+                                    type="text"
+                                    className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none"
+                                    id="gstNumber"
+                                    placeholder="Bank Name"
+                                    name='bankName'
+                                  />
+                                  {/* <Field
                                     className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
                                     aria-label="Bank Name"
                                     as='select'
@@ -235,7 +243,7 @@ const SignUpPartnerStepTwo = () => {
                                     <option value='State Bank'>State Bank</option>
                                     <option value='HDFC Bank'>HDFC Bank</option>
                                     <option value='ICICI Bank'>ICICI Bank</option>
-                                  </Field>
+                                  </Field> */}
                                 </div>
                                 <p className="text-danger text-start">
                                   {formik.touched.bankName && formik.errors.bankName
@@ -251,17 +259,13 @@ const SignUpPartnerStepTwo = () => {
                                   >
                                     Branch Name
                                   </label>
-                                 <Field
-                                    className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
-                                    aria-label="Bank Name"
-                                    as='select'
+                                  <Field
+                                    type="text"
+                                    className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none"
+                                    id="Branch Name"
+                                    placeholder="Branch Name"
                                     name='branchName'
-                                  >
-                                    <option selected>Select Branch</option>
-                                    <option value='Delhi'>Delhi</option>
-                                    <option value='Mumbai'>Mumbai</option>
-                                    <option value='Pune'>Pune</option>
-                                  </Field>
+                                  />
                                 </div>
                                 <p className="text-danger text-start">
                                   {formik.touched.branchName && formik.errors.branchName

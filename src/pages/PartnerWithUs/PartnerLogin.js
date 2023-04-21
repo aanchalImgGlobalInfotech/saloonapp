@@ -16,7 +16,7 @@ const PartnerLogin = () => {
         <div className="container">
           <div className="mainInner">
             <div className="row">
-              <div className="col-lg-8">
+              <div className="col-lg-8 order-2 order-sm-1">
                 <div className="decriptionOuter">
                   <div className="row gap-3">
                     <div className="col-12">
@@ -129,7 +129,7 @@ const PartnerLogin = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-4 d-none d-lg-block">
+              <div className="col-lg-4 order-1 order-sm-2 ">
                 <div className="formOuter position-sticky">
                   <div className="row gap-3">
                     <div className="col-12">
