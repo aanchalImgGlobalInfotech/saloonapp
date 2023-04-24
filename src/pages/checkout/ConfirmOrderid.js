@@ -13,7 +13,7 @@ function ConfirmOrderid() {
       <HeaderHome />
       <section className="container-fluid orderId py-5 ">
         <div className="container mt-5">
-          <div className="row justify-content-center">
+          <div className="row justify-content-center">  
             <div className="col-lg-8">
               <div className="card shadow border-0 text-center">
                 <div className="cardBody p-4 text-center">

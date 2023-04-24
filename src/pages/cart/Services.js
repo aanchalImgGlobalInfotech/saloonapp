@@ -260,6 +260,9 @@ function Services({ couponid }) {
     setsearchData(data);
   };
 
+  const callNow = (number) => {
+    document.location.href = `tel:+${number}`;
+  };
   const addreview = async () => {
     let saloonId = Data[0]?._id;
     var body = {
@@ -564,6 +567,7 @@ function Services({ couponid }) {
                               <button
                                 type="button"
                                 className="btn bg-theme2 text-white"
+                                onClick={() => callNow("8953286101")}
                               >
                                 <img
                                   src="assets/img/vandorProfile/phone.svg"

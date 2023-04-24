@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Footer from "../../common/layout/footer/footer";
 import Footer2 from "../../common/layout/footer/Footer2 ";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData } from "../../components/apiinstance/Api";
+import { packageSaloonId } from "../../components/redux/redux1/actions";
 
 const Packeges = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const [PackagesId, setPackagesId] = useState(location.state.id);
   const [PackagesTab, setPackagesTab] = useState([]);
   const [packages, setPackage] = useState([]);
+  const [saloonId, setSaloonId] = useState("");
+  const [count, setCount] = useState(1);
+  const [cartData, setCartData] = useState([]);
+  const [cartId, setCartId] = useState("");
+  const packageSaloonIds = useSelector((state) => state.packageSaloonId);
   const getPackageTab = async () => {
     const res = await getData("getCategoryListing?type=pakeges");
     setPackagesTab(res.data);
@@ -26,7 +34,38 @@ const Packeges = () => {
     getPackageTab();
   }, []);
 
-  console.log(packages);
+  const addToCart = async (saloonid, serviceId) => {
+    const res = await getData(
+      `add-cart?saloonId=${packageSaloonIds}&serviceId=${serviceId}`
+    );
+    console.log(res, "from add to cart");
+    setSaloonId(saloonid);
+    setCount(count + 1);
+  };
+
+  const getCartData = async () => {
+    const res = await getData(`get-cart?saloonId=${packageSaloonIds}`);
+    console.log(res, "this is cartttt");
+    setCartData(res?.data[0]?.cart);
+    setCartId(res.data[0]?.cart[0]._id);
+  };
+
+  useEffect(() => {
+    getCartData();
+    getPackages();
+  }, [count]);
+
+  const removeCart = async (serviceId, cartId) => {
+    const res = await getData(
+      `remove-service-from-cart/?id=${cartId}&serviceId=${serviceId}`
+    );
+    if (res.status == true) {
+      getCartData();
+    }
+    console.log(res);
+  };
+
+  console.log(cartData);
   return (
     <>
       <HeaderHome />
@@ -151,6 +190,7 @@ const Packeges = () => {
                         >
                           <div className="row allSaloon gap-3">
                             {packages?.map((item, i) => {
+                              console.log(item);
                               return (
                                 <div className="col-12" key={i}>
                                   <div className="saloonDetail">
@@ -196,6 +236,10 @@ const Packeges = () => {
                                           <div className="row mx-0">
                                             {item?.service?.map(
                                               (innerItem, i) => {
+                                                console.log(
+                                                  innerItem,
+                                                  "this iii"
+                                                );
                                                 return (
                                                   <div
                                                     className="col-12 package py-sm-3 py-2 px-0"
@@ -265,17 +309,51 @@ const Packeges = () => {
                                                             <div className="addCart inc-dec-item bg-theme1 rounded-1 overflow-hidden d-flex flex-sm-column align-items-center justify-content-center">
                                                               <button
                                                                 className="btn btn-theme1 rounded-0 p-0 removeToCartBtn text-white border-0 d-none"
-                                                              
+                                                                onClick={() => {
+                                                                  addToCart(
+                                                                    item.saloon
+                                                                      ? item
+                                                                          .saloon[0]
+                                                                          ?._id
+                                                                        ? item
+                                                                            .saloon[0]
+                                                                            ?._id
+                                                                        : ""
+                                                                      : "",
+                                                                    innerItem?._id
+                                                                  );
+                                                                  dispatch(
+                                                                    packageSaloonId(
+                                                                      item.saloon
+                                                                        ? item
+                                                                            .saloon[0]
+                                                                            ?._id
+                                                                          ? item
+                                                                              .saloon[0]
+                                                                              ?._id
+                                                                          : ""
+                                                                        : ""
+                                                                    )
+                                                                  );
+                                                                }}
                                                               >
                                                                 +
                                                               </button>
                                                               <input
                                                                 type="text"
                                                                 className="form-control border-theme1 rounded-0 fs-12 p-0 text-center py-1 d-none itemValue"
-                                                                defaultValue={1}
+                                                                defaultValue={
+                                                                  innerItem?.Quantity_In_Cart
+                                                                }
                                                               />
                                                               <button
                                                                 className="btn btn-theme1 rounded-0 p-0 addToCartBtn text-white border-0"
+                                                                onClick={() =>
+                                                                  removeCart(
+                                                                    innerItem?._id,
+                                                                    cartId
+                                                                  )
+                                                                }
                                                               >
                                                                 -
                                                               </button>
@@ -418,259 +496,63 @@ const Packeges = () => {
                       tabIndex={0}
                     >
                       <div className="addContentt px-2 mb-3">
-                        <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
-                          <div className="col-6 leftSideContent">
-                            <div className="carditemHeading">
-                              Full Body Bleach
-                            </div>
-                            <div className="imagetimegender ">
-                              <span className="image">
-                                <img
-                                  className="w-100 h-100"
-                                  src="assets/img/vandorProfile/clock.svg"
-                                />
-                              </span>
-                              <span className="time">30 min </span> |
-                              <span className="gender">Female</span>
-                            </div>
-                          </div>
-                          <div className="col-6 rightSideContent">
-                            <div className="d-flex align-items-center justify-content-around">
-                              <div className="text-decoration-line-through discount">
-                                ₹1500
+                        {cartData?.map((cartItem) => {
+                          console.log(cartItem, "sonu");
+                          return (
+                            <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
+                              <div className="col-6 leftSideContent">
+                                <div className="carditemHeading">
+                                  {cartItem?.cartdata?.ServiceName}
+                                </div>
+                                <div className="imagetimegender ">
+                                  <span className="image">
+                                    <img
+                                      className="w-100 h-100"
+                                      src="assets/img/vandorProfile/clock.svg"
+                                    />
+                                  </span>
+                                  <span className="time">
+                                    {cartItem?.cartdata?.timePeriod_in_minits}
+                                  </span>{" "}
+                                  |<span className="gender">Female</span>
+                                </div>
                               </div>
-                              <div className="payment">₹1275</div>
-                              <button className="btn border-0 p-0 removebtn">
-                                <img
-                                  src="assets/img/vandorProfile/remove.svg"
-                                  alt="cross"
-                                />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
-                          <div className="col-6 leftSideContent">
-                            <div className="carditemHeading">
-                              Full Body Bleach
-                            </div>
-                            <div className="imagetimegender ">
-                              <span className="image">
-                                <img
-                                  className="w-100 h-100"
-                                  src="assets/img/vandorProfile/clock.svg"
-                                />
-                              </span>
-                              <span className="time">30 min </span> |
-                              <span className="gender">Female</span>
-                            </div>
-                          </div>
-                          <div className="col-6 rightSideContent">
-                            <div className="d-flex align-items-center justify-content-around">
-                              <div className="text-decoration-line-through discount">
-                                ₹1500
+                              <div className="col-6 rightSideContent">
+                                <div className="d-flex align-items-center justify-content-around">
+                                  <div className="text-decoration-line-through discount">
+                                    ₹{cartItem?.cartdata?.ServicePrice}
+                                  </div>
+                                  <div className="payment">
+                                    ₹ {cartItem?.cartdata?.Amount}
+                                  </div>
+                                  <button
+                                    className="btn border-0 p-0 removebtn"
+                                    onClick={() =>
+                                      removeCart(
+                                        cartItem?.cartdata?.serviceId,
+                                        cartItem?._id
+                                      )
+                                    }
+                                  >
+                                    <img
+                                      src="assets/img/vandorProfile/remove.svg"
+                                      alt="cross"
+                                    />
+                                  </button>
+                                </div>
                               </div>
-                              <div className="payment">₹1275</div>
-                              <button className="btn border-0 p-0 removebtn">
-                                <img
-                                  src="assets/img/vandorProfile/remove.svg"
-                                  alt="cross"
-                                />
-                              </button>
                             </div>
-                          </div>
-                        </div>
-                        <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
-                          <div className="col-6 leftSideContent">
-                            <div className="carditemHeading">
-                              Full Body Bleach
-                            </div>
-                            <div className="imagetimegender ">
-                              <span className="image">
-                                <img
-                                  className="w-100 h-100"
-                                  src="assets/img/vandorProfile/clock.svg"
-                                />
-                              </span>
-                              <span className="time">30 min </span> |
-                              <span className="gender">Female</span>
-                            </div>
-                          </div>
-                          <div className="col-6 rightSideContent">
-                            <div className="d-flex align-items-center justify-content-around">
-                              <div className="text-decoration-line-through discount">
-                                ₹1500
-                              </div>
-                              <div className="payment">₹1275</div>
-                              <button className="btn border-0 p-0 removebtn">
-                                <img
-                                  src="assets/img/vandorProfile/remove.svg"
-                                  alt="cross"
-                                />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
-                          <div className="col-6 leftSideContent">
-                            <div className="carditemHeading">
-                              Full Body Bleach
-                            </div>
-                            <div className="imagetimegender ">
-                              <span className="image">
-                                <img
-                                  className="w-100 h-100"
-                                  src="assets/img/vandorProfile/clock.svg"
-                                />
-                              </span>
-                              <span className="time">30 min </span> |
-                              <span className="gender">Female</span>
-                            </div>
-                          </div>
-                          <div className="col-6 rightSideContent">
-                            <div className="d-flex align-items-center justify-content-around">
-                              <div className="text-decoration-line-through discount">
-                                ₹1500
-                              </div>
-                              <div className="payment">₹1275</div>
-                              <button className="btn border-0 p-0 removebtn">
-                                <img
-                                  src="assets/img/vandorProfile/remove.svg"
-                                  alt="cross"
-                                />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
-                          <div className="col-6 leftSideContent">
-                            <div className="carditemHeading">
-                              Full Body Bleach
-                            </div>
-                            <div className="imagetimegender ">
-                              <span className="image">
-                                <img
-                                  className="w-100 h-100"
-                                  src="assets/img/vandorProfile/clock.svg"
-                                />
-                              </span>
-                              <span className="time">30 min </span> |
-                              <span className="gender">Female</span>
-                            </div>
-                          </div>
-                          <div className="col-6 rightSideContent">
-                            <div className="d-flex align-items-center justify-content-around">
-                              <div className="text-decoration-line-through discount">
-                                ₹1500
-                              </div>
-                              <div className="payment">₹1275</div>
-                              <button className="btn border-0 p-0 removebtn">
-                                <img
-                                  src="assets/img/vandorProfile/remove.svg"
-                                  alt="cross"
-                                />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
-                          <div className="col-6 leftSideContent">
-                            <div className="carditemHeading">
-                              Full Body Bleach
-                            </div>
-                            <div className="imagetimegender ">
-                              <span className="image">
-                                <img
-                                  className="w-100 h-100"
-                                  src="assets/img/vandorProfile/clock.svg"
-                                />
-                              </span>
-                              <span className="time">30 min </span> |
-                              <span className="gender">Female</span>
-                            </div>
-                          </div>
-                          <div className="col-6 rightSideContent">
-                            <div className="d-flex align-items-center justify-content-around">
-                              <div className="text-decoration-line-through discount">
-                                ₹1500
-                              </div>
-                              <div className="payment">₹1275</div>
-                              <button className="btn border-0 p-0 removebtn">
-                                <img
-                                  src="assets/img/vandorProfile/remove.svg"
-                                  alt="cross"
-                                />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
-                          <div className="col-6 leftSideContent">
-                            <div className="carditemHeading">
-                              Full Body Bleach
-                            </div>
-                            <div className="imagetimegender ">
-                              <span className="image">
-                                <img
-                                  className="w-100 h-100"
-                                  src="assets/img/vandorProfile/clock.svg"
-                                />
-                              </span>
-                              <span className="time">30 min </span> |
-                              <span className="gender">Female</span>
-                            </div>
-                          </div>
-                          <div className="col-6 rightSideContent">
-                            <div className="d-flex align-items-center justify-content-around">
-                              <div className="text-decoration-line-through discount">
-                                ₹1500
-                              </div>
-                              <div className="payment">₹1275</div>
-                              <button className="btn border-0 p-0 removebtn">
-                                <img
-                                  src="assets/img/vandorProfile/remove.svg"
-                                  alt="cross"
-                                />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
-                          <div className="col-6 leftSideContent">
-                            <div className="carditemHeading">
-                              Full Body Bleach
-                            </div>
-                            <div className="imagetimegender ">
-                              <span className="image">
-                                <img
-                                  className="w-100 h-100"
-                                  src="assets/img/vandorProfile/clock.svg"
-                                />
-                              </span>
-                              <span className="time">30 min </span> |
-                              <span className="gender">Female</span>
-                            </div>
-                          </div>
-                          <div className="col-6 rightSideContent">
-                            <div className="d-flex align-items-center justify-content-around">
-                              <div className="text-decoration-line-through discount">
-                                ₹1500
-                              </div>
-                              <div className="payment">₹1275</div>
-                              <button className="btn border-0 p-0 removebtn">
-                                <img
-                                  src="assets/img/vandorProfile/remove.svg"
-                                  alt="cross"
-                                />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
+                          );
+                        })}
                       </div>
                       <div className="row mx-0 py-2 justify-content-between text-black footer border-top rounded-0 bg-light">
                         <div className="col-4">
-                          <div className="totalitems">11 items</div>
-                          <div className="paymenttotal">₹4037</div>
+                          <div className="totalitems">
+                            {cartData?.length} items
+                          </div>
+                          <div className="paymenttotal">
+                            ₹{cartData ? cartData[0]?.totalamount : 0}
+                          </div>
                         </div>
                         <div className="col-8 text-end">
                           <div className="buttonfooter">
