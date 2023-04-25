@@ -26,6 +26,7 @@ const Packeges = () => {
   const getPackages = async () => {
     const res = await getData(`get-service-Package?categoryId=${PackagesId}`);
     setPackage(res.data);
+    console.log(res);
   };
   useEffect(() => {
     getPackages();
@@ -36,11 +37,15 @@ const Packeges = () => {
 
   const addToCart = async (saloonid, serviceId) => {
     const res = await getData(
-      `add-cart?saloonId=${packageSaloonIds}&serviceId=${serviceId}`
+      `add-cart?saloonId=${saloonid}&serviceId=${serviceId}`
     );
+    if (res.status == true) {
+      getCartData();
+      getPackages();
+    }
     console.log(res, "from add to cart");
+    console.log(packageSaloonIds, "thisisisisiisis");
     setSaloonId(saloonid);
-    setCount(count + 1);
   };
 
   const getCartData = async () => {
@@ -56,16 +61,21 @@ const Packeges = () => {
   }, [count]);
 
   const removeCart = async (serviceId, cartId) => {
+    console.log(cartId);
     const res = await getData(
       `remove-service-from-cart/?id=${cartId}&serviceId=${serviceId}`
     );
     if (res.status == true) {
       getCartData();
+      getPackages();
     }
-    console.log(res);
   };
 
-  console.log(cartData);
+  let saloonData = JSON.parse(localStorage.getItem("saloonData"));
+  let saloonStoreID = saloonData?._id;
+  let saloonStartTime = saloonData?.ProfileInfo?.starting_time;
+  let saloonEndTime = saloonData?.ProfileInfo?.ending_time;
+
   return (
     <>
       <HeaderHome />
@@ -190,7 +200,7 @@ const Packeges = () => {
                         >
                           <div className="row allSaloon gap-3">
                             {packages?.map((item, i) => {
-                              console.log(item);
+                              //console.log(item)
                               return (
                                 <div className="col-12" key={i}>
                                   <div className="saloonDetail">
@@ -236,10 +246,7 @@ const Packeges = () => {
                                           <div className="row mx-0">
                                             {item?.service?.map(
                                               (innerItem, i) => {
-                                                console.log(
-                                                  innerItem,
-                                                  "this iii"
-                                                );
+                                                //console.log(innerItem,'this iii')
                                                 return (
                                                   <div
                                                     className="col-12 package py-sm-3 py-2 px-0"
@@ -335,17 +342,32 @@ const Packeges = () => {
                                                                         : ""
                                                                     )
                                                                   );
+                                                                  setCount(
+                                                                    count + 1
+                                                                  );
+                                                                  localStorage.setItem(
+                                                                    "saloonData",
+                                                                    JSON.stringify(
+                                                                      item.saloon
+                                                                        ? item
+                                                                            .saloon[0]
+                                                                        : null
+                                                                    )
+                                                                  );
                                                                 }}
                                                               >
                                                                 +
                                                               </button>
-                                                              <input
+                                                              {/* <input
                                                                 type="text"
                                                                 className="form-control border-theme1 rounded-0 fs-12 p-0 text-center py-1 d-none itemValue"
-                                                                defaultValue={
-                                                                  innerItem?.Quantity_In_Cart
-                                                                }
-                                                              />
+                                                                defaultValue={innerItem?.Quantity_In_Cart}
+                                                              /> */}
+                                                              <span className="form-control border-theme1 rounded-0 fs-12 p-0 text-center py-1 d-none itemValue">
+                                                                {innerItem
+                                                                  ? innerItem?.Quantity_In_Cart
+                                                                  : ""}
+                                                              </span>
                                                               <button
                                                                 className="btn btn-theme1 rounded-0 p-0 addToCartBtn text-white border-0"
                                                                 onClick={() =>
@@ -497,7 +519,7 @@ const Packeges = () => {
                     >
                       <div className="addContentt px-2 mb-3">
                         {cartData?.map((cartItem) => {
-                          console.log(cartItem, "sonu");
+                          //console.log(cartItem,'sonu')
                           return (
                             <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
                               <div className="col-6 leftSideContent">
@@ -841,14 +863,14 @@ const Packeges = () => {
                         </div>
                         <div className="col-xl-6 col text-xl-center text-end">
                           <div className="buttonfooter">
-                            <a
+                            {/* <a
                               role="button"
                               className="text-theme1 text-decoration-none fs-14 me-2 me-xl-0"
                               data-bs-toggle="modal"
                               data-bs-target="#saloonAtHome"
                             >
                               Saloon at Home
-                            </a>
+                            </a> */}
                             <button className=" btn border-0  shadow-none bg-theme2 text-white rounded-3 Schedulebtn mt-xl-2">
                               Proceed to checkout
                             </button>

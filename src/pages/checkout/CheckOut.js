@@ -21,17 +21,24 @@ const CheckOut = ({ setCouponID }) => {
   const [couponamount, setCouponAmount] = useState("");
   const [PayId, setPayId] = useState("");
   const [PaymentId, setPaymentId] = useState("");
-  console.log('kkkkkkk',arr)
+  console.log("kkkkkkk", arr);
   const navigate = useNavigate();
-  
+
   const cheoutpage = async (id) => {
     console.log("hhhhhhhh");
-    const path = `Checkout?saloonId=${
-      value[0]?._id ? value[0]?._id : ""
-    }&couponId=${id ? id : ""}`;
-    const res = await getData(path);
-    setCouponAmount(res.data[0]?.finalTotalAmount);
-    SetCouponData(res.data);
+    if (id) {
+      const path = `Checkout?saloonId=${
+        value[0]?._id ? value[0]?._id : ""
+      }&couponId=${id ? id : ""}`;
+      const res = await getData(path);
+      setCouponAmount(res.data[0]?.finalTotalAmount);
+      SetCouponData(res.data);
+    } else {
+      const path = `Checkout?saloonId=${
+        value[0]?._id ? value[0]?._id : ""
+      }&balance=${true}`;
+      const res = await getData(path);
+    }
   };
 
   const CreateRazor = async (data) => {
@@ -46,9 +53,9 @@ const CheckOut = ({ setCouponID }) => {
     console.log("paaaaaaaaaaaayyee", res.data[0]?._id);
     await plan(res.data[0]?._id, res.data[0]?.orderData?.id);
   };
- console.log('arrarrarr', arr)
- const cartId = localStorage.getItem('cartid')
-  console.log('cartidcartidcartid', cartId)
+  console.log("arrarrarr", arr);
+  const cartId = localStorage.getItem("cartid");
+  console.log("cartidcartidcartid", cartId);
   function loadScript(src) {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -82,7 +89,9 @@ const CheckOut = ({ setCouponID }) => {
         };
         console.log("response", response);
 
-        const resorder = await getData(`order?PaymentId=${id}&cartId=${cartId ? cartId : ''}`);
+        const resorder = await getData(
+          `order?PaymentId=${id}&cartId=${cartId ? cartId : ""}`
+        );
         const path = `api/payment/verify?orderId=${resorder.data[0]?._id}`;
         const res = await postData(path, body);
         console.log("resssssssssPAyyyemnette", res.data);
@@ -106,9 +115,13 @@ const CheckOut = ({ setCouponID }) => {
     setCoupon(res.data);
   };
   const ConfirmOrderid = () => {
-    navigate('/orderId')
-    
-  }
+    navigate("/orderId");
+  };
+  // const walletbalanced = async() => {
+  //   const path = `Checkout?saloonId=${ value[0]?._id ? value[0]?._id : ""}&balance=${true}`
+  //   const res = await getData(path);
+  //   console.log('uuuuuu', res.data)
+  // }
   return (
     <>
       <div>
@@ -123,10 +136,15 @@ const CheckOut = ({ setCouponID }) => {
                   <div className="col">
                     <div className="pageHeading text-white">Checkout</div>
                   </div>
-                  {arr[0]?.userAddress ?
-                  (<div className="col-auto">
-                    <div className="miniheading text-white">Saloon at Home</div>
-                  </div>) : ""}
+                  {arr[0]?.userAddress ? (
+                    <div className="col-auto">
+                      <div className="miniheading text-white">
+                        Saloon at Home
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
               <div className="col-12">
@@ -223,72 +241,74 @@ const CheckOut = ({ setCouponID }) => {
                         </div>
                       </div>
                     </div>
-                    { arr[0]?.userAddress ? (
-                       <div className="col-xl-4 col-lg-5 col-md-6">
-                       <div className="bookingDetail p-3 rounded-4 overflow-hidden d-flex flex-column gap-3 border border-gray text-opacity-75 h-100">
-                         <div className="row">
-                           <div className="col-sm-3 col-4">
-                             <div className="title text-white text-opacity-50">
-                             House-no :
-                             </div>
-                           </div>
-                           <div className="col">
-                             <div className="dec text-white">
-                               {arr[0]?.userAddress?.houseNumber}
-                             </div>
-                           </div>
-                         </div>
-                         <div className="row">
-                           <div className="col-sm-3 col-4">
-                             <div className="title text-white text-opacity-50">
-                             Area :
-                             </div>
-                           </div>
-                           <div className="col">
-                             <div className="dec text-white">{arr[0]?.userAddress?.Area}</div>
-                           </div>
-                         </div>
-                         <div className="row">
-                           <div className="col-sm-3 col-4">
-                             <div className="title text-white text-opacity-50">
-                             City :
-                             </div>
-                           </div>
-                           <div className="col">
-                             <div className="dec text-white">
-                             {arr[0]?.userAddress?.city}
-                             </div>
-                           </div>
-                         </div>
-                         <div className="row">
-                           <div className="col-sm-3 col-4">
-                             <div className="title text-white text-opacity-50">
-                             Pincode :
-                             </div>
-                           </div>
-                           <div className="col">
-                             <div className="dec text-white">
-                             {arr[0]?.userAddress?.pincode}
-                             </div>
-                           </div>
-                         </div>
-                         <div className="row">
-                           <div className="col-sm-3 col-4">
-                             <div className="title text-white text-opacity-50">
-                             State :
-                             </div>
-                           </div>
-                           <div className="col">
-                             <div className="dec text-white">
-                             {arr[0]?.userAddress?.state}
-                             </div>
-                           </div>
-                         </div>
-                       </div>
-                     </div>
-                    ) :
-                    ''}
-                   
+                    {arr[0]?.userAddress ? (
+                      <div className="col-xl-4 col-lg-5 col-md-6">
+                        <div className="bookingDetail p-3 rounded-4 overflow-hidden d-flex flex-column gap-3 border border-gray text-opacity-75 h-100">
+                          <div className="row">
+                            <div className="col-sm-3 col-4">
+                              <div className="title text-white text-opacity-50">
+                                House-no :
+                              </div>
+                            </div>
+                            <div className="col">
+                              <div className="dec text-white">
+                                {arr[0]?.userAddress?.houseNumber}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-sm-3 col-4">
+                              <div className="title text-white text-opacity-50">
+                                Area :
+                              </div>
+                            </div>
+                            <div className="col">
+                              <div className="dec text-white">
+                                {arr[0]?.userAddress?.Area}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-sm-3 col-4">
+                              <div className="title text-white text-opacity-50">
+                                City :
+                              </div>
+                            </div>
+                            <div className="col">
+                              <div className="dec text-white">
+                                {arr[0]?.userAddress?.city}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-sm-3 col-4">
+                              <div className="title text-white text-opacity-50">
+                                Pincode :
+                              </div>
+                            </div>
+                            <div className="col">
+                              <div className="dec text-white">
+                                {arr[0]?.userAddress?.pincode}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-sm-3 col-4">
+                              <div className="title text-white text-opacity-50">
+                                State :
+                              </div>
+                            </div>
+                            <div className="col">
+                              <div className="dec text-white">
+                                {arr[0]?.userAddress?.state}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               </div>
@@ -309,7 +329,6 @@ const CheckOut = ({ setCouponID }) => {
                           <img
                             className="me-2"
                             src="assets/img/icon/PlusCircleIcon.svg"
-                            
                           />{" "}
                           Add More
                         </NavLink>
@@ -334,9 +353,12 @@ const CheckOut = ({ setCouponID }) => {
                           </div>
 
                           {couponData.length
-                            ? couponData[0]?.cart?.map((el,i) => {
+                            ? couponData[0]?.cart?.map((el, i) => {
                                 return (
-                                  <div className="row p-3 mx-0 px-4 border-bottom" key={i}>
+                                  <div
+                                    className="row p-3 mx-0 px-4 border-bottom"
+                                    key={i}
+                                  >
                                     <div className="col px-0">
                                       <div className="services text-white text-opacity-75">
                                         {el.ServiceName}
@@ -350,10 +372,13 @@ const CheckOut = ({ setCouponID }) => {
                                   </div>
                                 );
                               })
-                            : arr[0]?.cart?.map((el,i) => {
+                            : arr[0]?.cart?.map((el, i) => {
                                 console.log("elelelle1111118", el);
                                 return (
-                                  <div className="row p-3 mx-0 px-4 border-bottom" key={i}>
+                                  <div
+                                    className="row p-3 mx-0 px-4 border-bottom"
+                                    key={i}
+                                  >
                                     <div className="col px-0">
                                       <div className="services text-white text-opacity-75">
                                         {el.ServiceName}
@@ -481,20 +506,37 @@ const CheckOut = ({ setCouponID }) => {
                           </div>
                           <div className="otherDetails p-4">
                             <div className="row gap-3">
-                              <div className="col-12">
+                              <div className="col-12 d-flex justify-content-between align-items-center ">
+                                <div className=" text-white d-flex justify-content-between align-items-center">
+                                  <div className="form-check form-check-lg ">
+                                    <input
+                                      type="checkbox"
+                                      className="form-check-input checkinput shadow-none "
+                                      onClick={() => cheoutpage()}
+                                    />
+                                    {/* <label className="form-check-label">
+                                      Checkbox Label
+                                    </label> */}
+                                  </div>
+
+                                  <div className="fs-12 ms-2 text-opacity-75 py-sm-3">
+                                    saloon wallet . <br />
+                                    you are eligible to use: ₹0
+                                  </div>
+                                </div>
+
                                 <div className="fs-12 text-white text-opacity-75 py-sm-3">
                                   Note: The prices are all inclusive of GST
                                 </div>
                               </div>
                               <div className="col-12 mb-4">
-                                <form  className="form">
+                                <form className="form">
                                   <div className="input-group">
                                     <input
                                       type="text"
                                       value={check}
                                       className="form-control shadow-none fs-12"
                                       onChange={(e) => setcheck(e.target.value)}
-                                      
                                       placeholder="Apply Promocode"
                                     />
                                     <button
@@ -530,8 +572,9 @@ const CheckOut = ({ setCouponID }) => {
                                 </button>
                               </div>
                               <div className="col-12">
-                                <button className="btn btn-theme1 shadow-none w-100 text-white fs-14 py-sm-2"
-                                 onClick={()=>  ConfirmOrderid()}
+                                <button
+                                  className="btn btn-theme1 shadow-none w-100 text-white fs-14 py-sm-2"
+                                  onClick={() => ConfirmOrderid()}
                                 >
                                   Pay at Counter
                                 </button>
@@ -584,12 +627,11 @@ const CheckOut = ({ setCouponID }) => {
               <div className="modal-body">
                 <div className="row gap-4">
                   <div className="col-12">
-                    <form  className="form">
+                    <form className="form">
                       <div className="input-group">
                         <input
                           type="text"
                           className="form-control shadow-none fs-12"
-                          
                           value={check}
                           onChange={(e) => setcheck(e.target.value)}
                           placeholder="Enter Coupon Code"
@@ -611,7 +653,7 @@ const CheckOut = ({ setCouponID }) => {
                       </div>
                     </form>
                   </div>
-                  {coupon.map((el,i) => {
+                  {coupon.map((el, i) => {
                     // console.log('elelele',el)
                     return (
                       <div className="col-12" key={i}>
