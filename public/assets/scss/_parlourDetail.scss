@@ -1,0 +1,1637 @@
+@charset "UTF-8";
+
+.cardSection {
+    &.parlour{
+        padding: 100px 0 40px;
+        position: sticky;
+        top: 0;
+        z-index: -1;
+    }
+}
+.offersSlider{
+    & .owl-stage-outer{
+        padding: 0 !important;
+        & .owl-stage {
+            & .owl-item{
+                & .card {
+                    transition: ease-in-out .3s;
+                    &:hover {
+                        transform: scale(1.08);
+                    }
+                    & .card-image {
+                        transform: none !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.parlourMainOuter {
+    & .cardMainOuter {
+        & .cardsOuter {
+            & .sectionHeader {
+                & .customTabs{
+                    & .nav-item {
+                        width: calc(100% / 5);
+                        &:last-child{
+                            border-right: none !important;
+                        }
+                        & .nav-link {
+                            transition: ease-in-out .3s;
+                            &.active {
+                                background-color: $theme1 !important;
+                            }
+                        }
+                    }
+                }
+            }
+            & .allSaloon {
+                overflow: hidden auto;
+                max-height: 430px;
+                & .saloonDetail {
+                    & .saloonProfile{
+                        & .imgOuter {
+                            width: 200px;
+                            height: 120px;
+                            overflow: hidden;
+                            border-radius: 10px;
+                            & img {
+                                height: 100%;
+                                object-fit: cover;
+                                object-position: top center;
+                            }
+                        }
+                        & .saloonName {
+                        }
+                        & .address{
+                            color: darken($white, 25);
+                        }
+                        & .distance {
+                            color: darken($white, 25);
+                            & .icon {
+                                width: 14px;
+                                height: 14px;
+                            }
+                        }
+                    }
+                    & .packages{
+                        & .package {
+                            border-top: 1px solid $theme1;
+                            &:nth-child(1) {
+                                border: none !important;
+                            }
+                            & .packageDetail {
+                                & .packageTitle {
+                                }
+                                & .packageDec {
+                                    font-size: 12px;
+                                    color: darken($white, 25);
+                                }
+                            }
+                            & .timing{
+                                color: darken($white, 25);
+                                & .icon {
+                                    width: 20px;
+                                    height: 20px;
+                                }
+                            }
+                            & .price {
+                                & .oldPrice{
+                                    text-decoration: line-through;
+                                }
+                            }
+                            & .addCart{
+                                width: 40px;
+                                height: 60px;
+                                &.inc-dec-item{
+                                    & .itemValue, & .removeToCartBtn {
+                                        display: block !important;
+                                        height: 20px;
+                                    }
+                                    & .addToCartBtn, & .removeToCartBtn {
+                                        height: 20px;
+                                        font-size: 12px;
+                                    }
+                                }
+                                & .addToCartBtn, & .removeToCartBtn {
+                                    width: 100%;
+                                    height: 100%;
+                                    font-size: 20px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    & .cartOuter{
+        & .innerrighttab {
+            & .navpill {
+                width: 100%;
+                flex-direction: row-reverse !important;
+                border-radius: 15px;
+                padding: 15px 0px;
+
+                & .navItem {
+                    width: 30%;
+
+                    &.active {
+                        & .navLink {
+                            color: $theme1 !important;
+                        }
+
+                        &~.navItem {
+                            & .navLink {
+                                color: $theme1 !important;
+                                border-bottom: 2px dashed green !important;
+
+                                &::before {
+                                    border: 1px solid green;
+                                }
+                            }
+                        }
+                    }
+
+                    & .navLink {
+                        color: #000;
+                        font-size: 14px;
+                        font-weight: 600;
+                        width: 100%;
+                        border-bottom: 2px dashed $theme2;
+                        border-radius: 0;
+                        position: relative;
+                        text-align: center;
+
+
+                        &.active {
+                            background-color: transparent;
+                            color: $theme1;
+                            border-bottom: 2px dashed $theme1;
+                        }
+
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            top: calc(100% - 6px);
+                            left: calc(50% - 6.5px);
+                            width: 12px;
+                            height: 12px;
+                            border-radius: 50%;
+                            background-color: green;
+                            border: 1px solid #000;
+                        }
+                    }
+                }
+            }
+
+            & .cartside {
+                & .addContentt {
+                    height: 320px;
+                    overflow: hidden auto;
+
+                    & .leftSideContent {
+                        & .carditemHeading {
+                            font-size: 13px;
+                            font-weight: 500;
+                            color: $white;
+                            line-height: 18px;
+                        }
+
+                        & .imagetimegender {
+                            display: flex;
+                            align-items: center;
+                            color: $white;
+                            gap: 0.6rem;
+
+                            & .image {
+                                width: 10px;
+                                display: flex;
+                                height: 10px;
+                            }
+
+                            & .time {
+                                font-size: 12px;
+                                font-weight: 400;
+                                color: $white
+                            }
+
+                            & .gender {
+                                font-size: 12px;
+                                font-weight: 400;
+                            }
+                        }
+
+                    }
+
+                    & .rightSideContent {
+                        & .discount {
+                            font-size: 13px;
+                            font-weight: 400;
+                            color: $white
+                        }
+
+                        & .payment {
+                            font-size: 14px;
+                            font-weight: 600;
+                            color: $white
+                        }
+
+                        & .removebtn {
+                            box-shadow: none;
+
+                            &:active {}
+                        }
+                    }
+                }
+
+                & .footer {
+                    background: #f0f0f0;
+                    border-radius: 15px;
+                    padding: 15px 0px !important;
+
+                    & .totalitems {
+                        font-size: 11px;
+                        font-weight: 500;
+                        color: #070707;
+                    }
+
+                    & .paymenttotal {
+                        font-size: 19px;
+                        font-weight: 600;
+                    }
+
+                    & .buttonfooter {
+                        & .Schedulebtn {
+                            font-size: 11px;
+                            font-weight: 400;
+                            padding: 10px 22px;
+                        }
+                    }
+                }
+            }
+
+            & .Schedule {
+                & .selectedtimedate {
+                    height: 300px;
+                    overflow: hidden auto;
+
+                    & .selectDate {
+                        font-size: 13px;
+                        font-weight: 500;
+                        color: $black;
+                    }
+
+                    & .month {
+                        font-size: 15px;
+                        font-weight: 500;
+                        color: gray;
+                    }
+
+                    & .datetimeContent {
+                        & .option {
+                            position: relative;
+
+                            & input {
+                                opacity: 0;
+                                position: absolute;
+                            }
+
+                            & span {
+                                & .time {
+                                    font-size: 13px;
+                                    font-weight: 400;
+                                }
+                            }
+
+                            & input:checked+span {
+                                background-color: $theme1;
+                                color: $white;
+
+                                &:hover,
+                                &:focus,
+                                &:active {
+                                    background-color: $theme1;
+                                }
+                            }
+
+                            & .btn-option {
+                                background-color: transparent;
+
+                                &:hover,
+                                &:focus,
+                                &:active {
+                                    background-color: transparent;
+                                }
+
+                                &.opectiontime {
+                                    width: 90px;
+                                }
+
+                            }
+
+                        }
+
+                        &.disabled {
+                            cursor: not-allowed;
+                            filter: grayscale(1);
+                            & .option{
+                                cursor: none;
+                                & input{
+                                    cursor: none;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                & .footer {
+                    background: #f0f0f0;
+                    border-radius: 15px;
+                    padding: 15px 0px !important;
+
+                    & .totalitems {
+                        font-size: 11px;
+                        font-weight: 500;
+                        color: #070707;
+                    }
+
+                    & .paymenttotal {
+                        font-size: 19px;
+                        font-weight: 600;
+                    }
+
+                    & .buttonfooter {
+                        & .Schedulebtn {
+                            font-size: 11px;
+                            font-weight: 400;
+                            padding: 10px 22px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+nav {
+    &.Page{
+        & .pagination {
+            & .page-item{
+                & .nav-link {
+                    font-size: 14px;
+                    &.buttons {
+
+                    }
+                }
+            }
+        }
+    }
+}
+.offcanvasFilter {
+    &.filterMain {
+        & .filterHeader{
+            & .filterTitle {
+                font-size: 16px;
+            }
+            & .filterIcon {
+            }
+        }
+        & .filterBody {
+            // height: 80vh;
+            // overflow: hidden auto;
+            & .filterGroup {
+                & .grouptitle{
+                    font-size: 14px;
+                }
+                & .form-check {
+                    & .form-check-label {
+                        cursor: pointer;
+                        font-size: 14px;
+                    }
+                    & .form-check-input {
+                        cursor: pointer;
+                        background-image: none;
+                        position: relative;
+                        overflow: hidden;
+                        &:before {
+                            content: "";
+                            width: 16px;
+                            height: 16px;
+                            display: block;
+                            opacity: 0;
+                            border-left: 2px solid $theme1;
+                            border-bottom: 2px solid $theme1;
+                            transition: ease-in-out .3s;
+                        }
+                        &:checked {
+                            border-color: $theme1;
+                            background-color: $white;
+                            &:before {
+                                width: 10px;
+                                height: 6px;
+                                opacity: 1;
+                                transform: rotate(-45deg);
+                                position: absolute;
+                                left: 2px;
+                                top: 3px;
+                            }
+                        }
+                        &:focus {
+                            border-color: $theme1;
+                        }
+                    }
+                }
+                & .form-control{
+                    font-size: 14px;
+                    font-weight: normal;
+                    &::placeholder {
+                        font-size: 14px;
+                        color: $gray-600;
+                    }
+                }
+                .rate {
+                    float: left;
+                    flex-direction: row-reverse;
+                    // height: 46px;
+                    &:not(:checked) > input {
+                        position:absolute;
+                        top:-9999px;
+                    }
+                    &:not(:checked) > label {
+                        float:right;
+                        width:1em;
+                        overflow:hidden;
+                        white-space:nowrap;
+                        cursor:pointer;
+                        font-size:24px;
+                        color:#ccc;
+                    }
+                    &:not(:checked) > label:before {
+                        content: '★';
+                    }
+                    & > input:checked ~ label {
+                        color: $theme1;    
+                    }
+                    &:not(:checked) > label:hover, &:not(:checked) > label:hover ~ label {
+                        color: $theme1;  
+                    }
+                    & > input:checked + label:hover, & > input:checked + label:hover ~ label,
+                    .rate > input:checked ~ label:hover,
+                    .rate > input:checked ~ label:hover ~ label,
+                    .rate > label:hover ~ input:checked ~ label {
+                        color: $theme1;
+                    }
+                }
+            }
+        }
+    }
+}
+// ********************Responsive****************
+@media only screen and (max-width: 1399.98px) { 
+    .parlourMainOuter {
+        & .cardMainOuter {
+            & .cardsOuter {
+                & .sectionHeader {
+                    & .customTabs{
+                        & .nav-item {
+                            &:last-child{
+                            }
+                            & .nav-link {
+                                &.active {
+                                }
+                            }
+                        }
+                    }
+                }
+                & .allSaloon {
+                    & .saloonDetail {
+                        & .saloonProfile{
+                            & .imgOuter {
+                                & img {
+                                }
+                            }
+                            & .saloonName {
+                            }
+                            & .address{
+                            }
+                            & .distance {
+                                & .icon {
+                                }
+                            }
+                        }
+                        & .packages{
+                            & .package {
+                                &:nth-child(1) {
+                                }
+                                & .packageDetail {
+                                    & .packageTitle {
+                                    }
+                                    & .packageDec {
+                                    }
+                                }
+                                & .timing{
+                                    & .icon {
+                                    }
+                                }
+                                & .price {
+                                    & .oldPrice{
+                                    }
+                                }
+                                & .addCart{
+                                    & .addToCartBtn {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        & .cartOuter{
+            & .innerrighttab {
+                & .navpill {
+
+                    & .navItem {
+
+                        &.active {
+                            & .navLink {}
+
+                            &~.navItem {
+                                & .navLink {
+                                    &::before {}
+                                }
+                            }
+                        }
+
+                        & .navLink {
+
+                            &.active {}
+
+                            &::before {}
+                        }
+                    }
+                }
+
+                & .cartside {
+                    & .addContentt {
+
+                        & .leftSideContent {
+                            & .carditemHeading {}
+
+                            & .imagetimegender {
+
+                                & .image {}
+
+                                & .time {}
+
+                                & .gender {}
+                            }
+
+                        }
+
+                        & .rightSideContent {
+                            & .discount {}
+
+                            & .payment {}
+
+                            & .removebtn {
+
+                                & img {}
+                            }
+                        }
+                    }
+
+                    & .footer {
+
+                        & .totalitems {}
+
+                        & .paymenttotal {}
+
+                        & .buttonfooter {
+                            & .Schedulebtn {}
+                        }
+                    }
+                }
+
+                & .Schedule {
+                    & .selectedtimedate {
+
+                        & .selectDate {}
+
+                        & .month {}
+
+                        & .datetimeContent {
+                            & .option {
+
+                                & input {}
+
+                                & span {
+
+                                    & .time {}
+                                }
+
+                                & input:checked+span {
+
+                                    &:hover,
+                                    &:focus,
+                                    &:active {}
+                                }
+
+                                & .btn-option {
+
+                                    &:hover,
+                                    &:focus,
+                                    &:active {}
+
+                                    &.opectiontime {}
+                                }
+                            }
+                        }
+                    }
+
+                    & .footer {
+
+                        & .totalitems {}
+
+                        & .paymenttotal {}
+
+                        & .buttonfooter {
+
+                            & .Schedulebtn {}
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1199.98px) {
+    .cardSection {
+        padding: 80px 0 20px !important;
+        & .heading {}
+
+        & .cardmain {
+            & .card-image {
+
+                &:hover {}
+            }
+        }
+    }
+    .wherWeSection {
+        & .heading {}
+
+        & .where-we-list {
+
+            & li {
+
+                & a {}
+            }
+        }
+
+        & .tabswhere {
+            & .pillcontent {
+                & .navitem {
+                    & .navLink {
+                        &.active {}
+                    }
+                }
+            }
+
+            & .where-we-list {
+
+                & li {
+
+                    & a {}
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1100px) {
+    .cardSection {
+        & .heading {}
+
+        & .cardmain {
+            & .card-image {
+
+                &:hover {}
+            }
+        }
+    }
+    .wherWeSection {
+        & .heading {}
+
+        & .where-we-list {
+
+            & li {
+
+                & a {}
+            }
+        }
+
+        & .tabswhere {
+            & .pillcontent {
+                & .navitem {
+                    & .navLink {
+                        &.active {}
+                    }
+                }
+            }
+
+            & .where-we-list {
+
+                & li {
+
+                    & a {}
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 991.98px) {
+    .parlourMainOuter {
+        & .cardMainOuter {
+            & .cardsOuter {
+                & .sectionHeader {
+                    & .customTabs{
+                        & .nav-item {
+                            &:last-child{
+                            }
+                            & .nav-link {
+                                &.active {
+                                }
+                            }
+                        }
+                    }
+                }
+                & .allSaloon {
+                    & .saloonDetail {
+                        & .saloonProfile{
+                            & .imgOuter {
+                                & img {
+                                }
+                            }
+                            & .saloonName {
+                            }
+                            & .address{
+                            }
+                            & .distance {
+                                & .icon {
+                                }
+                            }
+                        }
+                        & .packages{
+                            & .package {
+                                &:nth-child(1) {
+                                }
+                                & .packageDetail {
+                                    & .packageTitle {
+                                    }
+                                    & .packageDec {
+                                    }
+                                }
+                                & .timing{
+                                    & .icon {
+                                    }
+                                }
+                                & .price {
+                                    & .oldPrice{
+                                    }
+                                }
+                                & .addCart{
+                                    & .addToCartBtn {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        & .cartOuter{
+            & .innerrighttab {
+                & .navpill {
+
+                    & .navItem {
+
+                        &.active {
+                            & .navLink {}
+
+                            &~.navItem {
+                                & .navLink {
+                                    &::before {
+                                        width: 10px;
+                                        height: 10px;
+                                    }
+                                }
+                            }
+                        }
+
+                        & .navLink {
+                            font-size: 15px;
+
+                            &.active {}
+
+                            &::before {}
+                        }
+                    }
+                }
+
+                & .cartside {
+                    & .addContentt {
+
+                        & .leftSideContent {
+                            & .carditemHeading {
+                                line-height: 20px;
+                                font-size: 13px;
+                            }
+
+                            & .imagetimegender {
+                                gap: 0.4rem;
+
+                                & .image {}
+
+                                & .time {
+                                    font-size: 10px;
+                                }
+
+                                & .gender {
+                                    font-size: 10px;
+                                }
+                            }
+
+                        }
+
+                        & .rightSideContent {
+                            & .discount {
+                                font-size: 12px;
+                            }
+
+                            & .payment {
+                                font-size: 14px;
+                            }
+
+                            & .removebtn {
+                                width: 15px;
+                                height: 30px;
+
+                                & img {
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+                        }
+                    }
+
+                    & .footer {
+
+                        & .totalitems {
+                            font-size: 10px;
+                        }
+
+                        & .paymenttotal {
+                            font-size: 15px;
+                        }
+
+                        & .buttonfooter {
+                            & .Schedulebtn {
+                                font-size: 11px;
+                                padding: 10px 20px;
+                            }
+                        }
+                    }
+                }
+
+                & .Schedule {
+                    & .selectedtimedate {
+
+                        & .selectDate {
+                            font-size: 11px;
+                        }
+
+                        & .month {
+                            font-size: 13px;
+                        }
+
+                        & .datetimeContent {
+                            & .option {
+
+                                & input {}
+
+                                & span {
+                                    font-size: 13px;
+
+                                    & .time {}
+                                }
+
+                                & input:checked+span {
+
+                                    &:hover,
+                                    &:focus,
+                                    &:active {}
+                                }
+
+                                & .btn-option {
+
+                                    &:hover,
+                                    &:focus,
+                                    &:active {}
+
+                                    &.opectiontime {
+                                        width: auto;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    & .footer {
+
+                        & .totalitems {
+                            font-size: 10px;
+                        }
+
+                        & .paymenttotal {
+                            font-size: 15px;
+                        }
+
+                        & .buttonfooter {
+
+                            & .Schedulebtn {
+                                font-size: 10px;
+                                padding: 10px 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 767.98px) {
+    .parlourMainOuter {
+        & .cardMainOuter {
+            & .cardsOuter {
+                & .sectionHeader {
+                    & .customTabs{
+                        & .nav-item {
+                            &:last-child{
+                            }
+                            & .nav-link {
+                                &.active {
+                                }
+                            }
+                        }
+                    }
+                }
+                & .allSaloon {
+                    & .saloonDetail {
+                        & .saloonProfile{
+                            & .imgOuter {
+                                & img {
+                                }
+                            }
+                            & .saloonName {
+                            }
+                            & .address{
+                            }
+                            & .distance {
+                                & .icon {
+                                }
+                            }
+                        }
+                        & .packages{
+                            & .package {
+                                &:nth-child(1) {
+                                }
+                                & .packageDetail {
+                                    & .packageTitle {
+                                    }
+                                    & .packageDec {
+                                    }
+                                }
+                                & .timing{
+                                    & .icon {
+                                    }
+                                }
+                                & .price {
+                                    & .oldPrice{
+                                    }
+                                }
+                                & .addCart{
+                                    & .addToCartBtn {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        & .cartOuter{
+            .parlourMainOuter {
+                & .cardMainOuter {
+                    & .cardsOuter {
+                        & .sectionHeader {
+                            & .customTabs{
+                                & .nav-item {
+                                    &:last-child{
+                                    }
+                                    & .nav-link {
+                                        &.active {
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        & .allSaloon {
+                            & .saloonDetail {
+                                & .saloonProfile{
+                                    & .imgOuter {
+                                        & img {
+                                        }
+                                    }
+                                    & .saloonName {
+                                    }
+                                    & .address{
+                                    }
+                                    & .distance {
+                                        & .icon {
+                                        }
+                                    }
+                                }
+                                & .packages{
+                                    & .package {
+                                        &:nth-child(1) {
+                                        }
+                                        & .packageDetail {
+                                            & .packageTitle {
+                                            }
+                                            & .packageDec {
+                                            }
+                                        }
+                                        & .timing{
+                                            & .icon {
+                                            }
+                                        }
+                                        & .price {
+                                            & .oldPrice{
+                                            }
+                                        }
+                                        & .addCart{
+                                            & .addToCartBtn {
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                & .cartOuter{
+                    & .innerrighttab {
+                        & .navpill {
+    
+                            & .navItem {
+    
+                                &.active {
+                                    & .navLink {}
+    
+                                    &~.navItem {
+                                        & .navLink {
+                                            &::before {
+                                                width: 10px;
+                                                height: 10px;
+                                            }
+                                        }
+                                    }
+                                }
+    
+                                & .navLink {
+                                    font-size: 12px;
+    
+                                    &.active {}
+    
+                                    &::before {}
+                                }
+                            }
+                        }
+    
+                        & .cartside {
+                            & .addContentt {
+    
+                                & .leftSideContent {
+                                    & .carditemHeading {
+    
+                                        font-size: 11px;
+                                    }
+    
+                                    & .imagetimegender {
+                                        gap: 0.2rem;
+    
+                                        & .image {}
+    
+                                        & .time {
+                                            font-size: 10px;
+                                        }
+    
+                                        & .gender {
+                                            font-size: 10px;
+                                        }
+                                    }
+    
+                                }
+    
+                                & .rightSideContent {
+                                    & .discount {
+                                        font-size: 10px;
+                                    }
+    
+                                    & .payment {
+                                        font-size: 12px;
+                                    }
+    
+                                    & .removebtn {
+                                        width: 15px;
+                                        height: 30px;
+    
+                                        & img {
+                                            width: 100%;
+                                            height: 100%;
+                                        }
+                                    }
+                                }
+                            }
+    
+                            & .footer {
+    
+                                & .totalitems {
+                                    font-size: 10px;
+                                }
+    
+                                & .paymenttotal {
+                                    font-size: 15px;
+                                }
+    
+                                & .buttonfooter {
+                                    & .Schedulebtn {
+                                        font-size: 10px;
+                                        padding: 8px 16px;
+                                    }
+                                }
+                            }
+                        }
+    
+                        & .Schedule {
+                            & .selectedtimedate {
+    
+                                & .selectDate {
+                                    font-size: 11px;
+                                }
+    
+                                & .month {
+                                    font-size: 13px;
+                                }
+    
+                                & .datetimeContent {
+                                    & .option {
+    
+                                        & input {}
+    
+                                        & span {
+                                            font-size: 13px;
+    
+                                            & .time {}
+                                        }
+    
+                                        & input:checked+span {
+    
+                                            &:hover,
+                                            &:focus,
+                                            &:active {}
+                                        }
+    
+                                        & .btn-option {
+    
+                                            &:hover,
+                                            &:focus,
+                                            &:active {}
+    
+                                            &.opectiontime {
+                                                width: auto;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+    
+                            & .footer {
+    
+                                & .totalitems {
+                                    font-size: 10px;
+                                }
+    
+                                & .paymenttotal {
+                                    font-size: 15px;
+                                }
+    
+                                & .buttonfooter {
+    
+                                    & .Schedulebtn {
+                                        font-size: 10px;
+                                        padding: 10px 10px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 575.98px) {
+    .mainOuter {
+        & .cardMainOuter {
+            & .cardsOuter {
+            }
+        }
+        & .offcanvasFilter{
+            padding: 0;
+        }
+    }
+    .parlourMainOuter {
+        & .cardMainOuter {
+            & .cardsOuter {
+                & .sectionHeader {
+                    width: 100%;
+                    overflow: auto hidden;
+                    &::-webkit-scrollbar {
+                        display: none !important;
+                    }
+                    & .customTabs{
+                        flex-wrap: nowrap;
+                        & .nav-item {
+                            width: auto;
+                            &:last-child{
+                            }
+                            & .nav-link {
+                                white-space: nowrap;
+                                &.active {
+                                }
+                            }
+                        }
+                    }
+                }
+                & .allSaloon {
+                    & .saloonDetail {
+                        & .saloonProfile{
+                            & .imgOuter {
+                                width: 100px;
+                                height: 80px;
+                                & img {
+                                }
+                            }
+                            & .saloonName {
+                            }
+                            & .address{
+                            }
+                            & .distance {
+                                & .icon {
+                                }
+                            }
+                        }
+                        & .packages{
+                            & .package {
+                                &:nth-child(1) {
+                                }
+                                & .packageDetail {
+                                    & .packageTitle {
+                                        font-size: 14px;
+                                    }
+                                    & .packageDec {
+                                        font-size: 12px;
+                                    }
+                                }
+                                & .timing{
+                                    & .icon {
+                                        width: 16px;
+                                        height: 16px;
+                                    }
+                                }
+                                & .price {
+                                    & .oldPrice{
+                                    }
+                                }
+                                & .addCart{
+                                    width: 30px;
+                                    height: 30px;
+                                    border-radius: 50px !important;
+                                    transition: ease-in-out .3s;
+                                    &.inc-dec-item{
+                                        width: 80px;
+                                        height: 30px;
+                                        & .itemValue {
+                                            width: 30px;
+                                            height: 30px;
+                                        }
+                                        & .addToCartBtn, & .removeToCartBtn {
+                                            height: 30px;
+                                            width: 25px;
+                                            font-size: 12px;
+                                            display: block !important;
+                                        }
+                                    }
+                                    & .addToCartBtn, & .removeToCartBtn {
+                                        width: 100%;
+                                        height: 100%;
+                                        font-size: 16px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        & .cartOuter{
+            & .innerrighttab {
+                & .navpill {
+
+                    & .navItem {
+
+                        &.active {
+                            & .navLink {}
+
+                            &~.navItem {
+                                & .navLink {
+                                    &::before {
+                                        width: 10px;
+                                        height: 10px;
+                                    }
+                                }
+                            }
+                        }
+
+                        & .navLink {
+                            font-size: 12px;
+
+                            &.active {}
+
+                            &::before {}
+                        }
+                    }
+                }
+
+                & .cartside {
+                    & .addContentt {
+
+                        & .leftSideContent {
+                            & .carditemHeading {
+
+                                font-size: 11px;
+                            }
+
+                            & .imagetimegender {
+                                gap: 0.2rem;
+
+                                & .image {}
+
+                                & .time {
+                                    font-size: 10px;
+                                }
+
+                                & .gender {
+                                    font-size: 10px;
+                                }
+                            }
+
+                        }
+
+                        & .rightSideContent {
+                            & .discount {
+                                font-size: 10px;
+                            }
+
+                            & .payment {
+                                font-size: 12px;
+                            }
+
+                            & .removebtn {
+                                width: 15px;
+                                height: 30px;
+
+                                & img {
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+                        }
+                    }
+
+                    & .footer {
+
+                        & .totalitems {
+                            font-size: 10px;
+                        }
+
+                        & .paymenttotal {
+                            font-size: 15px;
+                        }
+
+                        & .buttonfooter {
+                            & .Schedulebtn {
+                                font-size: 10px;
+                                padding: 8px 16px;
+                            }
+                        }
+                    }
+                }
+
+                & .Schedule {
+                    & .selectedtimedate {
+
+                        & .selectDate {
+                            font-size: 11px;
+                        }
+
+                        & .month {
+                            font-size: 13px;
+                        }
+
+                        & .datetimeContent {
+                            & .option {
+
+                                & input {}
+
+                                & span {
+                                    font-size: 13px;
+
+                                    & .time {}
+                                }
+
+                                & input:checked+span {
+
+                                    &:hover,
+                                    &:focus,
+                                    &:active {}
+                                }
+
+                                & .btn-option {
+
+                                    &:hover,
+                                    &:focus,
+                                    &:active {}
+
+                                    &.opectiontime {
+                                        width: auto;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    & .footer {
+
+                        & .totalitems {
+                            font-size: 10px;
+                        }
+
+                        & .paymenttotal {
+                            font-size: 15px;
+                        }
+
+                        & .buttonfooter {
+
+                            & .Schedulebtn {
+                                font-size: 10px;
+                                padding: 10px 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .offcanvasFilter{
+        &.filterMain {
+            & .filterHeader{
+                & .filterTitle {
+                }
+                & .filterIcon {
+                }
+                & .btn-close{
+                }
+            }
+            & .filterBody {
+                height: 100%;
+                & .filterGroup {
+                    & .grouptitle{
+                        font-size: 12px;
+                    }
+                    & .form-check {
+                        & .form-check-label {
+                            font-size: 12px;
+                        }
+                        & .form-check-input {
+                            &:before {
+                            }
+                            &:checked {
+                                &:before {
+                                }
+                            }
+                            &:focus {
+                            }
+                        }
+                    }
+                    & .form-control{
+                        &::placeholder {
+                        }
+                    }
+                    .rate {
+                        &:not(:checked) > input {
+                        }
+                        &:not(:checked) > label {
+                        }
+                        &:not(:checked) > label:before {
+                        }
+                        & > input:checked ~ label {
+                        }
+                        &:not(:checked) > label:hover, &:not(:checked) > label:hover ~ label {
+                        }
+                        & > input:checked + label:hover, & > input:checked + label:hover ~ label,
+                        .rate > input:checked ~ label:hover,
+                        .rate > input:checked ~ label:hover ~ label,
+                        .rate > label:hover ~ input:checked ~ label {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 360px) {
+    
+    .mainOuter {
+        & .cardMainOuter {
+            & .cardsOuter {
+            }
+        }
+    }
+    .offcanvasFilter {
+        &.filterMain {
+            & .filterHeader{
+                & .filterTitle {
+                }
+                & .filterIcon {
+                }
+                & .btn-close{
+                }
+            }
+            & .filterBody {
+                height: 100%;
+                & .filterGroup {
+                    & .grouptitle{
+                    }
+                    & .form-check {
+                        & .form-check-label {
+                        }
+                        & .form-check-input {
+                            &:before {
+                            }
+                            &:checked {
+                                &:before {
+                                }
+                            }
+                            &:focus {
+                            }
+                        }
+                    }
+                    & .form-control{
+                        &::placeholder {
+                        }
+                    }
+                    .rate {
+                        &:not(:checked) > input {
+                        }
+                        &:not(:checked) > label {
+                        }
+                        &:not(:checked) > label:before {
+                        }
+                        & > input:checked ~ label {
+                        }
+                        &:not(:checked) > label:hover, &:not(:checked) > label:hover ~ label {
+                        }
+                        & > input:checked + label:hover, & > input:checked + label:hover ~ label,
+                        .rate > input:checked ~ label:hover,
+                        .rate > input:checked ~ label:hover ~ label,
+                        .rate > label:hover ~ input:checked ~ label {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -18,7 +18,7 @@ const BlogSearchResult = () => {
     const response = await getData("getCategoryListing");
     setCategory(response.data);
     setBlog(res.data[0]);
-    console.log(res, "get blog");
+   
     //console.log(response.data,'categorylist' );
   };
 
@@ -33,7 +33,7 @@ const BlogSearchResult = () => {
   const lastIndex = currentPage * recordPerPage;
   const firstIndex = lastIndex - recordPerPage;
   const records =  Blog?.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(Blog?.length / recordPerPage);
+  const npage = Math.ceil(Blog?.length / recordPerPage) || 1;
    const numbers = [...Array(npage + 1)?.keys()]?.slice(1);
   
 
@@ -89,7 +89,7 @@ const BlogSearchResult = () => {
                                 <div className="col-8">
                                   <div className="input-group d-block mt-3">
                                     <label
-                                      htmlFor
+                                     
                                       className="form-label text-white"
                                     >
                                       Select Category
@@ -103,7 +103,7 @@ const BlogSearchResult = () => {
                                       >
                                         <option selected  >Select Category</option>
                                         {category?.map((el, i) => (
-                                          <option value={el._id}>{el.Name}</option>
+                                          <option value={el._id} key={i}>{el.Name}</option>
                                         ))}
                                     </select>
                                   </div>
@@ -135,7 +135,7 @@ const BlogSearchResult = () => {
                                     >
                                       <img
                                         src="assets/img/icon/search1.svg"
-                                        alt
+                                        alt='image'
                                       />
                                     </button>
                                   </div>
@@ -161,8 +161,9 @@ const BlogSearchResult = () => {
                       </div>
                       <div className="col-12">
                         <div className="row g-4">
-                          {records?.map((item) => (
+                          {records?.map((item,i) => (
                             <NavLink
+                            key={i}
                               to='/blog-details'
                               state={{itemId:item._id}}
                               className="col-lg-3 col-sm-6"
@@ -173,7 +174,7 @@ const BlogSearchResult = () => {
                                   <img
                                     className="w-100 h-100"
                                     src="assets/img/blog/blogImg1.jpg"
-                                    alt
+                                    alt='image'
                                   />
                                 </div>
                                 <div className="blogDetail p-3 bg-white row gap-2 mx-0">
@@ -208,7 +209,7 @@ const BlogSearchResult = () => {
                               <img
                                 className="w-100"
                                 src="/assets/img/icon/leftDubbleArrow.svg"
-                                alt
+                                alt='image'
                               />
                             </span>
                           </Link>
@@ -216,7 +217,7 @@ const BlogSearchResult = () => {
                             {
                               numbers.map((n ,i)=>
                                (
-                                  <li className={`rounded-1 d-inline-flex justify-content-center align-items-center ${currentPage ==n ?'current':''}`}>
+                                  <li key={i} className={`rounded-1 d-inline-flex justify-content-center align-items-center ${currentPage ==n ?'current':''}`}>
                                   <Link className="text-decoration-none" to="" onClick={(()=>changePage(n))}>
                                     {n}
                                   </Link>
@@ -230,7 +231,7 @@ const BlogSearchResult = () => {
                               <img
                                 className="w-100"
                                 src="/assets/img/icon/rightDubbleArrow.svg"
-                                alt
+                                alt='image'
                               />
                             </span>
                           </Link>

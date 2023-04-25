@@ -1,26 +1,27 @@
 import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../common/layout/footer/footer";
 import Footer2 from "../../common/layout/footer/Footer2 ";
 import Header from "../../common/layout/header/header";
 import HeaderHome from "../../common/layout/header/HeaderHome";
-import {Formik,Form,Field} from 'formik'
+import { Formik, Form, Field } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
 import * as Yup from "yup";
 import { postData } from "../../components/apiinstance/Api";
+import { useSelector } from "react-redux";
 
 function Home() {
-
+  const navigate = useNavigate()
   const [initialValues, setInitialValues] = useState({
     name: "",
     mobile: "",
     email: "",
     location: "",
   });
-
-const phoneRegExp =
+  const cityName=useSelector((state)=>state.cityName)
+  const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const validationschema = yup.object().shape({
     mobile: yup
@@ -28,9 +29,8 @@ const phoneRegExp =
       .required("Enter your mobile number")
       .length(10, "Please enter a valid mobile number.")
       .matches(phoneRegExp, "Please enter a valid mobile number."),
-    name: Yup.string()
-    .required("Please Enter Your Name"),
-    // email: Yup.string().email().required("Please Enter Email"),
+    name: Yup.string().required("Please Enter Your Name"),
+    email: Yup.string().email().required("Please Enter Email"),
     location: Yup.string().required("Please fill this field"),
   });
   const submitHandler = async (value, { resetForm }) => {
@@ -55,12 +55,17 @@ const phoneRegExp =
         position: toast.POSITION.TOP_RIGHT,
       });
     }
-    console.log(value,'artist signup')
+    console.log(value, "artist signup");
   };
   const location = useLocation();
   let token = localStorage.getItem("token");
+  const categoryHandler = (cate) => {
+    let route = `${cate}-in-${cityName}`;
+    navigate("/" + route, { state: cate });
+    //console.log(route,'Hello this is console from footer2' )
+    localStorage.setItem("category", cate);
+  };
 
-  // console.log(location);
   return (
     <div>
       <HeaderHome />
@@ -113,7 +118,7 @@ const phoneRegExp =
                               <img
                                 className="w-100 h-100 rounded-2"
                                 src="assets/img/index/home-based.webp"
-                                alt="..."
+                                alt="image"
                               />
                             </div>
                           </div>
@@ -143,7 +148,7 @@ const phoneRegExp =
                               <img
                                 className="w-100 h-100 rounded-2"
                                 src="assets/img/index/salon.webp"
-                                alt="..."
+                                alt="image"
                               />
                             </div>
                           </div>
@@ -169,6 +174,7 @@ const phoneRegExp =
                                 role="tab"
                                 aria-controls="salons-tab-pane"
                                 aria-selected="true"
+                                onClick={() => categoryHandler("saloon")}
                               >
                                 Nearby Salons
                               </button>
@@ -186,6 +192,7 @@ const phoneRegExp =
                                 role="tab"
                                 aria-controls="parlours-tab-pane"
                                 aria-selected="false"
+                                onClick={() => categoryHandler("parlour")}
                               >
                                 Parlours
                               </button>
@@ -203,6 +210,7 @@ const phoneRegExp =
                                 role="tab"
                                 aria-controls="spas-tab-pane"
                                 aria-selected="false"
+                                onClick={() => categoryHandler("spa")}
                               >
                                 Spas
                               </button>
@@ -250,7 +258,7 @@ const phoneRegExp =
                     <img
                       className="rounded-3 w-100"
                       src="assets/img/index/image1card.jpg"
-                      alt
+                      alt="image"
                     />
                   </div>
                 </div>
@@ -261,7 +269,7 @@ const phoneRegExp =
                     <img
                       className="rounded-3 w-100"
                       src="assets/img/index/image2card.jpeg"
-                      alt
+                      alt="image"
                     />
                   </div>
                 </div>
@@ -272,7 +280,7 @@ const phoneRegExp =
                     <img
                       className="rounded-3 w-100"
                       src="assets/img/index/image3card.jpg"
-                      alt
+                      alt="image"
                     />
                   </div>
                 </div>
@@ -283,7 +291,7 @@ const phoneRegExp =
                     <img
                       className=" rounded-3 w-100"
                       src="assets/img/index/image4card.jpg"
-                      alt
+                      alt="image"
                     />
                   </div>
                 </div>
@@ -352,7 +360,7 @@ const phoneRegExp =
                             <img
                               className="w-100 h-100 rounded-3"
                               src="assets/img/index/bussine1.png"
-                              alt="..."
+                              alt="image"
                             />
                           </div>
                           <div className="col-lg-6 col-md-6 col-12 col-sm-12 d-flex align-items-center colRight">
@@ -365,9 +373,9 @@ const phoneRegExp =
                                 operate your business. All-in-one application
                                 for you and your clients. Kindly click on.
                               </p>
-                              <a className="btn buttoncustom px-4" href>
+                              <NavLink className="btn buttoncustom px-4" to='/partnerlogin'>
                                 Boost My Bussines
-                              </a>
+                              </NavLink>
                             </div>
                           </div>
                         </div>
@@ -386,7 +394,7 @@ const phoneRegExp =
                             <img
                               className="w-100 h-100 rounded-3"
                               src="/assets/img/index/bussine2.png"
-                              alt="..."
+                              alt="image"
                             />
                           </div>
                           <div className="col-lg-5 col-md-6 col-sm-12 col-12 d-flex align-items-cente colRight">
@@ -668,7 +676,7 @@ const phoneRegExp =
                         </div>
                       </div>
                       <div className="buttonreating py-3 px-3">
-                        <a href className="btn buttoncustom px-3">
+                        <a href='#' className="btn buttoncustom px-3">
                           View All Reviews
                         </a>
                       </div>
@@ -688,42 +696,42 @@ const phoneRegExp =
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-1.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-2.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-3.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-4.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-5.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-1.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
               </div>
@@ -732,42 +740,42 @@ const phoneRegExp =
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-1.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-2.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-3.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-4.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-5.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
                 <div className="logo-div d-inline-flex align-self-center">
                   <img
                     className="image w-100 h-100"
                     src="assets/img/index/logo-1.svg"
-                    alt
+                    alt="image"
                   />
                 </div>
               </div>
@@ -805,11 +813,11 @@ const phoneRegExp =
                           <img
                             className="w-100 h-100"
                             src="assets/img/index/bussine2.png"
-                            alt
+                            alt="image"
                           />
                         </div>
                         <a
-                          href="javascript:;"
+                          href='#'
                           className="stretched-link title text-center text-white text-decoration-none"
                         >
                           <span className="position-absolute">
@@ -824,11 +832,11 @@ const phoneRegExp =
                           <img
                             className="w-100 h-100"
                             src="assets/img/index/bussine1.png"
-                            alt
+                            alt="image"
                           />
                         </div>
                         <a
-                          href="javascript:;"
+                          href='#'
                           className="stretched-link title text-center text-white text-decoration-none"
                         >
                           <span className="position-absolute">Men's Salon</span>
@@ -841,11 +849,11 @@ const phoneRegExp =
                           <img
                             className="w-100 h-100"
                             src="assets/img/index/bussine1.png"
-                            alt
+                            alt="image"
                           />
                         </div>
                         <a
-                          href="javascript:;"
+                          href='#'
                           className="stretched-link title text-center text-white text-decoration-none"
                         >
                           <span className="position-absolute">
@@ -860,11 +868,11 @@ const phoneRegExp =
                           <img
                             className="w-100 h-100"
                             src="assets/img/index/bussine1.png"
-                            alt
+                            alt="image"
                           />
                         </div>
                         <a
-                          href="javascript:;"
+                          href='#'
                           className="stretched-link title text-center text-white text-decoration-none"
                         >
                           <span className="position-absolute">Men Therapy</span>
@@ -883,7 +891,7 @@ const phoneRegExp =
                   <div className="row g-3">
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Haircut
@@ -891,7 +899,7 @@ const phoneRegExp =
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Hair Color
@@ -899,7 +907,7 @@ const phoneRegExp =
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Beard
@@ -907,7 +915,7 @@ const phoneRegExp =
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Head Massage
@@ -915,7 +923,7 @@ const phoneRegExp =
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Waxing
@@ -923,7 +931,7 @@ const phoneRegExp =
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Facial
@@ -931,7 +939,7 @@ const phoneRegExp =
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Pedicure
@@ -939,7 +947,7 @@ const phoneRegExp =
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Manicure
@@ -947,7 +955,7 @@ const phoneRegExp =
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Cut &amp; Style
@@ -955,7 +963,7 @@ const phoneRegExp =
                     </div>
                     <div className="col-auto">
                       <a
-                        href="javascript:;"
+                        href='#'
                         className="text-decoration-none btnStyle1 rounded-pill position-relative fs-14 d-flex align-items-center"
                       >
                         Party Makeover

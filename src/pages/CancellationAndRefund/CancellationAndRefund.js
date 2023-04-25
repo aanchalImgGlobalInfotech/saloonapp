@@ -13,7 +13,7 @@ const CancellationAndRefund = () => {
   useEffect(() => {
     getDataForCancellationAndRefund();
   }, []);
-  console.log(data[0]);
+  
   return (
     <div>
       <Header2 />

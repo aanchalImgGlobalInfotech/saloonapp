@@ -5,6 +5,11 @@ import BusinessHeader from "./BusinessHeader";
 import {Formik,Form,Field} from 'formik'
 import { postData, postformdata } from "../../components/apiinstance/Api";
 import axios from 'axios'
+import {ToastContainer,toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import * as yup from "yup";
+import * as Yup from "yup";
+
 
 
 const SignUpPartnerStepThree = () => {
@@ -18,6 +23,17 @@ const SignUpPartnerStepThree = () => {
         businessCertificate:''   
   });
 
+  const validationschema = yup.object().shape({
+ 
+      
+    BannerLogo: Yup.mixed().required('File is required'),
+    logoImage: Yup.mixed().required('File is required'),
+    panImage: Yup.mixed().required('File is required'),
+    businessCertificate: Yup.mixed().required('File is required'),
+  
+      
+    
+  });
   const submitHandler = async( value ) =>{
         
     var formdata = new FormData();
@@ -27,10 +43,23 @@ const SignUpPartnerStepThree = () => {
     }
    
    const response = await postformdata(`business-uplode-document?id=${userData._id}`,formdata)
+    
     if(response.status){
-     navigate('/signup-partner-confirmation',{
-       state:userData
-     })
+      toast.success(response.message, {
+        position: toast.POSITION.TOP_RIGHT,
+       
+    });
+    setTimeout(()=>{
+      navigate('/signup-partner-confirmation',{
+        state:userData
+      })
+    },2000)
+       
+    }else{
+      toast.error(response.message, {
+        position: toast.POSITION.TOP_RIGHT,
+        
+    });
     }
     console.log(response,'uuu')
   }
@@ -38,6 +67,8 @@ const SignUpPartnerStepThree = () => {
  
   return (
     <div className="overflow-hideen vh-100 innerFooter">
+      <ToastContainer
+      autoClose={1000}/>
       <BusinessHeader />
       <div className="signUpPartnermain">
         <div className="container">
@@ -59,7 +90,7 @@ const SignUpPartnerStepThree = () => {
                       <img
                         className="w-100"
                         src="assets/img/icon/stepUser.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Profile</div>
@@ -69,7 +100,7 @@ const SignUpPartnerStepThree = () => {
                       <img
                         className="w-100"
                         src="assets/img/icon/stepBank.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Bank</div>
@@ -79,7 +110,7 @@ const SignUpPartnerStepThree = () => {
                       <img
                         className="w-100"
                         src="assets/img/icon/stepIdCard.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Documents</div>
@@ -89,7 +120,7 @@ const SignUpPartnerStepThree = () => {
                       <img
                         className="w-100"
                         src="assets/img/icon/stepConfirmation.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Confirmation</div>
@@ -100,10 +131,11 @@ const SignUpPartnerStepThree = () => {
                 <Formik
                  initialValues={initialValues}
                  onSubmit={(value)=>submitHandler(value)}
+                 validationSchema={validationschema}
                 
                 >
                   {
-                    (props)=>{ 
+                    (formik)=>{ 
                       return(
                         <Form className="form"   > 
                             
@@ -124,11 +156,11 @@ const SignUpPartnerStepThree = () => {
                                 name='BannerLogo'
                                
                                 onChange={(event) => {
-                                  props.setTouched({
-                                    ...props.touched,
+                                  formik.setTouched({
+                                    ...formik.touched,
                                     BannerLogo: true,
                                   });
-                                  props.setFieldValue(
+                                  formik.setFieldValue(
                                     "BannerLogo",
                                     event.target.files[0],
                                   );
@@ -141,6 +173,11 @@ const SignUpPartnerStepThree = () => {
                                 Upload
                               </button> */}
                             </div>
+                            <p className="text-danger text-start">
+                                  {formik.touched.BannerLogo && formik.errors.BannerLogo
+                                    ? formik.errors.BannerLogo
+                                    : ""}
+                                </p>
                           </div>
                         </div>
                         <div className="col-sm-6">
@@ -155,11 +192,11 @@ const SignUpPartnerStepThree = () => {
                                 id="logoImg"
                                 name='logoImage'
                                 onChange={(event) => {
-                                  props.setTouched({
-                                    ...props.touched,
+                                  formik.setTouched({
+                                    ...formik.touched,
                                     logoImage: true,
                                   });
-                                  props.setFieldValue(
+                                  formik.setFieldValue(
                                     "logoImage",
                                     event.target.files[0],
                                   );
@@ -172,6 +209,11 @@ const SignUpPartnerStepThree = () => {
                                 Upload
                               </button> */}
                             </div>
+                            <p className="text-danger text-start">
+                                  {formik.touched.logoImage && formik.errors.logoImage
+                                    ? formik.errors.logoImage
+                                    : ""}
+                                </p>
                           </div>
                         </div>
                         <div className="col-sm-6">
@@ -186,11 +228,11 @@ const SignUpPartnerStepThree = () => {
                                 id="panImage"
                                 name='panImage'
                                 onChange={(event) => {
-                                  props.setTouched({
-                                    ...props.touched,
+                                  formik.setTouched({
+                                    ...formik.touched,
                                     panImage: true,
                                   });
-                                  props.setFieldValue(
+                                  formik.setFieldValue(
                                     "panImage",
                                     event.target.files[0],
                                   );
@@ -203,6 +245,11 @@ const SignUpPartnerStepThree = () => {
                                 Upload
                               </button> */}
                             </div>
+                            <p className="text-danger text-start">
+                                  {formik.touched.panImage && formik.errors.panImage
+                                    ? formik.errors.panImage
+                                    : ""}
+                                </p>
                           </div>
                         </div>
                         <div className="col-sm-6">
@@ -217,11 +264,11 @@ const SignUpPartnerStepThree = () => {
                                 id="bannerImage"
                                 name='businessCertificate'
                                 onChange={(event) => {
-                                  props.setTouched({
-                                    ...props.touched,
+                                  formik.setTouched({
+                                    ...formik.touched,
                                     businessCertificate: true,
                                   });
-                                  props.setFieldValue(
+                                  formik.setFieldValue(
                                     "businessCertificate",
                                     event.target.files[0],
                                   );
@@ -237,6 +284,11 @@ const SignUpPartnerStepThree = () => {
                               </button> */}
                               </Link>
                             </div>
+                            <p className="text-danger text-start">
+                                  {formik.touched.businessCertificate && formik.errors.businessCertificate
+                                    ? formik.errors.businessCertificate
+                                    : ""}
+                                </p>
                           </div>
                         </div>
                         

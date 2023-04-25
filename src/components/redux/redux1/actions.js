@@ -1,4 +1,4 @@
-import { CARTDATA, INCREASE, SETUSERS , CART, PAY, CHECKOUT, CATEGORYID, WHISH, CITYNAME, COUPONSID, CHECKVALUE, SEARCH} from "./Const";
+import { CARTDATA, INCREASE, SETUSERS , CART, PAY, CHECKOUT, CATEGORYID, WHISH, CITYNAME, COUPONSID, CHECKVALUE, SEARCH, PACKAGESALOONID} from "./Const";
 import { SALOONSERVICE } from "./Const";
 import { LOGOUT } from "./Const";
 export const setUsers = (payload) => {
@@ -78,6 +78,13 @@ export const cityName= (payload)=>{
 export const couPon = (payload) => {
   return {
     type : COUPONSID,
+    payload : payload ,
+  }
+}
+
+export const packageSaloonId = (payload) => {
+  return {
+    type : PACKAGESALOONID,
     payload : payload ,
   }
 }

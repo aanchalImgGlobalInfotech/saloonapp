@@ -10,4 +10,5 @@ export const CHECKVALUE = "CHECKVALUE"
 export const WHISH = 'WHISH'
 export const CITYNAME ='CITYNAME'
 export const COUPONSID = 'COUPONSID'
+export const PACKAGESALOONID = 'PACKAGESALOONID'
 export const LOGOUT = 'LOGOUT'

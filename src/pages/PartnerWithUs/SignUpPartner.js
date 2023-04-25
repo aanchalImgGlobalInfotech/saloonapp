@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import { getData, postData } from "../../components/apiinstance/Api";
 import BusinessHeader from "./BusinessHeader";
 import { useNavigate } from "react-router-dom";
+import {ToastContainer,toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 const SignUpPartner = () => {
   let navigate=useNavigate()
   const [otp, setOtp] = useState([]);
@@ -38,7 +40,7 @@ const SignUpPartner = () => {
     brandName: Yup.string()
       .min(2, "Too Short!")
       .max(20, "Too Long!")
-      .required("Please Enter Mobile Number"),
+      .required("Please Enter Brand Name"),
     email: Yup.string().email().required("Please Enter Email"),
     ownerName: Yup.string()
       .min(2, "Too Short!")
@@ -139,18 +141,31 @@ const SignUpPartner = () => {
         console.log(value);
         console.log(res);
         if(res.status){
+          toast.success(res.message, {
+            position: toast.POSITION.TOP_RIGHT,
+           
+        });
+        setTimeout(()=>{
+
           navigate('/signup-partner-step-one',{
             state:res.data
           })
+        },2000)
+        }else{
+          toast.error(res.message, {
+            position: toast.POSITION.TOP_RIGHT,
+            
+        });
         }
-      }else{
-        alert('Please Verify Your Number')
       }
   };
  
   
   return (
     <div className="overflow-hideen vh-100 innerFooter">
+      <ToastContainer
+      autoClose={1000}
+      />
       <BusinessHeader/>
       <div className="signUpPartnermain">
         <div className="container">
@@ -222,7 +237,7 @@ const SignUpPartner = () => {
                               </div>
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
-                                  <label htmlFor className="form-label">
+                                  <label  className="form-label">
                                     Select Gender
                                   </label>
                                   <Field
@@ -393,7 +408,7 @@ const SignUpPartner = () => {
 
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
-                                  <label htmlFor className="form-label">
+                                  <label  className="form-label">
                                     Select Partner Size
                                   </label>
                                   <Field
@@ -418,7 +433,7 @@ const SignUpPartner = () => {
                               </div>
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
-                                  <label htmlFor className="form-label">
+                                  <label  className="form-label">
                                     Select Category Type
                                   </label>
                                   <Field
@@ -473,7 +488,7 @@ const SignUpPartner = () => {
                               </div>
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
-                                  <label htmlFor className="form-label">
+                                  <label  className="form-label">
                                     City
                                   </label>
                                   <Field

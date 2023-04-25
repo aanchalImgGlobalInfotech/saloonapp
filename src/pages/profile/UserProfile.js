@@ -31,10 +31,12 @@ function UserProfile() {
   const [BookedData, setBookedData] = useState([]);
   const [bookedbyhome, setBookedByHome] = useState([]);
   const [modaldata, setModalData] = useState([]);
-  const [modalvalue, setmaodalvalue] = useState({
-    data: "",
-  });
-  console.log("BookedData", BookedData);
+  const [modalvalue, setmaodalvalue] = useState({ data: "" });
+  const [addmoney, setmoney] = useState([]);
+  const [pointId, setpointId] = useState("");
+  const [localid, setlocalid] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
+
   const [defaultvalues, setdefaultvalues] = useState({
     name: Data[0]?.name,
     phone: Data[0]?.phone,
@@ -43,31 +45,36 @@ function UserProfile() {
     gender: Data[0]?.gender,
     file: Data?.image,
   });
-
   const handler = async (value) => {
     var formdata = new FormData();
 
     for (var key in value) {
       formdata.append(key, value[key]);
     }
-    console.log(formdata, "formdataaaaaa");
+    //console.log(formdata, "formdataaaaaa");
     const res = await postformdata("user-Edit-Profile", formdata);
     const resimg = await postformdata("Edit-User-Profile", formdata);
     if (res.status) {
-      toast.success(res.message, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      // toast.success(res.message, {
+      //   position: toast.POSITION.TOP_RIGHT,
+      // });
     } else {
-      toast.error(res.message, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+      // toast.error(res.message, {
+      //   position: toast.POSITION.TOP_RIGHT,
+      // });
     }
-    console.log("ress", res);
-
-    const profile = await getData("user-Profile");
-    dispatch(setUsers(profile.data));
   };
 
+  const profileApi = async () => {
+    const profile = await getData(`user-Profile?Transaction=${true}`);
+    //console.log("?Transactionnnnnnnnnnn", profile.data[0]._id);
+    localStorage.setItem(
+      "refertransaction",
+      JSON.stringify(profile.data[0].referTransactions)
+    );
+    dispatch(setUsers(profile.data));
+  };
+  const refertransaction = localStorage.getItem("refertransaction");
   function logout() {
     localStorage.removeItem("token");
     navigate("/login");
@@ -78,9 +85,9 @@ function UserProfile() {
 
     setWhishlist(res.data);
   };
-  console.log("whishlistwhishlistwhishlistwhishlistwhishlist", whishlist);
   useEffect(() => {
     Getwhishlist();
+    profileApi();
   }, []);
 
   useEffect(() => {
@@ -124,7 +131,7 @@ function UserProfile() {
     });
     setBookedByHome(filter);
   };
-  console.log("orderIdorderId", bookedbyhome);
+  //console.log("orderIdorderId", bookedbyhome);
   const Itemhandle = (el) => {
     setmaodalvalue({ data: el });
   };
@@ -139,7 +146,51 @@ function UserProfile() {
       BookingApi();
     }
   };
+  const showDirection = (location) => {
+    window.open(
+      "https://maps.google.com?q=" +
+        location.aria +
+        "," +
+        location.city +
+        "," +
+        location.pincode +
+        "," +
+        location.state
+    );
+  };
 
+  const Addmoney = async () => {
+    const res = await getData("point-to-money-convert");
+    setmoney(res.data);
+  };
+
+  const selectPoint = (val) => {
+    localStorage.setItem("pointId", val);
+    setpointId(val);
+  };
+  useEffect(() => {
+    const val = localStorage.getItem("pointId");
+    setlocalid(val);
+  }, [pointId]);
+  const confirmPoint = async () => {
+    const res = await getData(
+      `point-to-money-convert?id=${localid ? localid : ""}`
+    );
+    if (res.status) {
+      profileApi();
+    }
+  };
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(Data[0]?.referCode);
+    setIsCopied((prev) => !prev);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1500);
+  };
+
+  const openingPage = (url) => {
+    window.open(`${url}`);
+  };
   return (
     <div>
       <HeaderHome />
@@ -161,7 +212,7 @@ function UserProfile() {
                     <div className="profileImage ms-auto  position-relative">
                       <img
                         className="w-100 h-100"
-                        src={arr ? Data[0]?.image : ""}
+                        src={Data[0]?.image}
                         alt="image-75"
                       />
                     </div>
@@ -222,9 +273,9 @@ function UserProfile() {
                           disabled
                         >
                           <span>
-                            {" "}
+                        
                             <span className="pe-3">
-                              <img src="assets/img/profile/at.svg" alt />
+                              <img src="assets/img/profile/at.svg" alt='image' />
                             </span>
                             {Data[0]?.email}
                           </span>
@@ -241,9 +292,9 @@ function UserProfile() {
                           disabled
                         >
                           <span>
-                            {" "}
+                      
                             <span className="pe-3">
-                              <img src="assets/img/profile/telephone.svg" alt />
+                              <img src="assets/img/profile/telephone.svg" alt='image' />
                             </span>
                             {Data[0]?.phone}
                           </span>
@@ -262,7 +313,7 @@ function UserProfile() {
                           <span onClick={() => BookingApi()}>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/heart.svg" alt />
+                              <img src="assets/img/profile/heart.svg" alt='image' />
                             </span>
                             My Booking
                           </span>
@@ -281,7 +332,7 @@ function UserProfile() {
                           <span>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/heart.svg" alt />
+                              <img src="assets/img/profile/heart.svg" alt='image' />
                             </span>{" "}
                             My Wishlist
                           </span>
@@ -300,7 +351,7 @@ function UserProfile() {
                           <span>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/alarm.svg" alt />
+                              <img src="assets/img/profile/alarm.svg" alt='image' />
                             </span>{" "}
                             Saloon Points
                           </span>
@@ -319,11 +370,30 @@ function UserProfile() {
                           <span>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/user.svg" alt />
+                              <img src="assets/img/profile/user.svg" alt='image' />
                             </span>{" "}
                             Refer &amp; Earn
                           </span>
                           <span>0</span>
+                        </button>
+                        <button
+                          className="nav-link border-0 rounded-0 ps-lg-4 ps-xl-5 navLink navlink2"
+                          id="wallet-tab"
+                          data-bs-toggle="pill"
+                          data-bs-target="#wallet"
+                          type="button"
+                          role="tab"
+                          aria-controls="wallet"
+                          aria-selected="false"
+                        >
+                          <span>
+                            {" "}
+                            <span className="pe-3">
+                              <img src="assets/img/profile/user.svg" alt='image' />
+                            </span>{" "}
+                            Wallet
+                          </span>
+                          <span>₹ {Data[0]?.userWallet?.balance}</span>
                         </button>
                       </div>
                       ;
@@ -433,7 +503,7 @@ function UserProfile() {
                                                 <img
                                                   className="w100 h100 me-2"
                                                   src="assets/img/profile/calendar.svg"
-                                                  alt
+                                                  alt='image'
                                                 />
                                                 {""}
                                                 <span>
@@ -532,7 +602,7 @@ function UserProfile() {
                                             <img
                                               className="w100 h100 me-2"
                                               src="assets/img/profile/calendar.svg"
-                                              alt
+                                              alt='image'
                                             />
                                             {""}
                                             <span>
@@ -599,7 +669,6 @@ function UserProfile() {
                   tabIndex={0}
                 >
                   {whishlist?.map((el) => {
-                    console.log("elelel77", el);
                     return (
                       <>
                         <div className="row innerrowtab g-3">
@@ -614,9 +683,9 @@ function UserProfile() {
                                       alt="..."
                                     />
                                     <div className="position-absolute top-0 end-0 me-1 imagesvg align-items-center">
-                                      <div class="form-check p-0 myFavouriteBtn">
+                                      <div className="form-check p-0 myFavouriteBtn">
                                         {/* <span
-                                          class="form-check-input"
+                                          className="form-check-input"
                                           type="checkbox"
                                           value=""
                                           id="favourite"
@@ -629,7 +698,7 @@ function UserProfile() {
                                           }}
                                         /> */}
                                         <label
-                                          class="form-check-label"
+                                          className="form-check-label"
                                           onClick={() => {
                                             whishlistApi(el?.result?._id);
                                           }}
@@ -675,38 +744,42 @@ function UserProfile() {
                                     <div className="border-bottom bordermb" />
                                     <div className="footerimage d-flex align-items-center justify-content-between ">
                                       <ul className="d-flex align-items-center justify-content-start list-unstyled gap-3 listImage mb-0 ">
-                                        {el?.result?.ProfileInfo?.amenities?.map((el)=>{
-                                          if(el == 'wifi'){
-                                            return (
-                                              <li>
-                                          <img
-                                            className="w-100 h-100"
-                                            src="assets/img/profile/wifi.png"
-                                            alt={1}
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            data-bs-title="Beverage"
-                                          />
-                                        </li>
-                                            )
+                                        {el?.result?.ProfileInfo?.amenities?.map(
+                                          (el) => {
+                                            if (el == "wifi") {
+                                              return (
+                                                <li>
+                                                  <img
+                                                    className="w-100 h-100"
+                                                    src="assets/img/profile/wifi.png"
+                                                    alt='image'
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    data-bs-title="Beverage"
+                                                  />
+                                                </li>
+                                              );
+                                            }
                                           }
-                                        })}
-                                            {el?.result?.ProfileInfo?.amenities?.map((el)=>{
-                                          if(el == "cctv"){
-                                            return (
-                                              <li>
-                                          <img
-                                            className="w-100 h-100"
-                                            src="assets/img/profile/TV-old.png"
-                                            alt={1}
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            data-bs-title="Beverage"
-                                          />
-                                        </li>
-                                            )
+                                        )}
+                                        {el?.result?.ProfileInfo?.amenities?.map(
+                                          (el) => {
+                                            if (el == "cctv") {
+                                              return (
+                                                <li>
+                                                  <img
+                                                    className="w-100 h-100"
+                                                    src="assets/img/profile/TV-old.png"
+                                                    alt='image'
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="top"
+                                                    data-bs-title="Beverage"
+                                                  />
+                                                </li>
+                                              );
+                                            }
                                           }
-                                        })}
+                                        )}
                                         {/* <li>
                                           <img
                                             className="w-100 h-100"
@@ -1028,14 +1101,146 @@ function UserProfile() {
                                   payment page during checkout
                                 </small>
                               </p>
-                              <div className="border-bottom bdbottom my-3" />
-                              <div className="sharetext">
+                              <div className="border-bottom bdbottom  my-3" />
+                              <div className="sharetext d-flex justify-content-between w-50 ">
                                 <small className="text-muted">
                                   Share your unique referral Code
                                 </small>
+                                <span className="text-theme1 ">
+                                  {" "}
+                                  {isCopied && Data[0]?.referCode
+                                    ? "copied!"
+                                    : ""}
+                                </span>
+                              </div>
+                              <div className="copytext ">
+                                <div className="copy-text w-50">
+                                  <input
+                                    type="text"
+                                    className="text w-100"
+                                    value={Data[0]?.referCode}
+                                    disabled
+                                  />
+                                  <button
+                                    className="position-absolute end-0 me-0"
+                                    onClick={() => handleCopyClick()}
+                                  >
+                                    <img
+                                      src="assets/img/profile/copyicon.svg"
+                                      alt='image'
+                                      style={{ width: "20px" }}
+                                    />
+                                  </button>
+                                </div>
+                              </div>
+                              <div className="socialMedia mt-3 d-flex iconlist align-items-center gap-sm-3 gap-2 mt-2">
+                                <div className="fs-14 fw-semibold ">
+                                  Share :
+                                </div>
+                                <ul className="list-unstyled d-flex iconlist align-items-center gap-sm-3 gap-2 mt-2 ">
+                                  <li>
+                                    <a
+                                      className="imagefb"
+                                      style={{
+                                        width: "30px",
+                                        height: "30px",
+                                        display: "block",
+                                      }}
+                                      onClick={() =>
+                                        openingPage(
+                                          `http://wa.me/?text= Hey, Im sharing a link to download saloon and earn 100 Points.Download the app from here: https://zoylee.onelink.me/GPJS and user my referral code ${Data[0]?.referCode} to get your bonus.Thanks.`
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        className="w-100"
+                                        src="/assets/img/icon/whatsapp.png"
+                                        alt="whatsapp"
+                                      />
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      className="imagefb"
+                                      style={{
+                                        width: "30px",
+                                        height: "30px",
+                                        display: "block",
+                                      }}
+                                      onClick={() =>
+                                        openingPage(
+                                          `http://facebook.com/?text= Hey, Im sharing a link to download saloon and earn 100 Points.Download the app from here: https://zoylee.onelink.me/GPJS and user my referral code ${Data[0]?.referCode} to get your bonus.Thanks.`
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        className="w-100"
+                                        src="/assets/img/icon/facebook.png"
+                                        alt="facebook"
+                                      />
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="tab-pane fade p-sm-4 p-3 tabForth"
+                  id="wallet"
+                  role="tabpanel"
+                  aria-labelledby="wallet-tab"
+                  tabIndex={0}
+                >
+                  <div className="row mx-0 ">
+                    <div className="col-12">
+                      <div className="card mb-3 refercard border-0 shadow">
+                        <div className="row g-0">
+                          <div className="col-md-4 d-flex align-items-cente justify-content-center flex-column leftSideContent">
+                            <div className="text100">
+                              {Data[0]?.userWallet?.point}
+                            </div>
+                            <div className="textSubHeading text-center">
+                              Your Total Point Earning
+                            </div>
+                          </div>
+                          <div className="col-md-8 rightSideContent">
+                            <div className="card-body bodycard">
+                              <h5 className="card-title">
+                                Share Earn &amp; Have Fun
+                              </h5>
+                              <p className="card-text">
+                                Get 50 Points for every person you refer to.
+                                Your friend will also get 100 points when they
+                                download the app
+                              </p>
+                              <p className="card-textsub">
+                                <small>
+                                  You can use 50pts in one transaction on
+                                  payment page during checkout
+                                </small>
+                              </p>
+                              <div className="border-bottom bdbottom my-3" />
+                              <div className="sharetext">
+                                <small className="text-muted">
+                                  Click here & and convert your point into
+                                  rupees.
+                                </small>
                               </div>
                               <div className="copytext">
-                                <div className="copy-text">
+                                <button
+                                  className="nav-link w-50  border-0 btn btn-warning rounded m-0"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#saloonWallet"
+                                  onClick={() => Addmoney()}
+                                >
+                                  Click here
+                                </button>
+                                {/* <div className="copy-text">
                                   <input
                                     type="text"
                                     className="text"
@@ -1047,7 +1252,7 @@ function UserProfile() {
                                       alt
                                     />
                                   </button>
-                                </div>
+                                </div> */}
                               </div>
                             </div>
                           </div>
@@ -1090,7 +1295,6 @@ function UserProfile() {
               }}
             >
               {(props) => {
-                console.log("ooohhhh", props);
                 return (
                   <Form onSubmit={props.handleSubmit}>
                     <div className="modal-body">
@@ -1224,7 +1428,7 @@ function UserProfile() {
                         <div className="col-md-6 mb-3">
                           <div className="inputIconGroup d-flex align-items-center">
                             <div className="icon me-2">
-                              <img src="assets/img/profile/gander.svg" alt />
+                              <img src="assets/img/profile/gander.svg" alt='image' />
                             </div>
                             <div className="d-flex align-items-cente">
                               <div className="form-check px-4">
@@ -1311,14 +1515,14 @@ function UserProfile() {
         aria-hidden="true"
       >
         <div className="modal-dialog  modal-dialog-scrollable">
-          <div div className="modal-content">
+          <div  className="modal-content">
             <div className="modal-header d-flex align-items-center justify-content-between">
               <h1
                 className="modal-title d-flex align-items-center"
                 id="exampleModalLabel"
               >
                 Order Id : {modalvalue.data?.item?.data[0]?.orderId}{" "}
-                <span className>
+                <span >
                   <img
                     className="w-100 h-100 ms-1"
                     src="assets/img/profile/modalcopy.svg"
@@ -1337,7 +1541,7 @@ function UserProfile() {
                   <img
                     className="w-100 h-100 ms-1"
                     src="assets/img/profile/arrow.svg"
-                    alt
+                    alt='image'
                   />
                 </span>
               </div>
@@ -1350,7 +1554,7 @@ function UserProfile() {
                       <img
                         className="w-100 h-100 rounded-3"
                         src={modalvalue.data?.image}
-                        alt
+                        alt='image'
                       />
                       <div className="saloontext">Kalon Unisex saloon</div>
                     </div>
@@ -1360,7 +1564,7 @@ function UserProfile() {
                           <img
                             className="w-100 h-100 me-3"
                             src="assets/img/profile/calendar.svg"
-                            alt
+                            alt='image'
                           />
                         </span>
                         {new Date(modalvalue.data?.updatedAt)
@@ -1384,11 +1588,15 @@ function UserProfile() {
                           className="text-decoration-none d-flex align-items-center gap-4 mb-3 text-theme2"
                           href="#"
                         >
-                          <span>
+                          <span
+                            onClick={() =>
+                              showDirection(modalvalue.data?.location)
+                            }
+                          >
                             <img
                               className="w-100 h-100 me-3"
                               src="assets/img/profile/cursor.svg"
-                              alt
+                              alt='image'
                             />
                           </span>
                           See direction
@@ -1443,6 +1651,104 @@ function UserProfile() {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* wallet modal */}
+      <div
+        className="modal saloonAtHome fade"
+        id="saloonWallet"
+        aria-hidden="true"
+        aria-labelledby="saloonAtHomeLabel"
+        tabIndex={-1}
+      >
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-header p-0 mx-0 row">
+              <div className="col-12 d-flex justify-content-between align-items-center py-2">
+                <div
+                  className="modal-title fs-6 text-dark"
+                  id="saloonAtHomeLabel"
+                >
+                  Wallet Money
+                </div>
+                <button
+                  type="button"
+                  className="btn-close fs-12 shadow-none"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                />
+              </div>
+              <div className="col-12 px-0">
+                <ul className="nav w-100 nav-tabs border-0">
+                  <li className="nav-item w-100 border-end border-theme1">
+                    <button className="nav-link w-100 border-0 rounded-0 m-0 active">
+                      Choose one of the point
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="modal-body p-3">
+              <div className="row gap-3">
+                <div className="col-12">
+                  <div className="card bg-white border-0 shadow">
+                    <div className="card-header border-0 bg-white">
+                      <div className="row">
+                        <div className="col fs-16 text-dark d-flex gap-2 align-items-center">
+                          {/* <span>{el?.name}</span>{" "} */}
+                          <span className="px-2 bg-theme1 bg-opacity-25 fs-12 fw-normal text-dark rounded-1">
+                            {/* {el?.type} */}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-body pt-0 row align-items-center">
+                      {addmoney[0]?.map((el) => {
+                        return (
+                          <div className=" d-flex justify-content-center align-items-center">
+                            <div className="fs-14 col">
+                              <span className="houseNo">point-{el.point}</span>
+                            </div>
+                            <div className="col-auto">
+                              <div className="fs-14 mobileNumber">
+                                rupees-{el.rupee} only
+                              </div>
+                            </div>
+                            <div className="col card-header bg-transparent border-0 h-auto text-end align-items-center d-flex justify-content-end">
+                              <div className="form-check p-0 m-0 align-items-center d-flex justify-content-end ">
+                                <input
+                                  className="form-check-input shadow-none m-0  border-theme1"
+                                  type="radio"
+                                  name="flexRadioDefault"
+                                  // id="address1"
+                                  onClick={() => selectPoint(el._id)}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-12 text-end">
+                  <button
+                    type="button"
+                    className="btn btn-theme1 px-3 fs-14 text-white"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    onClick={() => {
+                      confirmPoint();
+                    }}
+                  >
+                    confirm
+                  </button>
                 </div>
               </div>
             </div>

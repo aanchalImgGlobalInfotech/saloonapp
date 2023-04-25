@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../common/layout/footer/footer";
 import Footer2 from "../../common/layout/footer/Footer2 ";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData } from "../../components/apiinstance/Api";
 import moment from "moment";
-import { saloonservice, searchdata, WhislistItem } from "../../components/redux/redux1/actions";
-
+import {
+  saloonservice,
+  searchdata,
+  WhislistItem,
+} from "../../components/redux/redux1/actions";
 
 function Hair_cut() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [Data, setData] = useState();
-  const id = useSelector((state)=> state.categoryItem)
-  const cityName=useSelector((state)=>state.cityName)
-  const cityF=useSelector((state)=>state.cityFooter)
-  const value = useSelector((state) => state.saloonData);
-  const[multiGender,setMultiGender]=useState([])
+  const id = useSelector((state) => state?.categoryItem);
+  const cityName = useSelector((state) => state?.cityName);
+  const cityF = useSelector((state) => state?.cityFooter);
+  const value = useSelector((state) => state?.saloonData);
+  const [packages, setPackages] = useState([]);
+  const [multiGender, setMultiGender] = useState([]);
   const [preferencesForm, setPreferencesForm] = useState({
     minPrice: "",
     maxPrice: "",
@@ -26,48 +30,52 @@ function Hair_cut() {
   });
 
   const dataFilter = async () => {
-    if(Data.status == true){
+    if (Data?.status == true) {
       let typeMale = `&type=${multiGender[0]}`;
       let typeFemale = `&type=${multiGender[1]}`;
       let typeUnisex = `&type=${multiGender[2]}`;
       let max = `&ServicePrice_lt=${preferencesForm.maxPrice}`;
       let min = `&ServicePrice_gt=${preferencesForm.minPrice}`;
       let sort = `&sort=${preferencesForm.sortPrice}`;
-      const path = `get-Service-By-Category? ${preferencesForm.maxPrice ? max : ""}${preferencesForm.minPrice ? min : ""}${preferencesForm.sortPrice ? sort : ""}&id=${id}&city=${cityName}${multiGender[1] !==undefined ? typeFemale : ""}${multiGender[2] !==undefined ?typeUnisex : ""}${multiGender[0] !==undefined ? typeMale : ""}`;
+      const path = `get-Service-By-Category? ${
+        preferencesForm.maxPrice ? max : ""
+      }${preferencesForm.minPrice ? min : ""}${
+        preferencesForm.sortPrice ? sort : ""
+      }&id=${id}&city=${cityName}${
+        multiGender[1] !== undefined ? typeFemale : ""
+      }${multiGender[2] !== undefined ? typeUnisex : ""}${
+        multiGender[0] !== undefined ? typeMale : ""
+      }`;
       const res = await getData(path);
-     setData(res);
+      setData(res);
     }
-};
-   const multiGenderHandler= (e)=>{
-    const value=e.target.value;
-    const checked=e.target.checked
-    if(checked){
-           setMultiGender(
-            [
-              ...multiGender,value
-            ]
-           )
-    }else{
-           setMultiGender(multiGender.filter((e)=>(e !== value)))
+  };
+  const multiGenderHandler = (e) => {
+    const value = e.target.value;
+    const checked = e.target.checked;
+    if (checked) {
+      setMultiGender([...multiGender, value]);
+    } else {
+      setMultiGender(multiGender.filter((e) => e !== value));
     }
- }
- const handleChange = (evt)=>{
-  const value =evt.target.value;
-     setPreferencesForm({
-       ...preferencesForm,
-       [evt.target.name]:value
-     })
-   }
+  };
+  const handleChange = (evt) => {
+    const value = evt.target.value;
+    setPreferencesForm({
+      ...preferencesForm,
+      [evt.target.name]: value,
+    });
+  };
 
   useEffect(() => {
     dataFilter();
-  }, [preferencesForm , multiGender] );
+  }, [preferencesForm, multiGender]);
 
   const categoryData = async () => {
     const path = `get-Service-By-Category?id=${id ? id : ""}`;
     const res = await getData(path);
-    console.log('get-Service-By-Category?id=', res.data)
-    dispatch(searchdata(res.data))
+    
+    dispatch(searchdata(res.data));
     setData(res);
   };
 
@@ -80,11 +88,19 @@ function Hair_cut() {
     const path = `saloon-store?id=${value ? value : ""}`;
     const res = await getData(path);
     dispatch(saloonservice(res.data));
-    if(res.status){
+    if (res.status) {
       navigate("/services");
     }
   };
 
+  const getPackages = async () => {
+    const res = await getData("getCategoryListing?type=pakeges");
+    setPackages(res.data);
+   
+  };
+  useEffect(() => {
+    getPackages();
+  }, []);
   const getWhislistapi = async (value) => {
     // const path = 'get-wishlist';
     // const res = await getData(path);
@@ -95,6 +111,31 @@ function Hair_cut() {
     //   dispatch(WhislistItem(res.data));
     //   navigate("/services")
     // }
+  };
+  const data1 = Data?.data?.find((item) => {
+    if (item.length > 0)
+     return item;
+  });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordPerPage = 6;
+  const lastIndex = currentPage * recordPerPage;
+  const firstIndex = lastIndex - recordPerPage;
+  const records = data1?.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(data1?.length / recordPerPage) || 1;
+  const numbers = [...Array(npage + 1).keys()].slice(1);
+  const prevPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const changePage = (id) => {
+    setCurrentPage(id);
+  };
+  const nextPage = () => {
+    if (currentPage !== lastIndex) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   return (
@@ -115,7 +156,7 @@ function Hair_cut() {
                   <img
                     className="rounded-3 w-100"
                     src="assets/img/index/image1card.jpg"
-                    alt
+                    alt='image'
                   />
                 </div>
               </div>
@@ -126,7 +167,7 @@ function Hair_cut() {
                   <img
                     className="rounded-3 w-100"
                     src="assets/img/index/image2card.jpeg"
-                    alt
+                    alt='image'
                   />
                 </div>
               </div>
@@ -137,7 +178,7 @@ function Hair_cut() {
                   <img
                     className="rounded-3 w-100"
                     src="assets/img/index/image3card.jpg"
-                    alt
+                    alt='image'
                   />
                 </div>
               </div>
@@ -148,7 +189,7 @@ function Hair_cut() {
                   <img
                     className=" rounded-3 w-100"
                     src="assets/img/index/image4card.jpg"
-                    alt
+                    alt='image'
                   />
                 </div>
               </div>
@@ -177,7 +218,7 @@ function Hair_cut() {
                           <img
                             className="ms-2"
                             src="assets/img/icon/downArrowIcon.svg"
-                            alt
+                            alt='image'
                           />
                         </button>
                         <ul className="dropdown-menu bg-light p-0 overflow-hidden">
@@ -210,87 +251,121 @@ function Hair_cut() {
                         data-bs-target="#offcanvasFilter"
                         aria-controls="offcanvasFilter"
                       >
-                        <img src="assets/img/icon/filter.svg" alt />
+                        <img src="assets/img/icon/filter.svg" alt='image' />
                       </button>
                     </div>
 
                     {/* Search By Location */}
-                    
 
-                    <div
-                      className={`col-12`
-                       
-                      }
-                    >
+                    <div className={`col-12`}>
                       <div className="row g-sm-4 g-3 ">
-                        {Data?.data?.map((el, i) => {
-                         
+                        {records?.map((items ,i) => {
                           return (
-                            <>
-                              {el.map((items) => {
-                                 
-                                return (
-                                  <div className="col-md-4 col-6">
-                                    <p
-                                      onClick={() => {
-                                        handler(items.data.saloonStore, i);
-                                        // getWhislistapi(items.data.saloonStore);
-                                      }}
-                                    >
-                                      <div className="cardOuter rounded-sm-4 rounded-3 overflow-hidden position-relative bg-white">
-                                        <div className="imgOuter w-100 position-relative">
-                                          <img
-                                            className="w-100 h-100"
-                                            src={items?.data?.image}
-                                            alt
-                                          />
-                                          <div className="showRating position-absolute text-white bottom-0 end-0">
-                                            ★ 4
-                                          </div>
-                                        </div>
-                                        <div className="saloonDetail p-sm-3 p-2 d-flex flex-column gap-sm-2 gap-1">
-                                          <p className="saloonName stretched-link text-decoration-none text-black">
-                                            {items?.data?.ServiceName}
-                                          </p>
-                                          <div className="d-flex justify-content-between align-items-center">
-                                            <div className="serviceName">
-                                              {items?.data?.ServiceName}
-                                            </div>
-                                            <div className="price">
-                                            {items?.data ?.type}
-                                          </div>
-                                            <div className="price">
-                                              ₹{items?.data?.ServicePrice}
-                                            </div>
-                                          </div>
-                                          <div className="d-flex justify-content-between align-items-center address">
-                                            <div className="add">
-                                              {items?.data?.storeLOcation?.aria} ,{" "}
-                                              {items?.data?.storeLOcation?.city}
-                                            </div>
-                                            <div className="distance d-flex align-items-center gap-1">
-                                              <span className="icon">
-                                                <img
-                                                  className="w-100"
-                                                  src="assets/img/icon/locationGoldan.svg"
-                                                  alt
-                                                />
-                                              </span>
-                                              <span>500m</span>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </p>
+                            <div className="col-md-4 col-6" key={i}>
+                              <a
+                                onClick={() => {
+                                  handler(items.data.saloonStore);
+                                  // getWhislistapi(items.data.saloonStore);
+                                }}
+                              >
+                                <div className="cardOuter rounded-sm-4 rounded-3 overflow-hidden position-relative bg-white">
+                                  <div className="imgOuter w-100 position-relative">
+                                    <img
+                                      className="w-100 h-100"
+                                      src={items.data?.image ?items.data?.image[0] :''}
+                                      alt='image'
+                                    />
+                                    <div className="showRating position-absolute text-white bottom-0 end-0">
+                                      ★ 4
+                                    </div>
                                   </div>
-                                );
-                              })}
-                            </>
+                                  <div className="saloonDetail p-sm-3 p-2 d-flex flex-column gap-sm-2 gap-1">
+                                    <p className="saloonName stretched-link text-decoration-none text-black">
+                                      {items?.data?.ServiceName}
+                                    </p>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                      <div className="serviceName">
+                                        {items?.data?.ServiceName}
+                                      </div>
+                                      <div className="price">
+                                        {items?.data?.type}
+                                      </div>
+                                      <div className="price">
+                                        ₹{items?.data?.ServicePrice}
+                                      </div>
+                                    </div>
+                                    <div className="d-flex justify-content-between align-items-center address">
+                                      <div className="add">
+                                        {items?.data?.storeLOcation?.aria} ,{" "}
+                                        {items?.data?.storeLOcation?.city}
+                                      </div>
+                                      <div className="distance d-flex align-items-center gap-1">
+                                        <span className="icon">
+                                          <img
+                                            className="w-100"
+                                            src="assets/img/icon/locationGoldan.svg"
+                                            alt='image'
+                                          />
+                                        </span>
+                                        <span>500m</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
                           );
                         })}
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div className="col-12">
+                <div
+                  className="pagination justify-content-center gap-2 gap-sm-3"
+                  data-pagination
+                >
+                  <Link to="" onClick={prevPage} disabled={currentPage == 1}>
+                    <span className="arrowIcon d-flex align-items-center justify-content-center p-sm-2">
+                      <img
+                        className="w-100"
+                        src="/assets/img/icon/leftDubbleArrow.svg"
+                        alt='image'
+                      />
+                    </span>
+                  </Link>
+                  <ul className="list-unstyled m-0 d-inline p-0">
+                    {numbers.map((n, i) => (
+                      <li
+                      key={i}
+                        className={`rounded-1 d-inline-flex justify-content-center align-items-center ${
+                          currentPage == n ? "current" : ""
+                        }`}
+                      >
+                        <Link
+                          className="text-decoration-none"
+                          to=""
+                          onClick={() => changePage(n)}
+                        >
+                          {n}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    to=""
+                    onClick={nextPage}
+                    disabled={currentPage == numbers.length}
+                  >
+                    <span className="arrowIcon d-flex align-items-center justify-content-center p-sm-2">
+                      <img
+                        className="w-100"
+                        src="/assets/img/icon/rightDubbleArrow.svg"
+                        alt='image'
+                      />
+                    </span>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -307,7 +382,7 @@ function Hair_cut() {
                     <div className="filterHeader d-flex align-items-center justify-content-between">
                       <div className="filterTitle text-white">Preferences</div>
                       <div className="filterIcon d-none d-lg-block">
-                        <img src="assets/img/icon/filter.svg" alt />
+                        <img src="assets/img/icon/filter.svg" alt='image'/>
                       </div>
                       <button
                         type="button"
@@ -321,12 +396,10 @@ function Hair_cut() {
                   <div className="col-12 px-0 flex-fill h-100 overflow-hidden">
                     <div className="filterBody">
                       <form>
-                        
                         <div className="row mx-0">
-
-                           
-
-                          <div className={`col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark`}>
+                          <div
+                            className={`col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark`}
+                          >
                             <div className="grouptitle text-white">Gender</div>
                             <div className="form-check d-flex justify-content-between align-items-center p-0">
                               <label
@@ -341,7 +414,7 @@ function Hair_cut() {
                                 name="typeMale"
                                 id="male"
                                 value="male"
-                               // checked={preferencesForm.typeMale}
+                                // checked={preferencesForm.typeMale}
                                 onChange={multiGenderHandler}
                               />
                             </div>
@@ -375,13 +448,11 @@ function Hair_cut() {
                                 name="typeUnisex"
                                 value="unisex"
                                 id="uniSex"
-                                
                                 onChange={multiGenderHandler}
                               />
                             </div>
                           </div>
-                           
-                          
+
                           <div className="col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark">
                             <div className="grouptitle text-white">
                               Price Range
@@ -488,7 +559,7 @@ function Hair_cut() {
                               <label htmlFor="star1" title="text" />
                             </div>
                           </div>
-                          <div className="col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark">
+                          {/* <div className="col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark">
                             <div className="grouptitle text-white">
                               Discount
                             </div>
@@ -534,10 +605,10 @@ function Hair_cut() {
                                 id="upTo50"
                               />
                             </div>
-                          </div>
+                          </div> */}
                           <div className="col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark">
                             <div className="grouptitle text-white">
-                              Discount
+                              {/* Discount */}
                             </div>
                             <div className="form-check d-flex justify-content-between align-items-center p-0">
                               <label
@@ -553,7 +624,6 @@ function Hair_cut() {
                                 id="upTo10"
                               />
                             </div>
-                           
                           </div>
                           {/* <div className="col-12 filterGroup p-4 d-flex flex-column gap-2 border-bottom border-dark">
                           <div className="grouptitle text-white">Discount</div>
@@ -578,15 +648,11 @@ function Hair_cut() {
           </div>
         </div>
       </div>
-      {/* Filter & Package Page End */}
-      {/* herewe we Section start */}
       <Footer2 />
-     
       <Footer />
-      {/* Footer End */}
       {/* Modal */}
       <div
-        className="modal fade"
+        className="modal customModal fade"
         id="feMale"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
@@ -609,104 +675,46 @@ function Hair_cut() {
             </div>
             <div className="modal-body">
               <div className="row gap-3">
-                <div className="col-12">
-                  <div className="outer p-sm-3 p-2 border rounded-4 overflow-hidden position-relative">
-                    <div className="row mx-0 gap-3 align-items-center">
-                      <div className="col-auto px-0">
-                        <div className="imgOuter rounded-4 overflow-hidden">
-                          <img
-                            className="w-100 h-100"
-                            src="assets/img/img-1.png"
-                            alt
-                          />
+                {packages?.map((item,i) => {
+                  return (
+                    <div className="col-12" key={i}>
+                      <div className="outer p-sm-3 p-2 border rounded-4 overflow-hidden position-relative">
+                        <div
+                          className="row mx-0 gap-3 align-items-center" role='button'
+                          onClick={() =>
+                            navigate("/packages", { state: { id: item?._id } })
+                          }
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <div className="col-auto px-0">
+                            <div className="imgOuter  rounded-4 overflow-hidden">
+                              <img
+                                //style={{height:'60px',width:'60px'}}
+                                 className="w-100 h-100 "
+                                src={item?.image}
+                                alt='image'
+                              />
+                            </div>
+                          </div>
+                          <div className="col px-0">
+                            <div className="packagename">{item?.Name}</div>
+                            <div className="packageDec">
+                              A variety of pampering bridal packages for all
+                              wedding and pre-wedding functions.
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="col px-0">
-                        <div className="packagename">Bridal</div>
-                        <div className="packageDec">
-                          A variety of pampering bridal packages for all wedding
-                          and pre-wedding functions.
-                        </div>
-                        <a href="#" className="stretched-link" />
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="outer p-sm-3 p-2 border rounded-4 overflow-hidden position-relative">
-                    <div className="row mx-0 gap-3 align-items-center">
-                      <div className="col-auto px-0">
-                        <div className="imgOuter rounded-4 overflow-hidden">
-                          <img
-                            className="w-100 h-100"
-                            src="assets/img/img-1.png"
-                            alt
-                          />
-                        </div>
-                      </div>
-                      <div className="col px-0">
-                        <div className="packagename">Trending</div>
-                        <div className="packageDec">
-                          Choose from the wide assortment of trending packages
-                          for your new look.
-                        </div>
-                        <a href="#" className="stretched-link" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="outer p-sm-3 p-2 border rounded-4 overflow-hidden position-relative">
-                    <div className="row mx-0 gap-3 align-items-center">
-                      <div className="col-auto px-0">
-                        <div className="imgOuter rounded-4 overflow-hidden">
-                          <img
-                            className="w-100 h-100"
-                            src="assets/img/img-1.png"
-                            alt
-                          />
-                        </div>
-                      </div>
-                      <div className="col px-0">
-                        <div className="packagename">Traditional</div>
-                        <div className="packageDec">
-                          Garba Night or Friend’s Wedding, no matter the event,
-                          turn up sassy and classy.
-                        </div>
-                        <a href="#" className="stretched-link" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="outer p-sm-3 p-2 border rounded-4 overflow-hidden position-relative">
-                    <div className="row mx-0 gap-3 align-items-center">
-                      <div className="col-auto px-0">
-                        <div className="imgOuter rounded-4 overflow-hidden">
-                          <img
-                            className="w-100 h-100"
-                            src="assets/img/img-1.png"
-                            alt
-                          />
-                        </div>
-                      </div>
-                      <div className="col px-0">
-                        <div className="packagename">Formal</div>
-                        <div className="packageDec">
-                          Everything you need to get that elegant look for your
-                          next business meeting.
-                        </div>
-                        <a href="#" className="stretched-link" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
             </div>
           </div>
         </div>
       </div>
-     {/* Modal */} 
+      {/* Modal */}
       <div
         className="modal fade"
         id="malePackages"
@@ -739,7 +747,7 @@ function Hair_cut() {
                           <img
                             className="w-100 h-100"
                             src="assets/img/img-2.png"
-                            alt
+                            alt='image'
                           />
                         </div>
                       </div>
@@ -762,7 +770,7 @@ function Hair_cut() {
                           <img
                             className="w-100 h-100"
                             src="assets/img/img-2.png"
-                            alt
+                            alt='image'
                           />
                         </div>
                       </div>
@@ -785,7 +793,7 @@ function Hair_cut() {
                           <img
                             className="w-100 h-100"
                             src="assets/img/img-2.png"
-                            alt
+                            alt='image'
                           />
                         </div>
                       </div>
@@ -808,7 +816,7 @@ function Hair_cut() {
                           <img
                             className="w-100 h-100"
                             src="assets/img/img-2.png"
-                            alt
+                            alt='image'
                           />
                         </div>
                       </div>
@@ -831,5 +839,4 @@ function Hair_cut() {
     </div>
   );
 }
-
 export default Hair_cut;

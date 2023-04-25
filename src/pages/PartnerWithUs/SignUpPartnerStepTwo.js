@@ -4,6 +4,11 @@ import BusinessFooter from "./BusinessFooter";
 import BusinessHeader from "./BusinessHeader";
 import { Formik, Form, Field } from "formik";
 import { postData } from "../../components/apiinstance/Api";
+import {ToastContainer,toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import * as yup from "yup";
+import * as Yup from "yup";
+
 
 const SignUpPartnerStepTwo = () => {
    const navigate=useNavigate()
@@ -21,34 +26,90 @@ const SignUpPartnerStepTwo = () => {
   });
   
 
+   let PanNumber= /^([a-zA-Z]{5})(\d{4})([a-zA-Z]{1})$/
+   let GstNumber=/\d{2}[A-Z]{5}\d{4}[A-Z]{1}[A-Z\d]{1}[Z]{1}[A-Z\d]{1}/
+   let AccountNumber=/^[0-9]{9,18}$/
+   let ifscCode="^[A-Z]{4}[0][A-Z0-9]{6}$"
+
+   const validationschema = yup.object().shape({
+    // contactNumber: yup
+    //   .string()
+    //   .required("Enter your mobile number")
+    //   .length(10, "Please enter a valid mobile number.")
+    //   .matches(phoneRegExp, "Please enter a valid mobile number."),
+
+    panNumber: yup
+        .string()
+        .required("Enter your PAN ").matches(PanNumber, "Please enter a valid PAN Number"),
+        
+        gstNumber: yup
+        .string()
+        .required("Enter your GST number").matches(GstNumber, "Please enter a valid GST Number"),
+        
+        accountNumber: yup
+        .string()
+        .required("Enter your account number").matches(AccountNumber, "Please enter a valid Account Number"),
+      
+        bankName: Yup.string()
+      .min(2, "Too Short!")
+      .max(20, "Too Long!")
+      .required("Please Enter Bank  Name"),
+      accountHolder: Yup.string()
+      .min(2, "Too Short!")
+      .max(20, "Too Long!")
+      .required("Please Enter Account Holder Name"),
+      branchName: Yup.string().required("Please Enter branchName"),
+      ifscCode: Yup.string().required("Please Enter ifscCode").matches(ifscCode, "Please enter a correct IFSC."),
+      kyc: Yup.string().required("Please Enter kyc "),
+  
+      
+    
+  });
+
+
+
       const submitHandler = async(value) =>{
         const data={
           panNo: value.panNumber,
           gstNo: value.gstNumber,
           bankName: value.bankName,
           branchName:value.branchName ,
-          accountNo:value.accountNo,
+          accountNo:value.accountNumber,
           accoutHolder:value.accountHolder,
           ifscCode: value.ifscCode,
           kyc: value.kyc
         }
-         const res = await postData(`business-bank-information?id=${userData._id}`,data)
+         const res = await postData(`business-bank-information?id=${userData?._id}`,data)
           if(res.status){
-             navigate('/signup-partner-step-three',{
+            toast.success(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+             
+          });
+          setTimeout(()=>{
+            navigate('/signup-partner-step-three',{
               state:userData
              })
+          },2000)
+             
+          }else{
+            toast.error(res.message, {
+              position: toast.POSITION.TOP_RIGHT,
+              
+          });
           }
       }
-    
+      console.log(userData?._id)
   return (
     <div className="overflow-hideen vh-100 innerFooter">
+      <ToastContainer
+      autoClose={1000}/>
       <BusinessHeader />
       <div className="signUpPartnermain">
         <div className="container">
           <div className="mainInner">
             <div className="row gap-4">
               <div className="col-12">
-                <div className="pageHeading text-center">{userData.storeName}</div>
+                <div className="pageHeading text-center">{userData?.storeName}</div>
                 <div className="subHeading fs-20 fw-medium text-center text-theme1">
                   Partner Registration Form - 2
                 </div>
@@ -63,7 +124,7 @@ const SignUpPartnerStepTwo = () => {
                       <img
                         className="w-100"
                         src="assets/img/icon/stepUser.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Profile</div>
@@ -73,7 +134,7 @@ const SignUpPartnerStepTwo = () => {
                       <img
                         className="w-100"
                         src="assets/img/icon/stepBank.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Bank</div>
@@ -83,7 +144,7 @@ const SignUpPartnerStepTwo = () => {
                       <img
                         className="w-100"
                         src="assets/img/icon/stepIdCard.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Documents</div>
@@ -93,7 +154,7 @@ const SignUpPartnerStepTwo = () => {
                       <img
                         className="w-100"
                         src="assets/img/icon/stepConfirmation.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Confirmation</div>
@@ -104,6 +165,7 @@ const SignUpPartnerStepTwo = () => {
                 <Formik
                  initialValues={initialValues}
                  onSubmit={(value)=>submitHandler(value)}
+                 validationSchema={validationschema}
                 
                 >
                   {(formik) => {
@@ -131,6 +193,11 @@ const SignUpPartnerStepTwo = () => {
                                     name='panNumber'
                                   />
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.panNumber && formik.errors.panNumber
+                                    ? formik.errors.panNumber
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-sm-6">
                                 <div className="input-group d-block">
@@ -148,13 +215,25 @@ const SignUpPartnerStepTwo = () => {
                                     name='gstNumber'
                                   />
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.gstNumber && formik.errors.gstNumber
+                                    ? formik.errors.gstNumber
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-sm-6">
                                 <div className="input-group d-block">
-                                  <label htmlFor className="form-label">
+                                  <label  className="form-label">
                                     Bank Name
                                   </label>
                                   <Field
+                                    type="text"
+                                    className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none"
+                                    id="gstNumber"
+                                    placeholder="Bank Name"
+                                    name='bankName'
+                                  />
+                                  {/* <Field
                                     className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
                                     aria-label="Bank Name"
                                     as='select'
@@ -164,8 +243,13 @@ const SignUpPartnerStepTwo = () => {
                                     <option value='State Bank'>State Bank</option>
                                     <option value='HDFC Bank'>HDFC Bank</option>
                                     <option value='ICICI Bank'>ICICI Bank</option>
-                                  </Field>
+                                  </Field> */}
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.bankName && formik.errors.bankName
+                                    ? formik.errors.bankName
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-sm-6">
                                 <div className="input-group d-block">
@@ -175,18 +259,19 @@ const SignUpPartnerStepTwo = () => {
                                   >
                                     Branch Name
                                   </label>
-                                 <Field
-                                    className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
-                                    aria-label="Bank Name"
-                                    as='select'
+                                  <Field
+                                    type="text"
+                                    className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none"
+                                    id="Branch Name"
+                                    placeholder="Branch Name"
                                     name='branchName'
-                                  >
-                                    <option selected>Select Branch</option>
-                                    <option value='Delhi'>Delhi</option>
-                                    <option value='Mumbai'>Mumbai</option>
-                                    <option value='Pune'>Pune</option>
-                                  </Field>
+                                  />
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.branchName && formik.errors.branchName
+                                    ? formik.errors.branchName
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-sm-6">
                                 <div className="input-group d-block">
@@ -204,6 +289,11 @@ const SignUpPartnerStepTwo = () => {
                                     name='accountNumber'
                                   />
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.accountNumber && formik.errors.accountNumber
+                                    ? formik.errors.accountNumber
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-sm-6">
                                 <div className="input-group d-block">
@@ -221,6 +311,11 @@ const SignUpPartnerStepTwo = () => {
                                     name='accountHolder'
                                   />
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.accountHolder && formik.errors.accountHolder
+                                    ? formik.errors.accountHolder
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-sm-6">
                                 <div className="input-group d-block">
@@ -238,6 +333,11 @@ const SignUpPartnerStepTwo = () => {
                                     name='ifscCode'
                                   />
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.ifscCode && formik.errors.ifscCode
+                                    ? formik.errors.ifscCode
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-sm-6">
                                 <div className="input-group d-block">
@@ -252,6 +352,11 @@ const SignUpPartnerStepTwo = () => {
                                     name='kyc'
                                   />
                                 </div>
+                                <p className="text-danger text-start">
+                                  {formik.touched.kyc && formik.errors.kyc
+                                    ? formik.errors.kyc
+                                    : ""}
+                                </p>
                               </div>
                               <div className="col-12">
                                 <div className="row g-3">

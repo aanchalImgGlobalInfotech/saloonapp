@@ -14,7 +14,7 @@ const SaloonSafetyProgram = () => {
       <div className="row gap-4 gap-lg-0">
         <div className="col-lg-5">
           <div className="imgOuter rounded-4 overflow-hidden h-100">
-            <img className="w-100 h-100" src="assets/img/aboutBg.jpg" alt />
+            <img className="w-100 h-100" src="assets/img/aboutBg.jpg" alt="image" />
           </div>
         </div>
         <div className="col-lg-7">
@@ -52,81 +52,81 @@ const SaloonSafetyProgram = () => {
               <tbody>
                 <tr>
                   <td>Aarogya Setu App</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
                 </tr>
                 <tr>
                   <td>Hand Sanitisation</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
                 </tr>
                 <tr>
                   <td>Masks</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
                 </tr>
                 <tr>
                   <td>Sterilization of Tools After Every Use</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
                 </tr>
                 <tr>
                   <td>Limited Entry of Customers</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
                 </tr>
                 <tr>
                   <td>Outlet Sanitisation on Regular Basis</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
                 </tr>
                 <tr>
                   <td>Disposable Gloves</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
                 </tr>
                 <tr>
                   <td>Thermal Checking</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
                 </tr>
                 <tr>
                   <td>Disposable Gown/Cutting Sheet</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
                 </tr>
                 <tr>
                   <td>PPE Kit</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
                 </tr>
                 <tr>
                   <td>Disposable Razors</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
                 </tr>
                 <tr>
                   <td>Customer Sanitisation</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
                 </tr>
                 <tr>
                   <td>Others</td>
-                  <td><img src="assets/img/icon/checkIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
-                  <td><img src="assets/img/icon/uncheckIcon.svg" alt /></td>
+                  <td><img src="assets/img/icon/checkIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
+                  <td><img src="assets/img/icon/uncheckIcon.svg" alt="image" /></td>
                 </tr>
               </tbody>
             </table>

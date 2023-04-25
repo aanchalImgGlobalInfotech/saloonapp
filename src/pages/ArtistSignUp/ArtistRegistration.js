@@ -219,7 +219,7 @@ const submitHandler  = async(value,{resetForm}) =>{
             <div className="col-12">
               <div className="orderStatus py-2">
                 <div className="imgOuter mx-auto rounded-circle overflow-hidden bg-white">
-                  <img className="w-100" src="assets/img/CheckCircleFill.svg" alt />
+                  <img className="w-100" src="assets/img/CheckCircleFill.svg" alt='image'/>
                 </div>
               </div>
             </div>

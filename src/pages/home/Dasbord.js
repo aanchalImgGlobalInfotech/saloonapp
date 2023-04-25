@@ -241,9 +241,9 @@ function Dasbord() {
                                 operate your business. All-in-one application
                                 for you and your clients. Kindly click on.
                               </p>
-                              <a className="btn buttoncustom px-4" href>
+                              <NavLink className="btn buttoncustom px-4" to='/partnerlogin'>
                                 Boost My Bussines
-                              </a>
+                              </NavLink>
                             </div>
                           </div>
                         </div>

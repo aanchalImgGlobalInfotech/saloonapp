@@ -5,6 +5,7 @@ import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData, postData } from "../../components/apiinstance/Api";
 import { couPon } from "../../components/redux/redux1/actions";
 import Footer2 from "../../common/layout/footer/Footer2 ";
+import Footer from "../../common/layout/footer/footer";
 
 const CheckOut = ({ setCouponID }) => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const CheckOut = ({ setCouponID }) => {
   const [couponamount, setCouponAmount] = useState("");
   const [PayId, setPayId] = useState("");
   const [PaymentId, setPaymentId] = useState("");
-
+  console.log('kkkkkkk',arr)
   const navigate = useNavigate();
   
   const cheoutpage = async (id) => {
@@ -104,6 +105,10 @@ const CheckOut = ({ setCouponID }) => {
     console.log("get-couponget-coupon", res.data);
     setCoupon(res.data);
   };
+  const ConfirmOrderid = () => {
+    navigate('/orderId')
+    
+  }
   return (
     <>
       <div>
@@ -118,9 +123,10 @@ const CheckOut = ({ setCouponID }) => {
                   <div className="col">
                     <div className="pageHeading text-white">Checkout</div>
                   </div>
-                  <div className="col-auto">
+                  {arr[0]?.userAddress ?
+                  (<div className="col-auto">
                     <div className="miniheading text-white">Saloon at Home</div>
-                  </div>
+                  </div>) : ""}
                 </div>
               </div>
               <div className="col-12">
@@ -303,7 +309,7 @@ const CheckOut = ({ setCouponID }) => {
                           <img
                             className="me-2"
                             src="assets/img/icon/PlusCircleIcon.svg"
-                            alt
+                            
                           />{" "}
                           Add More
                         </NavLink>
@@ -328,9 +334,9 @@ const CheckOut = ({ setCouponID }) => {
                           </div>
 
                           {couponData.length
-                            ? couponData[0]?.cart?.map((el) => {
+                            ? couponData[0]?.cart?.map((el,i) => {
                                 return (
-                                  <div className="row p-3 mx-0 px-4 border-bottom">
+                                  <div className="row p-3 mx-0 px-4 border-bottom" key={i}>
                                     <div className="col px-0">
                                       <div className="services text-white text-opacity-75">
                                         {el.ServiceName}
@@ -344,10 +350,10 @@ const CheckOut = ({ setCouponID }) => {
                                   </div>
                                 );
                               })
-                            : arr[0]?.cart?.map((el) => {
+                            : arr[0]?.cart?.map((el,i) => {
                                 console.log("elelelle1111118", el);
                                 return (
-                                  <div className="row p-3 mx-0 px-4 border-bottom">
+                                  <div className="row p-3 mx-0 px-4 border-bottom" key={i}>
                                     <div className="col px-0">
                                       <div className="services text-white text-opacity-75">
                                         {el.ServiceName}
@@ -481,14 +487,14 @@ const CheckOut = ({ setCouponID }) => {
                                 </div>
                               </div>
                               <div className="col-12 mb-4">
-                                <form action className="form">
+                                <form  className="form">
                                   <div className="input-group">
                                     <input
                                       type="text"
                                       value={check}
                                       className="form-control shadow-none fs-12"
                                       onChange={(e) => setcheck(e.target.value)}
-                                      id
+                                      
                                       placeholder="Apply Promocode"
                                     />
                                     <button
@@ -524,7 +530,9 @@ const CheckOut = ({ setCouponID }) => {
                                 </button>
                               </div>
                               <div className="col-12">
-                                <button className="btn btn-theme1 shadow-none w-100 text-white fs-14 py-sm-2">
+                                <button className="btn btn-theme1 shadow-none w-100 text-white fs-14 py-sm-2"
+                                 onClick={()=>  ConfirmOrderid()}
+                                >
                                   Pay at Counter
                                 </button>
                               </div>
@@ -543,440 +551,10 @@ const CheckOut = ({ setCouponID }) => {
           <div className="container">
             <div className="row">
               <Footer2 />
-              <div className="col-12">
-                <ul className="where-we-list">
-                  <li>
-                    <a href="#">Greater Noida West</a>
-                  </li>
-                  <li>
-                    <a href="#">Greater Noida</a>
-                  </li>
-                  <li>
-                    <a href="#">Faridabad</a>
-                  </li>
-                  <li>
-                    <a href="#">Delhi</a>
-                  </li>
-                  <li>
-                    <a href="#">Ghaziabad</a>
-                  </li>
-                  <li>
-                    <a href="#">Lucknow</a>
-                  </li>
-                  <li>
-                    <a href="#">Meerut</a>
-                  </li>
-                  <li>
-                    <a href="#">Agra</a>
-                  </li>
-                  <li>
-                    <a href="#">Chandigarh</a>
-                  </li>
-                  <li>
-                    <a href="#">Mohali</a>
-                  </li>
-                  <li>
-                    <a href="#">Zirakpur</a>
-                  </li>
-                  <li>
-                    <a href="#">Jalandhar City</a>
-                  </li>
-                  <li>
-                    <a href="#">Aligarh</a>
-                  </li>
-                  <li>
-                    <a href="#">Jaipur</a>
-                  </li>
-                  <li>
-                    <a href="#">Pune</a>
-                  </li>
-                  <li>
-                    <a href="#">Bhopal</a>
-                  </li>
-                  <li>
-                    <a href="#">Ludhiana</a>
-                  </li>
-                  <li>
-                    <a href="#">Khair</a>
-                  </li>
-                  <li>
-                    <a href="#">Panchkula</a>
-                  </li>
-                  <li>
-                    <a href="#">Gorakhpur</a>
-                  </li>
-                  <li>
-                    <a href="#">Daman</a>
-                  </li>
-                  <li>
-                    <a href="#">Haridwar</a>
-                  </li>
-                  <li>
-                    <a href="#">Roorkee</a>
-                  </li>
-                  <li>
-                    <a href="#">Dehradun</a>
-                  </li>
-                  <li>
-                    <a href="#">Kanpur</a>
-                  </li>
-                  <li>
-                    <a href="#">Unnao</a>
-                  </li>
-                  <li>
-                    <a href="#">Karnal</a>
-                  </li>
-                  <li>
-                    <a href="#">Kurukshetra</a>
-                  </li>
-                  <li>
-                    <a href="#">Panipat</a>
-                  </li>
-                  <li>
-                    <a href="#">Amritsar</a>
-                  </li>
-                  <li>
-                    <a href="#">Kota</a>
-                  </li>
-                  <li>
-                    <a href="#">Gurugram</a>
-                  </li>
-                  <li>
-                    <a href="#">Noida</a>
-                  </li>
-                </ul>
-                <div className="tabswhere py-3">
-                  <ul
-                    className="nav nav-pills mb-3 pillcontent"
-                    id="pills-tab"
-                    role="tablist"
-                  >
-                    <li className="nav-item navitem" role="presentation">
-                      <button
-                        className="nav-link navLink active"
-                        id="pills-saloon-tab"
-                        data-bs-toggle="pill"
-                        data-bs-target="#pills-saloon"
-                        type="button"
-                        role="tab"
-                        aria-controls="pills-saloon"
-                        aria-selected="true"
-                      >
-                        Saloon
-                      </button>
-                    </li>
-                    <li className="nav-item navitem" role="presentation">
-                      <button
-                        className="nav-link navLink"
-                        id="pills-parlour-tab"
-                        data-bs-toggle="pill"
-                        data-bs-target="#pills-parlour"
-                        type="button"
-                        role="tab"
-                        aria-controls="pills-parlour"
-                        aria-selected="false"
-                      >
-                        Parlour
-                      </button>
-                    </li>
-                    <li className="nav-item navitem" role="presentation">
-                      <button
-                        className="nav-link navLink"
-                        id="pills-spa-tab"
-                        data-bs-toggle="pill"
-                        data-bs-target="#pills-spa"
-                        type="button"
-                        role="tab"
-                        aria-controls="pills-spa"
-                        aria-selected="false"
-                      >
-                        Spa
-                      </button>
-                    </li>
-                  </ul>
-                  <div className="tab-content" id="pills-tabContent">
-                    <div
-                      className="tab-pane fade show active"
-                      id="pills-saloon"
-                      role="tabpanel"
-                      aria-labelledby="pills-saloon-tab"
-                      tabIndex={0}
-                    >
-                      <div>
-                        <ul className="where-we-list category_list">
-                          <li>
-                            <a href={3}>Salon in Greater Noida West</a>
-                          </li>
-                          <li>
-                            <a href={3}>Salon in Greater Noida</a>
-                          </li>
-                          <li>
-                            <a href={3}>Salon in Faridabad</a>
-                          </li>
-                          <li>
-                            <a href={3}>Salon in Delhi</a>
-                          </li>
-                          <li>
-                            <a href={3}>Salon in Ghaziabad</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Lucknow</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Meerut</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Agra</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Chandigarh</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Mohali</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Jalandhar City</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Aligarh</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Jaipur</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Pune</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Bhopal</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Ludhiana</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Khair</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Panchkula</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Gorakhpur</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Daman</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Haridwar</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Roorkee</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Dehradun</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Kanpur</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Unnao</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Karnal</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Kurukshetra</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Panipat</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Amritsar</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Kota</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Gurugram</a>
-                          </li>
-                          <li>
-                            <a href="#">Salon in Noida</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      className="tab-pane fade"
-                      id="pills-parlour"
-                      role="tabpanel"
-                      aria-labelledby="pills-parlour-tab"
-                      tabIndex={0}
-                    >
-                      <div>
-                        <ul className="where-we-list category_list">
-                          <li>
-                            <a href="#">Parlour in Greater Noida West</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Greater Noida</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Faridabad</a>
-                          </li>
-                          <li>
-                            <a href="#i">Parlour in Delhi</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Ghaziabad</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Lucknow</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Meerut</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Agra</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Chandigarh</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Mohali</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Zirakpur</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Jalandhar City</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Aligarh</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Jaipur</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Pune</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Bhopal</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Ludhiana</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Daman</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Haridwar</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Roorkee</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Dehradun</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Kanpur</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Unnao</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Karnal</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Kurukshetra</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Panipat</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Amritsar</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Kota</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Gurugram</a>
-                          </li>
-                          <li>
-                            <a href="#">Parlour in Noida</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      className="tab-pane fade"
-                      id="pills-spa"
-                      role="tabpanel"
-                      aria-labelledby="pills-spa-tab"
-                      tabIndex={0}
-                    >
-                      <div>
-                        <ul className="where-we-list category_list">
-                          <li>
-                            <a href="#">Spa in Greater Noida</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Faridabad</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Delhi</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Ghaziabad</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Lucknow</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Chandigarh</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Mohali</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Zirakpur</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Jalandhar City</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Jaipur</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Pune</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Ludhiana</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Daman</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Roorkee</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Dehradun</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Gurugram</a>
-                          </li>
-                          <li>
-                            <a href="#">Spa in Noida</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Footer />
             </div>
           </div>
         </section>
-        {/* herewe we Section end */}
-        {/* Footer Start */}
-
         {/* Footer End */}
         {/* Modal */}
         <div
@@ -1006,12 +584,12 @@ const CheckOut = ({ setCouponID }) => {
               <div className="modal-body">
                 <div className="row gap-4">
                   <div className="col-12">
-                    <form action className="form">
+                    <form  className="form">
                       <div className="input-group">
                         <input
                           type="text"
                           className="form-control shadow-none fs-12"
-                          id
+                          
                           value={check}
                           onChange={(e) => setcheck(e.target.value)}
                           placeholder="Enter Coupon Code"
@@ -1033,10 +611,10 @@ const CheckOut = ({ setCouponID }) => {
                       </div>
                     </form>
                   </div>
-                  {coupon.map((el) => {
+                  {coupon.map((el,i) => {
                     // console.log('elelele',el)
                     return (
-                      <div className="col-12">
+                      <div className="col-12" key={i}>
                         <div className="form-check p-0">
                           <input
                             className="form-check-input"

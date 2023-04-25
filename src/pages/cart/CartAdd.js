@@ -60,7 +60,7 @@ function CartAdd({
     date: new Date(Date.now() + d * 24 * 60 * 60 * 1000).toISOString(),
   }));
 
-  console.log("weeekkkdayss", slots.date, slots.time);
+ // console.log("weeekkkdayss", slots.date, slots.time);
 
   var startTime1 = stime;
   const endTime1 = etime;
@@ -89,7 +89,7 @@ function CartAdd({
       }
     });
   }
-
+//console.log('valuevaluevaluevaluevaluevalue', value)
   // var startTime = moment().startOf("hour");
   // var endTime = moment("22:50").utc().set({ hour: 20 });
   // console.log("momentmoment", moment("07:40").format());
@@ -118,7 +118,7 @@ function CartAdd({
       value[0]?._id ? value[0]?._id : ""
     }&addressId=${homecheckoutId ? homecheckoutId : ""}`;
     const res = await getData(path);
-
+    //console.log('mjmnbnbb',res.data)
     settoatal(...total, res.data[0]?.totalamount);
     dispatch(checkoutvalues(res.data));
     if (res.status) {
@@ -193,10 +193,9 @@ function CartAdd({
               tabIndex={0}
             >
               <div className="addContentt">
-                {Cartdata?.map((items) => {
+                {Cartdata?.map((items ,i) => {
                   return (
-                    <>
-                      <div className="row mx-0 px-0 bg-dark rounded-3 text-white mb-3">
+                      <div className="row mx-0 px-0 bg-dark rounded-3 text-white mb-3" key={i}>
                         <div className="col-12 py-3 border-bottom border-gray">
                           <div className="row align-items-center">
                             <div className="col-6 leftSideContent">
@@ -208,7 +207,7 @@ function CartAdd({
                                   <img
                                     className="w-100 h-100"
                                     src="assets/img/vandorProfile/clock.svg"
-                                    alt
+                                    alt='image'
                                   />
                                 </span>
                                 <span className="time">
@@ -247,7 +246,7 @@ function CartAdd({
                           </div>
                         </div>
                       </div>
-                    </>
+                   
                   );
                 })}
               </div>
@@ -295,6 +294,7 @@ function CartAdd({
                           ? "datetimeContent"
                           : "disabled"
                       }`}
+                      key={i}
                     >
                       <label
                         className="option"
@@ -303,7 +303,7 @@ function CartAdd({
                             ? ""
                             : "gray",
                         }}
-                      >
+                      >     
                         <input
                           type="radio"
                           onChange={() => {
@@ -332,9 +332,9 @@ function CartAdd({
                 <div className="col-12 py-2">
                   <div className="selectDate">Choose Time Slot</div>
                 </div>
-                {timevalue?.map((el) => {
+                {timevalue?.map((el,i) => {
                   return (
-                    <div className="col-sm-auto col-4 datetimeContent  px-2 mb-2">
+                    <div className="col-sm-auto col-4 datetimeContent  px-2 mb-2"key={i}>
                       <label className="option w-100">
                         <input
                           type="radio"
@@ -361,7 +361,7 @@ function CartAdd({
                   <div className="buttonfooter">
                     <a
                       role="button"
-                      class="text-theme1 text-decoration-none fs-14 me-2 me-xl-0"
+                      className="text-theme1 text-decoration-none fs-14 me-2 me-xl-0"
                       data-bs-toggle="modal"
                       data-bs-target="#saloonAtHome"
                       onClick={() => getAddressApi()}

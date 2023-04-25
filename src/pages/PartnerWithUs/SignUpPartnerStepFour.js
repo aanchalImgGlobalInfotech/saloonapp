@@ -30,7 +30,7 @@ const SignUpPartnerStepFour = () => {
                       <img
                         className="w-100"
                         src="assets/img/icon/stepUser.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Profile</div>
@@ -40,7 +40,7 @@ const SignUpPartnerStepFour = () => {
                       <img
                         className="w-100"
                         src="assets/img/icon/stepBank.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Bank</div>
@@ -50,7 +50,7 @@ const SignUpPartnerStepFour = () => {
                       <img
                         className="w-100"
                         src="assets/img/icon/stepIdCard.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Documents</div>
@@ -60,7 +60,7 @@ const SignUpPartnerStepFour = () => {
                       <img
                         className="w-100"
                         src="assets/img/icon/stepConfirmation.svg"
-                        alt
+                        
                       />
                     </div>
                     <div className="title fs-14 mt-1">Confirmation</div>

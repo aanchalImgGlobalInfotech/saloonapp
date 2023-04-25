@@ -150,7 +150,7 @@ function Login() {
                           />
                           <label
                             className="form-check-label textleb"
-                            for="flexCheckChecked"
+                            htmlFor="flexCheckChecked"
                           >
                             By continuing, I agree to the{" "}
                             <NavLink className="text-decoration-none" to="/">
@@ -179,11 +179,18 @@ function Login() {
                           </button>
                         </NavLink>
                       </div>
+                    
                       <div className="text-center">
+                      <NavLink
+                        className="text-theme1 recendtext text-decoration-none"
+                        to="/login-with-password"
+                      >
+                        Log In using Password
+                      </NavLink>
                         <div className="textfooter">
                           Don't have an account?
                           <NavLink
-                            className="text-theme2 fw-md-lighter text-decoration-none"
+                            className="text-theme1 ms-1 fw-md-lighter text-decoration-none"
                             to="/signup"
                           >
                             Sign Up Now
