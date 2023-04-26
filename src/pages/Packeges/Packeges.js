@@ -1,22 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import moment from "moment";
 import Footer from "../../common/layout/footer/footer";
 import Footer2 from "../../common/layout/footer/Footer2 ";
 import HeaderHome from "../../common/layout/header/HeaderHome";
-import { getData } from "../../components/apiinstance/Api";
-import { packageSaloonId } from "../../components/redux/redux1/actions";
+import { getData, postData } from "../../components/apiinstance/Api";
+import {
+  checkoutvalues,
+  packageSaloonId,
+} from "../../components/redux/redux1/actions";
 
 const Packeges = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const [PackagesId, setPackagesId] = useState(location.state.id);
+  const navigate = useNavigate();
   const [PackagesTab, setPackagesTab] = useState([]);
   const [packages, setPackage] = useState([]);
   const [saloonId, setSaloonId] = useState("");
   const [count, setCount] = useState(1);
   const [cartData, setCartData] = useState([]);
   const [cartId, setCartId] = useState("");
+  const [total, settoatal] = useState("");
+  const [isOpen, setIsOpen] = useState("cart");
+  let saloonopen = JSON.parse(localStorage.getItem("saloonopen"));
+  let saloonData = JSON.parse(localStorage.getItem("saloonData"));
+  let packagedId = JSON.parse(localStorage.getItem("packagedId"));
+  const [PackagesId, setPackagesId] = useState(packagedId);
+  let saloonStoreID = saloonData?._id;
+  let saloonStartTime = saloonData?.ProfileInfo?.starting_time;
+  let saloonEndTime = saloonData?.ProfileInfo?.ending_time;
+  const [slots, setSlots] = useState({
+    time: "",
+    date: "",
+  });
+
+  const [clikedDate, setClikedDate] = useState(
+    new Date(Date.now()).toISOString()
+  );
+  const [sheduledata, setsheduleData] = useState(saloonopen);
   const packageSaloonIds = useSelector((state) => state.packageSaloonId);
   const getPackageTab = async () => {
     const res = await getData("getCategoryListing?type=pakeges");
@@ -26,7 +48,7 @@ const Packeges = () => {
   const getPackages = async () => {
     const res = await getData(`get-service-Package?categoryId=${PackagesId}`);
     setPackage(res.data);
-    console.log(res);
+    console.log("resresres", res.data);
   };
   useEffect(() => {
     getPackages();
@@ -34,8 +56,10 @@ const Packeges = () => {
   useEffect(() => {
     getPackageTab();
   }, []);
-
-  const addToCart = async (saloonid, serviceId) => {
+  console.log("cartDatacartData", cartData);
+  const addToCart = async (saloonid, serviceId, item) => {
+    console.log("itemitemitem", item);
+    localStorage.setItem("saloonopen", JSON.stringify(item));
     const res = await getData(
       `add-cart?saloonId=${saloonid}&serviceId=${serviceId}`
     );
@@ -71,11 +95,70 @@ const Packeges = () => {
     }
   };
 
-  let saloonData = JSON.parse(localStorage.getItem("saloonData"));
-  let saloonStoreID = saloonData?._id;
-  let saloonStartTime = saloonData?.ProfileInfo?.starting_time;
-  let saloonEndTime = saloonData?.ProfileInfo?.ending_time;
+  var timeArry = [];
+  const setSlot = (el) => {
+    const uniqueNames = timeArry.filter((val) => val?.includes(el));
+    setSlots({ ...slots, time: uniqueNames[0] });
+  };
 
+  let weekDays = [0, 1, 2, 3, 4, 5, 6].map((d) => ({
+    day: new Date(Date.now() + d * 24 * 60 * 60 * 1000)
+      .toLocaleDateString("en-US", { weekday: "long" })
+      .slice(0, 9),
+    month: new Date().toLocaleDateString("en-US", { month: "long" }),
+    date: new Date(Date.now() + d * 24 * 60 * 60 * 1000).toISOString(),
+  }));
+
+  var startTime1 = saloonStartTime;
+  const endTime1 = saloonEndTime;
+  const durationInMinutes = "15";
+  while (startTime1 <= endTime1) {
+    startTime1 = moment(startTime1, "HH:mm:ss ")
+      .add(durationInMinutes, "minutes")
+      .format("HH:mm A");
+    timeArry.push(startTime1);
+  }
+
+  let currenttime = new Date().toTimeString().slice(0, 5);
+  let timevalue = [];
+  if (
+    new Date(Date.now()).toISOString().slice(0, 10) == clikedDate.slice(0, 10)
+  ) {
+    timevalue = timeArry?.filter((el) => {
+      if (el >= currenttime && el <= endTime1) {
+        return el;
+      }
+    });
+  } else {
+    timevalue = timeArry.filter((el) => {
+      if (el <= endTime1) {
+        return el;
+      }
+    });
+  }
+
+  const hanldeSlot = async () => {
+    var body = {
+      date: slots.date.slice(0, 10),
+      timeslot: slots.time,
+    };
+    const res = await postData(
+      `Schedule-your-visit?saloonId=${saloonStoreID ? saloonStoreID : ""}`,
+      body
+    );
+    console.log("nnnnnn", res.data);
+  };
+
+  const cheoutpage = async () => {
+    const path = `Checkout?saloonId=${saloonStoreID ? saloonStoreID : ""}`;
+    const res = await getData(path);
+    console.log("mjmnbnbb", res.data);
+    settoatal(...total, res.data[0]?.totalamount);
+    dispatch(checkoutvalues(res.data));
+    if (res.status) {
+      navigate("/checkout");
+    }
+  };
   return (
     <>
       <HeaderHome />
@@ -327,7 +410,11 @@ const Packeges = () => {
                                                                             ?._id
                                                                         : ""
                                                                       : "",
-                                                                    innerItem?._id
+                                                                    innerItem?._id,
+                                                                    item
+                                                                      ?.saloon[0]
+                                                                      ?.ProfileInfo
+                                                                      ?.workingday
                                                                   );
                                                                   dispatch(
                                                                     packageSaloonId(
@@ -449,61 +536,54 @@ const Packeges = () => {
                     role="tablist"
                   >
                     <li
-                      className="nav-item navItem"
-                      id="pills-checkout-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-checkout"
-                      type="button"
-                      role="tab"
-                      aria-controls="pills-checkout"
-                      aria-selected="false"
-                      tabIndex={-1}
+                      className={`nav-item navItem ${
+                        isOpen == "checkout" ? "active" : ""
+                      }`}
+                      aria-selected={isOpen == "checkout" ? "false" : "true"}
+                      tabIndex={isOpen == "checkout" ? "-1" : ""}
+                      onClick={() => setIsOpen("checkout")}
                     >
                       <button
                         className="nav-link navLink"
-                        aria-selected="false"
-                        tabIndex={-1}
-                        role="tab"
-                        disabled
+                        onClick={() => {
+                          if (slots.date && slots.time) {
+                            cheoutpage();
+                          } else {
+                            alert("please enter date and time both!");
+                            setIsOpen("schedule");
+                          }
+                        }}
                       >
                         Checkout
                       </button>
                     </li>
                     <li
-                      className="nav-item navItem"
-                      id="pills-schedule-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-schedule"
-                      type="button"
-                      role="tab"
-                      aria-controls="pills-schedule"
-                      aria-selected="false"
-                      tabIndex={-1}
+                      className={`nav-item navItem ${
+                        isOpen == "schedule" ? "active" : ""
+                      }`}
+                      aria-selected={isOpen == "schedule" ? "false" : "true"}
+                      tabIndex={isOpen == "schedule" ? "-1" : ""}
+                      onClick={() => setIsOpen("schedule")}
                     >
-                      <button
-                        className="nav-link navLink"
-                        aria-selected="false"
-                        tabIndex={-1}
-                        role="tab"
-                      >
-                        Schedule
-                      </button>
+                      <button className="nav-link navLink">Schedule</button>
                     </li>
                     <li
-                      className="nav-item navItem active"
-                      id="pills-cart-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-cart"
-                      type="button"
-                      role="tab"
-                      aria-controls="pills-cart"
-                      aria-selected="true"
+                      className={`nav-item navItem ${
+                        isOpen == "cart" ? "active" : ""
+                      }`}
+                      // id="pills-cart-tab"
+                      // data-bs-toggle="pill"
+                      // data-bs-target="#pills-cart"
+                      // type="button"
+                      // role="tab"
+                      // aria-controls="pills-cart"
+                      aria-selected={isOpen == "cart" ? "false" : "true"}
+                      tabIndex={isOpen == "cart" ? "-1" : ""}
+                      onClick={() => setIsOpen("cart")}
                     >
                       <button
                         className="nav-link navLink"
-                        aria-selected="false"
-                        tabIndex={-1}
-                        role="tab"
+                        // onClick={() => Postcart(Data[0]?._id)}
                       >
                         Cart
                       </button>
@@ -511,7 +591,9 @@ const Packeges = () => {
                   </ul>
                   <div className="tab-content pt-3" id="pills-tabContent">
                     <div
-                      className="tab-pane fade cartside show active"
+                      className={`tab-pane fade cartside ${
+                        isOpen == "cart" ? "active show" : ""
+                      }`}
                       id="pills-cart"
                       role="tabpanel"
                       aria-labelledby="pills-cart-tab"
@@ -519,7 +601,7 @@ const Packeges = () => {
                     >
                       <div className="addContentt px-2 mb-3">
                         {cartData?.map((cartItem) => {
-                          //console.log(cartItem,'sonu')
+                          console.log(cartItem,'sonu')
                           return (
                             <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
                               <div className="col-6 leftSideContent">
@@ -567,18 +649,23 @@ const Packeges = () => {
                           );
                         })}
                       </div>
-                      <div className="row mx-0 py-2 justify-content-between text-black footer border-top rounded-0 bg-light">
+
+                      <div className="row row mx-0 py-2 justify-content-between ounded-3 text-black footer">
                         <div className="col-4">
                           <div className="totalitems">
-                            {cartData?.length} items
+                            {/* {Cartdata ? Cartdata?.length : ""} */}
                           </div>
                           <div className="paymenttotal">
-                            ₹{cartData ? cartData[0]?.totalamount : 0}
+                            ₹
+                            {cartData[0]?.totalamount}
                           </div>
                         </div>
                         <div className="col-8 text-end">
                           <div className="buttonfooter">
-                            <button className=" btn border-0  shadow-none bg-theme2 text-white rounded-3 Schedulebtn">
+                            <button
+                              onClick={() => setIsOpen("schedule")}
+                              className=" btn border-0  shadow-none bg-theme2 text-white rounded-3 Schedulebtn"
+                            >
                               Schedule Your Visit
                             </button>
                           </div>
@@ -586,7 +673,9 @@ const Packeges = () => {
                       </div>
                     </div>
                     <div
-                      className="tab-pane fade Schedule"
+                      className={`tab-pane fade Schedule ${
+                        isOpen == "schedule" ? "active show" : ""
+                      }`}
                       id="pills-schedule"
                       role="tabpanel"
                       aria-labelledby="pills-schedule-tab"
@@ -595,288 +684,128 @@ const Packeges = () => {
                       <div className="row mx-0 px-0 selectedtimedate">
                         <div className="col-12 mb-2">
                           <div className="selectDate">Select Date</div>
-                          <div className="month text-muted">February</div>
+                          <div className="month text-muted">
+                            {weekDays[0]?.month}
+                          </div>
                         </div>
-                        <div className="col-auto datetimeContent mb-2 disabled">
-                          <label className="option">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option">
-                              <div>S</div>
-                              <div>01</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-auto datetimeContent mb-2">
-                          <label className="option">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option">
-                              <div>M</div>
-                              <div>02</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-auto datetimeContent mb-2">
-                          <label className="option">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option">
-                              <div>T</div>
-                              <div>03</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-auto datetimeContent mb-2">
-                          <label className="option">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option">
-                              <div>W</div>
-                              <div>04</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-auto datetimeContent mb-2">
-                          <label className="option">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option">
-                              <div>Th</div>
-                              <div>05</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-auto datetimeContent mb-2">
-                          <label className="option">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option">
-                              <div>F</div>
-                              <div>06</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-auto datetimeContent mb-2">
-                          <label className="option">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option">
-                              <div>S</div>
-                              <div>07</div>
-                            </span>
-                          </label>
-                        </div>
+                        {weekDays.map((item, i) => {
+                          return (
+                            <div
+                              className={`col-auto px-1 mb-2 datetimeContent ${
+                                sheduledata?.includes(item.day)
+                                  ? "datetimeContent"
+                                  : "disabled"
+                              }`}
+                              key={i}
+                            >
+                              <label
+                                className="option"
+                                style={{
+                                  backgroundColor: sheduledata?.includes(
+                                    item.day
+                                  )
+                                    ? ""
+                                    : "gray",
+                                }}
+                              >
+                                <input
+                                  type="radio"
+                                  onChange={() => {
+                                    setSlots({ ...slots, date: item.date });
+                                    setClikedDate(item.date);
+                                  }}
+                                  disabled={
+                                    sheduledata?.includes(item.day)
+                                      ? false
+                                      : true
+                                  }
+                                  name="optradios"
+                                />
+                                <span
+                                  // onClick={() =>
+                                  //   setSlots({ ...slots, date: item.date })
+                                  // }
+                                  className="btn btn-theme1 btn-option"
+                                >
+                                  <div>{item.day.slice(0, 1)}</div>
+                                  <div>{item.date.slice(8, 10)}</div>
+                                </span>
+                              </label>
+                            </div>
+                          );
+                        })}
+
                         <div className="col-12 py-2">
                           <div className="selectDate">Choose Time Slot</div>
                         </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2 disabled">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">12:00 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">01:00 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">01:15 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">01:30 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">01:45 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">02:00 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">02:15 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">02:45 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">03:00 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">03:15 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">03:30 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">03:45 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">04:00 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">04:15 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">04:30 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">04:45 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">05:00 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">05:15 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">05:30 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">05:45 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">06:00 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">06:15 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">06:30 PM</div>
-                            </span>
-                          </label>
-                        </div>
-                        <div className="col-sm-auto col-4 datetimeContent mb-2">
-                          <label className="option w-100">
-                            <input type="radio" name="optradio" />
-                            <span className="btn btn-theme1 btn-option opectiontime">
-                              <div className="time">06:45 PM</div>
-                            </span>
-                          </label>
-                        </div>
+                        {timevalue?.map((el, i) => {
+                          return (
+                            <div
+                              className="col-sm-auto col-4 datetimeContent  px-2 mb-2"
+                              key={i}
+                            >
+                              <label className="option w-100">
+                                <input
+                                  type="radio"
+                                  // checked={el == slots.time ? true : false}
+                                  name="optradio"
+                                  onClick={() => setSlot(el)}
+                                />
+                                <span className="btn btn-theme1 btn-option opectiontime">
+                                  <div className="time">{el} </div>
+                                </span>
+                              </label>
+                            </div>
+                          );
+                        })}
                       </div>
-                      <div className="row align-items-center px-0 mx-0 py-2 justify-content-between ounded-3 text-black footer bg-light border-bottom rounded-0 ">
+                      <div className="row row mx-0 py-2 justify-content-between ounded-3 text-black footer">
                         <div className="col-4">
-                          <div className="totalitems">February</div>
-                          <div className="paymenttotal">02:30 PM</div>
+                          <div className="totalitems">{weekDays[0]?.month}</div>
+                          <div className="paymenttotal">
+                            {slots.time ? slots.time : "--Time--"}
+                          </div>
                         </div>
                         <div className="col-xl-6 col text-xl-center text-end">
                           <div className="buttonfooter">
-                            {/* <a
+                            <a
                               role="button"
                               className="text-theme1 text-decoration-none fs-14 me-2 me-xl-0"
                               data-bs-toggle="modal"
                               data-bs-target="#saloonAtHome"
+                              // onClick={() => getAddressApi()}
                             >
                               Saloon at Home
-                            </a> */}
-                            <button className=" btn border-0  shadow-none bg-theme2 text-white rounded-3 Schedulebtn mt-xl-2">
+                            </a>
+                            <button
+                              onClick={() => {
+                                setIsOpen("checkout");
+                                hanldeSlot();
+                                if (slots.date && slots.time) {
+                                  cheoutpage();
+                                } else {
+                                  alert("please enter date and time both!");
+                                  setIsOpen("schedule")
+                                }
+                              }}
+                              className=" btn border-0  shadow-none bg-theme2 text-white rounded-3 Schedulebtn mt-xl-2"
+                            >
                               Proceed to checkout
                             </button>
                           </div>
                         </div>
                       </div>
+                    </div>
+                    <div
+                      className={`tab-pane fade ${
+                        isOpen == "checkout" ? "active show" : ""
+                      }`}
+                      id="pills-checkout"
+                      role="tabpanel"
+                      aria-labelledby="pills-checkout-tab"
+                      tabIndex={0}
+                    >
+                      ...
                     </div>
                     {/* <div class="tab-pane fade" id="pills-checkout" role="tabpanel" aria-labelledby="pills-checkout-tab" tabindex="0">...</div> */}
                   </div>

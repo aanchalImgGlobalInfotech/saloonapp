@@ -60,7 +60,7 @@ function CartAdd({
     date: new Date(Date.now() + d * 24 * 60 * 60 * 1000).toISOString(),
   }));
 
- // console.log("weeekkkdayss", slots.date, slots.time);
+  // console.log("weeekkkdayss", slots.date, slots.time);
 
   var startTime1 = stime;
   const endTime1 = etime;
@@ -89,18 +89,6 @@ function CartAdd({
       }
     });
   }
-//console.log('valuevaluevaluevaluevaluevalue', value)
-  // var startTime = moment().startOf("hour");
-  // var endTime = moment("22:50").utc().set({ hour: 20 });
-  // console.log("momentmoment", moment("07:40").format());
-
-  // console.log("startTime", startTime);
-  // console.log("endTime", endTime);
-
-  // while (startTime <= endTime) {
-  //   timeStops.push(new moment(startTime).format("hh:mm a"));
-  //   startTime.add(15, "minutes");
-  // }
 
   const hanldeSlot = async () => {
     var body = {
@@ -122,7 +110,7 @@ function CartAdd({
     settoatal(...total, res.data[0]?.totalamount);
     dispatch(checkoutvalues(res.data));
     if (res.status) {
-        navigate("/checkout");
+      navigate("/checkout");
     }
   };
 
@@ -143,14 +131,18 @@ function CartAdd({
               tabIndex={isOpen == "checkout" ? "-1" : ""}
               onClick={() => setIsOpen("checkout")}
             >
-              <button className="nav-link navLink"
-              onClick={()=>  {if(slots.date && slots.time){
-                cheoutpage();
-              }else{
-                alert('please enter date and time both!')
-              }
-            }}
-              >Checkout</button>
+              <button
+                className="nav-link navLink"
+                onClick={() => {
+                  if (slots.date && slots.time) {
+                    cheoutpage();
+                  } else {
+                    alert("please enter date and time both!");
+                  }
+                }}
+              >
+                Checkout
+              </button>
             </li>
             <li
               className={`nav-item navItem ${
@@ -193,60 +185,62 @@ function CartAdd({
               tabIndex={0}
             >
               <div className="addContentt">
-                {Cartdata?.map((items ,i) => {
+                {Cartdata?.map((items, i) => {
                   return (
-                      <div className="row mx-0 px-0 bg-dark rounded-3 text-white mb-3" key={i}>
-                        <div className="col-12 py-3 border-bottom border-gray">
-                          <div className="row align-items-center">
-                            <div className="col-6 leftSideContent">
-                              <div className="carditemHeading">
-                                {items?.cartdata?.ServiceName}
-                              </div>
-                              <div className="imagetimegender ">
-                                <span className="image">
-                                  <img
-                                    className="w-100 h-100"
-                                    src="assets/img/vandorProfile/clock.svg"
-                                    alt='image'
-                                  />
-                                </span>
-                                <span className="time">
-                                  {items?.cartdata?.timePeriod_in_minits}
-                                </span>{" "}
-                                |
-                                <span className="gender">
-                                  {items?.cartdata?.serviceProvider}
-                                </span>
-                              </div>
+                    <div
+                      className="row mx-0 px-0 bg-dark rounded-3 text-white mb-3"
+                      key={i}
+                    >
+                      <div className="col-12 py-3 border-bottom border-gray">
+                        <div className="row align-items-center">
+                          <div className="col-6 leftSideContent">
+                            <div className="carditemHeading">
+                              {items?.cartdata?.ServiceName}
                             </div>
-                            <div className="col-6 rightSideContent">
-                              <div className="d-flex align-items-center justify-content-around">
-                                <div className="text-decoration-line-through discount">
-                                  ₹1500
-                                </div>
-                                <div className="payment">
-                                  {items?.cartdata?.Amount}
-                                </div>
-                                <button
-                                  className="btn border-0 p-0 removebtn"
-                                  onClick={() =>
-                                    removeCart(
-                                      items._id,
-                                      items?.cartdata?.serviceId
-                                    )
-                                  }
-                                >
-                                  <img
-                                    src="assets/img/vandorProfile/remove.svg"
-                                    alt="cross"
-                                  />
-                                </button>
+                            <div className="imagetimegender ">
+                              <span className="image">
+                                <img
+                                  className="w-100 h-100"
+                                  src="assets/img/vandorProfile/clock.svg"
+                                  alt="image"
+                                />
+                              </span>
+                              <span className="time">
+                                {items?.cartdata?.timePeriod_in_minits}
+                              </span>{" "}
+                              |
+                              <span className="gender">
+                                {items?.cartdata?.serviceProvider}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="col-6 rightSideContent">
+                            <div className="d-flex align-items-center justify-content-around">
+                              <div className="text-decoration-line-through discount">
+                                ₹1500
                               </div>
+                              <div className="payment">
+                                {items?.cartdata?.Amount}
+                              </div>
+                              <button
+                                className="btn border-0 p-0 removebtn"
+                                onClick={() =>
+                                  removeCart(
+                                    items._id,
+                                    items?.cartdata?.serviceId
+                                  )
+                                }
+                              >
+                                <img
+                                  src="assets/img/vandorProfile/remove.svg"
+                                  alt="cross"
+                                />
+                              </button>
                             </div>
                           </div>
                         </div>
                       </div>
-                   
+                    </div>
                   );
                 })}
               </div>
@@ -303,7 +297,7 @@ function CartAdd({
                             ? ""
                             : "gray",
                         }}
-                      >     
+                      >
                         <input
                           type="radio"
                           onChange={() => {
@@ -332,9 +326,12 @@ function CartAdd({
                 <div className="col-12 py-2">
                   <div className="selectDate">Choose Time Slot</div>
                 </div>
-                {timevalue?.map((el,i) => {
+                {timevalue?.map((el, i) => {
                   return (
-                    <div className="col-sm-auto col-4 datetimeContent  px-2 mb-2"key={i}>
+                    <div
+                      className="col-sm-auto col-4 datetimeContent  px-2 mb-2"
+                      key={i}
+                    >
                       <label className="option w-100">
                         <input
                           type="radio"
@@ -372,10 +369,10 @@ function CartAdd({
                       onClick={() => {
                         setIsOpen("checkout");
                         hanldeSlot();
-                        if(slots.date && slots.time){
+                        if (slots.date && slots.time) {
                           cheoutpage();
-                        }else{
-                          alert('please enter date and time both!')
+                        } else {
+                          alert("please enter date and time both!");
                         }
                       }}
                       className=" btn border-0  shadow-none bg-theme2 text-white rounded-3 Schedulebtn mt-xl-2"

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData, postData } from "../../components/apiinstance/Api";
-import { couPon } from "../../components/redux/redux1/actions";
+import { checkoutvalues, couPon } from "../../components/redux/redux1/actions";
 import Footer2 from "../../common/layout/footer/Footer2 ";
 import Footer from "../../common/layout/footer/footer";
 
@@ -12,6 +12,7 @@ const CheckOut = ({ setCouponID }) => {
   const Data = useSelector((state) => state.payment);
   const value = useSelector((state) => state.saloonData);
   const checkstate = useSelector((state) => state.checkstate);
+  const walletbalanced = useSelector((state) => state.userData);
   const location = useLocation();
   const [coupon, setCoupon] = useState([]);
   const [check, setcheck] = useState("");
@@ -38,6 +39,7 @@ const CheckOut = ({ setCouponID }) => {
         value[0]?._id ? value[0]?._id : ""
       }&balance=${true}`;
       const res = await getData(path);
+      dispatch(checkoutvalues(res.data))
     }
   };
 
@@ -511,7 +513,7 @@ const CheckOut = ({ setCouponID }) => {
                                   <div className="form-check form-check-lg ">
                                     <input
                                       type="checkbox"
-                                      className="form-check-input checkinput shadow-none "
+                                      className="form-check-inaazput checkinput shadow-none "
                                       onClick={() => cheoutpage()}
                                     />
                                     {/* <label className="form-check-label">
@@ -521,7 +523,7 @@ const CheckOut = ({ setCouponID }) => {
 
                                   <div className="fs-12 ms-2 text-opacity-75 py-sm-3">
                                     saloon wallet . <br />
-                                    you are eligible to use: ₹0
+                                    you are eligible to use: ₹{walletbalanced[0]?.userWallet?.balance}
                                   </div>
                                 </div>
 
