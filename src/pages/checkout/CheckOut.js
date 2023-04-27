@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import HeaderHome from "../../common/layout/header/HeaderHome";
@@ -22,7 +22,10 @@ const CheckOut = ({ setCouponID }) => {
   const [couponamount, setCouponAmount] = useState("");
   const [PayId, setPayId] = useState("");
   const [PaymentId, setPaymentId] = useState("");
-  console.log("kkkkkkk", arr);
+  const [walletdata, setwallet] = useState("");
+  const wallets = localStorage.getItem("walletmoney");
+  const walletmoney = JSON.parse(wallets);
+  console.log("kkkkkkk", walletmoney);
   const navigate = useNavigate();
 
   const cheoutpage = async (id) => {
@@ -39,13 +42,17 @@ const CheckOut = ({ setCouponID }) => {
         value[0]?._id ? value[0]?._id : ""
       }&balance=${true}`;
       const res = await getData(path);
-      dispatch(checkoutvalues(res.data))
+      dispatch(checkoutvalues(res.data));
     }
   };
 
   const CreateRazor = async (data) => {
     console.log("datatatatat", data);
-    const value = couponamount ? couponamount : data;
+    const value = couponamount
+      ? couponamount
+      : walletmoney
+      ? walletmoney.pay
+      : data;
     console.log("valuevalue", value);
     var body = {
       amount: value,
@@ -119,11 +126,22 @@ const CheckOut = ({ setCouponID }) => {
   const ConfirmOrderid = () => {
     navigate("/orderId");
   };
-  // const walletbalanced = async() => {
-  //   const path = `Checkout?saloonId=${ value[0]?._id ? value[0]?._id : ""}&balance=${true}`
-  //   const res = await getData(path);
-  //   console.log('uuuuuu', res.data)
-  // }
+  const walletApi = async (e) => {
+    // console.log('eee',e)
+    const checked = e.target.checked;
+    console.log("eee", checked);
+    if (checked) {
+      const path = `apply-balance?cartId=${
+        arr[0]?.cartId ? arr[0]?.cartId : ""
+      }`;
+      const res = await getData(path);
+      localStorage.setItem("walletmoney", JSON.stringify(res.data[0]));
+      console.log("uuuuuu", checked);
+    } else {
+      localStorage.removeItem("walletmoney");
+    }
+  };
+  useEffect(() => {}, [walletdata]);
   return (
     <>
       <div>
@@ -375,7 +393,6 @@ const CheckOut = ({ setCouponID }) => {
                                 );
                               })
                             : arr[0]?.cart?.map((el, i) => {
-                                console.log("elelelle1111118", el);
                                 return (
                                   <div
                                     className="row p-3 mx-0 px-4 border-bottom"
@@ -446,6 +463,8 @@ const CheckOut = ({ setCouponID }) => {
                                 ₹
                                 {couponData.length
                                   ? couponData[0]?.Discount
+                                  : walletmoney
+                                  ? walletmoney.disCount
                                   : 0}
                               </div>
                             </div>
@@ -502,6 +521,8 @@ const CheckOut = ({ setCouponID }) => {
                                   ? arr[0]?.totalamount
                                   : couponData.length
                                   ? couponData[0]?.finalTotalAmount
+                                  : walletmoney
+                                  ? walletmoney.pay
                                   : arr[0]?.totalamount}
                               </div>
                             </div>
@@ -514,7 +535,10 @@ const CheckOut = ({ setCouponID }) => {
                                     <input
                                       type="checkbox"
                                       className="form-check-inaazput checkinput shadow-none "
-                                      onClick={() => cheoutpage()}
+                                      onClick={(e) => {
+                                        walletApi(e);
+                                        setwallet("data");
+                                      }}
                                     />
                                     {/* <label className="form-check-label">
                                       Checkbox Label
@@ -523,7 +547,8 @@ const CheckOut = ({ setCouponID }) => {
 
                                   <div className="fs-12 ms-2 text-opacity-75 py-sm-3">
                                     saloon wallet . <br />
-                                    you are eligible to use: ₹{walletbalanced[0]?.userWallet?.balance}
+                                    you are eligible to use: ₹
+                                    {walletbalanced[0]?.userWallet?.balance}
                                   </div>
                                 </div>
 

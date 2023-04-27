@@ -601,7 +601,7 @@ const Packeges = () => {
                     >
                       <div className="addContentt px-2 mb-3">
                         {cartData?.map((cartItem) => {
-                          console.log(cartItem,'sonu')
+                         
                           return (
                             <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
                               <div className="col-6 leftSideContent">
@@ -656,8 +656,7 @@ const Packeges = () => {
                             {/* {Cartdata ? Cartdata?.length : ""} */}
                           </div>
                           <div className="paymenttotal">
-                            ₹
-                            {cartData[0]?.totalamount}
+                            ₹{cartData[0]?.totalamount}
                           </div>
                         </div>
                         <div className="col-8 text-end">
@@ -781,11 +780,12 @@ const Packeges = () => {
                               onClick={() => {
                                 setIsOpen("checkout");
                                 hanldeSlot();
+                                localStorage.removeItem('walletmoney')
                                 if (slots.date && slots.time) {
                                   cheoutpage();
                                 } else {
                                   alert("please enter date and time both!");
-                                  setIsOpen("schedule")
+                                  setIsOpen("schedule");
                                 }
                               }}
                               className=" btn border-0  shadow-none bg-theme2 text-white rounded-3 Schedulebtn mt-xl-2"

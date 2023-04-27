@@ -685,10 +685,13 @@ function Hair_cut() {
                           className="row mx-0 gap-3 align-items-center"
                           role="button"
                           onClick={() => {
-                            localStorage.setItem(
-                              "packagedId",
-                              JSON.stringify(item?._id)
-                            );
+                            {
+                              localStorage.setItem(
+                                "packagedId",
+                                JSON.stringify(item?._id)
+                              );
+                              navigate("/Packeges ");
+                            }
                           }}
                           data-bs-dismiss="modal"
                           aria-label="Close"
