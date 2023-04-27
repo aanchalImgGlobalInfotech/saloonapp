@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BusinessFooter from "./BusinessFooter";
 import { Form, Formik, Field } from "formik";
 import * as yup from "yup";
@@ -6,15 +6,17 @@ import * as Yup from "yup";
 import { getData, postData } from "../../components/apiinstance/Api";
 import BusinessHeader from "./BusinessHeader";
 import { useNavigate } from "react-router-dom";
-import {ToastContainer,toast} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const SignUpPartner = () => {
-  let navigate=useNavigate()
+  let navigate = useNavigate();
   const [otp, setOtp] = useState([]);
-  const [contactNumber,setContactNumber]=useState('')
-  const[otpSend,setOtpSend]=useState(false)
-  const[verify,setVerify]=useState(false)
-  const[disabled,setDisabled]=useState(true)
+  const [contactNumber, setContactNumber] = useState("");
+  const [otpSend, setOtpSend] = useState(false);
+  const [verify, setVerify] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [state, setState] = useState([]);
+  const [city, setCity] = useState([]);
   const [initialValues, setInitialValues] = useState({
     brandName: "",
     ownerName: "",
@@ -67,106 +69,104 @@ const SignUpPartner = () => {
     let a = e.target.value;
     console.log(a);
     setOtp((prev) => prev + a);
-    
+
     if (e.target.name == "otp4") {
       genOtp(e.target.value);
-    
     }
   };
 
   const genOtp = async (digit) => {
-
     var body = {
-      phone:contactNumber ,
-      otp:(otp + digit)
-      
+      phone: contactNumber,
+      otp: otp + digit,
     };
     const res = await postData("business-otp-verify", body);
-    
+
     console.log(res, "ressssss");
     if (res.status) {
-      setOtpSend(false)
-      setVerify(true)
-    }else{
+      setOtpSend(false);
+      setVerify(true);
+    } else {
       setOtp([]);
-      setOtpSend(false)
-          setDisabled(true)
+      setOtpSend(false);
+      setDisabled(true);
     }
-    console.log(body)
+    console.log(body);
   };
 
-      const otpSending = async() =>{
-        var body = {
-          phone: contactNumber,
-        };
-         if(contactNumber !== ''){
-
-           const res = await postData("business-otp-sent", body);
-   
-           if(res.status){
-             setOtpSend(true)
-             setDisabled(false)
-             console.log('hello otp has been sent')
-             setTimeout(()=>{
-               setDisabled(true)
-               
-             },100000)
-           }
-
-         }
-      
-      }
-  const handleSubmit = async (value) => {
-   
-    const data = {
-      storeName:value.brandName,
-      ownerName:value.ownerName,
-      email:value.email,
-      password:value.password,
-      confromPassword:value.confirmPassword,
-      Phone:contactNumber,
-      Partner_Size:value.partnerSize,
-      category:value.category,
-      category:value.category,
-      city:value.city,
-      pincode:value.zipCode,
-      aria:value.fullAddress,
-      state:value.state,
-      type:value.gender,
+  const otpSending = async () => {
+    var body = {
+      phone: contactNumber,
     };
-      //value.brandName,
-      if(verify){
+    if (contactNumber !== "") {
+      const res = await postData("business-otp-sent", body);
 
-        const res = await postData('business-sign-up', data);
-        console.log(value);
-        console.log(res);
-        if(res.status){
-          toast.success(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-           
-        });
-        setTimeout(()=>{
-
-          navigate('/signup-partner-step-one',{
-            state:res.data
-          })
-        },2000)
-        }else{
-          toast.error(res.message, {
-            position: toast.POSITION.TOP_RIGHT,
-            
-        });
-        }
+      if (res.status) {
+        setOtpSend(true);
+        setDisabled(false);
+        console.log("hello otp has been sent");
+        setTimeout(() => {
+          setDisabled(true);
+        }, 100000);
       }
+    }
   };
- 
-  
+
+  const getState = async () => {
+    const res = await getData("States");
+    setState(res.data);
+  };
+
+  const getCity = async (data) => {
+    const res = await getData(`city?States=${data}`);
+    setCity(res.data);
+  };
+  useEffect(() => {
+    getState();
+  });
+  const handleSubmit = async (value) => {
+    const data = {
+      storeName: value.brandName,
+      ownerName: value.ownerName,
+      email: value.email,
+      password: value.password,
+      confromPassword: value.confirmPassword,
+      Phone: contactNumber,
+      Partner_Size: value.partnerSize,
+      category: value.category,
+      category: value.category,
+      city: value.city,
+      pincode: value.zipCode,
+      aria: value.fullAddress,
+      state: value.state,
+      type: value.gender,
+    };
+    //value.brandName,
+    if (verify) {
+      const res = await postData("business-sign-up", data);
+      console.log(value);
+      console.log(res);
+      if (res.status) {
+        toast.success(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setTimeout(() => {
+          navigate("/signup-partner-step-one", {
+            state: res.data,
+          });
+        }, 2000);
+      } else {
+        toast.error(res.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+    }
+  };
+
   return (
     <div className="overflow-hideen vh-100 innerFooter">
-      <ToastContainer
-      autoClose={1000}
-      />
-      <BusinessHeader/>
+      <ToastContainer autoClose={1000} />
+      <BusinessHeader />
       <div className="signUpPartnermain">
         <div className="container">
           <div className="mainInner">
@@ -208,7 +208,8 @@ const SignUpPartner = () => {
                                   />
                                 </div>
                                 <p className="text-danger text-start">
-                                  {formik.touched.brandName && formik.errors.brandName
+                                  {formik.touched.brandName &&
+                                  formik.errors.brandName
                                     ? formik.errors.brandName
                                     : ""}
                                 </p>
@@ -230,14 +231,15 @@ const SignUpPartner = () => {
                                   />
                                 </div>
                                 <p className="text-danger text-start">
-                                  { formik.touched.ownerName && formik.errors.ownerName
+                                  {formik.touched.ownerName &&
+                                  formik.errors.ownerName
                                     ? formik.errors.ownerName
                                     : ""}
                                 </p>
                               </div>
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
-                                  <label  className="form-label">
+                                  <label className="form-label">
                                     Select Gender
                                   </label>
                                   <Field
@@ -253,7 +255,7 @@ const SignUpPartner = () => {
                                   </Field>
                                 </div>
                                 <p className="text-danger text-start">
-                                  { formik.touched.gender && formik.errors.gender
+                                  {formik.touched.gender && formik.errors.gender
                                     ? formik.errors.gender
                                     : ""}
                                 </p>
@@ -272,7 +274,7 @@ const SignUpPartner = () => {
                                   />
                                 </div>
                                 <p className="text-danger text-start">
-                                  { formik.touched.email && formik.errors.email
+                                  {formik.touched.email && formik.errors.email
                                     ? formik.errors.email
                                     : ""}
                                 </p>
@@ -294,7 +296,8 @@ const SignUpPartner = () => {
                                   />
                                 </div>
                                 <p className="text-danger text-start">
-                                  {  formik.touched.password && formik.errors.password
+                                  {formik.touched.password &&
+                                  formik.errors.password
                                     ? formik.errors.password
                                     : ""}
                                 </p>
@@ -316,7 +319,8 @@ const SignUpPartner = () => {
                                   />
                                 </div>
                                 <p className="text-danger text-start">
-                                  { formik.touched.confirmPassword && formik.errors.confirmPassword
+                                  {formik.touched.confirmPassword &&
+                                  formik.errors.confirmPassword
                                     ? formik.errors.confirmPassword
                                     : ""}
                                 </p>
@@ -338,7 +342,9 @@ const SignUpPartner = () => {
                                     minLength={10}
                                     maxLength={10}
                                     placeholder="Contact Number"
-                                    onChange={(e)=>setContactNumber(e.target.value)}
+                                    onChange={(e) =>
+                                      setContactNumber(e.target.value)
+                                    }
                                     disabled={verify}
                                   />
                                   <button
@@ -347,12 +353,19 @@ const SignUpPartner = () => {
                                     onClick={otpSending}
                                     disabled={verify}
                                   >
-                                   { verify?'VERIFIED': otpSend ? 'OTP SENT':'SEND OTP'}
+                                    {verify
+                                      ? "VERIFIED"
+                                      : otpSend
+                                      ? "OTP SENT"
+                                      : "SEND OTP"}
                                   </button>
                                 </div>
-                                
                               </div>
-                              <div className={`col-lg-4 col-sm-6  ${otpSend ?'':'d-none'}`}>
+                              <div
+                                className={`col-lg-4 col-sm-6  ${
+                                  otpSend ? "" : "d-none"
+                                }`}
+                              >
                                 <div className="input-group d-block overflow-hidden d-flex gap-4 px-xl-5">
                                   <input
                                     type="tel"
@@ -360,7 +373,7 @@ const SignUpPartner = () => {
                                     minLength={1}
                                     maxLength={1}
                                     onChange={handleChange}
-                                    name='otp1'
+                                    name="otp1"
                                     //value={otp.otp1}
                                   />
                                   <input
@@ -369,7 +382,7 @@ const SignUpPartner = () => {
                                     minLength={1}
                                     maxLength={1}
                                     onChange={handleChange}
-                                    name='otp2'
+                                    name="otp2"
                                     //value={otp.otp2}
                                   />
                                   <input
@@ -378,7 +391,7 @@ const SignUpPartner = () => {
                                     minLength={1}
                                     maxLength={1}
                                     onChange={handleChange}
-                                    name='otp3'
+                                    name="otp3"
                                     //value={otp.otp3}
                                   />
                                   <input
@@ -387,7 +400,7 @@ const SignUpPartner = () => {
                                     minLength={1}
                                     maxLength={1}
                                     onChange={handleChange}
-                                    name='otp4'
+                                    name="otp4"
                                     //value={otp.otp4}
                                   />
                                 </div>
@@ -408,7 +421,7 @@ const SignUpPartner = () => {
 
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
-                                  <label  className="form-label">
+                                  <label className="form-label">
                                     Select Partner Size
                                   </label>
                                   <Field
@@ -426,14 +439,15 @@ const SignUpPartner = () => {
                                   </Field>
                                 </div>
                                 <p className="text-danger text-start">
-                                  { formik.touched.partnerSize && formik.errors.partnerSize
+                                  {formik.touched.partnerSize &&
+                                  formik.errors.partnerSize
                                     ? formik.errors.partnerSize
                                     : ""}
                                 </p>
                               </div>
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
-                                  <label  className="form-label">
+                                  <label className="form-label">
                                     Select Category Type
                                   </label>
                                   <Field
@@ -452,7 +466,8 @@ const SignUpPartner = () => {
                                   </Field>
                                 </div>
                                 <p className="text-danger text-start">
-                                  { formik.touched.category && formik.errors.category
+                                  {formik.touched.category &&
+                                  formik.errors.category
                                     ? formik.errors.category
                                     : ""}
                                 </p>
@@ -472,13 +487,27 @@ const SignUpPartner = () => {
                                   >
                                     State
                                   </label>
-                                  <Field
-                                    type="text"
+                                  <select
                                     name="state"
-                                    className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none"
-                                    id="Locality"
-                                    placeholder="State"
-                                  />
+                                    className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
+                                    aria-label="Default select example"
+                                    onChange={(e) => {
+                                      formik.setFieldValue(
+                                        "state",
+                                        e.target.value
+                                      );
+                                      getCity(e.target.value);
+                                    }}
+                                  >
+                                    <option selected>State</option>
+                                    {state?.map((data, i) => {
+                                      return (
+                                        <option value={data} key={i}>
+                                          {data}
+                                        </option>
+                                      );
+                                    })}
+                                  </select>
                                 </div>
                                 <p className="text-danger text-start">
                                   {formik.touched.state && formik.errors.state
@@ -488,23 +517,32 @@ const SignUpPartner = () => {
                               </div>
                               <div className="col-lg-4 col-sm-6">
                                 <div className="input-group d-block">
-                                  <label  className="form-label">
-                                    City
-                                  </label>
-                                  <Field
-                                    as="select"
+                                  <label className="form-label">City</label>
+                                  <select
                                     name="city"
                                     className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
                                     aria-label="Default select example"
+                                    onChange={(e) =>
+                                      formik.setFieldValue(
+                                        "city",
+                                        e.target.value
+                                      )
+                                    }
                                   >
                                     <option selected>City</option>
-                                    <option value={1}>Jaipur</option>
-                                    <option value={2}>Banglor</option>
-                                    <option value={3}>Delhi</option>
-                                  </Field>
+                                    {city?.map((data, i) => {
+                                      return (
+                                        <option value={data} key={i}>
+                                          {data}
+                                        </option>
+                                      );
+                                    })}
+                                  </select>
                                 </div>
                                 <p className="text-danger text-start">
-                                  { formik.touched.city && formik.errors.city ? formik.errors.city : ""}
+                                  {formik.touched.city && formik.errors.city
+                                    ? formik.errors.city
+                                    : ""}
                                 </p>
                               </div>
                               <div className="col-lg-4 col-sm-6">
@@ -524,7 +562,8 @@ const SignUpPartner = () => {
                                   />
                                 </div>
                                 <p className="text-danger text-start">
-                                  { formik.touched.zipCode &&  formik.errors.zipCode
+                                  {formik.touched.zipCode &&
+                                  formik.errors.zipCode
                                     ? formik.errors.zipCode
                                     : ""}
                                 </p>
@@ -546,7 +585,8 @@ const SignUpPartner = () => {
                                   />
                                 </div>
                                 <p className="text-danger text-start">
-                                  {  formik.touched.fullAddress && formik.errors.fullAddress
+                                  {formik.touched.fullAddress &&
+                                  formik.errors.fullAddress
                                     ? formik.errors.fullAddress
                                     : ""}
                                 </p>

@@ -22,11 +22,9 @@ function UserProfile() {
   const location = useLocation();
   const dispatch = useDispatch();
   const Data = useSelector((state) => state.userData);
-  const arr = location?.state?.title.map((el) => el);
+  // console.log("ggggg", Data);
   const [whishlist, setWhishlist] = useState([]);
-  const [wishCount, setWishCount] = useState(0);
-  const [isWishAdd, setIsWishAdd] = useState();
-  const [color, setcolor] = useState("");
+  const [values, setvalue] = useState({});
   const [images, setimages] = useState([]);
   const [BookedData, setBookedData] = useState([]);
   const [bookedbyhome, setBookedByHome] = useState([]);
@@ -46,6 +44,7 @@ function UserProfile() {
     file: Data?.image,
   });
   const handler = async (value) => {
+    console.log(value);
     var formdata = new FormData();
 
     for (var key in value) {
@@ -54,7 +53,8 @@ function UserProfile() {
     //console.log(formdata, "formdataaaaaa");
     const res = await postformdata("user-Edit-Profile", formdata);
     const resimg = await postformdata("Edit-User-Profile", formdata);
-    if (res.status) {
+    if (res.status || resimg.status) {
+      profileApi();
       // toast.success(res.message, {
       //   position: toast.POSITION.TOP_RIGHT,
       // });
@@ -120,6 +120,7 @@ function UserProfile() {
   const [Items, setitems] = useState([]);
   const BookingApi = async () => {
     const res = await getData("get-user-order");
+    console.log("ressssss", res.data);
     setBookedData(res.data[0]);
   };
 
@@ -273,9 +274,11 @@ function UserProfile() {
                           disabled
                         >
                           <span>
-                        
                             <span className="pe-3">
-                              <img src="assets/img/profile/at.svg" alt='image' />
+                              <img
+                                src="assets/img/profile/at.svg"
+                                alt="image"
+                              />
                             </span>
                             {Data[0]?.email}
                           </span>
@@ -292,9 +295,11 @@ function UserProfile() {
                           disabled
                         >
                           <span>
-                      
                             <span className="pe-3">
-                              <img src="assets/img/profile/telephone.svg" alt='image' />
+                              <img
+                                src="assets/img/profile/telephone.svg"
+                                alt="image"
+                              />
                             </span>
                             {Data[0]?.phone}
                           </span>
@@ -313,7 +318,10 @@ function UserProfile() {
                           <span onClick={() => BookingApi()}>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/heart.svg" alt='image' />
+                              <img
+                                src="assets/img/profile/heart.svg"
+                                alt="image"
+                              />
                             </span>
                             My Booking
                           </span>
@@ -332,7 +340,10 @@ function UserProfile() {
                           <span>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/heart.svg" alt='image' />
+                              <img
+                                src="assets/img/profile/heart.svg"
+                                alt="image"
+                              />
                             </span>{" "}
                             My Wishlist
                           </span>
@@ -351,7 +362,10 @@ function UserProfile() {
                           <span>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/alarm.svg" alt='image' />
+                              <img
+                                src="assets/img/profile/alarm.svg"
+                                alt="image"
+                              />
                             </span>{" "}
                             Saloon Points
                           </span>
@@ -370,7 +384,10 @@ function UserProfile() {
                           <span>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/user.svg" alt='image' />
+                              <img
+                                src="assets/img/profile/user.svg"
+                                alt="image"
+                              />
                             </span>{" "}
                             Refer &amp; Earn
                           </span>
@@ -389,7 +406,10 @@ function UserProfile() {
                           <span>
                             {" "}
                             <span className="pe-3">
-                              <img src="assets/img/profile/user.svg" alt='image' />
+                              <img
+                                src="assets/img/profile/user.svg"
+                                alt="image"
+                              />
                             </span>{" "}
                             Wallet
                           </span>
@@ -503,7 +523,7 @@ function UserProfile() {
                                                 <img
                                                   className="w100 h100 me-2"
                                                   src="assets/img/profile/calendar.svg"
-                                                  alt='image'
+                                                  alt="image"
                                                 />
                                                 {""}
                                                 <span>
@@ -536,20 +556,24 @@ function UserProfile() {
                                                       : ` ${el.item.data.length} Items`}
                                                   </button>
                                                 </div>
-                                                <div className="col-auto">
-                                                  <p className="card-text mb-0  ">
-                                                    <small
-                                                      className="text-theme2 text-danger fs-12"
-                                                      onClick={() =>
-                                                        cancelApi(
-                                                          el.item.data[0]?._id
-                                                        )
-                                                      }
-                                                    >
-                                                      cancel
-                                                    </small>
-                                                  </p>
-                                                </div>
+                                                {el?.item.data[0]?.status === "pending" ? (
+                                                  <div className="col-auto">
+                                                    <p className="card-text mb-0  ">
+                                                      <small
+                                                        className="text-theme2 text-danger fs-12"
+                                                        onClick={() =>
+                                                          cancelApi(
+                                                            el.item.data[0]?._id
+                                                          )
+                                                        }
+                                                      >
+                                                        cancel
+                                                      </small>
+                                                    </p>
+                                                  </div>
+                                                ) : (
+                                                  ""
+                                                )}
                                               </div>
                                             </div>
                                           </div>
@@ -602,7 +626,7 @@ function UserProfile() {
                                             <img
                                               className="w100 h100 me-2"
                                               src="assets/img/profile/calendar.svg"
-                                              alt='image'
+                                              alt="image"
                                             />
                                             {""}
                                             <span>
@@ -752,7 +776,7 @@ function UserProfile() {
                                                   <img
                                                     className="w-100 h-100"
                                                     src="assets/img/profile/wifi.png"
-                                                    alt='image'
+                                                    alt="image"
                                                     data-bs-toggle="tooltip"
                                                     data-bs-placement="top"
                                                     data-bs-title="Beverage"
@@ -770,7 +794,7 @@ function UserProfile() {
                                                   <img
                                                     className="w-100 h-100"
                                                     src="assets/img/profile/TV-old.png"
-                                                    alt='image'
+                                                    alt="image"
                                                     data-bs-toggle="tooltip"
                                                     data-bs-placement="top"
                                                     data-bs-title="Beverage"
@@ -1127,7 +1151,7 @@ function UserProfile() {
                                   >
                                     <img
                                       src="assets/img/profile/copyicon.svg"
-                                      alt='image'
+                                      alt="image"
                                       style={{ width: "20px" }}
                                     />
                                   </button>
@@ -1428,7 +1452,10 @@ function UserProfile() {
                         <div className="col-md-6 mb-3">
                           <div className="inputIconGroup d-flex align-items-center">
                             <div className="icon me-2">
-                              <img src="assets/img/profile/gander.svg" alt='image' />
+                              <img
+                                src="assets/img/profile/gander.svg"
+                                alt="image"
+                              />
                             </div>
                             <div className="d-flex align-items-cente">
                               <div className="form-check px-4">
@@ -1515,14 +1542,14 @@ function UserProfile() {
         aria-hidden="true"
       >
         <div className="modal-dialog  modal-dialog-scrollable">
-          <div  className="modal-content">
+          <div className="modal-content">
             <div className="modal-header d-flex align-items-center justify-content-between">
               <h1
                 className="modal-title d-flex align-items-center"
                 id="exampleModalLabel"
               >
                 Order Id : {modalvalue.data?.item?.data[0]?.orderId}{" "}
-                <span >
+                <span>
                   <img
                     className="w-100 h-100 ms-1"
                     src="assets/img/profile/modalcopy.svg"
@@ -1541,7 +1568,7 @@ function UserProfile() {
                   <img
                     className="w-100 h-100 ms-1"
                     src="assets/img/profile/arrow.svg"
-                    alt='image'
+                    alt="image"
                   />
                 </span>
               </div>
@@ -1554,7 +1581,7 @@ function UserProfile() {
                       <img
                         className="w-100 h-100 rounded-3"
                         src={modalvalue.data?.image}
-                        alt='image'
+                        alt="image"
                       />
                       <div className="saloontext">Kalon Unisex saloon</div>
                     </div>
@@ -1564,7 +1591,7 @@ function UserProfile() {
                           <img
                             className="w-100 h-100 me-3"
                             src="assets/img/profile/calendar.svg"
-                            alt='image'
+                            alt="image"
                           />
                         </span>
                         {new Date(modalvalue.data?.updatedAt)
@@ -1596,7 +1623,7 @@ function UserProfile() {
                             <img
                               className="w-100 h-100 me-3"
                               src="assets/img/profile/cursor.svg"
-                              alt='image'
+                              alt="image"
                             />
                           </span>
                           See direction
