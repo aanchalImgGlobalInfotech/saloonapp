@@ -690,7 +690,7 @@ function Hair_cut() {
                                 "packagedId",
                                 JSON.stringify(item?._id)
                               );
-                              navigate("/Packeges ");
+                              navigate("/packages ");
                             }
                           }}
                           data-bs-dismiss="modal"

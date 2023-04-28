@@ -815,8 +815,8 @@ const Packeges = () => {
           </div>
         </div>
       </div>
-      <Footer2></Footer2>
-      <Footer></Footer>
+      <Footer2/>
+      <Footer/>
     </>
   );
 };

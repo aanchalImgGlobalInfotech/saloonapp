@@ -123,7 +123,7 @@ const SignUpPartner = () => {
   };
   useEffect(() => {
     getState();
-  });
+  },[]);
   const handleSubmit = async (value) => {
     const data = {
       storeName: value.brandName,
@@ -163,6 +163,7 @@ const SignUpPartner = () => {
     }
   };
 
+  console.log('citycitycity',city)
   return (
     <div className="overflow-hideen vh-100 innerFooter">
       <ToastContainer autoClose={1000} />

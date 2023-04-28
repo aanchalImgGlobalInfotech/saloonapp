@@ -23,9 +23,9 @@ const CheckOut = ({ setCouponID }) => {
   const [PayId, setPayId] = useState("");
   const [PaymentId, setPaymentId] = useState("");
   const [walletdata, setwallet] = useState("");
-  const wallets = localStorage.getItem("walletmoney");
-  const walletmoney = JSON.parse(wallets);
-  console.log("kkkkkkk", walletmoney);
+  const [addWallet, setAddWallet] = useState("");
+  // const walletmoney = J0SON.parse(addWallet);
+  console.log("kkkkkkk", addWallet);
   const navigate = useNavigate();
 
   const cheoutpage = async (id) => {
@@ -50,8 +50,8 @@ const CheckOut = ({ setCouponID }) => {
     console.log("datatatatat", data);
     const value = couponamount
       ? couponamount
-      : walletmoney
-      ? walletmoney.pay
+      : addWallet
+      ? addWallet.pay
       : data;
     console.log("valuevalue", value);
     var body = {
@@ -127,27 +127,27 @@ const CheckOut = ({ setCouponID }) => {
     navigate("/orderId");
   };
   const walletApi = async (e) => {
-    // console.log('eee',e)
     const checked = e.target.checked;
-    console.log("eee", checked);
     if (checked) {
       const path = `apply-balance?cartId=${
         arr[0]?.cartId ? arr[0]?.cartId : ""
       }`;
       const res = await getData(path);
       localStorage.setItem("walletmoney", JSON.stringify(res.data[0]));
-      console.log("uuuuuu", checked);
+      setAddWallet(res.data[0]);
     } else {
       localStorage.removeItem("walletmoney");
+      setAddWallet(null);
     }
   };
-  useEffect(() => {}, [walletdata]);
+  useEffect(() => {
+    const wallets = localStorage.getItem("walletmoney");
+    setAddWallet(JSON.parse(wallets));
+  }, []);
   return (
     <>
       <div>
-        {/* Header Start */}
         <HeaderHome />
-        {/* Header End */}
         <div className="checkoutMain bg-dark">
           <div className="container">
             <div className="row gap-4 mx-0">
@@ -463,8 +463,8 @@ const CheckOut = ({ setCouponID }) => {
                                 ₹
                                 {couponData.length
                                   ? couponData[0]?.Discount
-                                  : walletmoney
-                                  ? walletmoney.disCount
+                                  : addWallet
+                                  ? addWallet.disCount
                                   : 0}
                               </div>
                             </div>
@@ -521,8 +521,8 @@ const CheckOut = ({ setCouponID }) => {
                                   ? arr[0]?.totalamount
                                   : couponData.length
                                   ? couponData[0]?.finalTotalAmount
-                                  : walletmoney
-                                  ? walletmoney.pay
+                                  : addWallet
+                                  ? addWallet.pay
                                   : arr[0]?.totalamount}
                               </div>
                             </div>
@@ -534,6 +534,7 @@ const CheckOut = ({ setCouponID }) => {
                                   <div className="form-check form-check-lg ">
                                     <input
                                       type="checkbox"
+                                      checked={addWallet}
                                       className="form-check-inaazput checkinput shadow-none "
                                       onClick={(e) => {
                                         walletApi(e);
