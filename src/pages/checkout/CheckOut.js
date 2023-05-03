@@ -89,7 +89,7 @@ const CheckOut = ({ setCouponID }) => {
     }
 
     const options = {
-      key: "rzp_test_3NbMeDVOudCrn5",
+      key: "rzp_test_du8jJUxQb7hup4",
       order_id: value,
 
       handler: async function (response) {
@@ -142,6 +142,7 @@ const CheckOut = ({ setCouponID }) => {
   };
   useEffect(() => {
     const wallets = localStorage.getItem("walletmoney");
+    console.log('hhhhh',wallets)
     setAddWallet(JSON.parse(wallets));
   }, []);
   return (

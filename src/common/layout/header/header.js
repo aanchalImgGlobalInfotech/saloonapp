@@ -29,13 +29,13 @@ function Header() {
           >
             <ul className="navbar-nav mx-auto mb-2 mb-md-0 navullist">
               <li className="nav-item navitem">
-                <NavLink
+                {/* <NavLink
                   className="nav-link navlink active"
                   aria-current="page"
                   to="index.html"
                 >
                   Home
-                </NavLink>
+                </NavLink> */}
               </li>
               <li className="nav-item navitem">
                 <a className="nav-link navlink" to="blog.html">

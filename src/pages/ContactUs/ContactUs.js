@@ -276,8 +276,9 @@ function ContactUs() {
                     onSubmit={(value) => continu(value)}
                   >
                     {(props) => {
+                      console.log('prpss',props)
                      
-                      return (
+                      return (  
                         <Form
                           onSubmit={props.handleSubmit}
                         
@@ -345,7 +346,7 @@ function ContactUs() {
                                 />
                               </div>
                               <p className="text-danger text-start">
-                                {props.errors.name ? props.errors.email : ""}
+                                {props.errors.email ? props.errors.email : ""}
                               </p>
                             </div>
                             <div className="col-sm-6">
@@ -367,7 +368,7 @@ function ContactUs() {
                                 />
                               </div>
                               <p className="text-danger text-start">
-                                {props.errors.name ? props.errors.phone : ""}
+                                {props.errors.phone ? props.errors.phone : ""}
                               </p>
                             </div>
                             <div className="col-12">
@@ -390,7 +391,7 @@ function ContactUs() {
                                 />
                               </div>
                               <p className="text-danger text-start">
-                                {props.errors.name ? props.errors.massage : ""}
+                                {props.errors.massage ? props.errors.massage : ""}
                               </p>
                             </div>
                             <div className="col">
