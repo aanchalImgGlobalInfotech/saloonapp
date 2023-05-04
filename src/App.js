@@ -68,7 +68,8 @@ function App() {
     }
   }, []);
   return (
-    <HashRouter>
+    // <HashRouter>
+   
       <Routes>
         <Route element={<Authentication />}>
           <Route
@@ -162,7 +163,8 @@ function App() {
           element={<LoginWithPassword />}
         />
       </Routes>
-    </HashRouter>
+      
+    // </HashRouter>
   );
 }
 

@@ -694,6 +694,7 @@ console.log('modalvaluemodalvaluemodalvalue',modalvalue)
                   tabIndex={0}
                 >
                   {whishlist?.map((el) => {
+                    // console.log('elellele',el)
                     return (
                       <>
                         <div className="row innerrowtab g-3">
@@ -704,7 +705,7 @@ console.log('modalvaluemodalvaluemodalvalue',modalvalue)
                                   <div className="imagewishlistcard position-relative">
                                     <img
                                       className="w-100 h-100 rounded-2"
-                                      src={el?.result.image}
+                                      src={el?.result.image[0]}
                                       alt="..."
                                     />
                                     <div className="position-absolute top-0 end-0 me-1 imagesvg align-items-center">
@@ -1179,7 +1180,7 @@ console.log('modalvaluemodalvaluemodalvalue',modalvalue)
                                     >
                                       <img
                                         className="w-100"
-                                        src="/assets/img/icon/whatsapp.png"
+                                        src="/assets/img/icon/whatsapp.svg"
                                         alt="whatsapp"
                                       />
                                     </a>
@@ -1200,7 +1201,7 @@ console.log('modalvaluemodalvaluemodalvalue',modalvalue)
                                     >
                                       <img
                                         className="w-100"
-                                        src="/assets/img/icon/facebook.png"
+                                        src="/assets/img/icon/facebook.svg"
                                         alt="facebook"
                                       />
                                     </a>
@@ -1225,15 +1226,15 @@ console.log('modalvaluemodalvaluemodalvalue',modalvalue)
                     <div className="col-12">
                       <div className="card mb-3 refercard border-0 shadow">
                         <div className="row g-0">
-                          <div className="col-md-4 d-flex align-items-cente justify-content-center flex-column leftSideContent">
-                            <div className="text100">
-                              {Data[0]?.userWallet?.point}
+                          <div className="col-md-6 d-flex align-items-cente justify-content-center flex-column leftSideContent">
+                            <div className="text100 ">
+                              {Data[0]?.userWallet?.point ? Data[0]?.userWallet?.point : 0}
                             </div>
                             <div className="textSubHeading text-center">
                               Your Total Point Earning
                             </div>
                           </div>
-                          <div className="col-md-8 rightSideContent">
+                          <div className="col-md-6 rightSideContent">
                             <div className="card-body bodycard">
                               <h5 className="card-title">
                                 Share Earn &amp; Have Fun

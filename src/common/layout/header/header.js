@@ -10,7 +10,7 @@ function Header() {
       >
         <div className="container">
           <NavLink className="navbar-brand logonav" to="index.html">
-            <img src="assets/img/header/logo.svg" alt="logo" />
+            <img src="assets/img/index/logo.svg" alt="logo" />
           </NavLink>
           <button
             className="navbar-toggler togglrbtn"

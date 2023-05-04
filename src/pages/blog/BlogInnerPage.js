@@ -6,7 +6,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { getData } from "../../components/apiinstance/Api";
+import { getData, postData } from "../../components/apiinstance/Api";
 import parse from "html-react-parser";
 import Footer from "../../common/layout/footer/footer";
 function BlogInnerPage() {
@@ -19,20 +19,19 @@ function BlogInnerPage() {
   const [searchValue, setSearchValue] = useState("");
   const [Blog, setBlog] = useState([]);
 
-  console.log(location, "idddddddddd");
+  console.log(InnerData, "idddddddddd");
 
   const BlogInnerData = async () => {
     const res = await getData(`get-blog?id=${innerId}`);
     setInnerData(res.data[0][0]);
-    //console.log(res)
   };
   const getBlog = async () => {
     const res = await getData("get-blog");
     const response = await getData("getCategoryListing");
     setCategory(response.data);
     setBlog(res.data[0]);
-    //console.log(res, "get blog");
-    //console.log(response.data,'categorylist' );
+    console.log(res, "get blog");
+    console.log(response.data,'categorylist' );
   };
 
   useEffect(() => {
@@ -126,7 +125,7 @@ function BlogInnerPage() {
                       <div className="imgOuter w-100 position-relative">
                         <img
                           className="w-100 h-100"
-                          src={InnerData?.image[0]}
+                          src={InnerData?.image}
                           alt='image'
                         />
                         <ul className="importantDate position-absolute bottom-0 end-0 p-2 list-unstyled m-0 d-flex fs-12 gap-2 text-white">
@@ -337,7 +336,7 @@ function BlogInnerPage() {
                               <div className="imgOuter overflow-hidden">
                                 <img
                                   className="w-100 h-100"
-                                  src="/assets/img/blog/blogImg1.jpg"
+                                  src={item?.image}
                                   alt='image'
                                 />
                               </div>

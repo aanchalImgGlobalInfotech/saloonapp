@@ -7,61 +7,64 @@ import { getData } from "../../components/apiinstance/Api";
 import parse from "html-react-parser";
 
 function Blog() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [Blog, setBlog] = useState([]);
-  const [categoryId,setCategoryId]=useState('')
+  const [categoryId, setCategoryId] = useState("");
   const [category, setCategory] = useState();
-  const [searchValue,setSearchValue]=useState('')
+  const [searchValue, setSearchValue] = useState("");
   const getBlog = async () => {
     const res = await getData("get-blog");
     const response = await getData("getCategoryListing");
     setCategory(response.data);
     setBlog(res.data[0]);
-    //console.log(res, "get blog");
-    //console.log(response.data,'categorylist' );
+    console.log(res, "get blog");
+    console.log(response.data, "categorylist");
   };
 
   useEffect(() => {
     getBlog();
   }, []);
 
+  const selectHandler = (e) => {
+    console.log(e.target.value);
+    navigate("/blog-search-result", {
+      state: {
+        categoryId: e.target.value,
+      },
+    });
+  };
+  //  Custom Pegination
 
-    const selectHandler = (e) =>{
-      console.log(e.target.value)
-      navigate('/blog-search-result',{state:{
-        categoryId:e.target.value
-     }})
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordPerPage = 4;
+  const lastIndex = currentPage * recordPerPage;
+  const firstIndex = lastIndex - recordPerPage;
+  const records = Blog?.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(Blog?.length / recordPerPage) || 1;
+  const numbers = [...Array(npage + 1).keys()].slice(1);
+  console.log("recordsrecords", records);
+  const prevPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
     }
-  //  Custom Pegination 
+  };
 
-  const[currentPage,setCurrentPage]=useState(1)
-  const recordPerPage=4;
-  const lastIndex=currentPage*recordPerPage;
-  const firstIndex=lastIndex-recordPerPage
-  const records=Blog?.slice(firstIndex,lastIndex)
-  const npage= Math.ceil(Blog?.length/recordPerPage) || 1
-  const numbers=[...Array(npage + 1).keys()].slice(1)
+  const changePage = (id) => {
+    setCurrentPage(id);
+  };
+  const nextPage = () => {
+    if (currentPage !== lastIndex) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
-   const prevPage = () =>{
-      if(currentPage !== 1){
-        setCurrentPage(currentPage-1)
-      }
-   }
-
-  const changePage = (id) =>{
-      setCurrentPage(id)
-  }
-  const nextPage = () =>{
-      if(currentPage !== lastIndex) {
-        setCurrentPage(currentPage+1)
-      }
-  }
-
-  const startSearch = () =>{
-    navigate('/blog-search-result',{state:{
-      searchKey:searchValue
-   }})
-  }
+  const startSearch = () => {
+    navigate("/blog-search-result", {
+      state: {
+        searchKey: searchValue,
+      },
+    });
+  };
   return (
     <div>
       <nav
@@ -116,7 +119,7 @@ function Blog() {
                         <img
                           className="w-100 h-100"
                           src="/assets/img/blog/blogMain.jpg"
-                          alt='image'
+                          alt="image"
                         />
                       </div>
                     </div>
@@ -131,7 +134,7 @@ function Blog() {
                           Category
                         </div>
                         <div className="input-group d-block mt-3">
-                          <label htmlFor='' className="form-label text-white">
+                          <label htmlFor="" className="form-label text-white">
                             Select Category
                           </label>
                           <select
@@ -139,9 +142,11 @@ function Blog() {
                             aria-label="Default select example"
                             onChange={selectHandler}
                           >
-                            <option selected  >Select Category</option>
+                            <option selected>Select Category</option>
                             {category?.map((el, i) => (
-                              <option value={el._id} key={i}>{el.Name}</option>
+                              <option value={el._id} key={i}>
+                                {el.Name}
+                              </option>
                             ))}
                           </select>
                         </div>
@@ -157,16 +162,17 @@ function Blog() {
                             className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none pe-5 z-2"
                             placeholder="Search..."
                             value={searchValue}
-                            onChange={(e)=>setSearchValue(e.target.value)}
-
+                            onChange={(e) => setSearchValue(e.target.value)}
                           />
                           <button
                             type="button"
                             className="btn btn-transparent searchBtn border-0 shadow-none position-absolute z-3 bottom-0 end-0 border-start py-2"
                             onClick={startSearch}
-                            >
-
-                            <img src="/assets/img/icon/search1.svg" alt='image' />
+                          >
+                            <img
+                              src="/assets/img/icon/search1.svg"
+                              alt="image"
+                            />
                           </button>
                         </div>
                       </div>
@@ -186,11 +192,11 @@ function Blog() {
                       </div>
                       <div className="col-12">
                         <div className="row g-4">
-                          {records?.map((item,i) => (
+                          {records?.map((item, i) => (
                             <NavLink
-                            key={i}
-                              to='/blog-details'
-                              state={{itemId:item._id}}
+                              key={i}
+                              to="/blog-details"
+                              state={{ itemId: item._id }}
                               className="col-lg-3 col-sm-6"
                               style={{ textDecoration: "none", color: "black" }}
                             >
@@ -198,8 +204,8 @@ function Blog() {
                                 <div className="imgOuter overflow-hidden">
                                   <img
                                     className="w-100 h-100"
-                                    src="assets/img/blog/blogImg1.jpg"
-                                    alt='image'
+                                    src={item?.image}
+                                    alt="image"
                                   />
                                 </div>
                                 <div className="blogDetail p-3 bg-white row gap-2 mx-0">
@@ -207,8 +213,11 @@ function Blog() {
                                     {item.Title}
                                   </div>
                                   <div className="blogDecription col-12 px-0 overflow-hidden">
-                                    {parse(item.Description?item.Description
-                                    ?.slice(0,100):'Valentine’s week is around! Are you excited? The main focus is the look we carry. When it comes to valentine’s day makeup look, women are not sure about how to become date-perfect.')}
+                                    {parse(
+                                      item.Description
+                                        ? item.Description?.slice(0, 100)
+                                        : "Valentine’s week is around! Are you excited? The main focus is the look we carry. When it comes to valentine’s day makeup look, women are not sure about how to become date-perfect."
+                                    )}
                                   </div>
                                   <ul className="d-flex align-items-center gap-sm-3 gap-2 list-unstyled p-0 m-0 col-12 px-0">
                                     <li className="text-muted border-end border-2 border-gray pe-sm-3 pe-2">
@@ -229,34 +238,47 @@ function Blog() {
                           className="pagination justify-content-center gap-2 gap-sm-3"
                           data-pagination
                         >
-                          <Link to="" onClick={prevPage} disabled={currentPage ==1}>
+                          <Link
+                            to=""
+                            onClick={prevPage}
+                            disabled={currentPage == 1}
+                          >
                             <span className="arrowIcon d-flex align-items-center justify-content-center p-sm-2">
                               <img
                                 className="w-100"
                                 src="/assets/img/icon/leftDubbleArrow.svg"
-                                alt='image'
+                                alt="image"
                               />
                             </span>
                           </Link>
                           <ul className="list-unstyled m-0 d-inline p-0">
-                            {
-                              numbers.map((n ,i)=>
-                               (
-                                  <li key={i} className={`rounded-1 d-inline-flex justify-content-center align-items-center ${currentPage ==n ?'current':''}`}>
-                                  <Link className="text-decoration-none" to="" onClick={(()=>changePage(n))}>
-                                    {n}
-                                  </Link>
-                                </li>
-                                )
-                              )
-                            }
-                         </ul>
-                          <Link to=""onClick={nextPage} disabled={currentPage == numbers.length} >
+                            {numbers.map((n, i) => (
+                              <li
+                                key={i}
+                                className={`rounded-1 d-inline-flex justify-content-center align-items-center ${
+                                  currentPage == n ? "current" : ""
+                                }`}
+                              >
+                                <Link
+                                  className="text-decoration-none"
+                                  to=""
+                                  onClick={() => changePage(n)}
+                                >
+                                  {n}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                          <Link
+                            to=""
+                            onClick={nextPage}
+                            disabled={currentPage == numbers.length}
+                          >
                             <span className="arrowIcon d-flex align-items-center justify-content-center p-sm-2">
                               <img
                                 className="w-100"
                                 src="/assets/img/icon/rightDubbleArrow.svg"
-                                alt='image'
+                                alt="image"
                               />
                             </span>
                           </Link>

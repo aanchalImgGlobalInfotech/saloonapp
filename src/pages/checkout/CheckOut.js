@@ -25,7 +25,7 @@ const CheckOut = ({ setCouponID }) => {
   const [walletdata, setwallet] = useState("");
   const [addWallet, setAddWallet] = useState("");
   // const walletmoney = J0SON.parse(addWallet);
-  console.log("kkkkkkk", addWallet);
+  console.log("kkkkkkk", walletbalanced);
   const navigate = useNavigate();
 
   const cheoutpage = async (id) => {
@@ -142,8 +142,7 @@ const CheckOut = ({ setCouponID }) => {
   };
   useEffect(() => {
     const wallets = localStorage.getItem("walletmoney");
-    console.log('hhhhh',wallets)
-    setAddWallet(JSON.parse(wallets));
+    setAddWallet(JSON.parse(wallets) ? JSON.parse(wallets) : "");
   }, []);
   return (
     <>
@@ -698,6 +697,7 @@ const CheckOut = ({ setCouponID }) => {
                             className="form-check-label couponOuter p-sm-3 p-2 text-white rounded-4 w-100"
                             htmlFor="couponFirst"
                           >
+                            <div className="d-flex justify-content-between">
                             <div
                               className="code p-sm-2 p-1 rounded-1 text-theme1 d-inline-block px-3 fs-12 text-uppercase"
                               onClick={() => {
@@ -707,9 +707,22 @@ const CheckOut = ({ setCouponID }) => {
                             >
                               {`${el?.CouponCode}`}
                             </div>
+                            <div className="fs-12 text-theme1">
+                              discount : ₹{el?.Discount}
+                            </div>
+                            </div>
                             <div className="mt-sm-3 mt-2 text-white fs-12">
-                              Enjoy Professional Beauty Services at Home, only
-                              through "SALOON"!
+                              {/* Enjoy Professional Beauty Services at Home, only
+                              through "SALOON"! */}
+                              {el.Title}
+                            </div>
+                            <div className="d-flex justify-content-between mt-2">
+                            <div className="fs-12">
+                              start date : {el.StartDate}
+                            </div>
+                            <div className="fs-12">
+                              end date : {el?.EndDate}
+                            </div>
                             </div>
                           </label>
                         </div>

@@ -151,7 +151,7 @@ function HeaderHome() {
       >
         <div className="container">
           <NavLink className="navbar-brand logonav" to="/Dashboard">
-            <img src="/assets/img/header/logo.svg" alt="logo" />
+          <img src="assets/img/index/logo.svg" alt="logo" />
           </NavLink>
           <button
             className="navbar-toggler togglrbtn"
@@ -253,7 +253,7 @@ function HeaderHome() {
                                 <div className="col-auto p-2">
                                   <div className="cardimage">
                                     <img
-                                      src="/assets/img/about/img-2.png"
+                                       src={el.image[0]}
                                       className="img-fluid rounded-start w-100 h-100"
                                       alt="image"
                                     />
@@ -321,7 +321,7 @@ function HeaderHome() {
                                 <div className="col-auto p-2">
                                   <div className="cardimage">
                                     <img
-                                      src="/assets/img/about/img-2.png"
+                                      src={el.image[0]}
                                       className="img-fluid rounded-start w-100 h-100"
                                       alt="image"
                                     />
