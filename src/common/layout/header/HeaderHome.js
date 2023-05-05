@@ -46,7 +46,7 @@ function HeaderHome() {
   };
 
   const Data = useSelector((state) => state.userData);
- 
+
   const hanlder = async () => {
     const res = await getData("user-Profile");
     if (res.status) {
@@ -151,7 +151,7 @@ function HeaderHome() {
       >
         <div className="container">
           <NavLink className="navbar-brand logonav" to="/Dashboard">
-            <img src="/assets/img/header/logo.svg" alt="logo" />
+          <img src="assets/img/index/logo.svg" alt="logo" />
           </NavLink>
           <button
             className="navbar-toggler togglrbtn"
@@ -192,7 +192,7 @@ function HeaderHome() {
                 >
                   Cart
                 </NavLink>
-                <ul className="dropdown-menu mt-2 dropDown dropdown2 mt-3 z-2">
+                <ul className="dropdown-menu mt-2 dropDown dropdown2 mt-3 z-2 ">
                   <ul
                     className="nav nav-pills mb-3 navPill "
                     id="pills-tab"
@@ -233,7 +233,11 @@ function HeaderHome() {
                       </button>
                     </li>
                   </ul>
-                  <div className="tab-content tabContent" id="pills-tabContent">
+                  <div
+                    className="tab-content tabContent"
+                    style={{ height: "40vh", overflow: "hidden auto" }}
+                    id="pills-tabContent"
+                  >
                     <div
                       className="tab-pane tabpane fade show active"
                       id="pills-zoylee"
@@ -242,64 +246,62 @@ function HeaderHome() {
                       tabIndex={0}
                     >
                       <div className="cart">
-                        {cartShop?.map((el,i) => {
+                        {cartShop?.map((el, i) => {
                           return (
-                            
-                              <div className="card mb-3 h-100 border-0" key={i}>
-                                <div className="row g-0 align-items-center">
-                                  <div className="col-auto p-2">
-                                    <div className="cardimage">
-                                      <img
-                                        src="/assets/img/about/img-2.png"
-                                        className="img-fluid rounded-start w-100 h-100"
-                                        alt="image"
-                                      />
-                                    </div>
+                            <div className="card mb-3 h-100 border-0" key={i}>
+                              <div className="row g-0 align-items-center">
+                                <div className="col-auto p-2">
+                                  <div className="cardimage">
+                                    <img
+                                       src={el.image[0]}
+                                      className="img-fluid rounded-start w-100 h-100"
+                                      alt="image"
+                                    />
                                   </div>
-                                  <div className="col p-1">
-                                    <div className="card-body px-2 py-0">
-                                      <h5 className="card-title mb-0 my-1">
-                                        {el.storeName}
-                                      </h5>
-                                      <p className="card-text my-2 text-white">
-                                        {el?.location?.aria}
+                                </div>
+                                <div className="col p-1">
+                                  <div className="card-body px-2 py-0">
+                                    <h5 className="card-title mb-0 my-1">
+                                      {el.storeName}
+                                    </h5>
+                                    <p className="card-text my-2 text-white">
+                                      {el?.location?.aria}
+                                    </p>
+                                    <div className="d-flex align-items-center">
+                                      <p className="card-payment mb-0 text-white me-3">
+                                        ₹ {el?.cart[0]?.totalamount}
                                       </p>
-                                      <div className="d-flex align-items-center">
-                                        <p className="card-payment mb-0 text-white me-3">
-                                          ₹ {el?.cart[0]?.totalamount}
-                                        </p>
-                                        {/* <NavLink to='/services'> */}
+                                      {/* <NavLink to='/services'> */}
 
-                                        <div className="itemscart">
-                                          {" "}
-                                          {el?.cart?.length == 1
-                                            ? `${el?.cart?.length} item`
-                                            : `${el?.cart?.length} items`}
-                                        </div>
-                                        {/* </NavLink> */}
+                                      <div className="itemscart">
+                                        {" "}
+                                        {el?.cart?.length == 1
+                                          ? `${el?.cart?.length} item`
+                                          : `${el?.cart?.length} items`}
                                       </div>
-                                    </div>
-                                  </div>
-                                  <div className="col-auto h-100">
-                                    <div className="buttoncard h-100  w-100 rounded">
-                                      <button
-                                        className="btn cartbtn text-white rounded"
-                                        onClick={() => {
-                                          removeCart(el?.cart[0]?._id);
-                                          getcartApi();
-                                        }}
-                                      >
-                                        <img
-                                          className="w-100 h-100"
-                                          src="/assets/img/header/times.svg"
-                                          alt="image"
-                                        />
-                                      </button>
+                                      {/* </NavLink> */}
                                     </div>
                                   </div>
                                 </div>
+                                <div className="col-auto h-100">
+                                  <div className="buttoncard h-100  w-100 rounded">
+                                    <button
+                                      className="btn cartbtn text-white rounded"
+                                      onClick={() => {
+                                        removeCart(el?.cart[0]?._id);
+                                        getcartApi();
+                                      }}
+                                    >
+                                      <img
+                                        className="w-100 h-100"
+                                        src="/assets/img/header/times.svg"
+                                        alt="image"
+                                      />
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
-                            
+                            </div>
                           );
                         })}
                       </div>
@@ -312,64 +314,62 @@ function HeaderHome() {
                       tabIndex={0}
                     >
                       <div className="cart">
-                        {cartHome?.map((el,i) => {
+                        {cartHome?.map((el, i) => {
                           return (
-                         
-                              <div className="card mb-3 h-100 border-0" key={i}>
-                                <div className="row g-0 align-items-center">
-                                  <div className="col-auto p-2">
-                                    <div className="cardimage">
-                                      <img
-                                        src="/assets/img/about/img-2.png"
-                                        className="img-fluid rounded-start w-100 h-100"
-                                        alt="image"
-                                      />
-                                    </div>
+                            <div className="card mb-3 h-100 border-0" key={i}>
+                              <div className="row g-0 align-items-center">
+                                <div className="col-auto p-2">
+                                  <div className="cardimage">
+                                    <img
+                                      src={el.image[0]}
+                                      className="img-fluid rounded-start w-100 h-100"
+                                      alt="image"
+                                    />
                                   </div>
-                                  <div className="col p-1">
-                                    <div className="card-body px-2 py-0">
-                                      <h5 className="card-title mb-0 my-1">
-                                        {el.storeName}
-                                      </h5>
-                                      <p className="card-text my-2 text-white">
-                                        {el?.location?.aria}
+                                </div>
+                                <div className="col p-1">
+                                  <div className="card-body px-2 py-0">
+                                    <h5 className="card-title mb-0 my-1">
+                                      {el.storeName}
+                                    </h5>
+                                    <p className="card-text my-2 text-white">
+                                      {el?.location?.aria}
+                                    </p>
+                                    <div className="d-flex align-items-center">
+                                      <p className="card-payment mb-0 text-white me-3">
+                                        ₹ {el?.cart[0]?.totalamount}
                                       </p>
-                                      <div className="d-flex align-items-center">
-                                        <p className="card-payment mb-0 text-white me-3">
-                                          ₹ {el?.cart[0]?.totalamount}
-                                        </p>
-                                        {/* <NavLink to='/services'> */}
+                                      {/* <NavLink to='/services'> */}
 
-                                        <div className="itemscart">
-                                          {" "}
-                                          {el?.cart?.length == 1
-                                            ? `${el?.cart?.length} item`
-                                            : `${el?.cart?.length} items`}
-                                        </div>
-                                        {/* </NavLink> */}
+                                      <div className="itemscart">
+                                        {" "}
+                                        {el?.cart?.length == 1
+                                          ? `${el?.cart?.length} item`
+                                          : `${el?.cart?.length} items`}
                                       </div>
-                                    </div>
-                                  </div>
-                                  <div className="col-auto h-100">
-                                    <div className="buttoncard h-100  w-100 rounded">
-                                      <button
-                                        className="btn cartbtn text-white rounded"
-                                        onClick={() => {
-                                          removeCart(el?.cart[0]?._id);
-                                          getcartApi();
-                                        }}
-                                      >
-                                        <img
-                                          className="w-100 h-100"
-                                          src="/assets/img/header/times.svg"
-                                          alt="image"
-                                        />
-                                      </button>
+                                      {/* </NavLink> */}
                                     </div>
                                   </div>
                                 </div>
+                                <div className="col-auto h-100">
+                                  <div className="buttoncard h-100  w-100 rounded">
+                                    <button
+                                      className="btn cartbtn text-white rounded"
+                                      onClick={() => {
+                                        removeCart(el?.cart[0]?._id);
+                                        getcartApi();
+                                      }}
+                                    >
+                                      <img
+                                        className="w-100 h-100"
+                                        src="/assets/img/header/times.svg"
+                                        alt="image"
+                                      />
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
-                          
+                            </div>
                           );
                         })}
                       </div>
@@ -425,7 +425,7 @@ function HeaderHome() {
               />
 
               <div className="loginIcon d-none">
-                <a className="btn btnlogin" href='#'>
+                <a className="btn btnlogin" href="#">
                   <img src="/assets/img/header/person-fill.svg" alt="icon" />
                 </a>
               </div>
@@ -479,7 +479,7 @@ function HeaderHome() {
                             tabIndex="0"
                           >
                             <div className="row row-cols-3 innertabs g-3">
-                              {category?.map((item,i) => (
+                              {category?.map((item, i) => (
                                 <div className="col" key={i}>
                                   <p
                                     className="buttoncontent m-0 rounded-pill w-100 d-flex justify-content-center align-items-center text-decoration-none text-black"
@@ -500,8 +500,8 @@ function HeaderHome() {
                             tabIndex="0"
                           >
                             <div className="row row-cols-3 innertabs g-3">
-                              {category?.map((item,i) => (
-                                <div className="col"key={i}>
+                              {category?.map((item, i) => (
+                                <div className="col" key={i}>
                                   <NavLink
                                     className="buttoncontent m-0 rounded-pill w-100 d-flex justify-content-center align-items-center text-decoration-none text-black"
                                     to="/hair"
@@ -521,7 +521,7 @@ function HeaderHome() {
                             <div className="col-12">
                               <div className="relatedSearch">
                                 <ul className="m-0 p-0 list-unstyled d-flex flex-column gap-3">
-                                  {filterdata?.map((el,i) =>
+                                  {filterdata?.map((el, i) =>
                                     el?.map((item) => {
                                       return (
                                         <li
@@ -532,7 +532,7 @@ function HeaderHome() {
                                         >
                                           <a
                                             className="text-decoration-none text-dark d-flex align-items-center gap-2 position-relative"
-                                            href='#'
+                                            href="#"
                                           >
                                             {item.Name}
                                           </a>
@@ -550,14 +550,13 @@ function HeaderHome() {
                                 </div>
                                 {parseValues1
                                   ?.slice(parseValues1.length - 2)
-                                  ?.map((el,i) => {
-                                    
+                                  ?.map((el, i) => {
                                     {
                                       if (el) {
                                         return (
                                           <a
                                             className="text-decoration-none text-dark d-flex align-items-center "
-                                            href='#'
+                                            href="#"
                                           >
                                             <li key={i}>{el}</li>
                                           </a>
@@ -587,7 +586,7 @@ function HeaderHome() {
                                       <div className="col px-2">
                                         <div className="venueDetai">
                                           <a
-                                            href='#'
+                                            href="#"
                                             className="stretched-link text-decoration-none text-dark fs-12"
                                           >
                                             Hair Sage Luxury Salon
@@ -613,7 +612,7 @@ function HeaderHome() {
                                       <div className="col px-2">
                                         <div className="venueDetai">
                                           <a
-                                            href='#'
+                                            href="#"
                                             className="stretched-link text-decoration-none text-dark fs-12"
                                           >
                                             Hair Sage Luxury Salon
@@ -639,7 +638,7 @@ function HeaderHome() {
                                       <div className="col px-2">
                                         <div className="venueDetai">
                                           <a
-                                            href='#'
+                                            href="#"
                                             className="stretched-link text-decoration-none text-dark fs-12"
                                           >
                                             Hair Sage Luxury Salon

@@ -39,7 +39,6 @@ function Services({ couponid }) {
   const [submitReview, setSubmitreview] = useState("");
   const [address, setAddress] = useState([]);
   const [add, setAdd] = useState({});
-  const [city, setCity] = useState({});
   const [addressradio, setAddressRadio] = useState("");
   const [editId, setEditId] = useState("");
   const [homecheckoutId, setHomeCheckout] = useState("");
@@ -55,6 +54,9 @@ function Services({ couponid }) {
   const search = useSelector((state) => state.search);
   const [Filterdata, setFilterData] = useState([]);
   const [searchdata, setsearchData] = useState("");
+  const [state, setState] = useState([]);
+  const [City, setCity] = useState({});
+  const [cities, setCities] = useState([]);
   const [servicepackageid, setsevicepackageid] = useState("");
   const [saloonpackageid, setsaloonpackageid] = useState("");
   const navigate = useNavigate();
@@ -304,10 +306,20 @@ function Services({ couponid }) {
     }
   };
 
+  const getState = async () => {
+    console.log("ffffffff");
+    const res = await getData("States");
+    setState(res.data);
+  };
+  console.log("statestate", state);
+  useEffect(() => {
+    getState();
+  }, []);
   useEffect(() => {
     Getreview();
   }, []);
 
+  // console.log("citycitycity", city);
   const handleLikeClick = async (id, val) => {
     const path = `update-like-dislike?id=${id}&${val}=true`;
     const res = await getData(path);
@@ -317,6 +329,11 @@ function Services({ couponid }) {
     }
   };
 
+  const getCity = async (data) => {
+    console.log("ffffffffeeeeeee", data);
+    const res = await getData(`city?States=${data}`);
+    setCities(res.data);
+  };
   const handleDisikeClick = async (id, val) => {
     const path = `update-like-dislike?id=${id}&${val}=true`;
     const res = await getData(path);
@@ -1603,6 +1620,7 @@ function Services({ couponid }) {
                   enableReinitialize={true}
                 >
                   {(props) => {
+                    console.log("propssssss", props);
                     return (
                       <Form onSubmit={props.handleSubmit}>
                         <div className="modal-body p-3">
@@ -1735,43 +1753,32 @@ function Services({ couponid }) {
                                     htmlFor="a"
                                     className="form-label text-dark"
                                   >
-                                    Select City
+                                    Select State
                                   </label>
                                   <select
-                                    name="City"
+                                    name="state"
                                     className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
                                     aria-label="Default select example"
-                                    // value={props.values.City}
-                                    onChange={(e) =>
+                                    onChange={(e) => {
                                       props.setFieldValue(
-                                        "City",
+                                        "State",
                                         e.target.value
-                                      )
-                                    }
+                                      );
+                                      getCity(e.target.value);
+                                    }}
                                   >
-                                    <option>Select City</option>
-                                    <option
-                                      selected={city == "Jaipur" ? true : false}
-                                      value={"Jaipur"}
-                                    >
-                                      Jaipur
-                                    </option>
-                                    <option
-                                      selected={city == "Ajmer" ? true : false}
-                                      value={"Ajmer"}
-                                    >
-                                      Ajmer
-                                    </option>
-                                    <option
-                                      selected={city == "Nagour" ? true : false}
-                                      value={"Nagour"}
-                                    >
-                                      Nagour
-                                    </option>
+                                    <option selected>State</option>
+                                    {state?.map((data, i) => {
+                                      return (
+                                        <option value={data} key={i}>
+                                          {data}
+                                        </option>
+                                      );
+                                    })}
                                   </select>
                                   <p className="text-danger text-start">
-                                    {props.errors.City && props.touched.City
-                                      ? props.errors.City
+                                    {props.errors.State && props.touched.State
+                                      ? props.errors.State
                                       : ""}
                                   </p>
                                 </div>
@@ -1782,51 +1789,36 @@ function Services({ couponid }) {
                                     htmlFor="a"
                                     className="form-label text-dark"
                                   >
-                                    Select State
+                                    Select City
                                   </label>
                                   <select
-                                    name="State"
+                                    name="City"
                                     className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
                                     aria-label="Default select example"
-                                    // value={props.values.State}
-                                    onChange={(e) =>
+                                    onChange={(e) => {
                                       props.setFieldValue(
-                                        "State",
+                                        "City",
                                         e.target.value
-                                      )
-                                    }
+                                      );
+                                    }}
                                   >
-                                    <option>Select State</option>
-                                    <option
-                                      value={"Rajasthan"}
-                                      selected={
-                                        add == "Rajasthan" ? true : false
-                                      }
-                                    >
-                                      Rajasthan
-                                    </option>
-                                    <option
-                                      value={"Punjab"}
-                                      selected={add == "Punjab" ? true : false}
-                                    >
-                                      Punjab
-                                    </option>
-                                    <option
-                                      value={"Hariyana"}
-                                      selected={
-                                        add == "Hariyana" ? true : false
-                                      }
-                                    >
-                                      Hariyana
-                                    </option>
+                                    <option selected>City</option>
+                                    {cities?.map((data, i) => {
+                                      return (
+                                        <option value={data} key={i}>
+                                          {data}
+                                        </option>
+                                      );
+                                    })}
                                   </select>
                                   <p className="text-danger text-start">
-                                    {props.errors.State && props.touched.State
-                                      ? props.errors.State
+                                    {props.errors.City && props.touched.City
+                                      ? props.errors.City
                                       : ""}
                                   </p>
                                 </div>
                               </div>
+
                               <div className="col-12">
                                 <label className="form-label text-dark">
                                   Address Type
@@ -1922,7 +1914,6 @@ function Services({ couponid }) {
                                   </div>
                                 </div>
                               </div>
-
                               <div className="col-12 text-end">
                                 <button
                                   type="submit"

@@ -34,7 +34,7 @@ function UserProfile() {
   const [pointId, setpointId] = useState("");
   const [localid, setlocalid] = useState("");
   const [isCopied, setIsCopied] = useState(false);
-
+console.log('modalvaluemodalvaluemodalvalue',modalvalue)
   const [defaultvalues, setdefaultvalues] = useState({
     name: Data[0]?.name,
     phone: Data[0]?.phone,
@@ -121,7 +121,7 @@ function UserProfile() {
   const BookingApi = async () => {
     const res = await getData("get-user-order");
     console.log("ressssss", res.data);
-    setBookedData(res.data[0]);
+    setBookedData(res.data);
   };
 
   const SaloonAtHome = () => {
@@ -132,7 +132,7 @@ function UserProfile() {
     });
     setBookedByHome(filter);
   };
-  //console.log("orderIdorderId", bookedbyhome);
+  console.log("BookedDataBookedData", BookedData);
   const Itemhandle = (el) => {
     setmaodalvalue({ data: el });
   };
@@ -491,7 +491,8 @@ function UserProfile() {
                           <div className="row tabInnerRow">
                             <div className="col-md-10 mx-auto">
                               {BookedData?.map((el) => {
-                                if (el.item.addressId == null) {
+                                console.log('lllll',el)
+                            
                                   return (
                                     <>
                                       <div className="card mb-3 border-0 shadow myBookingCard">
@@ -500,7 +501,7 @@ function UserProfile() {
                                             <div className="cardleftimage h-100 w-100">
                                               <img
                                                 className="w-100 h-100 rounded-3"
-                                                src={el.image[0]}
+                                                src={el.saloon?.image[0]}
                                                 alt="..."
                                               />
                                             </div>
@@ -510,14 +511,14 @@ function UserProfile() {
                                               <div className="body-Header d-flex align-items-center justify-content-between ">
                                                 <div className="orderid text-theme2 mb-3">
                                                   Order Id:{" "}
-                                                  {el?.item.data[0]?.orderId}
+                                                  {el?.orderDetail?.orderId}
                                                 </div>
                                                 <div className="panding text-theme1 mb-3">
-                                                  {el?.item.data[0]?.status}
+                                                  {el?.orderDetail?.status}
                                                 </div>
                                               </div>
                                               <div className="cardHeading my-2">
-                                                {el?.storeName}
+                                                {el?.saloon.storeName}
                                               </div>
                                               <p className="dateText mb-3 d-flex align-items-center">
                                                 <img
@@ -527,7 +528,7 @@ function UserProfile() {
                                                 />
                                                 {""}
                                                 <span>
-                                                  {new Date(el?.updatedAt)
+                                                  {new Date(el?.orderDetail?.Schedule?.date)
                                                     .toString()
                                                     .slice(0, 15)}
                                                 </span>
@@ -538,7 +539,7 @@ function UserProfile() {
                                                     <small className="text-theme2">
                                                       ₹{" "}
                                                       {
-                                                        el?.item.data[0]
+                                                        el?.orderDetail
                                                           ?.totalamount
                                                       }
                                                     </small>
@@ -551,19 +552,19 @@ function UserProfile() {
                                                       Itemhandle(el)
                                                     }
                                                   >
-                                                    {el.item.data.length == 1
-                                                      ? `${el.item.data.length} Item`
-                                                      : ` ${el.item.data.length} Items`}
+                                                    {el.services.length == 1
+                                                      ? `${el.services.length} Item`
+                                                      : ` ${el.services.length} Items`}
                                                   </button>
                                                 </div>
-                                                {el?.item.data[0]?.status === "pending" ? (
+                                                {el?.orderDetail.status === "pending" ? (
                                                   <div className="col-auto">
                                                     <p className="card-text mb-0  ">
                                                       <small
                                                         className="text-theme2 text-danger fs-12"
                                                         onClick={() =>
                                                           cancelApi(
-                                                            el.item.data[0]?._id
+                                                            el._id
                                                           )
                                                         }
                                                       >
@@ -581,7 +582,7 @@ function UserProfile() {
                                       </div>
                                     </>
                                   );
-                                }
+                                
                               })}
                             </div>
                           </div>
@@ -593,7 +594,7 @@ function UserProfile() {
                           aria-labelledby="pills-saloonatHome-tab"
                           tabIndex={0}
                         >
-                          {bookedbyhome?.map((el) => {
+                          {/* {bookedbyhome?.map((el) => {
                             if (el.item.addressId != null) {
                               return (
                                 <>
@@ -679,7 +680,7 @@ function UserProfile() {
                                 </>
                               );
                             }
-                          })}
+                          })} */}
                         </div>
                       </div>
                     </div>
@@ -693,6 +694,7 @@ function UserProfile() {
                   tabIndex={0}
                 >
                   {whishlist?.map((el) => {
+                    // console.log('elellele',el)
                     return (
                       <>
                         <div className="row innerrowtab g-3">
@@ -703,7 +705,7 @@ function UserProfile() {
                                   <div className="imagewishlistcard position-relative">
                                     <img
                                       className="w-100 h-100 rounded-2"
-                                      src={el?.result.image}
+                                      src={el?.result.image[0]}
                                       alt="..."
                                     />
                                     <div className="position-absolute top-0 end-0 me-1 imagesvg align-items-center">
@@ -1178,7 +1180,7 @@ function UserProfile() {
                                     >
                                       <img
                                         className="w-100"
-                                        src="/assets/img/icon/whatsapp.png"
+                                        src="/assets/img/icon/whatsapp.svg"
                                         alt="whatsapp"
                                       />
                                     </a>
@@ -1199,7 +1201,7 @@ function UserProfile() {
                                     >
                                       <img
                                         className="w-100"
-                                        src="/assets/img/icon/facebook.png"
+                                        src="/assets/img/icon/facebook.svg"
                                         alt="facebook"
                                       />
                                     </a>
@@ -1224,15 +1226,15 @@ function UserProfile() {
                     <div className="col-12">
                       <div className="card mb-3 refercard border-0 shadow">
                         <div className="row g-0">
-                          <div className="col-md-4 d-flex align-items-cente justify-content-center flex-column leftSideContent">
-                            <div className="text100">
-                              {Data[0]?.userWallet?.point}
+                          <div className="col-md-6 d-flex align-items-cente justify-content-center flex-column leftSideContent">
+                            <div className="text100 ">
+                              {Data[0]?.userWallet?.point ? Data[0]?.userWallet?.point : 0}
                             </div>
                             <div className="textSubHeading text-center">
                               Your Total Point Earning
                             </div>
                           </div>
-                          <div className="col-md-8 rightSideContent">
+                          <div className="col-md-6 rightSideContent">
                             <div className="card-body bodycard">
                               <h5 className="card-title">
                                 Share Earn &amp; Have Fun
@@ -1548,7 +1550,7 @@ function UserProfile() {
                 className="modal-title d-flex align-items-center"
                 id="exampleModalLabel"
               >
-                Order Id : {modalvalue.data?.item?.data[0]?.orderId}{" "}
+                Order Id : {modalvalue.data?.orderDetail?.orderId}{" "}
                 <span>
                   <img
                     className="w-100 h-100 ms-1"
@@ -1580,7 +1582,7 @@ function UserProfile() {
                     <div className="card-image w-100 ">
                       <img
                         className="w-100 h-100 rounded-3"
-                        src={modalvalue.data?.image}
+                        src={modalvalue.data?.saloon?.image[0]}
                         alt="image"
                       />
                       <div className="saloontext">Kalon Unisex saloon</div>
@@ -1594,7 +1596,7 @@ function UserProfile() {
                             alt="image"
                           />
                         </span>
-                        {new Date(modalvalue.data?.updatedAt)
+                        {new Date(modalvalue.data?.orderDetail?.Schedule?.date)
                           .toString()
                           .slice(0, 15)}
                       </div>
@@ -1605,10 +1607,10 @@ function UserProfile() {
                             src="assets/img/profile/geo-alt-fill.svg"
                           />
                         </span>
-                        {modalvalue.data?.location?.aria} ,{" "}
-                        {modalvalue.data?.location?.pincode},
-                        {modalvalue.data?.location?.city} ,{" "}
-                        {modalvalue.data?.location?.state}
+                        {modalvalue.data?.saloon?.location?.aria} ,{" "}
+                        {modalvalue.data?.saloon?.location?.pincode},
+                        {modalvalue.data?.saloon?.location?.city} ,{" "}
+                        {modalvalue.data?.saloon?.location?.state}
                       </div>
                       <div className="icontext ">
                         <a
@@ -1617,7 +1619,7 @@ function UserProfile() {
                         >
                           <span
                             onClick={() =>
-                              showDirection(modalvalue.data?.location)
+                              showDirection(modalvalue.data?.saloon.location)
                             }
                           >
                             <img
@@ -1635,7 +1637,7 @@ function UserProfile() {
                       <div className="d-flex align-items-center justify-content-between mb-3">
                         <div className="Servicestext text-theme1">Services</div>
                       </div>
-                      {modalvalue.data?.item?.data?.map((el) => {
+                      {modalvalue.data?.services?.map((el) => {
                         return (
                           <>
                             <div className="d-flex align-items-center justify-content-between mb-3">
@@ -1652,7 +1654,7 @@ function UserProfile() {
                       <div className="d-flex align-items-center justify-content-between mb-3">
                         <div className="Servicestext text-white">Sub-Total</div>
                         <div className="Servicestext text-white">
-                          ₹ {modalvalue.data?.item?.data[0]?.totalamount}
+                          ₹ {modalvalue.data?.orderDetail?.totalamount}
                         </div>
                       </div>
                       <div className="d-flex align-items-center justify-content-between mb-3">

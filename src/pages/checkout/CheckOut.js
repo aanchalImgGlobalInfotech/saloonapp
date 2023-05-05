@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import HeaderHome from "../../common/layout/header/HeaderHome";
@@ -20,9 +20,13 @@ const CheckOut = ({ setCouponID }) => {
   const [arr, Setarr] = useState(checkstate);
   const [couponData, SetCouponData] = useState([]);
   const [couponamount, setCouponAmount] = useState("");
+  const [couponbalnce, setCouponbalanced] = useState("");
   const [PayId, setPayId] = useState("");
   const [PaymentId, setPaymentId] = useState("");
-  console.log("kkkkkkk", arr);
+  const [walletdata, setwallet] = useState(false);
+  const [addWallet, setAddWallet] = useState("");
+
+  console.log("kkkkkkk", couponbalnce);
   const navigate = useNavigate();
 
   const cheoutpage = async (id) => {
@@ -39,13 +43,17 @@ const CheckOut = ({ setCouponID }) => {
         value[0]?._id ? value[0]?._id : ""
       }&balance=${true}`;
       const res = await getData(path);
-      dispatch(checkoutvalues(res.data))
+      dispatch(checkoutvalues(res.data));
     }
   };
 
   const CreateRazor = async (data) => {
     console.log("datatatatat", data);
-    const value = couponamount ? couponamount : data;
+    const value = couponamount
+      ? couponamount
+      : addWallet
+      ? addWallet.pay
+      : data;
     console.log("valuevalue", value);
     var body = {
       amount: value,
@@ -82,7 +90,7 @@ const CheckOut = ({ setCouponID }) => {
     }
 
     const options = {
-      key: "rzp_test_3NbMeDVOudCrn5",
+      key: "rzp_test_du8jJUxQb7hup4",
       order_id: value,
 
       handler: async function (response) {
@@ -92,7 +100,9 @@ const CheckOut = ({ setCouponID }) => {
         console.log("response", response);
 
         const resorder = await getData(
-          `order?PaymentId=${id}&cartId=${cartId ? cartId : ""}`
+          `order?PaymentId=${id}&cartId=${cartId ? cartId : ""}&couponId=${
+            coupnsvalue ? coupnsvalue : ""
+          }`
         );
         const path = `api/payment/verify?orderId=${resorder.data[0]?._id}`;
         const res = await postData(path, body);
@@ -119,17 +129,31 @@ const CheckOut = ({ setCouponID }) => {
   const ConfirmOrderid = () => {
     navigate("/orderId");
   };
-  // const walletbalanced = async() => {
-  //   const path = `Checkout?saloonId=${ value[0]?._id ? value[0]?._id : ""}&balance=${true}`
-  //   const res = await getData(path);
-  //   console.log('uuuuuu', res.data)
-  // }
+  const walletApi = async (e) => {
+    const checked = e.target.checked;
+    if (checked) {
+      const path = `apply-balance?cartId=${
+        arr[0]?.cartId ? arr[0]?.cartId : ""
+      }`;
+      const res = await getData(path);
+      localStorage.setItem("walletmoney", JSON.stringify(res.data[0]));
+      setAddWallet(res.data[0]);
+      setwallet(checked);
+    } else {
+      localStorage.removeItem("walletmoney");
+      setAddWallet(null);
+      setwallet(false);
+    }
+  };
+  useEffect(() => {
+    const wallets = localStorage.getItem("walletmoney");
+    setAddWallet(JSON.parse(wallets) ? JSON.parse(wallets) : "");
+    setwallet(JSON.parse(wallets) ? true : false);
+  }, []);
   return (
     <>
       <div>
-        {/* Header Start */}
         <HeaderHome />
-        {/* Header End */}
         <div className="checkoutMain bg-dark">
           <div className="container">
             <div className="row gap-4 mx-0">
@@ -375,7 +399,6 @@ const CheckOut = ({ setCouponID }) => {
                                 );
                               })
                             : arr[0]?.cart?.map((el, i) => {
-                                console.log("elelelle1111118", el);
                                 return (
                                   <div
                                     className="row p-3 mx-0 px-4 border-bottom"
@@ -446,6 +469,8 @@ const CheckOut = ({ setCouponID }) => {
                                 ₹
                                 {couponData.length
                                   ? couponData[0]?.Discount
+                                  : addWallet
+                                  ? addWallet.disCount
                                   : 0}
                               </div>
                             </div>
@@ -502,6 +527,8 @@ const CheckOut = ({ setCouponID }) => {
                                   ? arr[0]?.totalamount
                                   : couponData.length
                                   ? couponData[0]?.finalTotalAmount
+                                  : addWallet
+                                  ? addWallet.pay
                                   : arr[0]?.totalamount}
                               </div>
                             </div>
@@ -510,20 +537,33 @@ const CheckOut = ({ setCouponID }) => {
                             <div className="row gap-3">
                               <div className="col-12 d-flex justify-content-between align-items-center ">
                                 <div className=" text-white d-flex justify-content-between align-items-center">
-                                  <div className="form-check form-check-lg ">
+                                  <div className="form-check form-check-lg mb-3 me-1 ">
                                     <input
                                       type="checkbox"
+                                      checked={addWallet}
                                       className="form-check-inaazput checkinput shadow-none "
-                                      onClick={() => cheoutpage()}
+                                      onClick={(e) => {
+                                        walletApi(e);
+                                        // setwallet("data");
+                                      }}
                                     />
                                     {/* <label className="form-check-label">
                                       Checkbox Label
                                     </label> */}
                                   </div>
 
-                                  <div className="fs-12 ms-2 text-opacity-75 py-sm-3">
+                                  <div className="fs-12 ms-2 text-opacity-75 py-sm-1">
                                     saloon wallet . <br />
-                                    you are eligible to use: ₹{walletbalanced[0]?.userWallet?.balance}
+                                    <p
+                                      className={
+                                        walletdata
+                                          ? " text-decoration-line-through discount"
+                                          : "none"
+                                      }
+                                    >
+                                      you are eligible to use: ₹
+                                      {walletbalanced[0]?.userWallet?.balance}
+                                    </p>
                                   </div>
                                 </div>
 
@@ -643,10 +683,10 @@ const CheckOut = ({ setCouponID }) => {
                           className="btn btn-theme1 border-0 text-white shadow-none fs-12 py-2"
                           onClick={() => {
                             // cheoutpage(coupnsvalue);
-                            if (arr[0]?.totalamount >= 2000) {
+                            if (couponbalnce <= arr[0]?.totalamount) {
                               alert("coupons available !!");
                             } else {
-                              alert("not available coupons,book above ₹2000");
+                              alert("not available coupons add more services!");
                             }
                           }}
                         >
@@ -671,18 +711,33 @@ const CheckOut = ({ setCouponID }) => {
                             className="form-check-label couponOuter p-sm-3 p-2 text-white rounded-4 w-100"
                             htmlFor="couponFirst"
                           >
-                            <div
-                              className="code p-sm-2 p-1 rounded-1 text-theme1 d-inline-block px-3 fs-12 text-uppercase"
-                              onClick={() => {
-                                setcheck(el?.CouponCode);
-                                setCouponvalue(el?._id);
-                              }}
-                            >
-                              {`${el?.CouponCode}`}
+                            <div className="d-flex justify-content-between">
+                              <div
+                                className="code p-sm-2 p-1 rounded-1 text-theme1 d-inline-block px-3 fs-12 text-uppercase"
+                                onClick={() => {
+                                  setcheck(el?.CouponCode);
+                                  setCouponbalanced(el?.Amount);
+                                  setCouponvalue(el?._id);
+                                }}
+                              >
+                                {`${el?.CouponCode}`}
+                              </div>
+                              <div className="fs-12 text-theme1">
+                                discount : ₹{el?.Discount}
+                              </div>
                             </div>
                             <div className="mt-sm-3 mt-2 text-white fs-12">
-                              Enjoy Professional Beauty Services at Home, only
-                              through "SALOON"!
+                              {/* Enjoy Professional Beauty Services at Home, only
+                              through "SALOON"! */}
+                              {el.Title}
+                            </div>
+                            <div className="d-flex justify-content-between mt-2">
+                              <div className="fs-12">
+                                start date : {el.StartDate}
+                              </div>
+                              <div className="fs-12">
+                                end date : {el?.EndDate}
+                              </div>
                             </div>
                           </label>
                         </div>

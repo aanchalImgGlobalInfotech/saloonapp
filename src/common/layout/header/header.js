@@ -10,7 +10,7 @@ function Header() {
       >
         <div className="container">
           <NavLink className="navbar-brand logonav" to="index.html">
-            <img src="assets/img/header/logo.svg" alt="logo" />
+            <img src="assets/img/index/logo.svg" alt="logo" />
           </NavLink>
           <button
             className="navbar-toggler togglrbtn"
@@ -29,13 +29,13 @@ function Header() {
           >
             <ul className="navbar-nav mx-auto mb-2 mb-md-0 navullist">
               <li className="nav-item navitem">
-                <NavLink
+                {/* <NavLink
                   className="nav-link navlink active"
                   aria-current="page"
                   to="index.html"
                 >
                   Home
-                </NavLink>
+                </NavLink> */}
               </li>
               <li className="nav-item navitem">
                 <a className="nav-link navlink" to="blog.html">

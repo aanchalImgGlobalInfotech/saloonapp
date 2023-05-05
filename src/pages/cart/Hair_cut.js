@@ -258,6 +258,7 @@ function Hair_cut() {
                     <div className={`col-12`}>
                       <div className="row g-sm-4 g-3 ">
                         {records?.map((items, i) => {
+                          console.log(items,'gggg')
                           return (
                             <div className="col-md-4 col-6" key={i}>
                               <a
@@ -283,7 +284,7 @@ function Hair_cut() {
                                   </div>
                                   <div className="saloonDetail p-sm-3 p-2 d-flex flex-column gap-sm-2 gap-1">
                                     <p className="saloonName stretched-link text-decoration-none text-black">
-                                      {items?.data?.ServiceName}
+                                      {items?.data?.storeName}
                                     </p>
                                     <div className="d-flex justify-content-between align-items-center">
                                       <div className="serviceName">
@@ -685,10 +686,13 @@ function Hair_cut() {
                           className="row mx-0 gap-3 align-items-center"
                           role="button"
                           onClick={() => {
-                            localStorage.setItem(
-                              "packagedId",
-                              JSON.stringify(item?._id)
-                            );
+                            {
+                              localStorage.setItem(
+                                "packagedId",
+                                JSON.stringify(item?._id)
+                              );
+                              navigate("/packages ");
+                            }
                           }}
                           data-bs-dismiss="modal"
                           aria-label="Close"
