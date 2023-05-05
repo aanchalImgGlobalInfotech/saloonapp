@@ -235,7 +235,7 @@ function HeaderHome() {
                   </ul>
                   <div
                     className="tab-content tabContent"
-                    style={{ height: "50vh", overflow: "hidden auto" }}
+                    style={{ height: "40vh", overflow: "hidden auto" }}
                     id="pills-tabContent"
                   >
                     <div

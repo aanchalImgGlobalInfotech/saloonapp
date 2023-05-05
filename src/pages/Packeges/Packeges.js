@@ -6,6 +6,9 @@ import Footer from "../../common/layout/footer/footer";
 import Footer2 from "../../common/layout/footer/Footer2 ";
 import HeaderHome from "../../common/layout/header/HeaderHome";
 import { getData, postData } from "../../components/apiinstance/Api";
+import { Form, Formik } from "formik";
+import * as yup from "yup";
+import * as Yup from "yup";
 import {
   checkoutvalues,
   packageSaloonId,
@@ -20,9 +23,19 @@ const Packeges = () => {
   const [saloonId, setSaloonId] = useState("");
   const [count, setCount] = useState(1);
   const [cartData, setCartData] = useState([]);
-  const [cartId, setCartId] = useState("");
+  const [cartId, setCartIds] = useState("");
   const [total, settoatal] = useState("");
   const [isOpen, setIsOpen] = useState("cart");
+  const [addressradio, setAddressRadio] = useState("");
+  const [editId, setEditId] = useState("");
+  const [homecheckoutId, setHomeCheckout] = useState("");
+  const [Cartid, setCartId] = useState("");
+  const [state, setState] = useState([]);
+  const [City, setCity] = useState({});
+  const [cities, setCities] = useState([]);
+  const [add, setAdd] = useState({});
+  const [close, setClose] = useState(false);
+  const [address, setAddress] = useState([]);
   let saloonopen = JSON.parse(localStorage.getItem("saloonopen"));
   let saloonData = JSON.parse(localStorage.getItem("saloonData"));
   let packagedId = JSON.parse(localStorage.getItem("packagedId"));
@@ -76,7 +89,7 @@ const Packeges = () => {
     const res = await getData(`get-cart?saloonId=${packageSaloonIds}`);
     console.log(res, "this is cartttt");
     setCartData(res?.data[0]?.cart);
-    setCartId(res.data[0]?.cart[0]._id);
+    setCartIds(res.data[0]?.cart[0]._id);
   };
 
   useEffect(() => {
@@ -153,12 +166,142 @@ const Packeges = () => {
     const path = `Checkout?saloonId=${saloonStoreID ? saloonStoreID : ""}`;
     const res = await getData(path);
     console.log("mjmnbnbb", res.data);
-    settoatal(...total, res.data[0]?.totalamount);
+    // settoatal(...total, res.data[0]?.totalamount);
     dispatch(checkoutvalues(res.data));
     if (res.status) {
       navigate("/checkout");
     }
   };
+  const PostAddApi = async (value) => {
+    var body = {
+      name: value.name,
+      mobile: value.Mobile,
+      location: {
+        houseNumber: value.House,
+        aria: value.aria,
+        pincode: value.Pincode,
+        city: value.City,
+        state: value.State,
+      },
+      type: value.addressType,
+      dataCheck: value.dataCheck,
+    };
+
+    const res = await postData("add-user-address", body);
+  };
+
+  const EditAddresApi = async (value) => {
+    var body = {
+      name: value.name,
+      mobile: value.Mobile,
+      location: {
+        houseNumber: value.House,
+        aria: value.aria,
+        pincode: value.Pincode,
+        city: value.City,
+        state: value.State,
+      },
+      type: value.addressType,
+      dataCheck: value.dataCheck,
+    };
+    const res = await postData(
+      `add-user-address?id=${editId ? editId : ""}`,
+      body
+    );
+
+    if (res.status) {
+      setClose(true);
+    }
+  };
+  const EditAddres = (data) => {
+    setAdd(data?.location?.state);
+    setCity(data?.location?.city);
+    setAddressDetails({
+      ...Addressdetails,
+      name: data?.name,
+      House: data?.location?.houseNumber,
+      Mobile: data?.phone,
+      aria: data.location?.aria,
+      Pincode: data?.location?.pincode,
+      City: data?.location?.city,
+      State: data?.location?.state,
+      addressType: data?.type,
+    });
+  };
+
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const validationschema = yup.object().shape({
+    name: Yup.string()
+      .min(2, "Enter valid name!")
+      .max(15, "Too Long!")
+      .required("name is required"),
+    Mobile: yup
+      .string()
+      .required("Enter your mobile number")
+      .length(10, "Please enter a valid mobile number.")
+      .matches(phoneRegExp, "Please enter a valid mobile number."),
+    Pincode: Yup.string()
+      .min(6, "Enter valid pincode!")
+      .max(8, "Too Long!")
+      .required("Pincode is required"),
+    House: Yup.string()
+      .min(1, "Enter valid Housenumber!")
+      .max(6, "Too Long!")
+      .required("HouseNo. is required"),
+    aria: Yup.string()
+      .min(2, "Enter valid area!")
+      .max(40, "Too Long!")
+      .required("area is required"),
+    City: Yup.string()
+      .min(2, "Enter valid City!")
+      .max(20, "Too Long!")
+      .required("City is required"),
+
+    State: Yup.string()
+      .min(2, "Enter valid State!")
+      .max(20, "Too Long!")
+      .required("State is required"),
+    addressType: Yup.string().required("Select one of the above address"),
+  });
+  const [Addressdetails, setAddressDetails] = useState({
+    name: "",
+    House: "",
+    aria: "",
+    Pincode: "",
+    Mobile: "",
+    City: "",
+    State: "",
+    addressType: "",
+    dataCheck: false,
+  });
+  const getAddress = async () => {
+    const res = await getData("get-user-address");
+    setAddress(res.data);
+  };
+  var getAddressApi = getAddress;
+  const getCity = async (data) => {
+    console.log("ffffffffeeeeeee", data);
+    const res = await getData(`city?States=${data}`);
+    setCities(res.data);
+  };
+  const deleteAddressApi = async (id) => {
+    const res = await getData(`delete-address?id=${id ? id : ""}`);
+    if (res.data) {
+      getAddress();
+    }
+  };
+  const handleRadioApi = async (id) => {
+    const res = await getData(
+      `add-addresss-in-user-cart?id=${id ? id : ""}&cartId=${
+        Cartid ? Cartid : ""
+      }`
+    );
+    localStorage.setItem("addressradioId", id);
+    //  localStorage.setItem('value',res.data[0]?.addressId)
+    setHomeCheckout(res.data[0] ? res.data[0]?.addressId : "");
+  };
+
   return (
     <>
       <HeaderHome />
@@ -601,7 +744,6 @@ const Packeges = () => {
                     >
                       <div className="addContentt px-2 mb-3">
                         {cartData?.map((cartItem) => {
-                         
                           return (
                             <div className="row mx-0 px-0 bg-dark py-2 rounded-3 text-white mb-3">
                               <div className="col-6 leftSideContent">
@@ -656,7 +798,7 @@ const Packeges = () => {
                             {/* {Cartdata ? Cartdata?.length : ""} */}
                           </div>
                           <div className="paymenttotal">
-                            ₹{cartData[0]?.totalamount}
+                            ₹{cartData.length ? cartData[0]?.totalamount : 0}
                           </div>
                         </div>
                         <div className="col-8 text-end">
@@ -772,7 +914,7 @@ const Packeges = () => {
                               className="text-theme1 text-decoration-none fs-14 me-2 me-xl-0"
                               data-bs-toggle="modal"
                               data-bs-target="#saloonAtHome"
-                              // onClick={() => getAddressApi()}
+                              onClick={() => getAddressApi()}
                             >
                               Saloon at Home
                             </a>
@@ -780,7 +922,7 @@ const Packeges = () => {
                               onClick={() => {
                                 setIsOpen("checkout");
                                 hanldeSlot();
-                                localStorage.removeItem('walletmoney')
+                                localStorage.removeItem("walletmoney");
                                 if (slots.date && slots.time) {
                                   cheoutpage();
                                 } else {
@@ -815,8 +957,561 @@ const Packeges = () => {
           </div>
         </div>
       </div>
-      <Footer2/>
-      <Footer/>
+      <div>
+        <div
+          className="modal saloonAtHome fade"
+          id="saloonAtHome"
+          aria-hidden="true"
+          aria-labelledby="saloonAtHomeLabel"
+          tabIndex={-1}
+        >
+          <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div className="modal-content">
+              <div className="modal-header p-0 mx-0 row">
+                <div className="col-12 d-flex justify-content-between align-items-center py-2">
+                  <div
+                    className="modal-title fs-6 text-dark"
+                    id="saloonAtHomeLabel"
+                  >
+                    Saloon at Home
+                  </div>
+                  <button
+                    type="button"
+                    className="btn-close fs-12 shadow-none"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  />
+                </div>
+                <div className="col-12 px-0">
+                  <ul className="nav w-100 nav-tabs border-0">
+                    <li className="nav-item w-50 border-end border-theme1">
+                      <button className="nav-link w-100 border-0 rounded-0 m-0 active">
+                        My Address
+                      </button>
+                    </li>
+                    <li className="nav-item w-50" role="presentation">
+                      <button
+                        className="nav-link w-100 border-0 rounded-0 m-0"
+                        data-bs-target="#addNewAddress"
+                        data-bs-toggle="modal"
+                        onClick={() => {
+                          setAddressDetails({
+                            name: "",
+                            House: "",
+                            area: "",
+                            Pincode: "",
+                            Mobile: "",
+                            City: "",
+                            State: "",
+                            addressType: "",
+                            dataCheck: false,
+                          });
+                          setAdd("");
+                          setCity("");
+                        }}
+                      >
+                        New Address
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="modal-body p-3">
+                <div className="row gap-3">
+                  {address.map((el, i) => {
+                    return (
+                      <div className="col-12" key={i}>
+                        <div className="card bg-white border-0 shadow">
+                          <div className="card-header border-0 bg-white">
+                            <div className="row">
+                              <div className="col fs-16 text-dark d-flex gap-2 align-items-center">
+                                <span>{el?.name}</span>{" "}
+                                <span className="px-2 bg-theme1 bg-opacity-25 fs-12 fw-normal text-dark rounded-1">
+                                  {el?.type}
+                                </span>
+                              </div>
+
+                              <div className="col-auto d-flex gap-2 align-items-center">
+                                <a
+                                  role="button"
+                                  className="editB"
+                                  data-bs-target="#addNewAddress"
+                                  data-bs-toggle="modal"
+                                  onClick={() => {
+                                    EditAddres(el);
+                                    setEditId(el._id);
+                                  }}
+                                >
+                                  <img
+                                    src="assets/img/icon/editIcon.svg"
+                                    alt="image"
+                                  />
+                                </a>
+                                <div
+                                  className="form-check p-0 m-0 align-items-center d-flex justify-content-center"
+                                  onClick={(e) => {
+                                    setAddressRadio(el?._id);
+                                    handleRadioApi(el?._id);
+                                  }}
+                                >
+                                  <input
+                                    className="form-check-input shadow-none m-0"
+                                    type="radio"
+                                    name="flexRadioDefault"
+                                    value={addressradio}
+                                    checked={
+                                      addressradio == el._id ? true : false
+                                    }
+                                    // id="address1"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="card-body pt-0">
+                            <div className="fs-14 text-muted">
+                              <span className="houseNo">
+                                {el?.location?.houseNumber}
+                              </span>
+                              ,
+                              <span className="area">{el?.location?.aria}</span>
+                              ,
+                              <span className="pincode">
+                                {el?.location?.pincode}
+                              </span>
+                              ,
+                              <span className="city">{el?.location?.city}</span>
+                              ,
+                              <span className="state">
+                                {el?.location?.state}
+                              </span>
+                            </div>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <div className="fs-14 mobileNumber mt-2">
+                                +91 {el?.phone}
+                              </div>
+                              <span
+                                className="text-danger fs-12"
+                                onClick={() => deleteAddressApi(el?._id)}
+                              >
+                                remove
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+
+                  {/* <div className="col-12 text-end">
+                    <button
+                      type="button"
+                      className="btn btn-theme1 px-3 fs-14 text-white"
+                    >
+                      Submit
+                    </button>
+                  </div> */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="modal saloonAtHome fade"
+          id="addNewAddress"
+          aria-hidden="true"
+          aria-labelledby="exampleModalToggleLabel2"
+          tabIndex={-1}
+        >
+          <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div className="modal-content">
+              <div className="modal-header p-0 mx-0 row">
+                <div className="col-12 d-flex justify-content-between align-items-center py-2">
+                  <div
+                    className="modal-title fs-6 text-dark"
+                    id="saloonAtHomeLabel"
+                  >
+                    Saloon at Home
+                  </div>
+                  <button
+                    type="button"
+                    className="btn-close fs-12 shadow-none"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  />
+                </div>
+                <div className="col-12 px-0">
+                  <ul className="nav w-100 nav-tabs border-0">
+                    <li className="nav-item w-50 border-end border-theme1">
+                      <button
+                        className="nav-link w-100 border-0 rounded-0 m-0"
+                        data-bs-toggle="modal"
+                        data-bs-target="#saloonAtHome"
+                      >
+                        My Address
+                      </button>
+                    </li>
+                    <li className="nav-item w-50" role="presentation">
+                      <button
+                        className="nav-link w-100 border-0 rounded-0 m-0 active"
+                        data-bs-target="#addNewAddress"
+                        data-bs-toggle="modal"
+                        onClick={() => {
+                          setAddressDetails({
+                            name: "",
+                            House: "",
+                            area: "",
+                            Pincode: "",
+                            Mobile: "",
+                            City: "",
+                            State: "",
+                            addressType: "",
+                            dataCheck: false,
+                          });
+                          setAdd("");
+                          setCity("");
+                        }}
+                      >
+                        New Address
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="modal-body p-3">
+                <Formik
+                  initialValues={Addressdetails}
+                  validationSchema={validationschema}
+                  onSubmit={(value) => {
+                    if (!!editId) {
+                      EditAddresApi(value);
+                      getAddress();
+                    } else {
+                      PostAddApi(value);
+                      getAddress();
+                    }
+                  }}
+                  enableReinitialize={true}
+                >
+                  {(props) => {
+                    console.log("propssssss", props);
+                    return (
+                      <Form onSubmit={props.handleSubmit}>
+                        <div className="modal-body p-3">
+                          <div className=" form formOuter">
+                            <div className="row g-3">
+                              <div className="col-12">
+                                <div className="input-group">
+                                  <label
+                                    htmlFor="yourName"
+                                    className="form-label text-dark"
+                                  >
+                                    Name
+                                  </label>
+                                  <input
+                                    type="text"
+                                    name="name"
+                                    className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none pe-5 z-2"
+                                    id="yourName"
+                                    value={props.values.name}
+                                    onChange={props.handleChange}
+                                    placeholder="Enter Your Name"
+                                  />
+                                </div>
+                                <p className="text-danger text-start">
+                                  {props.errors.name && props.touched.name
+                                    ? props.errors.name
+                                    : ""}
+                                </p>
+                              </div>
+                              <div className="col-12">
+                                <div className="input-group">
+                                  <label
+                                    htmlFor="houseNumber"
+                                    className="form-label text-dark"
+                                  >
+                                    House / Plat No.
+                                  </label>
+                                  <input
+                                    type="tel"
+                                    name="House"
+                                    value={props.values.House}
+                                    onChange={props.handleChange}
+                                    className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none pe-5 z-2"
+                                    id="houseNumber"
+                                    placeholder="House / Plat No."
+                                  />
+                                  <p className="text-danger text-start">
+                                    {props.errors.House && props.touched.House
+                                      ? props.errors.House
+                                      : ""}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="input-group">
+                                  <label
+                                    htmlFor="area"
+                                    className="form-label text-dark"
+                                  >
+                                    Area
+                                  </label>
+                                  <input
+                                    type="text"
+                                    name="aria"
+                                    className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none pe-5 z-2"
+                                    id="area"
+                                    value={props.values.aria}
+                                    onChange={props.handleChange}
+                                    placeholder="Area"
+                                  />
+                                  <p className="text-danger text-start">
+                                    {props.errors.aria && props.touched.aria
+                                      ? props.errors.aria
+                                      : ""}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="input-group">
+                                  <label
+                                    htmlFor="pincode"
+                                    className="form-label text-dark"
+                                  >
+                                    Pincode
+                                  </label>
+                                  <input
+                                    type="tel"
+                                    name="Pincode"
+                                    className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none pe-5 z-2"
+                                    id="pincode"
+                                    value={props.values.Pincode}
+                                    onChange={props.handleChange}
+                                    placeholder="Pincode"
+                                  />
+                                  <p className="text-danger text-start">
+                                    {props.errors.Pincode &&
+                                    props.touched.Pincode
+                                      ? props.errors.Pincode
+                                      : ""}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="input-group">
+                                  <label
+                                    htmlFor="mobileNumber"
+                                    className="form-label text-dark"
+                                  >
+                                    Mobile Number
+                                  </label>
+                                  <input
+                                    type="tel"
+                                    name="Mobile"
+                                    className="form-control m-0 w-100 rounded-1 py-2 ps-3 shadow-none pe-5 z-2"
+                                    id="mobileNumber"
+                                    value={props.values.Mobile}
+                                    onChange={props.handleChange}
+                                    placeholder="Mobile Number"
+                                  />
+                                  <p className="text-danger text-start">
+                                    {props.errors.Mobile && props.touched.Mobile
+                                      ? props.errors.Mobile
+                                      : ""}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="input-group">
+                                  <label
+                                    htmlFor="a"
+                                    className="form-label text-dark"
+                                  >
+                                    Select State
+                                  </label>
+                                  <select
+                                    name="state"
+                                    className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
+                                    aria-label="Default select example"
+                                    onChange={(e) => {
+                                      props.setFieldValue(
+                                        "State",
+                                        e.target.value
+                                      );
+                                      getCity(e.target.value);
+                                    }}
+                                  >
+                                    <option selected>State</option>
+                                    {state?.map((data, i) => {
+                                      return (
+                                        <option value={data} key={i}>
+                                          {data}
+                                        </option>
+                                      );
+                                    })}
+                                  </select>
+                                  <p className="text-danger text-start">
+                                    {props.errors.State && props.touched.State
+                                      ? props.errors.State
+                                      : ""}
+                                  </p>
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="input-group">
+                                  <label
+                                    htmlFor="a"
+                                    className="form-label text-dark"
+                                  >
+                                    Select City
+                                  </label>
+                                  <select
+                                    name="City"
+                                    className="form-select w-100 rounded-1 py-2 ps-3 shadow-none"
+                                    aria-label="Default select example"
+                                    onChange={(e) => {
+                                      props.setFieldValue(
+                                        "City",
+                                        e.target.value
+                                      );
+                                    }}
+                                  >
+                                    <option selected>City</option>
+                                    {cities?.map((data, i) => {
+                                      return (
+                                        <option value={data} key={i}>
+                                          {data}
+                                        </option>
+                                      );
+                                    })}
+                                  </select>
+                                  <p className="text-danger text-start">
+                                    {props.errors.City && props.touched.City
+                                      ? props.errors.City
+                                      : ""}
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div className="col-12">
+                                <label className="form-label text-dark">
+                                  Address Type
+                                </label>
+                                <div className="input-group gap-3">
+                                  <div className="form-check">
+                                    <input
+                                      className="form-check-input shadow-none rounded-1"
+                                      type="radio"
+                                      value="Home"
+                                      name="addressType"
+                                      id="addressHome"
+                                      onChange={props.handleChange}
+                                      checked={
+                                        props.values.addressType == "Home"
+                                          ? true
+                                          : false
+                                      }
+                                      // defaultChecked
+                                    />
+                                    <label
+                                      className="form-check-label"
+                                      htmlFor="addressHome"
+                                    >
+                                      Home
+                                    </label>
+                                  </div>
+                                  <div className="form-check">
+                                    <input
+                                      className="form-check-input shadow-none rounded-1"
+                                      type="radio"
+                                      value="Office"
+                                      name="addressType"
+                                      checked={
+                                        props.values.addressType == "Office"
+                                          ? true
+                                          : false
+                                      }
+                                      onChange={props.handleChange}
+                                      id="addressOffice"
+                                    />
+                                    <label
+                                      className="form-check-label"
+                                      htmlFor="addressOffice"
+                                    >
+                                      Office
+                                    </label>
+                                  </div>
+                                  <div className="form-check">
+                                    <input
+                                      className="form-check-input shadow-none rounded-1"
+                                      type="radio"
+                                      name="addressType"
+                                      value="Other"
+                                      checked={
+                                        props.values.addressType == "Other"
+                                          ? true
+                                          : false
+                                      }
+                                      onChange={props.handleChange}
+                                      id="addressOther"
+                                    />
+                                    <label
+                                      className="form-check-label"
+                                      htmlFor="addressOther"
+                                    >
+                                      Other
+                                    </label>
+                                  </div>
+                                  <p className="text-danger text-start">
+                                    {props.errors.addressType &&
+                                    props.touched.addressType
+                                      ? props.errors.addressType
+                                      : ""}
+                                  </p>
+                                </div>
+                                <div className="input-group mt-3">
+                                  <div className="form-check">
+                                    <input
+                                      className="form-check-input shadow-none rounded-1"
+                                      type="checkbox"
+                                      name="dataCheck"
+                                      id="defaultAddress"
+                                      onChange={props.handleChange}
+                                      checked={props.values.dataCheck}
+                                    />
+                                    <label
+                                      className="form-check-label"
+                                      htmlFor="defaultAddress"
+                                    >
+                                      Make as default address.
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="col-12 text-end">
+                                <button
+                                  type="submit"
+                                  className="btn btn-theme1 px-3 fs-14 text-white"
+                                  // data-bs-dismiss={close ? "modal" : ""}
+                                  // aria-label={close ? "Close" : ""}
+                                >
+                                  Submit
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Form>
+                    );
+                  }}
+                </Formik>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer2 />
+      <Footer />
     </>
   );
 };

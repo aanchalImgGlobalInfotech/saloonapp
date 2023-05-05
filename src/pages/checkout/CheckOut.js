@@ -20,12 +20,13 @@ const CheckOut = ({ setCouponID }) => {
   const [arr, Setarr] = useState(checkstate);
   const [couponData, SetCouponData] = useState([]);
   const [couponamount, setCouponAmount] = useState("");
+  const [couponbalnce, setCouponbalanced] = useState("");
   const [PayId, setPayId] = useState("");
   const [PaymentId, setPaymentId] = useState("");
-  const [walletdata, setwallet] = useState("");
+  const [walletdata, setwallet] = useState(false);
   const [addWallet, setAddWallet] = useState("");
-  // const walletmoney = J0SON.parse(addWallet);
-  console.log("kkkkkkk", walletbalanced);
+
+  console.log("kkkkkkk", couponbalnce);
   const navigate = useNavigate();
 
   const cheoutpage = async (id) => {
@@ -99,7 +100,9 @@ const CheckOut = ({ setCouponID }) => {
         console.log("response", response);
 
         const resorder = await getData(
-          `order?PaymentId=${id}&cartId=${cartId ? cartId : ""}`
+          `order?PaymentId=${id}&cartId=${cartId ? cartId : ""}&couponId=${
+            coupnsvalue ? coupnsvalue : ""
+          }`
         );
         const path = `api/payment/verify?orderId=${resorder.data[0]?._id}`;
         const res = await postData(path, body);
@@ -135,14 +138,17 @@ const CheckOut = ({ setCouponID }) => {
       const res = await getData(path);
       localStorage.setItem("walletmoney", JSON.stringify(res.data[0]));
       setAddWallet(res.data[0]);
+      setwallet(checked);
     } else {
       localStorage.removeItem("walletmoney");
       setAddWallet(null);
+      setwallet(false);
     }
   };
   useEffect(() => {
     const wallets = localStorage.getItem("walletmoney");
     setAddWallet(JSON.parse(wallets) ? JSON.parse(wallets) : "");
+    setwallet(JSON.parse(wallets) ? true : false);
   }, []);
   return (
     <>
@@ -531,14 +537,14 @@ const CheckOut = ({ setCouponID }) => {
                             <div className="row gap-3">
                               <div className="col-12 d-flex justify-content-between align-items-center ">
                                 <div className=" text-white d-flex justify-content-between align-items-center">
-                                  <div className="form-check form-check-lg ">
+                                  <div className="form-check form-check-lg mb-3 me-1 ">
                                     <input
                                       type="checkbox"
                                       checked={addWallet}
                                       className="form-check-inaazput checkinput shadow-none "
                                       onClick={(e) => {
                                         walletApi(e);
-                                        setwallet("data");
+                                        // setwallet("data");
                                       }}
                                     />
                                     {/* <label className="form-check-label">
@@ -546,10 +552,18 @@ const CheckOut = ({ setCouponID }) => {
                                     </label> */}
                                   </div>
 
-                                  <div className="fs-12 ms-2 text-opacity-75 py-sm-3">
+                                  <div className="fs-12 ms-2 text-opacity-75 py-sm-1">
                                     saloon wallet . <br />
-                                    you are eligible to use: ₹
-                                    {walletbalanced[0]?.userWallet?.balance}
+                                    <p
+                                      className={
+                                        walletdata
+                                          ? " text-decoration-line-through discount"
+                                          : "none"
+                                      }
+                                    >
+                                      you are eligible to use: ₹
+                                      {walletbalanced[0]?.userWallet?.balance}
+                                    </p>
                                   </div>
                                 </div>
 
@@ -669,10 +683,10 @@ const CheckOut = ({ setCouponID }) => {
                           className="btn btn-theme1 border-0 text-white shadow-none fs-12 py-2"
                           onClick={() => {
                             // cheoutpage(coupnsvalue);
-                            if (arr[0]?.totalamount >= 2000) {
+                            if (couponbalnce <= arr[0]?.totalamount) {
                               alert("coupons available !!");
                             } else {
-                              alert("not available coupons,book above ₹2000");
+                              alert("not available coupons add more services!");
                             }
                           }}
                         >
@@ -698,18 +712,19 @@ const CheckOut = ({ setCouponID }) => {
                             htmlFor="couponFirst"
                           >
                             <div className="d-flex justify-content-between">
-                            <div
-                              className="code p-sm-2 p-1 rounded-1 text-theme1 d-inline-block px-3 fs-12 text-uppercase"
-                              onClick={() => {
-                                setcheck(el?.CouponCode);
-                                setCouponvalue(el?._id);
-                              }}
-                            >
-                              {`${el?.CouponCode}`}
-                            </div>
-                            <div className="fs-12 text-theme1">
-                              discount : ₹{el?.Discount}
-                            </div>
+                              <div
+                                className="code p-sm-2 p-1 rounded-1 text-theme1 d-inline-block px-3 fs-12 text-uppercase"
+                                onClick={() => {
+                                  setcheck(el?.CouponCode);
+                                  setCouponbalanced(el?.Amount);
+                                  setCouponvalue(el?._id);
+                                }}
+                              >
+                                {`${el?.CouponCode}`}
+                              </div>
+                              <div className="fs-12 text-theme1">
+                                discount : ₹{el?.Discount}
+                              </div>
                             </div>
                             <div className="mt-sm-3 mt-2 text-white fs-12">
                               {/* Enjoy Professional Beauty Services at Home, only
@@ -717,12 +732,12 @@ const CheckOut = ({ setCouponID }) => {
                               {el.Title}
                             </div>
                             <div className="d-flex justify-content-between mt-2">
-                            <div className="fs-12">
-                              start date : {el.StartDate}
-                            </div>
-                            <div className="fs-12">
-                              end date : {el?.EndDate}
-                            </div>
+                              <div className="fs-12">
+                                start date : {el.StartDate}
+                              </div>
+                              <div className="fs-12">
+                                end date : {el?.EndDate}
+                              </div>
                             </div>
                           </label>
                         </div>
